@@ -11,11 +11,12 @@ tmp/
 *.bak
 *.swp
 *~.nib
+*.wav
 local.properties
 .classpath
 .settings/
 .loadpath
-
+audio/
 # External tool builders
 .externalToolBuilders/
 
