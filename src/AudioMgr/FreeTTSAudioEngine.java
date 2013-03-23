@@ -4,20 +4,6 @@
 package AudioMgr;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Set;
-
-import javax.sound.sampled.AudioFileFormat;
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-
-import org.apache.poi.hwpf.model.BytePropertyNode;
-
-import marytts.LocalMaryInterface;
-import marytts.MaryInterface;
-import marytts.util.data.audio.AudioPlayer;
 
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
@@ -94,7 +80,7 @@ public class FreeTTSAudioEngine extends AudioEngine {
 			player.start();
 			player.join();*/
 			
-			System.exit(0);
+			//System.exit(0);
            
         }
         catch(Exception e)

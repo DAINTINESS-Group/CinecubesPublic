@@ -75,7 +75,7 @@ public class MainEngine {
         TskMgr.getLastTask().getLastSubTask().setExtractionMethod(query);
         TskMgr.getLastTask().getLastSubTask().execute(CubeManager.CBase.DB);
         //TskMgr.getLastTask().getLastSubTask().computeFinding();
-        TskMgr.getLastTask().computeKeyFindings(CubeManager.CBase.DB);
+       // TskMgr.getLastTask().computeKeyFindings(CubeManager.CBase.DB);
         AudioMgr=new FreeTTSAudioEngine();
         AudioMgr.InitializeVoiceEngine();
         
