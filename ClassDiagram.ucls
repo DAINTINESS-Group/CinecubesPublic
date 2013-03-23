@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.1" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true">  
-  <package id="1" language="java" name="dbtopptx" project="Master" file="/Master/src/dbtopptx" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="628" width="1163" x="-183" y="-220"/>    
-    <display autosize="false" stereotype="true" accessors="true"/>  
-  </package>  
-  <class id="2" language="java" name="dbtopptx.DBtoPPTX" project="Master" file="/Master/src/dbtopptx/DBtoPPTX.java" 
+  <package id="1" language="java" name="pptxExtraction" project="Master" file="/Master/src/pptxExtraction" 
     binary="false" corner="BOTTOM_RIGHT">    
+    <position height="628" width="1163" x="-183" y="-220"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true"/>  
+  </package>  
+  <class id="2" language="java" name="pptxExtraction.DBtoPPTX" project="Master" 
+    file="/Master/src/pptxExtraction/DBtoPPTX.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="28" y="34"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -15,8 +16,8 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="dbtopptx.SlideElement" project="Master" 
-    file="/Master/src/dbtopptx/SlideElement.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="3" language="java" name="pptxExtraction.SlideElement" project="Master" 
+    file="/Master/src/pptxExtraction/SlideElement.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="610" width="247" x="209" y="-209"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -24,8 +25,8 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="dbtopptx.SoundElement" project="Master" 
-    file="/Master/src/dbtopptx/SoundElement.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="4" language="java" name="pptxExtraction.SoundElement" project="Master" 
+    file="/Master/src/pptxExtraction/SoundElement.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="231" width="167" x="561" y="-147"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      

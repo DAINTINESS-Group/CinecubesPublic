@@ -1,0 +1,639 @@
+MBRPLAY DLL
+
+1. Examples
+2. Important Remark
+3. MbrPlay DLL Functions
+4. MbrPlay Error Codes
+5. MbrPlay Windows Custom messages, used for notification
+6. Callback Functions
+7. Notification messages
+
+--------------------------------------------------------------
+1. License
+--------------------------------------------------------------
+
+Examples of code using the MbrPlay DLL can be found on the source\c\mbrplay folder, or in the
+source\vb\mbredit for Visual Basic programmers.
+
+--------------------------------------------------------------
+2. Important Remark
+--------------------------------------------------------------
+
+A new function have been added for MbrPlay, call MBR_MBRUnload.  This function must be called before
+closing the program, or it will cause some memory leaks.
+
+--------------------------------------------------------------
+3. MbrPlay DLL Functions
+--------------------------------------------------------------
+
+MBR_Play
+	Play pho or phs files to an output device (sound board or file).
+	Play can play memory or disk files.
+
+	LONG MBR_Play(LPCTSTR lpszText,DWORD dwFlags,LPCTSTR lpszOutFile,DWORD dwCallback);
+
+	Parameters :
+		LPCTSTR lpszText	: - string containing the pho or phs memory file to play
+					  - a filename if the MBR_BYFILE is specified in dwFlags
+		DWORD dwFlags		: flags setting properties of the play.  The values are :
+						MBR_BYFILE		lpszText is a .pho file name and not
+									a phoneme string
+						MBR_WAIT		play in synchronous mode
+						MBR_QUEUED		the output device is not close when the play ends
+									and the system waits for another play to continue
+									writting to the device
+						MBR_ASPHS		the file specified in lpszText is a phs file
+						MBR_CALLBACK		the dwCallback is the address of a callback function instead of
+									a window handle
+						MBR_MSGINIT		send the init notification message
+						MBR_MSGREAD		send the read notification message
+						MBR_MSGWAIT		send the wait notification message
+						MBR_MSGWRITE		send the write notification message
+						MBR_MSGEND		send the end notification message
+						MBR_MSGALL		send all the notification messages
+						MBROUT_SOUNDBOARD	send the result of synthesizer to the soundboard
+						MBROUT_RAW		send the result of synthesizer to an output file, raw datas format
+						MBROUT_WAVE		send the result of synthesizer to an output file, windows wave format
+						MBROUT_AU		send the result of synthesizer to an output file, sun audio format
+						(MBROUT_AIFF)		(obsolete, doesn't work)
+						MBROUT_DISABLED		don't send the result to any input
+						MBROUT_ALAW		the output is filtered with an A-law 8000Hz coding (only for raw & wave files)
+						MBROUT_MULAW		the output is filtered with an mu-law 8000Hz coding (only for raw & wave files)
+						MBR_PHONEME		activate callback by phoneme
+						MBR_WORD		activate callback by word (with ;WORD name)
+						MBR_SENTENCE		activate callback by sentence (with ;SENTENCE name)
+						MBR_PARAGRAPH		activate callback by paragraph (with ;PARAGRAPH name)
+						MBR_TAG			activate user callback (with ;TAG name value)
+
+					  The parameter can be NULL;
+		LPCTSTR lpszOutFile	: Specify the name of an output file that receive the output datas (when MBROUT_RAW,WAVE,AU or AIFF is chosen)
+					  This parameter can be NULL;
+		DWORD dwCallback	: Specify a Window Handle that will receive notification
+					  messages on the current state of the player.
+					  if the MBR_CALLBACK flags is set, the dwCallback is the
+					  address of a callback function receiving the messages.
+					  This parameter can be NULL.
+	Remarks :
+		the return value of the MBR_Play is valid only when the MBR_WAIT flag is set.
+		Otherwise, the error code must be checked with MBR_LastError
+		see the MBR_MSG* messages for more explanation
+		see the the PlayCallbackProc for more explanation
+	Return Value :
+		0 if no error occured
+		an error code (see below)
+
+MBR_Stop
+	Stop the current play task.
+
+	LONG MBR_Stop();
+
+	Return Value :
+		0 if no error occured,
+		or an error code (see below)
+
+MBR_WaitForEnd
+	Wait until the end of the current play task.
+
+	LONG MBR_WaitForEnd();
+
+	Return Value :
+		0 if no error occured,
+		or an error code (see below)
+
+MBR_SetPitchRatio
+	Set the pitch ratio.
+
+	LONG MBR_SetPitchRatio(float fPitch)
+
+	Parameters :
+		fPitch		: the new pitch ratio
+
+	Return Value :
+		0 if no error occured,
+		or an error code (see below)
+
+MBR_SetDurationRatio
+	Set the duration ratio.
+
+	LONG MBR_SetDurationRatio(float fDuration);
+
+	Parameters :
+		fDuration	: the new duration ratio
+
+	Return Value :
+		0 if no error occured,
+		or an error code (see below)
+
+MBR_SetVoiceFreq
+	Set the voice frequency.
+
+	LONG MBR_SetVoiceFreq(LONG lFreq);
+
+	Parameters :
+		lFreq		: the new frequency
+
+	Return Value :
+		0 if no error occured,
+		or an error code (see below)
+
+MBR_SetVolumeRatio
+	Set the volume ratio.
+
+	LONG MBR_SetVolumeRatio(float fVol);
+
+	Parameters :
+		fVol		: the new volume ratio
+
+	Return Value :
+		0 if no error occured,
+		or an error code (see below)
+
+MBR_SetNoError
+	Set the no-error mode.
+	(this mode replace unknown phonemes with silence).
+
+	LONG MBR_SetNoError(BOOL bNoError);
+
+	Parameters :
+		bNoError	: flag enabling or disabling the no-error mode.
+
+	Return Value :
+		0 if no error occured,
+		or an error code (see below)
+
+MBR_GetPitchRatio
+	Get the pitch ratio.
+
+	float MBR_GetPitchRatio();
+
+	Return Value :
+		the current pitch ratio.
+
+MBR_GetDurationRatio
+	Get the duration ratio.
+
+	float MBR_GetDurationRatio();
+
+	Return Value :
+		the current duration ratio.
+
+MBR_GetVoiceFreq
+	Get the voice frequency.
+
+	float MBR_GetVoiceFreq();
+
+	Return Value :
+		the current voice frequency.
+
+MBR_GetVolumeRatio
+	Get the volume ratio.
+
+	float MBR_GetVolumeRatio();
+
+	Return Value :
+		the current volume ratio.
+
+MBR_GetNoError
+	Get the no-error mode state (enabled or disabled)
+
+	BOOL MBR_GetNoError();
+
+	Return Value :
+		TRUE if the no-error mode is enabled.
+		FALSE otherwise
+	
+MBR_SetDatabase
+	Load a diphone database.
+
+	LONG MBR_SetDatabase(LPCTSTR lpszID);
+
+	Parameters :
+		lpszID	: the ID of the database (a registered ID), or an absolute path.
+			  If the ID is not found the register, MBR_SetDatabase try to
+		  	  load lpszID as an absolute path.
+
+	Return Value :
+		0 if no error occured,
+		or an error code (see below)
+
+MBR_SetDatabaseEx
+	Load a diphone database, and replace or clone phonemes.
+
+	LONG MBR_SetDatabaseEx(LPCTSTR lpszID,LPCTSTR lpszRename,LPCTSTR lpszClone);
+
+	Parameters :
+		lpszID		: the ID of the database (a registered ID), or an absolute path.
+				  If the ID is not found the register, MBR_SetDatabase try to
+			  	  load lpszID as an absolute path.
+		lpszRename	: the phoneme renaming list.  The structure is :
+				  phonemesource phonemedest [phonemesource phonemedest [...]]
+		lpszClone	: the phoneme cloning list.  The structure is the same as for
+				  lpszRename.  By creating phoneme copy, you add a "pseudo" phoneme
+				  to the existing phonemes, that is named phonemedest, but that
+				  is synthesized as a phonemesource phoneme.  The phonemesource remains
+				  available (it is not the case with a renaming).
+	Return Value :
+		0 if no error occured,
+		or an error code (see below)
+
+MBR_GetDatabase
+	Get the ID of the current database loaded.
+
+	LONG MBR_GetDatabase(LPTSTR lpID, DWORD dwSize);
+
+	Parameters :
+		lpID	: pointer to a buffer that will receive the database Id.
+		dwSize	: size of the buffer.
+
+	Return Value :
+		0 if no error occured,
+		or an error code (see below)
+
+MBR_IsPlaying
+	Does the dll play ?
+
+	BOOL MBR_IsPlaying();
+
+	Return Values :
+		TRUE if the dll is playing, FALSE otherwise.
+
+MBR_LastError
+	Get the text and the code of the last error occured.
+	
+	LONG MBR_LastError(LPTSTR lpszError,DWORD dwSize);
+
+	Parameters :
+		lpszError	: a pointer to a buffer receiving the text of the last
+				  error occured.
+		dwSize		: size of the buffer.
+
+	Return Value :
+		The code of the last error occured.
+
+MBR_GetVersion
+	Get the version of the Mbrola Synthesizer used.
+
+	void MBR_GetVersion(LPTSTR lpVersion, DWORD dwSize);
+
+	Parameters :
+		lpVersion	: a pointer to the buffer receiving the version of the synthesizer
+		dwSize		: size of the buffer.
+
+MBR_GetDefaultFreq
+	Get the default frequency of the current loaded database.
+
+	LONG MBR_GetDefaultFreq();
+
+	Return Value :
+		The default frequency.
+
+MBR_GetDatabaseInfo
+	Get A paragraph of information of the comments contained in the current loaded database.
+
+	LONG MBR_GetDatabaseInfo(DWORD idx, LPTSTR lpMsg, DWORD dwSize);
+
+	Parameters :
+		idx		: index of the paragraph
+		lpMsg		: buffer that will receive the paragraph
+		dwSize		: size of the buffer
+
+	Remarks :
+		if lpMsg is set to NULL, the MBR_GetDatabaseInfo will return the length of the paragraph.
+
+	Return Value :
+		the length of the paragraph if lpMsg is NULL,
+		or the number of characters copied if lpMSg is not NULL.
+		if idx is not a valid paragraph number, the MBR_GetDatabaseInfo will return 0
+		
+MBR_GetDatabaseAllInfo
+	Get all the paragraph of comments contained in the current loaded database.
+
+	LONG MBR_GetDatabaseAllInfo(LPTSTR lpMsg, DWORD dwSize);
+
+	Parameters :
+		lpMsg		: pointer to a buffer that will receive the comments.
+		dwSize		: size of the buffer
+
+	Remarks :
+		if lpMsg is set to NULL, the MBR_GetDatabaseAllInfo will return the length
+		of the comments text.
+
+	Return Value :
+		the length of the comments text if lpMsg is NULL,
+		or the number of characters copied if lpMSg is not NULL.
+		0 if there is no comments for the current database.
+
+MBR_RegEnumDatabase
+	Enum the database ID of all the databases registered in Windows's Registry.
+
+	LONG MBR_RegEnumDatabase(LPTSTR lpszData,DWORD dwSize);
+
+	Parameters :
+		lpszData	: pointer to a buffer that will receive all the database ID.
+				  The database ID's are separated by a null character.
+				  A second null character is placed after the last database.
+		dwSize		: size of the buffer.
+
+	Return Value :
+		0 if no error occured,
+		or an error code (see below)
+
+MBR_RegEnumDatabaseCallback
+	Enum the database ID of all the the databases registered in Window's Registry, using a
+	callback function.
+
+	LONG MBR_RegEnumDatabaseCallback(LPENUMDATABASECALLBACK lpedCallback,DWORD dwUserData);
+
+	Parameters :
+		lpedCallback	: the address of the callback function
+				  (see below the LPENUMDATABASECALLBACK)
+		dwUserData	: a pointer to users datas passed to the callback function at each call.
+
+	Return Value :
+		0 if no error occured,
+		or an error code (see below)
+	
+MBR_RegGetDatabaseLabel
+	Get the label of a specified database (passing a database ID)
+
+	LONG MBR_RegGetDatabaseLabel(LPCTSTR lpszID, LPTSTR lpLabel, DWORD dwSize);
+
+	Parameters :
+		lpszID		: a null terminated string containing the database ID
+		lpLabel		: a pointer to the buffer receiving the label
+		dwSize		: the size of the buffer.
+
+	Return Value :
+		0 if no error occured,
+		or an error code (see below)
+
+MBR_RegGetDatabasePath
+	Get the path of a specified database (passing a database ID)
+
+	LONG MBR_RegGetDatabasePath(LPCTSTR lpszID, LPTSTR lpPath, DWORD dwSize);
+
+	Parameters :
+		lpszID		: a null terminated string containing the database ID
+		lpPath		: a pointer to the buffer receiving the path
+		dwSize		: the size of the buffer.
+
+	Return Value :
+		0 if no error occured,
+		or an error code (see below)
+
+MBR_RegGetDatabaseCount
+	Get the number of registered databases.
+
+	LONG MBR_RegGetDatabaseCount();
+
+	Return Value :
+		the number of registered databases.
+
+MBR_RegGetDefaultDatabase
+	Get the ID of the default database registered in the Windows Registry
+
+	LONG MBR_RegGetDefaultDatabase(LPTSTR lpID, DWORD dwSize);
+
+	Parameters :
+		lpId		: a pointer to the buffer receiving the id
+		dwSize		: the size of the buffer.
+
+	Return Value :
+		0 if no error occured,
+		or an error code (see below)
+
+MBR_RegSetDefaultDatabase
+	Set the new default registered database (passing the ID)
+
+	LONG MBR_RegSetDefaultDatabase(LPCTSTR lpszID);
+	
+	Parameters :
+		lpszID		: a null terminated string containing the ID of the new default database.
+		dwSize		: the size of the buffer.
+
+	Return Value :
+		0 if no error occured,
+		or an error code (see below)
+
+MBR_RegisterDatabase
+	Register a new database in the Windows registry
+
+	BOOL MBR_RegisterDatabase(LPCTSTR dbId,LPCTSTR dbPath,LPCTSTR dbLabel,BOOL isDef,LPTSTR lpBuffer,DWORD dwSize);
+
+	Parameters :
+		dbId		: a null terminated string containing the ID of the new database.
+		dbPath		: a null terminated string containing the path of the new database.
+		dbLabel		: a null terminated string containing the label of the new database.
+		isDef		: if TRUE, the new database becomes the default database.
+		lpBuffer	: a pointer to a buffer receiving the real ID of the new database.
+				  If dbId is an existing ID, a new name is created and is sent back
+				  in lpBuffer.
+		dwSize		: the size of the buffer.
+
+	Return Value :
+		TRUE if no error occured,
+		FALSE otherwise
+
+MBR_UnregisterDatabase
+	Unregister the database from the Windows Registry (passing an ID)
+
+	BOOL MBR_UnregisterDatabase(LPCTSTR dbId);
+
+	Parameters :
+		dbID		: a null terminated string containing the ID of the database to be removed.
+
+	Return Value :
+		TRUE if no error occured,
+		FALSE otherwise.
+
+MBR_UnregisterAll
+	Unregister all the databases
+
+	BOOL MBR_UnregisterAll();
+
+	Return Value :
+		TRUE if no error occured,
+		FALSE otherwise.
+
+MBR_DatabaseExist
+	Test if a database is registered.
+
+	BOOL MBR_DatabaseExist(LPCTSTR lpszID);
+
+	Parameters :
+		dbID		: a null terminated string containing the ID of the database.
+
+	Return Value :
+		TRUE if the database is registered,
+		FALSE otherwise.
+
+MBR_RegIdxGetDatabaseId
+	Get the database ID of a registered database, passing an index.
+
+	BOOL MBR_RegIdxGetDatabaseId(LONG nIdx, LPTSTR lpszId, DWORD dwSize);
+
+	Parameters :
+		nIdx		: index of the database to retrieve the ID
+		lpszId		: a pointer to a buffer that will receive the ID
+		dwSize		: size of the buffer.
+
+	Return Value :
+		TRUE if no error occured,
+		FALSE otherwise.
+
+MBR_RegIdxGetDatabasePath
+	Get the path of a registered database, passing an index.
+
+	BOOL MBR_RegIdxGetDatabasePath(LONG nIdx, LPTSTR lpszPath, DWORD dwSize);
+
+	Parameters :
+		nIdx		: index of the database to retrieve the ID
+		lpszPath	: a pointer to a buffer that will receive the path
+		dwSize		: size of the buffer.
+
+	Return Value :
+		TRUE if no error occured,
+		FALSE otherwise.
+
+MBR_RegIdxGetDatabaseLabel
+	Get the label of a registered database, passing an index.
+
+	BOOL MBR_RegIdxGetDatabaseLabel(LONG nIdx, LPTSTR lpszLabel, DWORD dwSize);
+
+	Parameters :
+		nIdx		: index of the database to retrieve the ID
+		lpszLabel	: a pointer to a buffer that will receive the label
+		dwSize		: size of the buffer.
+
+	Return Value :
+		TRUE if no error occured,
+		FALSE otherwise.
+
+MBR_RegIdxGetDatabaseIndex
+	Get the index of a registered database (passing its ID).
+
+	LONG MBR_RegIdxGetDatabaseIndex(LPCTSTR lpszID);
+
+	Parameters :
+		lpszID		: a null terminated string containing the ID of the database
+
+	Return Value :
+		the index of the database.
+		-1 if the database is not registered.
+
+MBR_RegIdxGetDefaultDatabase
+	Get the index of the default registered database.
+
+	LONG MBR_RegIdxGetDefaultDatabase();
+
+	Return Value :
+		the index of the database.
+
+MBR_StartControlPanel
+	Start the Mbrola Control Panel.
+
+	DWORD WINAPI MBR_StartControlPanel(HWND hParent);
+
+	Parameters :
+		hParent		: handle of a windows that will be the parent of message
+				  boxes displayed if an error occur while loading the control panel.
+
+	Return Value :
+		1 if no error occured,
+		0 otherwise.			  
+	
+MBR_SetCallbackMsgBase
+	By default, the notification messages sent by Mbrplay are situated between
+	WM_USER+0x1BFF (WM_MBR_INIT) and WM_USER+0x1C03 (WM_MBR_END).  This function can change
+	the ID of the WM_MBR_INIT message.  All the other message are affected, so the WM_MBR_END
+	becomes WM_MBR_INIT+4.
+
+	LONG WINAPI MBR_SetCallbackMsgBase(DWORD dwBase);
+	
+	Parameters :
+		dwBase		: new ID for WM_MBR_INIT.
+
+	Return Values :
+		0 if no error occured,
+		an error code otherwise.
+
+
+MBR_MBRUnload
+	Unload the MbrPlay DLL (release memory and kill threads).
+
+	void WINAPI MBR_MBRUnload();
+
+	Remark :
+		This function must be called before exiting the program, or it will cause
+		some memory leaks
+	
+--------------------------------------------------------------
+4. MbrPlay Error Codes
+--------------------------------------------------------------
+
+	#define MBRERR_NOMBROLADLL		-12
+	#define MBRERR_NOREGISTRY		-11
+	#define MBRERR_NORESOURCE		-10
+	#define MBRERR_NOTHREAD			-9
+	#define MBRERR_DATABASENOTVALID		-8
+	#define MBRERR_CANTOPENDEVICEOUT	-7
+	#define MBRERR_ERRORDEVICEOUT		-6
+	#define MBRERR_BADCOMMAND		-5
+	#define MBRERR_CANTOPENFILE		-4
+	#define MBRERR_WRITEERROR		-3
+	#define MBRERR_MBROLAERROR		-2
+	#define MBRERR_CANCELLEDBYUSER		-1
+	#define MBRERR_NOERROR			0
+
+--------------------------------------------------------------
+5. MbrPlay Windows Custom messages, used for notification
+--------------------------------------------------------------
+
+	WM_MBR_INIT		(WM_USER+0x1BFF)
+	WM_MBR_READ		(WM_USER+0x1C00)
+	WM_MBR_WAIT		(WM_USER+0x1C01)
+	WM_MBR_WRITE		(WM_USER+0x1C02)
+	WM_MBR_END		(WM_USER+0x1C03)
+	WM_MBR_TAG     		(WM_USER+0x1C04)
+
+--------------------------------------------------------------
+6. Callback Functions
+--------------------------------------------------------------
+
+	typedef int (*LPPLAYCALLBACKPROC)(UINT msg, WPARAM wParam, LPARAM lParam);
+	typedef BOOL (*LPENUMDATABASECALLBACK)(LPCTSTR lpszDatabase, DWORD dwUserData);
+
+--------------------------------------------------------------
+7. Notification messages
+--------------------------------------------------------------
+The new feature of Mbrola Tools is the callback notification when playing.  When passing the following
+flags (MBR_PHONEME,MBR_WORD,MBR_SENTENCE,MBR_PARAGRAPH,MBR_TAG) to MBR_Play, it activates the callback
+notification.
+For MBR_PHONEME, a notification is sent for each phoneme line.
+For other callback, the user must insert tags into the pho file :
+
+;WORD wordInfo
+;SENTENCE sentenceInfo
+;PARAGRAPH paragraphInfo
+;TAG id value
+
+The notification messages are sent through the existing callback procedure existing in MBR_Play (see Callback Function).
+
+The msg is WM_MBR_TAG.
+The wParam contains one of the following value :
+	MBRTAG_PHONEME
+	MBRTAG_WORD
+	MBRTAG_SENTENCE
+	MBRTAG_PARAGRAPH
+	MBRTAG_TAG
+The lParam contains a pointer to a TAGCALLBACKINFO structure.
+
+typedef struct
+{
+    DWORD dwType;		// Type of Callback (see wParam)
+    DWORD dwTime;		// The time in ms when the callback has been sent
+    DWORD dwDuration;		// The duration of the phoneme (MBRTAG_PHONEME)
+    char* sTagID;		// The phoneme name (MBRTAG_PHONEME), message (MBRTAG_WORD,MBRTAG_SENTENCE,MBRTAG_PARAGRAPH), or tag ID (MBRTAG_TAG)
+    char* sTagMsg;		// The value of a tag (MBRTAG_TAG)
+} TAGCALLBACKINFO;
+

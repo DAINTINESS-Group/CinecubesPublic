@@ -163,8 +163,8 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="19" language="java" name="TextMgr.TextForPPT" project="Master" file="/Master/src/TextMgr/TextForPPT.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
+  <class id="19" language="java" name="TextMgr.TextExtractionPPTX" project="Master" 
+    file="/Master/src/TextMgr/TextExtractionPPTX.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="146" y="1036"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" accessors="true" 
       visibility="true">      

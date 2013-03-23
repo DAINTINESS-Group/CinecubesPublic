@@ -1,153 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.0.11" icons="true" automaticImage="PNG" always-add-relationships="false" 
   generalizations="true" realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
-  <class id="1" corner="BOTTOM_RIGHT" language="java" name="StoryMgr.Story" project="Master" 
-    file="/Master/src/StoryMgr/Story.java" binary="false">    
+  <class id="1" language="java" name="StoryMgr.Story" project="Master" file="/Master/src/StoryMgr/Story.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
     <position height="112" width="103" x="450" y="223"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="2" corner="BOTTOM_RIGHT" language="java" name="StoryMgr.Visual" project="Master" 
-    file="/Master/src/StoryMgr/Visual.java" binary="false">    
+  <class id="2" language="java" name="StoryMgr.Visual" project="Master" file="/Master/src/StoryMgr/Visual.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
     <position height="78" width="85" x="325" y="628"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="3" corner="BOTTOM_RIGHT" language="java" name="TaskMgr.Task" project="Master" 
-    file="/Master/src/TaskMgr/Task.java" binary="false">    
+  <class id="3" language="java" name="TaskMgr.Task" project="Master" file="/Master/src/TaskMgr/Task.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="112" width="155" x="109" y="628"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="4" corner="BOTTOM_RIGHT" language="java" name="TaskMgr.Result" project="Master" 
-    file="/Master/src/TaskMgr/Result.java" binary="false">    
+  <class id="4" language="java" name="TaskMgr.Result" project="Master" file="/Master/src/TaskMgr/Result.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
     <position height="78" width="85" x="120" y="1271"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="5" corner="BOTTOM_RIGHT" language="java" name="CubeMgr.CubeMgr" project="Master" 
-    file="/Master/src/CubeMgr/CubeMgr.java" binary="false">    
+  <class id="5" language="java" name="CubeMgr.CubeMgr" project="Master" file="/Master/src/CubeMgr/CubeMgr.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
     <position height="78" width="85" x="183" y="37"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="6" corner="BOTTOM_RIGHT" language="java" name="TaskMgr.KeyFinding" project="Master" 
-    file="/Master/src/TaskMgr/KeyFinding.java" binary="false">    
+  <class id="6" language="java" name="TaskMgr.KeyFinding" project="Master" file="/Master/src/TaskMgr/KeyFinding.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
     <position height="78" width="85" x="285" y="1153"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="7" corner="BOTTOM_RIGHT" language="java" name="TaskMgr.TaskMgr" project="Master" 
-    file="/Master/src/TaskMgr/TaskMgr.java" binary="false">    
+  <class id="7" language="java" name="TaskMgr.TaskMgr" project="Master" file="/Master/src/TaskMgr/TaskMgr.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
     <position height="95" width="108" x="41" y="493"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="8" corner="BOTTOM_RIGHT" language="java" name="StoryMgr.OriginalRequest" project="Master" 
-    file="/Master/src/StoryMgr/OriginalRequest.java" binary="false">    
+  <class id="8" language="java" name="StoryMgr.OriginalRequest" project="Master" 
+    file="/Master/src/StoryMgr/OriginalRequest.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="78" width="117" x="187" y="375"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="9" corner="BOTTOM_RIGHT" language="java" name="TaskMgr.SubTask" project="Master" 
-    file="/Master/src/TaskMgr/SubTask.java" binary="false">    
+  <class id="9" language="java" name="TaskMgr.SubTask" project="Master" file="/Master/src/TaskMgr/SubTask.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
     <position height="112" width="130" x="120" y="797"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="10" corner="BOTTOM_RIGHT" language="java" name="AudioMgr.AudioEngine" project="Master" 
-    file="/Master/src/AudioMgr/AudioEngine.java" binary="false">    
+  <class id="10" language="java" name="AudioMgr.AudioEngine" project="Master" 
+    file="/Master/src/AudioMgr/AudioEngine.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="129" width="180" x="450" y="628"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="11" corner="BOTTOM_RIGHT" language="java" name="StoryMgr.FinalResult" project="Master" 
-    file="/Master/src/StoryMgr/FinalResult.java" binary="false">    
+  <class id="11" language="java" name="StoryMgr.FinalResult" project="Master" 
+    file="/Master/src/StoryMgr/FinalResult.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="78" width="88" x="59" y="375"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="12" corner="BOTTOM_RIGHT" language="java" name="TaskMgr.FactCompilation" project="Master" 
-    file="/Master/src/TaskMgr/FactCompilation.java" binary="false">    
+  <class id="12" language="java" name="TaskMgr.FactCompilation" project="Master" 
+    file="/Master/src/TaskMgr/FactCompilation.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="78" width="115" x="189" y="493"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="13" corner="BOTTOM_RIGHT" language="java" name="StoryMgr.Act" project="Master" 
-    file="/Master/src/StoryMgr/Act.java" binary="false">    
+  <class id="13" language="java" name="StoryMgr.Act" project="Master" file="/Master/src/StoryMgr/Act.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
     <position height="78" width="85" x="344" y="375"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="14" corner="BOTTOM_RIGHT" language="java" name="WrapUpMgr.WrapUpMgr" project="Master" 
-    file="/Master/src/WrapUpMgr/WrapUpMgr.java" binary="false">    
+  <class id="14" language="java" name="WrapUpMgr.WrapUpMgr" project="Master" file="/Master/src/WrapUpMgr/WrapUpMgr.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
     <position height="78" width="94" x="59" y="223"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="15" corner="BOTTOM_RIGHT" language="java" name="StoryMgr.StoryMgr" project="Master" 
-    file="/Master/src/StoryMgr/StoryMgr.java" binary="false">    
+  <class id="15" language="java" name="StoryMgr.StoryMgr" project="Master" file="/Master/src/StoryMgr/StoryMgr.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
     <position height="146" width="114" x="450" y="37"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="16" corner="BOTTOM_RIGHT" language="java" name="TaskMgr.ExtractionMethod" project="Master" 
-    file="/Master/src/TaskMgr/ExtractionMethod.java" binary="false">    
+  <class id="16" language="java" name="TaskMgr.ExtractionMethod" project="Master" 
+    file="/Master/src/TaskMgr/ExtractionMethod.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="78" width="125" x="120" y="1153"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="17" corner="BOTTOM_RIGHT" language="java" name="TextMgr.TextForPPT" project="Master" 
-    file="/Master/src/TextMgr/TextForPPT.java" binary="false">    
+  <class id="17" language="java" name="TextMgr.TextExtractionPPTX" project="Master" 
+    file="/Master/src/TextMgr/TextExtractionPPTX.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="316" width="343" x="433" y="797"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="18" corner="BOTTOM_RIGHT" language="java" name="StoryMgr.Episode" project="Master" 
-    file="/Master/src/StoryMgr/Episode.java" binary="false">    
+  <class id="18" language="java" name="StoryMgr.Episode" project="Master" file="/Master/src/StoryMgr/Episode.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
     <position height="78" width="85" x="344" y="493"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="19" corner="BOTTOM_RIGHT" language="java" name="TextMgr.TextExtraction" project="Master" 
-    file="/Master/src/TextMgr/TextExtraction.java" binary="false">    
+  <class id="19" language="java" name="TextMgr.TextExtraction" project="Master" 
+    file="/Master/src/TextMgr/TextExtraction.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="78" width="106" x="670" y="628"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
@@ -307,7 +327,7 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-    visibility="true">    
+    accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true"/>    
     <operations public="true" package="true" protected="true" private="true"/>  
   </classifier-display>  

@@ -1,0 +1,260 @@
+MBROLA DLL
+
+--------------------------------------------------------------
+1. Examples
+--------------------------------------------------------------
+
+some examples of code using the Mbrola.dll can be found in the source\c\mbrola folder.
+the include files needed for using the dll are in the source\c\include folder
+
+--------------------------------------------------------------
+2. MBROLA DLL functions
+--------------------------------------------------------------
+
+init_MBR :
+	The init_MBR function initialize the synthesizer and load a diphones database.
+
+	int init_MBR(char *dbaname);
+
+	Parameters :
+		dbaname : Pointer to a null-terminated string that names the diphones database file.
+
+	Return Values :
+		0 if the function succeeds.
+		a negative error code if the initialization fails.
+
+init_rename_MBR :
+	The init_rename_MBR function initialize the synthesizer, load a diphone database,
+	and make diphone renaming and cloning.
+
+	init_rename_MBR(char* dbaname,char* replacing,char* cloning);
+
+	Parameters :
+		dbaname   : Pointer to a null-terminated string that names the diphones database file.
+		replacing : Pointer to a null-terminated string containing pairs of phonemes
+			    (source target [source target ...]).
+	                    For each pair, the source phoneme will be renamed by the target phoneme.
+		cloning   : Pointer to a null-terminated string containing pairs of phonemes
+			    (source target [source target ...]).
+	                    For each pair, the source phoneme will be cloned and named as the target phoneme.
+
+	Return Values :
+		0 if the function succeeds.
+		a negative error code if the initialization fails.
+	
+write_MBR :
+	The write_MBR function writes phoneme lines in the buffer of the synthesizer.
+	
+	int write_MBR(char *buffer_in);
+
+	Parameters :
+		buffer_in : Pointer to a null-terminated string that contains the phoneme lines to be written.
+			    Each phoneme line must be separated with a \n character.
+
+	Return Values :
+		0 if there's not enough space in the buffer of the synthesizer to write the buffer_in string.
+		a positive value if the writing succeeds.
+
+read_MBR :
+	The read_MBR function read datas resulting of the synthesizing of the phonemes stored in the synthesizer's buffer.
+	
+	int read_MBR(int16 *buffer_out,int nb_wanted);
+
+	Parameters :
+		buffer_out : Pointer to a signed short int array that will receive the datas.
+		nb_wanted  : size of the array.
+
+	Return Values :
+		If the read succeeds, it returns the number of data read (could be less that the number wanted).
+		If the function fails, it returns a negative error code.
+
+readtype_MBR :
+	The readtype_MBR function read datas resulting of the synthesizing of the phonemes stored in
+	the synthesizer's buffer, and apply a filter to the datas.
+	
+	int readtype_MBR(int16 *buffer_out,int nb_wanted,char filter);
+
+	Parameters :
+		buffer_out : Pointer to a signed short int array that will receive the datas.
+		nb_wanted  : size of the array.
+		filter	   : filter to apply.  Can be one of the following values
+				LIN16		(default value, 16 bits, no filtering)
+				LIN8		(linear 8 bits)
+				ALAW		(A-Law)
+				ULAW		(mu-law)
+
+	Return Values :
+		If the read succeeds, it returns the number of data read (could be less that the number wanted).
+		If the function fails, it returns a negative error code.
+
+reset_MBR :
+	The reset_MBR function re-initialize the synthesizer.
+	This function must be called after an error occured.
+
+	void reset_MBR();
+
+lastError_MBR :
+	The lastError_MBR function return the code of the last error that occured in the synthesizer.
+
+	int LastError_MBR();
+
+	Return Values :
+		The error code of the last error occured.
+
+lastErrorStr_MBR :
+	The lastErrorStr_MBR function copies in a string the error message of the last error occured in the synthesizer.
+
+	int lastErrorStr_MBR(char *buffer_err,int nb_wanted);
+
+	Parameters :
+		buffer_err : Pointer to a char array that will receive the copy of the error message.
+		nb_wanted  : Size of the char array.
+	
+	Return Values :
+		The number of characters written in the buffer.
+
+setNoError_MBR :
+	The setNoError_MBR function enables or disables the no-error mode of the dll (debug mode).
+
+	void setNoError_MBR(int noError);
+
+	Parameters :
+		noError	: if 0, disable the no-error mode
+			  if not 0, enable the no-error mode.
+
+	Remark :
+		when the no-error mode is enabled, the unknown phonemes encountered are replaced by
+		silence.
+
+getNoError_MBR :
+	The getNoError_MBR returns the state of the no-error mode.
+
+	int getNoError_MBR();
+
+	Return Values :
+		0 if the no-error mode is disabled,
+		a non-zero value otherwise.
+
+flush_MBR() :
+	The flush_MBR writes a flush symbol in the DLL's buffer.
+
+	int flush_MBR();
+
+	Return Values :
+		0 if the function fails.  (There is not enough space in the buffer to write the flush symbol)
+		a positive value if the function succeeds
+
+getVersion_MBR :
+	The getVersion_MBR copies in a string informations about the version of the Mbrola Synthesizer.
+
+	int getVersion_MBR(char *buffer, int nb_wanted);
+
+	Parameters :
+		buffer    : Pointer to a char array that will receive the informations.
+		nb_wanted : Size of the buffer.
+
+	Return Values :
+		The number of characters written in the buffer.
+
+setFreq_MBR :
+	The setFreq_MBR set the sample rate for the diphone database currently loaded.
+
+	void setFreq_MBR(int nFreq);
+
+	Parameters :
+		nfreq	: the new sample rate.
+
+getFreq_MBR :
+	The getFreq_MBR returns the sample rate of the diphone database currently loaded.
+	
+	int getFreq_MBR();
+
+	Return Values :
+		The sample rate of the database.
+
+setVolumeRatio_MBR :
+	The setVolumeRatio_MBR set the volume ratio.
+
+	void setVolumeRatio_MBR(float fVol);
+
+	Parameters :
+		fVol	: the new volume ratio.
+
+getVolumeRatio_MBR :
+	Gets the current volume ratio value.
+
+	float getVolumeRatio_MBR();
+
+	Return Value :
+		the current volume ratio.
+
+getDatabaseInfo_MBR
+	The getDatabaseInfo_MBR returns informations about the currently loaded database.
+
+	int getDatabaseInfo_MBR(char *buffer, int nb_wanted, int idx);
+
+	Parameters :
+		buffer    : Pointer to a char array receveing the informations.
+		nb_wanted : Size of the buffer.
+		idx	  : Index of the information string
+
+	Return Values :
+		The number of characters written in the buffer.
+		0 when no there is more strings of informations available.
+
+	Remarks :
+		When passing a NULL value to buffer, the function returns the length of the string at the index idx.
+
+setParser_MBR :
+	Change the parser use for analysing the datas sent by write_MBR.
+
+	void setParser_MBR(Parser* pParser);
+
+	Parameters :
+		pParser	: a  pointer to an initialized parser "object" (see parser.h).
+
+	Remarks :
+		before calling this function, a new parser must be created, that is a "child"
+		of the "base class" parser, defined in parser.h.
+
+3. Functions designed for developping custom parsers.
+(See the easyparse example program in the source\c\mbrola folder for more details
+on how to create a custom parser).
+
+init_Phone :
+	Create a new phoneme "object" (structure).
+
+	LPPHONE init_Phone(char* phone,float fdur);
+
+	Parameters :
+		phone	: pointer to a null-terminated string containing the phoneme symbol.
+		fdur	: duration of the phoneme.
+
+	Return Value :
+		a Handle to a new phoneme "object".
+
+reset_Phone :
+	Reset the content of the phoneme "object".
+
+	void reset_Phone(LPPHONE hPhoneme);
+
+	Parameters :
+		hPhoneme	: a handle to a valid phoneme "object".
+
+close_Phone :
+	free a phoneme "object".
+
+	void close_Phone(LPPHONE hPhoneme);
+
+	Parameters :
+		hPhoneme	: a handle to a valid phoneme "object".
+
+appendf0_Phone :
+	add a pitch point to a phoneme object.
+
+	appendf0_Phone(LPPHONE hPhoneme,float percent,float pitch);
+
+	Parameters :
+		hPhoneme	: a handle to a valid phoneme "object".
+		percent		: position of the pitch point (a percentage)
+		pitch		: the value of the pitch

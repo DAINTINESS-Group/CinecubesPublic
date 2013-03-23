@@ -1,0 +1,42 @@
+MBREdit 1.1
+-----------
+
+This software was created as part of a participation with the TCTS department of the Faculte Polytechnique de Mons (MBROLA search project).
+
+This in a phonetic editor to create or modify ".pho" and ".phs" files.
+
+The program was made with Visual Basic 5.0 and use mbrplay.dll.
+
+System requirements
+-------------------
+
+- 486 or higher
+- Windows 95/NT or higher
+- 16 Mo RAM
+- sound card 16 bits (with a 16 KHz sampling rate)
+
+
+License agreement
+-----------------
+
+This software may not be sold or incorporated into any product which is sold without prior permission from the author.  When no charge is made, this software may be copied and distributed freely, provided that the accompanying readme.txt file is copied and distributed with it.
+Permission is granted to use this software for synthesizing speech with and only with the voice and language databases made available by the author from the mbrola project www homepage:
+
+     http://tcts.fpms.ac.be/synthesis/mbrola.html
+
+All other rights reserved.
+
+DISCLAIMER :
+THIS SOFTWARE CARRIES NO WARRANTY, EXPRESSED OR IMPLIED.  THE USER ASSUMES ALL RISKS, KNOWN OR UNKNOWN, DIRECT OR INDIRECT, WHICH INVOLVE THIS SOFTWARE IN ANY WAY. IN PARTICULAR, THE AUTHOR DOES NOT TAKE ANY COMMITMENT IN VIEW OF ANY POSSIBLE THIRD PARTY RIGHTS.
+
+Author: Olivier Platteau (platteau@tcts.fpms.ac.be)
+
+
+Others instructions
+---------
+
+ID: the name of the database (en1, fr1, ...).
+
+Label: the user may define a label for the database ("English", "French", ...); this label help him to identify the database.
+
+To create phs file: the user may create it "manualy" or using the menu "Insert".
