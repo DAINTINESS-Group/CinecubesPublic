@@ -60,7 +60,7 @@ public class MainEngine {
     		Query="SELECT A.occupation,A.work_class,AVG(hours_per_week) \n" +
         	   "FROM ADULT A, OCCUPATION O, WORK_CLASS W \n" +
         	   "WHERE A.occupation = O.level0 AND O.level1 = 'Blue-collar' \n" +
-        	   " AND W.level0 = A.work_class AND W.level2 = 'With-Pay' \n" +
+        	   " AND W.level0 = A.work_class AND W.level2 = 'With-Pay' AND A.gender='Male' \n" +
         	   " GROUP BY A.occupation,A.work_class";
     	}
         PrsMng.parse(Query);
@@ -75,7 +75,7 @@ public class MainEngine {
         TskMgr.getLastTask().getLastSubTask().setExtractionMethod(query);
         TskMgr.getLastTask().getLastSubTask().execute(CubeManager.CBase.DB);
         //TskMgr.getLastTask().getLastSubTask().computeFinding();
-       // TskMgr.getLastTask().computeKeyFindings(CubeManager.CBase.DB);
+        TskMgr.getLastTask().computeKeyFindings(CubeManager.CBase.DB);
         AudioMgr=new FreeTTSAudioEngine();
         AudioMgr.InitializeVoiceEngine();
         

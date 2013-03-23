@@ -5,7 +5,6 @@
 package TaskMgr;
 
 import CubeMgr.StarSchema.Database;
-import CubeMgr.StarSchema.SqlQuery;
 
 /**
  *

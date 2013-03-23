@@ -193,26 +193,32 @@ public class SqlQuery extends ExtractionMethod {
 							String[] tmp_tbl=w.split("~");
 							if(tryParseInt(x.split("@")[0])) tmp.set(j, tmp_tbl[0]+"~"+"="+x.split("@")[0]);
 							else tmp.set(j, tmp_tbl[0]+"~"+"='"+x.split("@")[0]+"'");
+							createNewBrotherQuery(lstsql, tmp);
 						}
 						else if(w.equals(y.split("@")[1])){
 							String[] tmp_tbl=w.split("~");
 							if(tryParseInt(y.split("@")[0])) tmp.set(j, tmp_tbl[0]+"~"+"="+y.split("@")[0]);
 							else tmp.set(j, tmp_tbl[0]+"~"+"='"+y.split("@")[0]+"'");
+							createNewBrotherQuery(lstsql, tmp);
 						}
 						j++;
 					}
 				}
 			}
-			SqlQuery sql_tmp=new SqlQuery(this.SelectClauseMeasure, this.FromClause, tmp, this.GroupByClause);
-			boolean addTo=true;
-			for(SqlQuery s:lstsql) {
-				if(s.WhereClause.equals(tmp)) addTo=false;
-			}
-			if(addTo) lstsql.add(sql_tmp);
+			
 		}
 		printSqlQueryArrayList(lstsql);
 	}
-		
+	
+	void createNewBrotherQuery(ArrayList<SqlQuery> lstsql,ArrayList<String> tmp){
+		SqlQuery sql_tmp=new SqlQuery(this.SelectClauseMeasure, this.FromClause, tmp, this.GroupByClause);
+		boolean addTo=true;
+		for(SqlQuery s:lstsql) {
+			if(s.WhereClause.equals(tmp)) addTo=false;
+		}
+		if(addTo) lstsql.add(sql_tmp);
+	}
+	
 	void printSqlQueryArrayList(ArrayList<SqlQuery> toprint){
 		for(SqlQuery x : toprint) x.printQuery();
 	}
@@ -225,16 +231,14 @@ public class SqlQuery extends ExtractionMethod {
 		printBorderLine();
 	}
 	
-	boolean tryParseInt(String value)  
-	{  
-	     try  
-	     {  
-	         Integer.parseInt(value);  
-	         return true;  
-	      } catch(NumberFormatException nfe)  
-	      {  
-	          return false;  
-	      }  
+	boolean tryParseInt(String value){
+		boolean ret_value=true;
+	    try{
+	    	Integer.parseInt(value);
+	    }catch(NumberFormatException nfe){  
+	          ret_value=false;
+	    }  
+	     	return ret_value;  
 	}
     
     

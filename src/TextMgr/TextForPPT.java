@@ -4,7 +4,6 @@
  */
 package TextMgr;
 
-import java.io.File;
 import java.util.HashSet;
 
 /**
@@ -61,17 +60,6 @@ public class TextForPPT extends TextExtraction {
         
     }
     
-    private String randomIdentifier(String checkedfolder) {
-        StringBuilder builder = new StringBuilder();
-        while(builder.toString().length() == 0) {
-            int length = rand.nextInt(5)+5;
-            for(int i = 0; i < length; i++)
-                builder.append(lexicon.charAt(rand.nextInt(lexicon.length())));
-            if((new File(checkedfolder+"/"+builder.toString()+".wav")).exists()) 
-                builder = new StringBuilder();
-        }
-        return builder.toString();
-    }
     
     public String getTextForNotes(){
         return this.textForNotes;
