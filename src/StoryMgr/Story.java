@@ -4,13 +4,11 @@
  */
 package StoryMgr;
 
+import java.util.ArrayList;
+
 import AudioMgr.AudioEngine;
-import CubeMgr.StarSchema.SqlQuery;
 import TaskMgr.FactCompilation;
 import TextMgr.TextExtraction;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -18,49 +16,74 @@ import java.util.List;
  */
 public class Story {
     
-    private List<SqlQuery> Queries;
     private TextExtraction Texts;
     private AudioEngine Sounds;
-    private OriginalRequest OrigReq;
     private FinalResult FinRes;
-    private List<Act> ACT;
+    private ArrayList<Act> Acts;
     private FactCompilation FactComp;
-    
-    
+    public Act OriginalAct;
+       
     Story(){
-    	Queries=new ArrayList<>();
-    	ACT=new ArrayList<>();
+    	setActs(new ArrayList<Act>());
     };
     
-    
-    void createAct(){}
+    public void createNewAct(){
+    	addAct(new Act());
+    }
 
-
-	public List<SqlQuery> getQueries() {
-		return Queries;
+    private void addAct(Act act) {
+		Acts.add(act);
 	}
 
 
-	public void setQueries(List<SqlQuery> queries) {
-		Queries = queries;
-	};
+	public void createOriginalAct(){
+		OriginalAct=new Act();
+		addAct(OriginalAct);
+    }
 	
-	public void addQuery(SqlQuery query){
-		Queries.add(query);
+	public Act getAct(int i){
+		return Acts.get(i);
 	}
-    /* It needs more additions
-     * .
-     * .
-     * .
-     * .
-     * .
-     * .
-     * .
-     * .
-     */
+	
+	private int getNumOfActs(){
+		return Acts.size();
+	}
+	
+	public Act getLastAct(){		
+		return getAct(getNumOfActs()-1);
+		
+	}
+	
+	public TextExtraction getTexts() {
+		return Texts;
+	}
+
+	public void setTexts(TextExtraction texts) {
+		Texts = texts;
+	}
+
+	public AudioEngine getSounds() {
+		return Sounds;
+	}
+
+	public void setSounds(AudioEngine sounds) {
+		Sounds = sounds;
+	}
+
+	public FinalResult getFinalResult() {
+		return FinRes;
+	}
+
+	public void setFinalResult(FinalResult finRes) {
+		FinRes = finRes;
+	}
 
 
-	public void addOriginalRequest(SqlQuery query) {
-		addQuery(query);	
+	public ArrayList<Act> getActs() {
+		return Acts;
+	}
+
+	public void setActs(ArrayList<Act> arrayList) {
+		Acts = arrayList;
 	}
 }

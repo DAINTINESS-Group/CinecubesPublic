@@ -4,24 +4,44 @@
  */
 package StoryMgr;
 
-import CubeMgr.StarSchema.SqlQuery;
+import TaskMgr.Task;
+import TaskMgr.TaskMgr;
 
 /**
  *
  * @author Asterix
  */
 public class StoryMgr {
-    private Story ST;
+    private Story story;
     
     public StoryMgr(){
-    	ST=new Story();
+    	
     }
-    public void createStory(SqlQuery query){
-    	ST.addOriginalRequest(query);
-    	ST.createAct();
-    };
     
-    public void createTasks(){};
+    public void createStory(){
+    	story=new Story();
+    }
+        
+    public void createStoryOriginalRequest(){
+    	story.createOriginalAct();
+    }
+    
+    public void createTasks(TaskMgr tskMgr){
+    	tskMgr.createTasks();
+    }
+    
+    public void addNewTaskToStory(Task task){
+    	story.getLastAct().setTask(task);
+    }
+    
+    public void setStory(Story stor){
+    	story=stor;
+    }
+    
+    public Story getStory(){
+    	return story;
+    }
+    
     public void regroup(){};
     public void DoWrapUp(){}
     

@@ -7,12 +7,19 @@ import java.util.Scanner;
 import javax.swing.JFileChooser;
 
 import AudioMgr.AudioEngine;
+import AudioMgr.FreeTTSAudioEngine;
 import CubeMgr.CubeMgr;
 import CubeMgr.StarSchema.SqlQuery;
 import ParserMgr.ParserManager;
+import StoryMgr.Act;
+import StoryMgr.PptxSlideshow;
 import StoryMgr.StoryMgr;
+import StoryMgr.Tabular;
+import StoryMgr.pptxSlide;
+import TaskMgr.SubTask;
 import TaskMgr.TaskMgr;
 import TextMgr.TextExtraction;
+import WrapUpMgr.PptxWrapUpMgr;
 import WrapUpMgr.WrapUpMgr;
 
 
@@ -28,7 +35,7 @@ import WrapUpMgr.WrapUpMgr;
 public class MainEngine {
     
 	public CubeMgr CubeManager;
-	public AudioEngine AudMgr;
+	public AudioEngine AudioMgr;
 	public StoryMgr StorMgr;
 	public TaskMgr TskMgr;
 	public TextExtraction TxtMgr;
@@ -38,7 +45,8 @@ public class MainEngine {
   
    
     MainEngine(){
-    	
+    	StorMgr=new StoryMgr(); 
+    	TskMgr=new TaskMgr();
     }
     
     /* 
@@ -55,18 +63,50 @@ public class MainEngine {
         	   " AND W.level0 = A.work_class AND W.level2 = 'With-Pay' \n" +
         	   " GROUP BY A.occupation,A.work_class";
     	}
-    	System.out.println(Query);
         PrsMng.parse(Query);
         SqlQuery query=new SqlQuery(PrsMng.aggregatefunc,PrsMng.tablelst,PrsMng.conditionlst,PrsMng.groupperlst);
         query.printQuery();
-        StorMgr=new StoryMgr();        
-        StorMgr.createStory(query);
         
-        //StorMgr.
+        StorMgr.createStory();
+        StorMgr.createStoryOriginalRequest();
+        StorMgr.createTasks(TskMgr);
+        StorMgr.addNewTaskToStory(TskMgr.createNewTask());
+        TskMgr.getLastTask().addNewSubTask();
+        TskMgr.getLastTask().getLastSubTask().setExtractionMethod(query);
+        TskMgr.getLastTask().getLastSubTask().execute(CubeManager.CBase.DB);
+        //TskMgr.getLastTask().getLastSubTask().computeFinding();
+        TskMgr.getLastTask().computeKeyFindings(CubeManager.CBase.DB);
+        AudioMgr=new FreeTTSAudioEngine();
+        AudioMgr.InitializeVoiceEngine();
+        
+        SetupSlideEpisode(StorMgr.getStory().getLastAct());
+        
+        StorMgr.getStory().setFinalResult(new PptxSlideshow());
+        StorMgr.getStory().getFinalResult().setFilename("ppt/slideshow2.pptx");
+        
+        WrapUp=new PptxWrapUpMgr();
+        WrapUp.setFinalResult(StorMgr.getStory().getFinalResult());
+        WrapUp.doWrapUp(StorMgr.getStory());
+        
     }
     
     public void SetTheInputCmd(){
     	
+    }
+    
+    public void SetupSlideEpisode(Act act){
+    	pptxSlide newSlide=new pptxSlide();
+    	SubTask subtsk=act.getTask().getLastSubTask();
+        newSlide.setSubTask(subtsk);
+        
+        Tabular tbl=new Tabular();
+        tbl.CreatePivotTable(subtsk.getExtractionMethod().Res.getRowPivot(), subtsk.getExtractionMethod().Res.getColPivot(), 
+				subtsk.getExtractionMethod().Res.getResultArray());
+        newSlide.createVisual(tbl);
+        
+        newSlide.setAudioFile("audio/"+AudioMgr.randomIdentifier());
+        AudioMgr.CreateSound("Text to Create", newSlide.getAudio().getFileName());
+        StorMgr.getStory().getLastAct().addEpisode(newSlide);
     }
     
     public File GetFileCmds(){
@@ -93,10 +133,10 @@ public class MainEngine {
 					PrsMng.parse(sc.next()+";");
 					if(PrsMng.mode==2){
 						this.CubeManager.InsertionDimensionLvl(PrsMng.name_creation,PrsMng.sqltable,PrsMng.originallvllst,PrsMng.customlvllst,PrsMng.hierachylst);
-						System.out.println("DIMENSION");
+						//System.out.println("DIMENSION");
 					}
 					else if(PrsMng.mode==1){
-						System.out.println("CUBE");
+						//System.out.println("CUBE");
 						this.CubeManager.InsertionCube(PrsMng.name_creation,PrsMng.sqltable,PrsMng.dimensionlst,PrsMng.originallvllst);
 					}
 				}
@@ -253,6 +293,7 @@ public class MainEngine {
         
         MainEng.ParseFile(new File("D:/Master-Vassileiadis/InputFiles/BETA/beta.txt"));
         MainEng.NewRequest("");
+        System.out.println("=======Finish======");
     }
     
     public String InsertFromKeyboardDBInfos(){

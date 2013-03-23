@@ -12,13 +12,6 @@ package TextMgr;
  */
 public abstract class TextExtraction {
     
-    
-    
-    TextExtraction(){};
-    
-    
-    
-  
-    
+    public TextExtraction(){};
     
 }

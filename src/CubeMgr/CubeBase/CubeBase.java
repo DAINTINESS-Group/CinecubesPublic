@@ -9,6 +9,7 @@ import CubeMgr.StarSchema.DimensionTable;
 import CubeMgr.StarSchema.FactTable;
 import CubeMgr.StarSchema.Table;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -117,6 +118,11 @@ public class CubeBase {
 			last_cube.addDimensionRefField(DimemsionRefField.get(i));
 			i++;
 		}
+	}
+	
+	
+	public Connection getSqlConnection(){
+		return DB.getConnection();
 	}
 	
 	private Integer findDimensionIdByName(String nameDimension){

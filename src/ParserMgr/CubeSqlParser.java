@@ -1,4 +1,4 @@
-// $ANTLR 3.4 D:\\workspace\\Master\\src\\CubeSql.g 2013-03-11 22:55:31
+// $ANTLR 3.4 D:\\workspace\\Master\\src\\CubeSql.g 2013-03-18 21:27:19
 
   package ParserMgr;
   
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 @SuppressWarnings({"all", "warnings", "unchecked"})
 public class CubeSqlParser extends Parser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "A", "AND", "AS", "AT", "AVG", "B", "BY", "C", "CHILDOF", "COMMA", "COUNT", "CREATE", "CUBE", "D", "DIMENSION", "DIMENSION_TABLE", "DOT", "Digit", "E", "F", "FROM", "G", "GROUP", "H", "HIERARCHY", "I", "J", "K", "L", "LBRACE", "LEVEL", "LIST", "Letter", "M", "MAX", "MIN", "N", "NAME", "O", "OF", "OR", "P", "Q", "QUESTMARK", "R", "RBRACE", "REFERENCES", "RELATED", "S", "SELECT", "SQL_TABLE", "SUM", "T", "U", "UNDERSCORE", "V", "W", "WHERE", "WS", "X", "Y", "Z", "'\"'", "'('", "')'", "'<'", "'<='", "'='", "'>='", "'LIKE'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "A", "AND", "AS", "AT", "AVG", "B", "BY", "C", "CHILDOF", "COMMA", "COUNT", "CREATE", "CUBE", "D", "DIMENSION", "DIMENSION_TABLE", "DOT", "Digit", "E", "F", "FROM", "G", "GROUP", "H", "HIERARCHY", "I", "J", "K", "L", "LBRACE", "LEVEL", "LIST", "Letter", "M", "MAX", "MIN", "N", "NAME", "O", "OF", "OR", "P", "Q", "QUESTMARK", "R", "RBRACE", "REFERENCES", "RELATED", "S", "SELECT", "SQL_TABLE", "SUM", "T", "U", "UNDERSCORE", "V", "W", "WHERE", "WS", "X", "Y", "Z", "'\"'", "'('", "')'", "'<'", "'<='", "'='", "'>='", "'LIKE'", "'\\''"
     };
 
     public static final int EOF=-1;
@@ -25,6 +25,7 @@ public class CubeSqlParser extends Parser {
     public static final int T__71=71;
     public static final int T__72=72;
     public static final int T__73=73;
+    public static final int T__74=74;
     public static final int A=4;
     public static final int AND=5;
     public static final int AS=6;
@@ -143,7 +144,7 @@ public class CubeSqlParser extends Parser {
                 tablelst=new ArrayList<String>();
               
 
-            pushFollow(FOLLOW_parse_in_start109);
+            pushFollow(FOLLOW_parse_in_start131);
             parse();
 
             state._fsp--;
@@ -215,7 +216,7 @@ public class CubeSqlParser extends Parser {
                     	                if(customlvllst.size()>0)  customlvllst.clear();
                     	               
 
-                    	    pushFollow(FOLLOW_creation_statement_in_parse134);
+                    	    pushFollow(FOLLOW_creation_statement_in_parse156);
                     	    creation_statement();
 
                     	    state._fsp--;
@@ -235,7 +236,7 @@ public class CubeSqlParser extends Parser {
                 case 2 :
                     // D:\\workspace\\Master\\src\\CubeSql.g:62:11: sql_query
                     {
-                    pushFollow(FOLLOW_sql_query_in_parse150);
+                    pushFollow(FOLLOW_sql_query_in_parse172);
                     sql_query();
 
                     state._fsp--;
@@ -267,13 +268,13 @@ public class CubeSqlParser extends Parser {
             // D:\\workspace\\Master\\src\\CubeSql.g:65:20: ( creation QUESTMARK )
             // D:\\workspace\\Master\\src\\CubeSql.g:65:22: creation QUESTMARK
             {
-            pushFollow(FOLLOW_creation_in_creation_statement162);
+            pushFollow(FOLLOW_creation_in_creation_statement184);
             creation();
 
             state._fsp--;
 
 
-            match(input,QUESTMARK,FOLLOW_QUESTMARK_in_creation_statement164); 
+            match(input,QUESTMARK,FOLLOW_QUESTMARK_in_creation_statement186); 
 
             }
 
@@ -444,7 +445,7 @@ public class CubeSqlParser extends Parser {
                 case 1 :
                     // D:\\workspace\\Master\\src\\CubeSql.g:67:11: creation_cube
                     {
-                    pushFollow(FOLLOW_creation_cube_in_creation171);
+                    pushFollow(FOLLOW_creation_cube_in_creation193);
                     creation_cube();
 
                     state._fsp--;
@@ -455,7 +456,7 @@ public class CubeSqlParser extends Parser {
                 case 2 :
                     // D:\\workspace\\Master\\src\\CubeSql.g:67:27: creation_dimension
                     {
-                    pushFollow(FOLLOW_creation_dimension_in_creation175);
+                    pushFollow(FOLLOW_creation_dimension_in_creation197);
                     creation_dimension();
 
                     state._fsp--;
@@ -487,19 +488,19 @@ public class CubeSqlParser extends Parser {
             // D:\\workspace\\Master\\src\\CubeSql.g:69:15: ( create_statement related_statement referdimension_statement )
             // D:\\workspace\\Master\\src\\CubeSql.g:69:17: create_statement related_statement referdimension_statement
             {
-            pushFollow(FOLLOW_create_statement_in_creation_cube184);
+            pushFollow(FOLLOW_create_statement_in_creation_cube206);
             create_statement();
 
             state._fsp--;
 
 
-            pushFollow(FOLLOW_related_statement_in_creation_cube186);
+            pushFollow(FOLLOW_related_statement_in_creation_cube208);
             related_statement();
 
             state._fsp--;
 
 
-            pushFollow(FOLLOW_referdimension_statement_in_creation_cube188);
+            pushFollow(FOLLOW_referdimension_statement_in_creation_cube210);
             referdimension_statement();
 
             state._fsp--;
@@ -529,25 +530,25 @@ public class CubeSqlParser extends Parser {
             // D:\\workspace\\Master\\src\\CubeSql.g:71:20: ( create_statement related_statement level_statement hierarchy_statement )
             // D:\\workspace\\Master\\src\\CubeSql.g:71:22: create_statement related_statement level_statement hierarchy_statement
             {
-            pushFollow(FOLLOW_create_statement_in_creation_dimension196);
+            pushFollow(FOLLOW_create_statement_in_creation_dimension218);
             create_statement();
 
             state._fsp--;
 
 
-            pushFollow(FOLLOW_related_statement_in_creation_dimension198);
+            pushFollow(FOLLOW_related_statement_in_creation_dimension220);
             related_statement();
 
             state._fsp--;
 
 
-            pushFollow(FOLLOW_level_statement_in_creation_dimension200);
+            pushFollow(FOLLOW_level_statement_in_creation_dimension222);
             level_statement();
 
             state._fsp--;
 
 
-            pushFollow(FOLLOW_hierarchy_statement_in_creation_dimension202);
+            pushFollow(FOLLOW_hierarchy_statement_in_creation_dimension224);
             hierarchy_statement();
 
             state._fsp--;
@@ -609,13 +610,13 @@ public class CubeSqlParser extends Parser {
                 case 1 :
                     // D:\\workspace\\Master\\src\\CubeSql.g:73:19: CREATE CUBE NAME
                     {
-                    match(input,CREATE,FOLLOW_CREATE_in_create_statement209); 
+                    match(input,CREATE,FOLLOW_CREATE_in_create_statement231); 
 
-                    match(input,CUBE,FOLLOW_CUBE_in_create_statement211); 
+                    match(input,CUBE,FOLLOW_CUBE_in_create_statement233); 
 
                     mode=1;
 
-                    NAME1=(Token)match(input,NAME,FOLLOW_NAME_in_create_statement215); 
+                    NAME1=(Token)match(input,NAME,FOLLOW_NAME_in_create_statement237); 
 
                     name_creation=(NAME1!=null?NAME1.getText():null);
 
@@ -624,13 +625,13 @@ public class CubeSqlParser extends Parser {
                 case 2 :
                     // D:\\workspace\\Master\\src\\CubeSql.g:75:19: CREATE DIMENSION NAME
                     {
-                    match(input,CREATE,FOLLOW_CREATE_in_create_statement258); 
+                    match(input,CREATE,FOLLOW_CREATE_in_create_statement280); 
 
-                    match(input,DIMENSION,FOLLOW_DIMENSION_in_create_statement260); 
+                    match(input,DIMENSION,FOLLOW_DIMENSION_in_create_statement282); 
 
                     mode=2;
 
-                    NAME2=(Token)match(input,NAME,FOLLOW_NAME_in_create_statement264); 
+                    NAME2=(Token)match(input,NAME,FOLLOW_NAME_in_create_statement286); 
 
                     name_creation=(NAME2!=null?NAME2.getText():null);
 
@@ -662,11 +663,11 @@ public class CubeSqlParser extends Parser {
             // D:\\workspace\\Master\\src\\CubeSql.g:77:19: ( RELATED SQL_TABLE NAME )
             // D:\\workspace\\Master\\src\\CubeSql.g:77:21: RELATED SQL_TABLE NAME
             {
-            match(input,RELATED,FOLLOW_RELATED_in_related_statement274); 
+            match(input,RELATED,FOLLOW_RELATED_in_related_statement296); 
 
-            match(input,SQL_TABLE,FOLLOW_SQL_TABLE_in_related_statement276); 
+            match(input,SQL_TABLE,FOLLOW_SQL_TABLE_in_related_statement298); 
 
-            NAME3=(Token)match(input,NAME,FOLLOW_NAME_in_related_statement278); 
+            NAME3=(Token)match(input,NAME,FOLLOW_NAME_in_related_statement300); 
 
             sql_table=(NAME3!=null?NAME3.getText():null);
 
@@ -694,11 +695,11 @@ public class CubeSqlParser extends Parser {
             // D:\\workspace\\Master\\src\\CubeSql.g:79:26: ( REFERENCES DIMENSION dimensions )
             // D:\\workspace\\Master\\src\\CubeSql.g:79:28: REFERENCES DIMENSION dimensions
             {
-            match(input,REFERENCES,FOLLOW_REFERENCES_in_referdimension_statement289); 
+            match(input,REFERENCES,FOLLOW_REFERENCES_in_referdimension_statement311); 
 
-            match(input,DIMENSION,FOLLOW_DIMENSION_in_referdimension_statement291); 
+            match(input,DIMENSION,FOLLOW_DIMENSION_in_referdimension_statement313); 
 
-            pushFollow(FOLLOW_dimensions_in_referdimension_statement293);
+            pushFollow(FOLLOW_dimensions_in_referdimension_statement315);
             dimensions();
 
             state._fsp--;
@@ -728,21 +729,21 @@ public class CubeSqlParser extends Parser {
             // D:\\workspace\\Master\\src\\CubeSql.g:81:16: ( LIST OF LEVEL LBRACE levels RBRACE )
             // D:\\workspace\\Master\\src\\CubeSql.g:81:18: LIST OF LEVEL LBRACE levels RBRACE
             {
-            match(input,LIST,FOLLOW_LIST_in_level_statement300); 
+            match(input,LIST,FOLLOW_LIST_in_level_statement322); 
 
-            match(input,OF,FOLLOW_OF_in_level_statement302); 
+            match(input,OF,FOLLOW_OF_in_level_statement324); 
 
-            match(input,LEVEL,FOLLOW_LEVEL_in_level_statement304); 
+            match(input,LEVEL,FOLLOW_LEVEL_in_level_statement326); 
 
-            match(input,LBRACE,FOLLOW_LBRACE_in_level_statement306); 
+            match(input,LBRACE,FOLLOW_LBRACE_in_level_statement328); 
 
-            pushFollow(FOLLOW_levels_in_level_statement308);
+            pushFollow(FOLLOW_levels_in_level_statement330);
             levels();
 
             state._fsp--;
 
 
-            match(input,RBRACE,FOLLOW_RBRACE_in_level_statement310); 
+            match(input,RBRACE,FOLLOW_RBRACE_in_level_statement332); 
 
             }
 
@@ -768,9 +769,9 @@ public class CubeSqlParser extends Parser {
             // D:\\workspace\\Master\\src\\CubeSql.g:83:21: ( HIERARCHY hierarchy )
             // D:\\workspace\\Master\\src\\CubeSql.g:83:23: HIERARCHY hierarchy
             {
-            match(input,HIERARCHY,FOLLOW_HIERARCHY_in_hierarchy_statement319); 
+            match(input,HIERARCHY,FOLLOW_HIERARCHY_in_hierarchy_statement341); 
 
-            pushFollow(FOLLOW_hierarchy_in_hierarchy_statement321);
+            pushFollow(FOLLOW_hierarchy_in_hierarchy_statement343);
             hierarchy();
 
             state._fsp--;
@@ -800,7 +801,7 @@ public class CubeSqlParser extends Parser {
             // D:\\workspace\\Master\\src\\CubeSql.g:85:12: ( dimension ( comma_statement dimension )* )
             // D:\\workspace\\Master\\src\\CubeSql.g:85:14: dimension ( comma_statement dimension )*
             {
-            pushFollow(FOLLOW_dimension_in_dimensions329);
+            pushFollow(FOLLOW_dimension_in_dimensions351);
             dimension();
 
             state._fsp--;
@@ -821,13 +822,13 @@ public class CubeSqlParser extends Parser {
             	case 1 :
             	    // D:\\workspace\\Master\\src\\CubeSql.g:85:26: comma_statement dimension
             	    {
-            	    pushFollow(FOLLOW_comma_statement_in_dimensions333);
+            	    pushFollow(FOLLOW_comma_statement_in_dimensions355);
             	    comma_statement();
 
             	    state._fsp--;
 
 
-            	    pushFollow(FOLLOW_dimension_in_dimensions335);
+            	    pushFollow(FOLLOW_dimension_in_dimensions357);
             	    dimension();
 
             	    state._fsp--;
@@ -868,13 +869,13 @@ public class CubeSqlParser extends Parser {
             // D:\\workspace\\Master\\src\\CubeSql.g:87:11: ( NAME AT sqlfield )
             // D:\\workspace\\Master\\src\\CubeSql.g:87:13: NAME AT sqlfield
             {
-            NAME4=(Token)match(input,NAME,FOLLOW_NAME_in_dimension346); 
+            NAME4=(Token)match(input,NAME,FOLLOW_NAME_in_dimension368); 
 
             dimensionlst.add((NAME4!=null?NAME4.getText():null));
 
-            match(input,AT,FOLLOW_AT_in_dimension350); 
+            match(input,AT,FOLLOW_AT_in_dimension372); 
 
-            pushFollow(FOLLOW_sqlfield_in_dimension352);
+            pushFollow(FOLLOW_sqlfield_in_dimension374);
             sqlfield();
 
             state._fsp--;
@@ -904,7 +905,7 @@ public class CubeSqlParser extends Parser {
             // D:\\workspace\\Master\\src\\CubeSql.g:89:7: ( level ( comma_statement level )* )
             // D:\\workspace\\Master\\src\\CubeSql.g:89:9: level ( comma_statement level )*
             {
-            pushFollow(FOLLOW_level_in_levels359);
+            pushFollow(FOLLOW_level_in_levels381);
             level();
 
             state._fsp--;
@@ -925,13 +926,13 @@ public class CubeSqlParser extends Parser {
             	case 1 :
             	    // D:\\workspace\\Master\\src\\CubeSql.g:89:16: comma_statement level
             	    {
-            	    pushFollow(FOLLOW_comma_statement_in_levels362);
+            	    pushFollow(FOLLOW_comma_statement_in_levels384);
             	    comma_statement();
 
             	    state._fsp--;
 
 
-            	    pushFollow(FOLLOW_level_in_levels364);
+            	    pushFollow(FOLLOW_level_in_levels386);
             	    level();
 
             	    state._fsp--;
@@ -985,7 +986,7 @@ public class CubeSqlParser extends Parser {
             	case 1 :
             	    // D:\\workspace\\Master\\src\\CubeSql.g:91:18: WS
             	    {
-            	    match(input,WS,FOLLOW_WS_in_comma_statement373); 
+            	    match(input,WS,FOLLOW_WS_in_comma_statement395); 
 
             	    }
             	    break;
@@ -996,7 +997,7 @@ public class CubeSqlParser extends Parser {
             } while (true);
 
 
-            match(input,COMMA,FOLLOW_COMMA_in_comma_statement376); 
+            match(input,COMMA,FOLLOW_COMMA_in_comma_statement398); 
 
             // D:\\workspace\\Master\\src\\CubeSql.g:91:28: ( WS )*
             loop8:
@@ -1013,7 +1014,7 @@ public class CubeSqlParser extends Parser {
             	case 1 :
             	    // D:\\workspace\\Master\\src\\CubeSql.g:91:28: WS
             	    {
-            	    match(input,WS,FOLLOW_WS_in_comma_statement378); 
+            	    match(input,WS,FOLLOW_WS_in_comma_statement400); 
 
             	    }
             	    break;
@@ -1115,15 +1116,15 @@ public class CubeSqlParser extends Parser {
                 case 1 :
                     // D:\\workspace\\Master\\src\\CubeSql.g:93:10: sqlfield AS name3= NAME
                     {
-                    pushFollow(FOLLOW_sqlfield_in_level388);
+                    pushFollow(FOLLOW_sqlfield_in_level410);
                     sqlfield();
 
                     state._fsp--;
 
 
-                    match(input,AS,FOLLOW_AS_in_level390); 
+                    match(input,AS,FOLLOW_AS_in_level412); 
 
-                    name3=(Token)match(input,NAME,FOLLOW_NAME_in_level394); 
+                    name3=(Token)match(input,NAME,FOLLOW_NAME_in_level416); 
 
                     customlvllst.add((name3!=null?name3.getText():null));
 
@@ -1132,7 +1133,7 @@ public class CubeSqlParser extends Parser {
                 case 2 :
                     // D:\\workspace\\Master\\src\\CubeSql.g:94:11: sqlfield
                     {
-                    pushFollow(FOLLOW_sqlfield_in_level408);
+                    pushFollow(FOLLOW_sqlfield_in_level430);
                     sqlfield();
 
                     state._fsp--;
@@ -1167,7 +1168,7 @@ public class CubeSqlParser extends Parser {
             // D:\\workspace\\Master\\src\\CubeSql.g:96:10: (name1= NAME ( CHILDOF name2= NAME )+ )
             // D:\\workspace\\Master\\src\\CubeSql.g:96:12: name1= NAME ( CHILDOF name2= NAME )+
             {
-            name1=(Token)match(input,NAME,FOLLOW_NAME_in_hierarchy418); 
+            name1=(Token)match(input,NAME,FOLLOW_NAME_in_hierarchy440); 
 
             dimensionlst.add((name1!=null?name1.getText():null));
 
@@ -1187,9 +1188,9 @@ public class CubeSqlParser extends Parser {
             	case 1 :
             	    // D:\\workspace\\Master\\src\\CubeSql.g:96:57: CHILDOF name2= NAME
             	    {
-            	    match(input,CHILDOF,FOLLOW_CHILDOF_in_hierarchy423); 
+            	    match(input,CHILDOF,FOLLOW_CHILDOF_in_hierarchy445); 
 
-            	    name2=(Token)match(input,NAME,FOLLOW_NAME_in_hierarchy427); 
+            	    name2=(Token)match(input,NAME,FOLLOW_NAME_in_hierarchy449); 
 
             	    dimensionlst.add((name2!=null?name2.getText():null));
 
@@ -1263,11 +1264,11 @@ public class CubeSqlParser extends Parser {
                 case 1 :
                     // D:\\workspace\\Master\\src\\CubeSql.g:98:12: name1= NAME DOT name2= NAME
                     {
-                    name1=(Token)match(input,NAME,FOLLOW_NAME_in_sqlfield442); 
+                    name1=(Token)match(input,NAME,FOLLOW_NAME_in_sqlfield464); 
 
-                    match(input,DOT,FOLLOW_DOT_in_sqlfield444); 
+                    match(input,DOT,FOLLOW_DOT_in_sqlfield466); 
 
-                    name2=(Token)match(input,NAME,FOLLOW_NAME_in_sqlfield448); 
+                    name2=(Token)match(input,NAME,FOLLOW_NAME_in_sqlfield470); 
 
                      if(mode==1 || mode==2) originallvllst.add((name1!=null?name1.getText():null)+"."+(name2!=null?name2.getText():null));
                                                           tmp_con+=(name1!=null?name1.getText():null)+"."+(name2!=null?name2.getText():null);
@@ -1278,7 +1279,7 @@ public class CubeSqlParser extends Parser {
                 case 2 :
                     // D:\\workspace\\Master\\src\\CubeSql.g:101:11: NAME
                     {
-                    NAME5=(Token)match(input,NAME,FOLLOW_NAME_in_sqlfield462); 
+                    NAME5=(Token)match(input,NAME,FOLLOW_NAME_in_sqlfield484); 
 
                     tmp_con+= (NAME5!=null?NAME5.getText():null);if(mode==1 || mode==2) {originallvllst.add((NAME5!=null?NAME5.getText():null));}
 
@@ -1308,25 +1309,25 @@ public class CubeSqlParser extends Parser {
             // D:\\workspace\\Master\\src\\CubeSql.g:104:10: ( select_statement from_statement where_statement group_statement )
             // D:\\workspace\\Master\\src\\CubeSql.g:104:12: select_statement from_statement where_statement group_statement
             {
-            pushFollow(FOLLOW_select_statement_in_sql_query480);
+            pushFollow(FOLLOW_select_statement_in_sql_query502);
             select_statement();
 
             state._fsp--;
 
 
-            pushFollow(FOLLOW_from_statement_in_sql_query494);
+            pushFollow(FOLLOW_from_statement_in_sql_query516);
             from_statement();
 
             state._fsp--;
 
 
-            pushFollow(FOLLOW_where_statement_in_sql_query507);
+            pushFollow(FOLLOW_where_statement_in_sql_query529);
             where_statement();
 
             state._fsp--;
 
 
-            pushFollow(FOLLOW_group_statement_in_sql_query520);
+            pushFollow(FOLLOW_group_statement_in_sql_query542);
             group_statement();
 
             state._fsp--;
@@ -1356,17 +1357,17 @@ public class CubeSqlParser extends Parser {
             // D:\\workspace\\Master\\src\\CubeSql.g:109:17: ( SELECT grouppers COMMA aggregate_statement )
             // D:\\workspace\\Master\\src\\CubeSql.g:109:19: SELECT grouppers COMMA aggregate_statement
             {
-            match(input,SELECT,FOLLOW_SELECT_in_select_statement538); 
+            match(input,SELECT,FOLLOW_SELECT_in_select_statement560); 
 
-            pushFollow(FOLLOW_grouppers_in_select_statement540);
+            pushFollow(FOLLOW_grouppers_in_select_statement562);
             grouppers();
 
             state._fsp--;
 
 
-            match(input,COMMA,FOLLOW_COMMA_in_select_statement542); 
+            match(input,COMMA,FOLLOW_COMMA_in_select_statement564); 
 
-            pushFollow(FOLLOW_aggregate_statement_in_select_statement544);
+            pushFollow(FOLLOW_aggregate_statement_in_select_statement566);
             aggregate_statement();
 
             state._fsp--;
@@ -1398,21 +1399,21 @@ public class CubeSqlParser extends Parser {
             {
             tmp_con="";
 
-            pushFollow(FOLLOW_aggregate_func_in_aggregate_statement554);
+            pushFollow(FOLLOW_aggregate_func_in_aggregate_statement576);
             aggregate_func();
 
             state._fsp--;
 
 
-            match(input,67,FOLLOW_67_in_aggregate_statement556); 
+            match(input,67,FOLLOW_67_in_aggregate_statement578); 
 
-            pushFollow(FOLLOW_sqlfield_in_aggregate_statement558);
+            pushFollow(FOLLOW_sqlfield_in_aggregate_statement580);
             sqlfield();
 
             state._fsp--;
 
 
-            match(input,68,FOLLOW_68_in_aggregate_statement560); 
+            match(input,68,FOLLOW_68_in_aggregate_statement582); 
 
             aggregatefunc=tmp_con;tmp_con="";
 
@@ -1483,7 +1484,7 @@ public class CubeSqlParser extends Parser {
                 case 1 :
                     // D:\\workspace\\Master\\src\\CubeSql.g:113:18: SUM
                     {
-                    SUM6=(Token)match(input,SUM,FOLLOW_SUM_in_aggregate_func570); 
+                    SUM6=(Token)match(input,SUM,FOLLOW_SUM_in_aggregate_func592); 
 
                     tmp_con=(SUM6!=null?SUM6.getText():null)+"~";
 
@@ -1492,7 +1493,7 @@ public class CubeSqlParser extends Parser {
                 case 2 :
                     // D:\\workspace\\Master\\src\\CubeSql.g:114:19: AVG
                     {
-                    AVG7=(Token)match(input,AVG,FOLLOW_AVG_in_aggregate_func592); 
+                    AVG7=(Token)match(input,AVG,FOLLOW_AVG_in_aggregate_func614); 
 
                     tmp_con=(AVG7!=null?AVG7.getText():null)+"~";
 
@@ -1501,7 +1502,7 @@ public class CubeSqlParser extends Parser {
                 case 3 :
                     // D:\\workspace\\Master\\src\\CubeSql.g:115:19: COUNT
                     {
-                    COUNT8=(Token)match(input,COUNT,FOLLOW_COUNT_in_aggregate_func615); 
+                    COUNT8=(Token)match(input,COUNT,FOLLOW_COUNT_in_aggregate_func637); 
 
                     tmp_con=(COUNT8!=null?COUNT8.getText():null)+"~";
 
@@ -1510,7 +1511,7 @@ public class CubeSqlParser extends Parser {
                 case 4 :
                     // D:\\workspace\\Master\\src\\CubeSql.g:116:19: MAX
                     {
-                    MAX9=(Token)match(input,MAX,FOLLOW_MAX_in_aggregate_func637); 
+                    MAX9=(Token)match(input,MAX,FOLLOW_MAX_in_aggregate_func659); 
 
                     tmp_con=(MAX9!=null?MAX9.getText():null)+"~";
 
@@ -1519,7 +1520,7 @@ public class CubeSqlParser extends Parser {
                 case 5 :
                     // D:\\workspace\\Master\\src\\CubeSql.g:117:19: MIN
                     {
-                    MIN10=(Token)match(input,MIN,FOLLOW_MIN_in_aggregate_func659); 
+                    MIN10=(Token)match(input,MIN,FOLLOW_MIN_in_aggregate_func681); 
 
                     tmp_con=(MIN10!=null?MIN10.getText():null)+"~";
 
@@ -1549,9 +1550,9 @@ public class CubeSqlParser extends Parser {
             // D:\\workspace\\Master\\src\\CubeSql.g:119:16: ( FROM tables )
             // D:\\workspace\\Master\\src\\CubeSql.g:119:18: FROM tables
             {
-            match(input,FROM,FOLLOW_FROM_in_from_statement669); 
+            match(input,FROM,FOLLOW_FROM_in_from_statement691); 
 
-            pushFollow(FOLLOW_tables_in_from_statement671);
+            pushFollow(FOLLOW_tables_in_from_statement693);
             tables();
 
             state._fsp--;
@@ -1581,7 +1582,7 @@ public class CubeSqlParser extends Parser {
             // D:\\workspace\\Master\\src\\CubeSql.g:121:8: ( table ( COMMA table )* )
             // D:\\workspace\\Master\\src\\CubeSql.g:121:10: table ( COMMA table )*
             {
-            pushFollow(FOLLOW_table_in_tables679);
+            pushFollow(FOLLOW_table_in_tables701);
             table();
 
             state._fsp--;
@@ -1602,9 +1603,9 @@ public class CubeSqlParser extends Parser {
             	case 1 :
             	    // D:\\workspace\\Master\\src\\CubeSql.g:121:17: COMMA table
             	    {
-            	    match(input,COMMA,FOLLOW_COMMA_in_tables682); 
+            	    match(input,COMMA,FOLLOW_COMMA_in_tables704); 
 
-            	    pushFollow(FOLLOW_table_in_tables684);
+            	    pushFollow(FOLLOW_table_in_tables706);
             	    table();
 
             	    state._fsp--;
@@ -1687,11 +1688,11 @@ public class CubeSqlParser extends Parser {
                 case 1 :
                     // D:\\workspace\\Master\\src\\CubeSql.g:123:9: name1= NAME AS name2= NAME
                     {
-                    name1=(Token)match(input,NAME,FOLLOW_NAME_in_table696); 
+                    name1=(Token)match(input,NAME,FOLLOW_NAME_in_table718); 
 
-                    match(input,AS,FOLLOW_AS_in_table698); 
+                    match(input,AS,FOLLOW_AS_in_table720); 
 
-                    name2=(Token)match(input,NAME,FOLLOW_NAME_in_table702); 
+                    name2=(Token)match(input,NAME,FOLLOW_NAME_in_table724); 
 
                     tablelst.add((name1!=null?name1.getText():null)+"~"+(name2!=null?name2.getText():null));
 
@@ -1700,9 +1701,9 @@ public class CubeSqlParser extends Parser {
                 case 2 :
                     // D:\\workspace\\Master\\src\\CubeSql.g:124:9: name1= NAME name2= NAME
                     {
-                    name1=(Token)match(input,NAME,FOLLOW_NAME_in_table717); 
+                    name1=(Token)match(input,NAME,FOLLOW_NAME_in_table739); 
 
-                    name2=(Token)match(input,NAME,FOLLOW_NAME_in_table721); 
+                    name2=(Token)match(input,NAME,FOLLOW_NAME_in_table743); 
 
                     tablelst.add((name1!=null?name1.getText():null)+"~"+(name2!=null?name2.getText():null));
 
@@ -1711,9 +1712,9 @@ public class CubeSqlParser extends Parser {
                 case 3 :
                     // D:\\workspace\\Master\\src\\CubeSql.g:125:9: NAME
                     {
-                    NAME11=(Token)match(input,NAME,FOLLOW_NAME_in_table733); 
+                    NAME11=(Token)match(input,NAME,FOLLOW_NAME_in_table755); 
 
-                    tablelst.add((NAME11!=null?NAME11.getText():null)+"~"+(NAME11!=null?NAME11.getText():null));
+                    tablelst.add((NAME11!=null?NAME11.getText():null));
 
                     }
                     break;
@@ -1759,11 +1760,11 @@ public class CubeSqlParser extends Parser {
                 case 1 :
                     // D:\\workspace\\Master\\src\\CubeSql.g:127:19: WHERE cond_statement ( boolean_expr cond_statement )*
                     {
-                    match(input,WHERE,FOLLOW_WHERE_in_where_statement743); 
+                    match(input,WHERE,FOLLOW_WHERE_in_where_statement765); 
 
                     tmp_con="";
 
-                    pushFollow(FOLLOW_cond_statement_in_where_statement747);
+                    pushFollow(FOLLOW_cond_statement_in_where_statement769);
                     cond_statement();
 
                     state._fsp--;
@@ -1786,7 +1787,7 @@ public class CubeSqlParser extends Parser {
                     	case 1 :
                     	    // D:\\workspace\\Master\\src\\CubeSql.g:127:84: boolean_expr cond_statement
                     	    {
-                    	    pushFollow(FOLLOW_boolean_expr_in_where_statement752);
+                    	    pushFollow(FOLLOW_boolean_expr_in_where_statement774);
                     	    boolean_expr();
 
                     	    state._fsp--;
@@ -1794,7 +1795,7 @@ public class CubeSqlParser extends Parser {
 
                     	    tmp_con="";
 
-                    	    pushFollow(FOLLOW_cond_statement_in_where_statement756);
+                    	    pushFollow(FOLLOW_cond_statement_in_where_statement778);
                     	    cond_statement();
 
                     	    state._fsp--;
@@ -1836,11 +1837,11 @@ public class CubeSqlParser extends Parser {
 
 
     // $ANTLR start "cond_statement"
-    // D:\\workspace\\Master\\src\\CubeSql.g:129:1: cond_statement : ( sqlfield operator sqlfield | sqlfield operator quote_statement Letter quote_statement | sqlfield operator quote_statement Digit Letter '\"' | sqlfield operator Digit );
+    // D:\\workspace\\Master\\src\\CubeSql.g:129:1: cond_statement : ( sqlfield operator sqlfield | sqlfield operator quote_statement NAME quote_statement | sqlfield operator quote_statement ( Digit )+ NAME quote_statement | sqlfield operator ( Digit )+ | sqlfield operator quote_statement quote_statement );
     public final void cond_statement() throws RecognitionException {
-        Token Letter14=null;
+        Token NAME14=null;
         Token Digit16=null;
-        Token Letter17=null;
+        Token NAME17=null;
         Token Digit19=null;
         CubeSqlParser.operator_return operator12 =null;
 
@@ -1850,55 +1851,68 @@ public class CubeSqlParser extends Parser {
 
         CubeSqlParser.operator_return operator18 =null;
 
+        CubeSqlParser.operator_return operator20 =null;
+
 
         try {
-            // D:\\workspace\\Master\\src\\CubeSql.g:129:16: ( sqlfield operator sqlfield | sqlfield operator quote_statement Letter quote_statement | sqlfield operator quote_statement Digit Letter '\"' | sqlfield operator Digit )
-            int alt17=4;
-            int LA17_0 = input.LA(1);
+            // D:\\workspace\\Master\\src\\CubeSql.g:129:16: ( sqlfield operator sqlfield | sqlfield operator quote_statement NAME quote_statement | sqlfield operator quote_statement ( Digit )+ NAME quote_statement | sqlfield operator ( Digit )+ | sqlfield operator quote_statement quote_statement )
+            int alt19=5;
+            int LA19_0 = input.LA(1);
 
-            if ( (LA17_0==NAME) ) {
-                int LA17_1 = input.LA(2);
+            if ( (LA19_0==NAME) ) {
+                int LA19_1 = input.LA(2);
 
-                if ( (LA17_1==DOT) ) {
-                    int LA17_2 = input.LA(3);
+                if ( (LA19_1==DOT) ) {
+                    int LA19_2 = input.LA(3);
 
-                    if ( (LA17_2==NAME) ) {
-                        int LA17_4 = input.LA(4);
+                    if ( (LA19_2==NAME) ) {
+                        int LA19_4 = input.LA(4);
 
-                        if ( (LA17_4==CHILDOF||(LA17_4 >= 69 && LA17_4 <= 73)) ) {
+                        if ( (LA19_4==CHILDOF||(LA19_4 >= 69 && LA19_4 <= 73)) ) {
                             switch ( input.LA(5) ) {
                             case NAME:
                                 {
-                                alt17=1;
+                                alt19=1;
                                 }
                                 break;
                             case 66:
+                            case 74:
                                 {
-                                int LA17_6 = input.LA(6);
-
-                                if ( (LA17_6==Letter) ) {
-                                    alt17=2;
-                                }
-                                else if ( (LA17_6==Digit) ) {
-                                    alt17=3;
-                                }
-                                else {
+                                switch ( input.LA(6) ) {
+                                case NAME:
+                                    {
+                                    alt19=2;
+                                    }
+                                    break;
+                                case Digit:
+                                    {
+                                    alt19=3;
+                                    }
+                                    break;
+                                case 66:
+                                case 74:
+                                    {
+                                    alt19=5;
+                                    }
+                                    break;
+                                default:
                                     NoViableAltException nvae =
-                                        new NoViableAltException("", 17, 6, input);
+                                        new NoViableAltException("", 19, 6, input);
 
                                     throw nvae;
 
                                 }
+
                                 }
                                 break;
                             case Digit:
                                 {
-                                alt17=4;
+                                alt19=4;
                                 }
                                 break;
                             default:
                                 NoViableAltException nvae =
-                                    new NoViableAltException("", 17, 3, input);
+                                    new NoViableAltException("", 19, 3, input);
 
                                 throw nvae;
 
@@ -1907,7 +1921,7 @@ public class CubeSqlParser extends Parser {
                         }
                         else {
                             NoViableAltException nvae =
-                                new NoViableAltException("", 17, 4, input);
+                                new NoViableAltException("", 19, 4, input);
 
                             throw nvae;
 
@@ -1915,46 +1929,57 @@ public class CubeSqlParser extends Parser {
                     }
                     else {
                         NoViableAltException nvae =
-                            new NoViableAltException("", 17, 2, input);
+                            new NoViableAltException("", 19, 2, input);
 
                         throw nvae;
 
                     }
                 }
-                else if ( (LA17_1==CHILDOF||(LA17_1 >= 69 && LA17_1 <= 73)) ) {
+                else if ( (LA19_1==CHILDOF||(LA19_1 >= 69 && LA19_1 <= 73)) ) {
                     switch ( input.LA(3) ) {
                     case NAME:
                         {
-                        alt17=1;
+                        alt19=1;
                         }
                         break;
                     case 66:
+                    case 74:
                         {
-                        int LA17_6 = input.LA(4);
-
-                        if ( (LA17_6==Letter) ) {
-                            alt17=2;
-                        }
-                        else if ( (LA17_6==Digit) ) {
-                            alt17=3;
-                        }
-                        else {
+                        switch ( input.LA(4) ) {
+                        case NAME:
+                            {
+                            alt19=2;
+                            }
+                            break;
+                        case Digit:
+                            {
+                            alt19=3;
+                            }
+                            break;
+                        case 66:
+                        case 74:
+                            {
+                            alt19=5;
+                            }
+                            break;
+                        default:
                             NoViableAltException nvae =
-                                new NoViableAltException("", 17, 6, input);
+                                new NoViableAltException("", 19, 6, input);
 
                             throw nvae;
 
                         }
+
                         }
                         break;
                     case Digit:
                         {
-                        alt17=4;
+                        alt19=4;
                         }
                         break;
                     default:
                         NoViableAltException nvae =
-                            new NoViableAltException("", 17, 3, input);
+                            new NoViableAltException("", 19, 3, input);
 
                         throw nvae;
 
@@ -1963,7 +1988,7 @@ public class CubeSqlParser extends Parser {
                 }
                 else {
                     NoViableAltException nvae =
-                        new NoViableAltException("", 17, 1, input);
+                        new NoViableAltException("", 19, 1, input);
 
                     throw nvae;
 
@@ -1971,22 +1996,22 @@ public class CubeSqlParser extends Parser {
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 17, 0, input);
+                    new NoViableAltException("", 19, 0, input);
 
                 throw nvae;
 
             }
-            switch (alt17) {
+            switch (alt19) {
                 case 1 :
                     // D:\\workspace\\Master\\src\\CubeSql.g:129:18: sqlfield operator sqlfield
                     {
-                    pushFollow(FOLLOW_sqlfield_in_cond_statement788);
+                    pushFollow(FOLLOW_sqlfield_in_cond_statement810);
                     sqlfield();
 
                     state._fsp--;
 
 
-                    pushFollow(FOLLOW_operator_in_cond_statement790);
+                    pushFollow(FOLLOW_operator_in_cond_statement812);
                     operator12=operator();
 
                     state._fsp--;
@@ -1994,7 +2019,7 @@ public class CubeSqlParser extends Parser {
 
                     tmp_con+="~"+(operator12!=null?input.toString(operator12.start,operator12.stop):null)+"~";
 
-                    pushFollow(FOLLOW_sqlfield_in_cond_statement794);
+                    pushFollow(FOLLOW_sqlfield_in_cond_statement816);
                     sqlfield();
 
                     state._fsp--;
@@ -2003,15 +2028,15 @@ public class CubeSqlParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // D:\\workspace\\Master\\src\\CubeSql.g:130:19: sqlfield operator quote_statement Letter quote_statement
+                    // D:\\workspace\\Master\\src\\CubeSql.g:130:19: sqlfield operator quote_statement NAME quote_statement
                     {
-                    pushFollow(FOLLOW_sqlfield_in_cond_statement815);
+                    pushFollow(FOLLOW_sqlfield_in_cond_statement837);
                     sqlfield();
 
                     state._fsp--;
 
 
-                    pushFollow(FOLLOW_operator_in_cond_statement817);
+                    pushFollow(FOLLOW_operator_in_cond_statement839);
                     operator13=operator();
 
                     state._fsp--;
@@ -2019,34 +2044,34 @@ public class CubeSqlParser extends Parser {
 
                     tmp_con+="~"+(operator13!=null?input.toString(operator13.start,operator13.stop):null)+"~";
 
-                    pushFollow(FOLLOW_quote_statement_in_cond_statement822);
+                    pushFollow(FOLLOW_quote_statement_in_cond_statement844);
                     quote_statement();
 
                     state._fsp--;
 
 
-                    Letter14=(Token)match(input,Letter,FOLLOW_Letter_in_cond_statement824); 
+                    NAME14=(Token)match(input,NAME,FOLLOW_NAME_in_cond_statement846); 
 
-                    pushFollow(FOLLOW_quote_statement_in_cond_statement826);
+                    pushFollow(FOLLOW_quote_statement_in_cond_statement848);
                     quote_statement();
 
                     state._fsp--;
 
 
-                    tmp_con+=(Letter14!=null?Letter14.getText():null);
+                    tmp_con+="'"+(NAME14!=null?NAME14.getText():null)+"'";
 
                     }
                     break;
                 case 3 :
-                    // D:\\workspace\\Master\\src\\CubeSql.g:131:19: sqlfield operator quote_statement Digit Letter '\"'
+                    // D:\\workspace\\Master\\src\\CubeSql.g:131:19: sqlfield operator quote_statement ( Digit )+ NAME quote_statement
                     {
-                    pushFollow(FOLLOW_sqlfield_in_cond_statement848);
+                    pushFollow(FOLLOW_sqlfield_in_cond_statement870);
                     sqlfield();
 
                     state._fsp--;
 
 
-                    pushFollow(FOLLOW_operator_in_cond_statement850);
+                    pushFollow(FOLLOW_operator_in_cond_statement872);
                     operator15=operator();
 
                     state._fsp--;
@@ -2054,32 +2079,65 @@ public class CubeSqlParser extends Parser {
 
                     tmp_con+="~"+(operator15!=null?input.toString(operator15.start,operator15.stop):null)+"~";
 
-                    pushFollow(FOLLOW_quote_statement_in_cond_statement855);
+                    pushFollow(FOLLOW_quote_statement_in_cond_statement877);
                     quote_statement();
 
                     state._fsp--;
 
 
-                    Digit16=(Token)match(input,Digit,FOLLOW_Digit_in_cond_statement857); 
+                    // D:\\workspace\\Master\\src\\CubeSql.g:131:89: ( Digit )+
+                    int cnt17=0;
+                    loop17:
+                    do {
+                        int alt17=2;
+                        int LA17_0 = input.LA(1);
 
-                    Letter17=(Token)match(input,Letter,FOLLOW_Letter_in_cond_statement859); 
+                        if ( (LA17_0==Digit) ) {
+                            alt17=1;
+                        }
 
-                    match(input,66,FOLLOW_66_in_cond_statement861); 
 
-                    tmp_con+=(Digit16!=null?Digit16.getText():null)+(Letter17!=null?Letter17.getText():null);
+                        switch (alt17) {
+                    	case 1 :
+                    	    // D:\\workspace\\Master\\src\\CubeSql.g:131:90: Digit
+                    	    {
+                    	    Digit16=(Token)match(input,Digit,FOLLOW_Digit_in_cond_statement880); 
+
+                    	    }
+                    	    break;
+
+                    	default :
+                    	    if ( cnt17 >= 1 ) break loop17;
+                                EarlyExitException eee =
+                                    new EarlyExitException(17, input);
+                                throw eee;
+                        }
+                        cnt17++;
+                    } while (true);
+
+
+                    NAME17=(Token)match(input,NAME,FOLLOW_NAME_in_cond_statement884); 
+
+                    pushFollow(FOLLOW_quote_statement_in_cond_statement887);
+                    quote_statement();
+
+                    state._fsp--;
+
+
+                    tmp_con+="'"+(Digit16!=null?Digit16.getText():null)+(NAME17!=null?NAME17.getText():null)+"'";
 
                     }
                     break;
                 case 4 :
-                    // D:\\workspace\\Master\\src\\CubeSql.g:132:19: sqlfield operator Digit
+                    // D:\\workspace\\Master\\src\\CubeSql.g:132:19: sqlfield operator ( Digit )+
                     {
-                    pushFollow(FOLLOW_sqlfield_in_cond_statement883);
+                    pushFollow(FOLLOW_sqlfield_in_cond_statement909);
                     sqlfield();
 
                     state._fsp--;
 
 
-                    pushFollow(FOLLOW_operator_in_cond_statement885);
+                    pushFollow(FOLLOW_operator_in_cond_statement911);
                     operator18=operator();
 
                     state._fsp--;
@@ -2087,9 +2145,71 @@ public class CubeSqlParser extends Parser {
 
                     tmp_con+="~"+(operator18!=null?input.toString(operator18.start,operator18.stop):null)+"~";
 
-                    Digit19=(Token)match(input,Digit,FOLLOW_Digit_in_cond_statement889); 
+                    // D:\\workspace\\Master\\src\\CubeSql.g:132:72: ( Digit )+
+                    int cnt18=0;
+                    loop18:
+                    do {
+                        int alt18=2;
+                        int LA18_0 = input.LA(1);
+
+                        if ( (LA18_0==Digit) ) {
+                            alt18=1;
+                        }
+
+
+                        switch (alt18) {
+                    	case 1 :
+                    	    // D:\\workspace\\Master\\src\\CubeSql.g:132:73: Digit
+                    	    {
+                    	    Digit19=(Token)match(input,Digit,FOLLOW_Digit_in_cond_statement916); 
+
+                    	    }
+                    	    break;
+
+                    	default :
+                    	    if ( cnt18 >= 1 ) break loop18;
+                                EarlyExitException eee =
+                                    new EarlyExitException(18, input);
+                                throw eee;
+                        }
+                        cnt18++;
+                    } while (true);
+
 
                     tmp_con+=(Digit19!=null?Digit19.getText():null);
+
+                    }
+                    break;
+                case 5 :
+                    // D:\\workspace\\Master\\src\\CubeSql.g:133:19: sqlfield operator quote_statement quote_statement
+                    {
+                    pushFollow(FOLLOW_sqlfield_in_cond_statement940);
+                    sqlfield();
+
+                    state._fsp--;
+
+
+                    pushFollow(FOLLOW_operator_in_cond_statement942);
+                    operator20=operator();
+
+                    state._fsp--;
+
+
+                    tmp_con+="~"+(operator20!=null?input.toString(operator20.start,operator20.stop):null)+"~";
+
+                    pushFollow(FOLLOW_quote_statement_in_cond_statement947);
+                    quote_statement();
+
+                    state._fsp--;
+
+
+                    pushFollow(FOLLOW_quote_statement_in_cond_statement950);
+                    quote_statement();
+
+                    state._fsp--;
+
+
+                    tmp_con+="'"+"'";
 
                     }
                     break;
@@ -2111,10 +2231,10 @@ public class CubeSqlParser extends Parser {
 
 
     // $ANTLR start "boolean_expr"
-    // D:\\workspace\\Master\\src\\CubeSql.g:134:1: boolean_expr : ( OR | AND );
+    // D:\\workspace\\Master\\src\\CubeSql.g:136:1: boolean_expr : ( OR | AND );
     public final void boolean_expr() throws RecognitionException {
         try {
-            // D:\\workspace\\Master\\src\\CubeSql.g:134:14: ( OR | AND )
+            // D:\\workspace\\Master\\src\\CubeSql.g:136:14: ( OR | AND )
             // D:\\workspace\\Master\\src\\CubeSql.g:
             {
             if ( input.LA(1)==AND||input.LA(1)==OR ) {
@@ -2145,13 +2265,21 @@ public class CubeSqlParser extends Parser {
 
 
     // $ANTLR start "quote_statement"
-    // D:\\workspace\\Master\\src\\CubeSql.g:136:1: quote_statement : '\"' ;
+    // D:\\workspace\\Master\\src\\CubeSql.g:138:1: quote_statement : ( '\"' | '\\'' );
     public final void quote_statement() throws RecognitionException {
         try {
-            // D:\\workspace\\Master\\src\\CubeSql.g:136:16: ( '\"' )
-            // D:\\workspace\\Master\\src\\CubeSql.g:136:18: '\"'
+            // D:\\workspace\\Master\\src\\CubeSql.g:138:16: ( '\"' | '\\'' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:
             {
-            match(input,66,FOLLOW_66_in_quote_statement926); 
+            if ( input.LA(1)==66||input.LA(1)==74 ) {
+                input.consume();
+                state.errorRecovery=false;
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                throw mse;
+            }
+
 
             }
 
@@ -2174,14 +2302,14 @@ public class CubeSqlParser extends Parser {
 
 
     // $ANTLR start "operator"
-    // D:\\workspace\\Master\\src\\CubeSql.g:138:1: operator : ( '=' | '>=' | '<=' | '>' | '<' | 'LIKE' );
+    // D:\\workspace\\Master\\src\\CubeSql.g:140:1: operator : ( '=' | '>=' | '<=' | '>' | '<' | 'LIKE' );
     public final CubeSqlParser.operator_return operator() throws RecognitionException {
         CubeSqlParser.operator_return retval = new CubeSqlParser.operator_return();
         retval.start = input.LT(1);
 
 
         try {
-            // D:\\workspace\\Master\\src\\CubeSql.g:138:10: ( '=' | '>=' | '<=' | '>' | '<' | 'LIKE' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:140:10: ( '=' | '>=' | '<=' | '>' | '<' | 'LIKE' )
             // D:\\workspace\\Master\\src\\CubeSql.g:
             {
             if ( input.LA(1)==CHILDOF||(input.LA(1) >= 69 && input.LA(1) <= 73) ) {
@@ -2215,19 +2343,19 @@ public class CubeSqlParser extends Parser {
 
 
     // $ANTLR start "group_statement"
-    // D:\\workspace\\Master\\src\\CubeSql.g:145:1: group_statement : GROUP BY grouppers ;
+    // D:\\workspace\\Master\\src\\CubeSql.g:147:1: group_statement : GROUP BY grouppers ;
     public final void group_statement() throws RecognitionException {
         try {
-            // D:\\workspace\\Master\\src\\CubeSql.g:145:17: ( GROUP BY grouppers )
-            // D:\\workspace\\Master\\src\\CubeSql.g:145:19: GROUP BY grouppers
+            // D:\\workspace\\Master\\src\\CubeSql.g:147:17: ( GROUP BY grouppers )
+            // D:\\workspace\\Master\\src\\CubeSql.g:147:19: GROUP BY grouppers
             {
-            match(input,GROUP,FOLLOW_GROUP_in_group_statement1016); 
+            match(input,GROUP,FOLLOW_GROUP_in_group_statement1098); 
 
-            match(input,BY,FOLLOW_BY_in_group_statement1018); 
+            match(input,BY,FOLLOW_BY_in_group_statement1100); 
 
             group=true;
 
-            pushFollow(FOLLOW_grouppers_in_group_statement1022);
+            pushFollow(FOLLOW_grouppers_in_group_statement1104);
             grouppers();
 
             state._fsp--;
@@ -2253,15 +2381,15 @@ public class CubeSqlParser extends Parser {
 
 
     // $ANTLR start "grouppers"
-    // D:\\workspace\\Master\\src\\CubeSql.g:147:1: grouppers : sqlfield ( comma_statement sqlfield ) ;
+    // D:\\workspace\\Master\\src\\CubeSql.g:149:1: grouppers : sqlfield ( comma_statement sqlfield ) ;
     public final void grouppers() throws RecognitionException {
         try {
-            // D:\\workspace\\Master\\src\\CubeSql.g:147:11: ( sqlfield ( comma_statement sqlfield ) )
-            // D:\\workspace\\Master\\src\\CubeSql.g:147:13: sqlfield ( comma_statement sqlfield )
+            // D:\\workspace\\Master\\src\\CubeSql.g:149:11: ( sqlfield ( comma_statement sqlfield ) )
+            // D:\\workspace\\Master\\src\\CubeSql.g:149:13: sqlfield ( comma_statement sqlfield )
             {
             tmp_con="";
 
-            pushFollow(FOLLOW_sqlfield_in_grouppers1034);
+            pushFollow(FOLLOW_sqlfield_in_grouppers1116);
             sqlfield();
 
             state._fsp--;
@@ -2269,10 +2397,10 @@ public class CubeSqlParser extends Parser {
 
             if(group){ groupperlst.add(tmp_con);}
 
-            // D:\\workspace\\Master\\src\\CubeSql.g:147:76: ( comma_statement sqlfield )
-            // D:\\workspace\\Master\\src\\CubeSql.g:147:77: comma_statement sqlfield
+            // D:\\workspace\\Master\\src\\CubeSql.g:149:76: ( comma_statement sqlfield )
+            // D:\\workspace\\Master\\src\\CubeSql.g:149:77: comma_statement sqlfield
             {
-            pushFollow(FOLLOW_comma_statement_in_grouppers1039);
+            pushFollow(FOLLOW_comma_statement_in_grouppers1121);
             comma_statement();
 
             state._fsp--;
@@ -2280,7 +2408,7 @@ public class CubeSqlParser extends Parser {
 
             tmp_con="";
 
-            pushFollow(FOLLOW_sqlfield_in_grouppers1043);
+            pushFollow(FOLLOW_sqlfield_in_grouppers1125);
             sqlfield();
 
             state._fsp--;
@@ -2311,118 +2439,121 @@ public class CubeSqlParser extends Parser {
 
  
 
-    public static final BitSet FOLLOW_parse_in_start109 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_creation_statement_in_parse134 = new BitSet(new long[]{0x0000000000008002L});
-    public static final BitSet FOLLOW_sql_query_in_parse150 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_creation_in_creation_statement162 = new BitSet(new long[]{0x0000800000000000L});
-    public static final BitSet FOLLOW_QUESTMARK_in_creation_statement164 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_creation_cube_in_creation171 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_creation_dimension_in_creation175 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_create_statement_in_creation_cube184 = new BitSet(new long[]{0x0008000000000000L});
-    public static final BitSet FOLLOW_related_statement_in_creation_cube186 = new BitSet(new long[]{0x0004000000000000L});
-    public static final BitSet FOLLOW_referdimension_statement_in_creation_cube188 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_create_statement_in_creation_dimension196 = new BitSet(new long[]{0x0008000000000000L});
-    public static final BitSet FOLLOW_related_statement_in_creation_dimension198 = new BitSet(new long[]{0x0000000800000000L});
-    public static final BitSet FOLLOW_level_statement_in_creation_dimension200 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_hierarchy_statement_in_creation_dimension202 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_CREATE_in_create_statement209 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_CUBE_in_create_statement211 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_NAME_in_create_statement215 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_CREATE_in_create_statement258 = new BitSet(new long[]{0x0000000000040000L});
-    public static final BitSet FOLLOW_DIMENSION_in_create_statement260 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_NAME_in_create_statement264 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RELATED_in_related_statement274 = new BitSet(new long[]{0x0040000000000000L});
-    public static final BitSet FOLLOW_SQL_TABLE_in_related_statement276 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_NAME_in_related_statement278 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_REFERENCES_in_referdimension_statement289 = new BitSet(new long[]{0x0000000000040000L});
-    public static final BitSet FOLLOW_DIMENSION_in_referdimension_statement291 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_dimensions_in_referdimension_statement293 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LIST_in_level_statement300 = new BitSet(new long[]{0x0000080000000000L});
-    public static final BitSet FOLLOW_OF_in_level_statement302 = new BitSet(new long[]{0x0000000400000000L});
-    public static final BitSet FOLLOW_LEVEL_in_level_statement304 = new BitSet(new long[]{0x0000000200000000L});
-    public static final BitSet FOLLOW_LBRACE_in_level_statement306 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_levels_in_level_statement308 = new BitSet(new long[]{0x0002000000000000L});
-    public static final BitSet FOLLOW_RBRACE_in_level_statement310 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_HIERARCHY_in_hierarchy_statement319 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_hierarchy_in_hierarchy_statement321 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_dimension_in_dimensions329 = new BitSet(new long[]{0x4000000000002002L});
-    public static final BitSet FOLLOW_comma_statement_in_dimensions333 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_dimension_in_dimensions335 = new BitSet(new long[]{0x4000000000002002L});
-    public static final BitSet FOLLOW_NAME_in_dimension346 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_AT_in_dimension350 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_sqlfield_in_dimension352 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_level_in_levels359 = new BitSet(new long[]{0x4000000000002002L});
-    public static final BitSet FOLLOW_comma_statement_in_levels362 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_level_in_levels364 = new BitSet(new long[]{0x4000000000002002L});
-    public static final BitSet FOLLOW_WS_in_comma_statement373 = new BitSet(new long[]{0x4000000000002000L});
-    public static final BitSet FOLLOW_COMMA_in_comma_statement376 = new BitSet(new long[]{0x4000000000000002L});
-    public static final BitSet FOLLOW_WS_in_comma_statement378 = new BitSet(new long[]{0x4000000000000002L});
-    public static final BitSet FOLLOW_sqlfield_in_level388 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_AS_in_level390 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_NAME_in_level394 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_sqlfield_in_level408 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NAME_in_hierarchy418 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_CHILDOF_in_hierarchy423 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_NAME_in_hierarchy427 = new BitSet(new long[]{0x0000000000001002L});
-    public static final BitSet FOLLOW_NAME_in_sqlfield442 = new BitSet(new long[]{0x0000000000100000L});
-    public static final BitSet FOLLOW_DOT_in_sqlfield444 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_NAME_in_sqlfield448 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NAME_in_sqlfield462 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_select_statement_in_sql_query480 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_from_statement_in_sql_query494 = new BitSet(new long[]{0x2000000004000000L});
-    public static final BitSet FOLLOW_where_statement_in_sql_query507 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_group_statement_in_sql_query520 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_SELECT_in_select_statement538 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_grouppers_in_select_statement540 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_COMMA_in_select_statement542 = new BitSet(new long[]{0x008000C000004100L});
-    public static final BitSet FOLLOW_aggregate_statement_in_select_statement544 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_aggregate_func_in_aggregate_statement554 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000008L});
-    public static final BitSet FOLLOW_67_in_aggregate_statement556 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_sqlfield_in_aggregate_statement558 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
-    public static final BitSet FOLLOW_68_in_aggregate_statement560 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_SUM_in_aggregate_func570 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_AVG_in_aggregate_func592 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_COUNT_in_aggregate_func615 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_MAX_in_aggregate_func637 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_MIN_in_aggregate_func659 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_FROM_in_from_statement669 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_tables_in_from_statement671 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_table_in_tables679 = new BitSet(new long[]{0x0000000000002002L});
-    public static final BitSet FOLLOW_COMMA_in_tables682 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_table_in_tables684 = new BitSet(new long[]{0x0000000000002002L});
-    public static final BitSet FOLLOW_NAME_in_table696 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_AS_in_table698 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_NAME_in_table702 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NAME_in_table717 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_NAME_in_table721 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NAME_in_table733 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_WHERE_in_where_statement743 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_cond_statement_in_where_statement747 = new BitSet(new long[]{0x0000100000000022L});
-    public static final BitSet FOLLOW_boolean_expr_in_where_statement752 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_cond_statement_in_where_statement756 = new BitSet(new long[]{0x0000100000000022L});
-    public static final BitSet FOLLOW_sqlfield_in_cond_statement788 = new BitSet(new long[]{0x0000000000001000L,0x00000000000003E0L});
-    public static final BitSet FOLLOW_operator_in_cond_statement790 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_sqlfield_in_cond_statement794 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_sqlfield_in_cond_statement815 = new BitSet(new long[]{0x0000000000001000L,0x00000000000003E0L});
-    public static final BitSet FOLLOW_operator_in_cond_statement817 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000004L});
-    public static final BitSet FOLLOW_quote_statement_in_cond_statement822 = new BitSet(new long[]{0x0000001000000000L});
-    public static final BitSet FOLLOW_Letter_in_cond_statement824 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000004L});
-    public static final BitSet FOLLOW_quote_statement_in_cond_statement826 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_sqlfield_in_cond_statement848 = new BitSet(new long[]{0x0000000000001000L,0x00000000000003E0L});
-    public static final BitSet FOLLOW_operator_in_cond_statement850 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000004L});
-    public static final BitSet FOLLOW_quote_statement_in_cond_statement855 = new BitSet(new long[]{0x0000000000200000L});
-    public static final BitSet FOLLOW_Digit_in_cond_statement857 = new BitSet(new long[]{0x0000001000000000L});
-    public static final BitSet FOLLOW_Letter_in_cond_statement859 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000004L});
-    public static final BitSet FOLLOW_66_in_cond_statement861 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_sqlfield_in_cond_statement883 = new BitSet(new long[]{0x0000000000001000L,0x00000000000003E0L});
-    public static final BitSet FOLLOW_operator_in_cond_statement885 = new BitSet(new long[]{0x0000000000200000L});
-    public static final BitSet FOLLOW_Digit_in_cond_statement889 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_66_in_quote_statement926 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_GROUP_in_group_statement1016 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_BY_in_group_statement1018 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_grouppers_in_group_statement1022 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_sqlfield_in_grouppers1034 = new BitSet(new long[]{0x4000000000002000L});
-    public static final BitSet FOLLOW_comma_statement_in_grouppers1039 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_sqlfield_in_grouppers1043 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_parse_in_start131 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_creation_statement_in_parse156 = new BitSet(new long[]{0x0000000000008002L});
+    public static final BitSet FOLLOW_sql_query_in_parse172 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_creation_in_creation_statement184 = new BitSet(new long[]{0x0000800000000000L});
+    public static final BitSet FOLLOW_QUESTMARK_in_creation_statement186 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_creation_cube_in_creation193 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_creation_dimension_in_creation197 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_create_statement_in_creation_cube206 = new BitSet(new long[]{0x0008000000000000L});
+    public static final BitSet FOLLOW_related_statement_in_creation_cube208 = new BitSet(new long[]{0x0004000000000000L});
+    public static final BitSet FOLLOW_referdimension_statement_in_creation_cube210 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_create_statement_in_creation_dimension218 = new BitSet(new long[]{0x0008000000000000L});
+    public static final BitSet FOLLOW_related_statement_in_creation_dimension220 = new BitSet(new long[]{0x0000000800000000L});
+    public static final BitSet FOLLOW_level_statement_in_creation_dimension222 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_hierarchy_statement_in_creation_dimension224 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_CREATE_in_create_statement231 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_CUBE_in_create_statement233 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_NAME_in_create_statement237 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_CREATE_in_create_statement280 = new BitSet(new long[]{0x0000000000040000L});
+    public static final BitSet FOLLOW_DIMENSION_in_create_statement282 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_NAME_in_create_statement286 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RELATED_in_related_statement296 = new BitSet(new long[]{0x0040000000000000L});
+    public static final BitSet FOLLOW_SQL_TABLE_in_related_statement298 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_NAME_in_related_statement300 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_REFERENCES_in_referdimension_statement311 = new BitSet(new long[]{0x0000000000040000L});
+    public static final BitSet FOLLOW_DIMENSION_in_referdimension_statement313 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_dimensions_in_referdimension_statement315 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LIST_in_level_statement322 = new BitSet(new long[]{0x0000080000000000L});
+    public static final BitSet FOLLOW_OF_in_level_statement324 = new BitSet(new long[]{0x0000000400000000L});
+    public static final BitSet FOLLOW_LEVEL_in_level_statement326 = new BitSet(new long[]{0x0000000200000000L});
+    public static final BitSet FOLLOW_LBRACE_in_level_statement328 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_levels_in_level_statement330 = new BitSet(new long[]{0x0002000000000000L});
+    public static final BitSet FOLLOW_RBRACE_in_level_statement332 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_HIERARCHY_in_hierarchy_statement341 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_hierarchy_in_hierarchy_statement343 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_dimension_in_dimensions351 = new BitSet(new long[]{0x4000000000002002L});
+    public static final BitSet FOLLOW_comma_statement_in_dimensions355 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_dimension_in_dimensions357 = new BitSet(new long[]{0x4000000000002002L});
+    public static final BitSet FOLLOW_NAME_in_dimension368 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_AT_in_dimension372 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_sqlfield_in_dimension374 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_level_in_levels381 = new BitSet(new long[]{0x4000000000002002L});
+    public static final BitSet FOLLOW_comma_statement_in_levels384 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_level_in_levels386 = new BitSet(new long[]{0x4000000000002002L});
+    public static final BitSet FOLLOW_WS_in_comma_statement395 = new BitSet(new long[]{0x4000000000002000L});
+    public static final BitSet FOLLOW_COMMA_in_comma_statement398 = new BitSet(new long[]{0x4000000000000002L});
+    public static final BitSet FOLLOW_WS_in_comma_statement400 = new BitSet(new long[]{0x4000000000000002L});
+    public static final BitSet FOLLOW_sqlfield_in_level410 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_AS_in_level412 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_NAME_in_level416 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_sqlfield_in_level430 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NAME_in_hierarchy440 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_CHILDOF_in_hierarchy445 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_NAME_in_hierarchy449 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_NAME_in_sqlfield464 = new BitSet(new long[]{0x0000000000100000L});
+    public static final BitSet FOLLOW_DOT_in_sqlfield466 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_NAME_in_sqlfield470 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NAME_in_sqlfield484 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_select_statement_in_sql_query502 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_from_statement_in_sql_query516 = new BitSet(new long[]{0x2000000004000000L});
+    public static final BitSet FOLLOW_where_statement_in_sql_query529 = new BitSet(new long[]{0x0000000004000000L});
+    public static final BitSet FOLLOW_group_statement_in_sql_query542 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_SELECT_in_select_statement560 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_grouppers_in_select_statement562 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_COMMA_in_select_statement564 = new BitSet(new long[]{0x008000C000004100L});
+    public static final BitSet FOLLOW_aggregate_statement_in_select_statement566 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_aggregate_func_in_aggregate_statement576 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000008L});
+    public static final BitSet FOLLOW_67_in_aggregate_statement578 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_sqlfield_in_aggregate_statement580 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
+    public static final BitSet FOLLOW_68_in_aggregate_statement582 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_SUM_in_aggregate_func592 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_AVG_in_aggregate_func614 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_COUNT_in_aggregate_func637 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_MAX_in_aggregate_func659 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_MIN_in_aggregate_func681 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_FROM_in_from_statement691 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_tables_in_from_statement693 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_table_in_tables701 = new BitSet(new long[]{0x0000000000002002L});
+    public static final BitSet FOLLOW_COMMA_in_tables704 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_table_in_tables706 = new BitSet(new long[]{0x0000000000002002L});
+    public static final BitSet FOLLOW_NAME_in_table718 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_AS_in_table720 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_NAME_in_table724 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NAME_in_table739 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_NAME_in_table743 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NAME_in_table755 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_WHERE_in_where_statement765 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_cond_statement_in_where_statement769 = new BitSet(new long[]{0x0000100000000022L});
+    public static final BitSet FOLLOW_boolean_expr_in_where_statement774 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_cond_statement_in_where_statement778 = new BitSet(new long[]{0x0000100000000022L});
+    public static final BitSet FOLLOW_sqlfield_in_cond_statement810 = new BitSet(new long[]{0x0000000000001000L,0x00000000000003E0L});
+    public static final BitSet FOLLOW_operator_in_cond_statement812 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_sqlfield_in_cond_statement816 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_sqlfield_in_cond_statement837 = new BitSet(new long[]{0x0000000000001000L,0x00000000000003E0L});
+    public static final BitSet FOLLOW_operator_in_cond_statement839 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000404L});
+    public static final BitSet FOLLOW_quote_statement_in_cond_statement844 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_NAME_in_cond_statement846 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000404L});
+    public static final BitSet FOLLOW_quote_statement_in_cond_statement848 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_sqlfield_in_cond_statement870 = new BitSet(new long[]{0x0000000000001000L,0x00000000000003E0L});
+    public static final BitSet FOLLOW_operator_in_cond_statement872 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000404L});
+    public static final BitSet FOLLOW_quote_statement_in_cond_statement877 = new BitSet(new long[]{0x0000000000200000L});
+    public static final BitSet FOLLOW_Digit_in_cond_statement880 = new BitSet(new long[]{0x0000020000200000L});
+    public static final BitSet FOLLOW_NAME_in_cond_statement884 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000404L});
+    public static final BitSet FOLLOW_quote_statement_in_cond_statement887 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_sqlfield_in_cond_statement909 = new BitSet(new long[]{0x0000000000001000L,0x00000000000003E0L});
+    public static final BitSet FOLLOW_operator_in_cond_statement911 = new BitSet(new long[]{0x0000000000200000L});
+    public static final BitSet FOLLOW_Digit_in_cond_statement916 = new BitSet(new long[]{0x0000000000200002L});
+    public static final BitSet FOLLOW_sqlfield_in_cond_statement940 = new BitSet(new long[]{0x0000000000001000L,0x00000000000003E0L});
+    public static final BitSet FOLLOW_operator_in_cond_statement942 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000404L});
+    public static final BitSet FOLLOW_quote_statement_in_cond_statement947 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000404L});
+    public static final BitSet FOLLOW_quote_statement_in_cond_statement950 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_GROUP_in_group_statement1098 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_BY_in_group_statement1100 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_grouppers_in_group_statement1104 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_sqlfield_in_grouppers1116 = new BitSet(new long[]{0x4000000000002000L});
+    public static final BitSet FOLLOW_comma_statement_in_grouppers1121 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_sqlfield_in_grouppers1125 = new BitSet(new long[]{0x0000000000000002L});
 
 }

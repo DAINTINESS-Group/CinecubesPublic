@@ -9,6 +9,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class Database {
     public void registerDatabase(){
         try{
             Class.forName(DBMS);
-            setConnect(DriverManager.getConnection(ConnectionString,Username,Password));
+            setConnection(DriverManager.getConnection(ConnectionString,Username,Password));
         } catch (SQLException | ClassNotFoundException ex) {
         	(new ErrorClass()).printErrorMessage(ex.getMessage());
         }
@@ -79,11 +80,11 @@ public class Database {
 		ConnectionString = connectionString;
 	}
 
-	public Connection getConnect() {
+	public Connection getConnection() {
 		return connect;
 	}
 
-	public void setConnect(Connection connect) {
+	public void setConnection(Connection connect) {
 		this.connect = connect;
 	}
 
@@ -135,4 +136,19 @@ public class Database {
 		return this.getDBTableInstance(table).getAttribute(field);
 		
 	}
+	
+	public ResultSet executeSql(String query){
+		ResultSet res = null;
+		try {
+			Statement createStatement = connect.createStatement();
+			res = createStatement.executeQuery(query);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return res;
+	}
+	
+	
 }

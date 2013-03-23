@@ -14,9 +14,30 @@ import TextMgr.Text;
  * @author Asterix
  */
 public abstract class Episode {
-    public SubTask TSK;
-    public KeyFinding KeyFind;
-    public Visual VS;
-    public Audio Aud;
-    public Text Txt;
+    protected SubTask subTask;
+    protected KeyFinding keyFinding;
+    protected Visual visual;
+    protected Audio audio;
+    protected Text txt;
+    
+    public Episode(){
+    	setSubTask(new SubTask());
+    	keyFinding=new KeyFinding();
+    	audio=new Audio();
+    	txt=new Text();
+    }
+
+	/**
+	 * @return the subTask
+	 */
+	abstract public SubTask getSubTask();
+
+	/**
+	 * @param subtask the subTask to set
+	 */
+	abstract public void setSubTask(SubTask subtask);
+	
+	abstract public void createVisual(Visual vis);
+
+
 }

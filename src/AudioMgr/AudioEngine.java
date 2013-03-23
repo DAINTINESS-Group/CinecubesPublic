@@ -11,9 +11,10 @@ package AudioMgr;
 public abstract class AudioEngine {
     
        
-    AudioEngine(){};
+	public AudioEngine(){};
     
-    abstract void InitializeVoiceEngine();
-    abstract void CreateSound(String textTobeSound,String FileNameOfSound);
+    abstract public void InitializeVoiceEngine();
+    abstract public void CreateSound(String textTobeSound,String FileNameOfSound);
+    abstract public String randomIdentifier();
     
 }

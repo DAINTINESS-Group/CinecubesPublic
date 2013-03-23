@@ -8,7 +8,7 @@ tokens{
   CREATE;CUBE;RELATED;SQL_TABLE;REFERENCES;DIMENSION;
   DIMENSION_TABLE;LIST;OF;LEVEL;AS;HIERARCHY;NAME;
   LBRACE;RBRACE;DOT;COMMA;CHILDOF;QUESTMARK;UNDERSCORE;WS;AT;
-  SELECT;
+  SELECT;OR;AND;WHERE;AS;GROUP;BY;MIN;MAX;COUNT;SUM;AVG;
 }
 
 @header{
@@ -122,18 +122,20 @@ tables : table (COMMA table)*;
 
 table : name1=NAME AS name2=NAME  {tablelst.add($name1.text+"~"+$name2.text);}
       | name1=NAME name2=NAME {tablelst.add($name1.text+"~"+$name2.text);}
-      | NAME {tablelst.add($NAME.text+"~"+$NAME.text);};
+      | NAME {tablelst.add($NAME.text);};
 
 where_statement : WHERE {tmp_con="";} cond_statement {conditionlst.add(tmp_con);} (boolean_expr {tmp_con="";} cond_statement {conditionlst.add(tmp_con);})*
                   | ;
 cond_statement : sqlfield operator {tmp_con+="~"+$operator.text+"~";} sqlfield 
-                | sqlfield operator {tmp_con+="~"+$operator.text+"~";}  quote_statement Letter quote_statement {tmp_con+=$Letter.text;}
-                | sqlfield operator {tmp_con+="~"+$operator.text+"~";}  quote_statement Digit Letter '"' {tmp_con+=$Digit.text+$Letter.text;}
-                | sqlfield operator {tmp_con+="~"+$operator.text+"~";} Digit {tmp_con+=$Digit.text;};
+                | sqlfield operator {tmp_con+="~"+$operator.text+"~";}  quote_statement NAME quote_statement {tmp_con+="'"+$NAME.text+"'";}
+                | sqlfield operator {tmp_con+="~"+$operator.text+"~";}  quote_statement (Digit)+ NAME  quote_statement {tmp_con+="'"+$Digit.text+$NAME.text+"'";}
+                | sqlfield operator {tmp_con+="~"+$operator.text+"~";} (Digit)+ {tmp_con+=$Digit.text;}
+                | sqlfield operator {tmp_con+="~"+$operator.text+"~";}  quote_statement  quote_statement {tmp_con+="'"+"'";};
+                
                 
 boolean_expr : OR | AND;
 
-quote_statement: '"' ;
+quote_statement: '"' | '\'' ;
 
 operator : '=' 
           | '>=' 
@@ -146,55 +148,55 @@ group_statement : GROUP BY {group=true;} grouppers {group=false;};
 
 grouppers : {tmp_con="";} sqlfield {if(group){ groupperlst.add(tmp_con);}} (comma_statement {tmp_con="";} sqlfield {if(group)groupperlst.add(tmp_con);} );
 
-OR : 'OR' | O R;
+OR : O R;
 
-AND : 'AND' | A N D;
+AND : A N D;
 
-CREATE: 'CREATE' | C R E A T E;
+CREATE: C R E A T E;
 
-CUBE :  'CUBE' | C U B E ;
+CUBE :  C U B E ;
 
-RELATED : 'RELATED' | R E L A T E D;
+RELATED : R E L A T E D;
 
-SQL_TABLE: 'SQL_TABLE' | S Q L UNDERSCORE T A B L E ;
+SQL_TABLE: S Q L UNDERSCORE T A B L E ;
 
-REFERENCES: 'REFERENCES' | R E F E R E N C E S;
+REFERENCES: R E F E R E N C E S;
 
-DIMENSION : 'DIMENSION' | D I M E N S I O N ;
+DIMENSION : D I M E N S I O N ;
 
-DIMENSION_TABLE: 'DIMENSION_TABLE' | D I M E N S I O N UNDERSCORE T A B L E;
+DIMENSION_TABLE: D I M E N S I O N UNDERSCORE T A B L E;
 
-LIST: 'LIST' | L I S T;
+LIST: L I S T;
 
-OF:'OF' | O F;
+OF: O F;
 
-LEVEL:'LEVEL' | L E V E L ;
+LEVEL:L E V E L ;
 
-AS: 'AS' | A S;
+AS: A S;
 
-AT : 'AT' | A T;
+AT :A T;
 
-HIERARCHY: 'HIERARCHY' | H I E R A R C H Y;
+HIERARCHY: H I E R A R C H Y;
 
-SELECT : 'SELECT' | S E L E C T;
+SELECT : S E L E C T;
 
-AVG : 'AVG' | A V G;
+AVG : A V G;
 
-SUM : 'SUM' | S U M;
+SUM : S U M;
 
-MAX : 'MAX' | M A X;
+MAX : M A X;
 
-MIN : 'MIN' | M I N;
+MIN : M I N;
 
-COUNT : 'COUNT' | C O U N T;
+COUNT : C O U N T;
 
-WHERE : 'WHERE' | W H E R E;
+WHERE : W H E R E;
 
-FROM : 'FROM' | F R O M;
+FROM : F R O M;
 
-GROUP : 'GROUP' | G R O U P;
+GROUP : G R O U P;
 
-BY: 'BY' | B Y;
+BY: B Y;
 
 NAME: Letter (Letter | Digit | '_'  | '-' )*;
 
