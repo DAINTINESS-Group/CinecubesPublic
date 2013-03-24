@@ -5,6 +5,7 @@
 package TaskMgr;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import CubeMgr.StarSchema.Database;
 
@@ -22,6 +23,6 @@ public abstract class ExtractionMethod {
     abstract public void setResult(ResultSet resultSet);
     abstract public Result getResult();
     abstract public String returnQuery();
-    abstract public void findBrothers(Database db) ;
+    abstract public ArrayList<ArrayList<String>> findBrothers(Database db) ;
     
 }

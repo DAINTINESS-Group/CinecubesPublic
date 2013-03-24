@@ -128,7 +128,7 @@ public class SqlQuery extends ExtractionMethod {
 	}
 
 	@Override
-	public void findBrothers(Database DB) {
+	public ArrayList<ArrayList<String>> findBrothers(Database DB) {
 		printBorderLine();
 		System.out.println("Generated Queries");
 		printBorderLine();
@@ -159,12 +159,11 @@ public class SqlQuery extends ExtractionMethod {
 				}
 			}
 		}
-		generateQueries(finds);
-		//printArrayList(finds);
+		return generateQueries(finds);
 	}
 	
-	private void generateQueries(ArrayList<String> finds) {
-		ArrayList<SqlQuery> lstsql=new ArrayList<>();
+	private ArrayList<ArrayList<String>> generateQueries(ArrayList<String> finds) {
+		ArrayList<SqlQuery> lstsql=new ArrayList<SqlQuery>();
 		ArrayList<String> tmp=new ArrayList<>();
 		for(String x:finds){
 			tmp.addAll(WhereClause);
@@ -207,7 +206,15 @@ public class SqlQuery extends ExtractionMethod {
 			}
 			
 		}
-		printSqlQueryArrayList(lstsql);
+		//printSqlQueryArrayList(lstsql);
+		
+		ArrayList<ArrayList<String>> ret_value ;
+		ret_value=new ArrayList<ArrayList<String>>();
+		for(int i=0;i<lstsql.size();i++){
+			ret_value.add(lstsql.get(i).WhereClause);
+		}
+		
+		return ret_value;
 	}
 	
 	void createNewBrotherQuery(ArrayList<SqlQuery> lstsql,ArrayList<String> tmp){

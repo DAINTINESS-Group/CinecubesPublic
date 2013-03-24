@@ -7,6 +7,7 @@ package TaskMgr;
 import java.util.ArrayList;
 
 import CubeMgr.StarSchema.Database;
+import CubeMgr.StarSchema.SqlQuery;
 /**
  *
  * @author Asterix
@@ -35,7 +36,15 @@ public class Task {
     }
     
     public void computeKeyFindings(Database DB){
-    		getLastSubTask().computeFinding(DB);
+    	SubTask stsk=getLastSubTask();
+    	ArrayList<ArrayList<String>> lst=stsk.computeFinding(DB);
+    	SqlQuery Sbsql=(SqlQuery) stsk.getExtractionMethod();
+    	for(int i=0;i<lst.size();i++){
+    		SubTask sbtsk=new SubTask();
+    		sbtsk.setExtractionMethod(new SqlQuery(Sbsql.SelectClauseMeasure,Sbsql.FromClause,lst.get(i),Sbsql.GroupByClause));
+    		sbtsk.execute(DB);
+    		subTasks.add(sbtsk);
+    	}
     }
         
 	public ArrayList<SubTask> getSubTasks() {

@@ -38,8 +38,10 @@ public class FreeTTSAudioEngine extends AudioEngine {
         
        //System.setProperty("mbrola.base", "D:/workspace/Master/libs/mbrola/Voices2/") ;
         //listAllVoices();
+        System.setProperty("com.sun.speech.freetts.voice.defaultAudioPlayer", "com.sun.speech.freetts.audio.SingleFileAudioPlayer");
         voiceManager= VoiceManager.getInstance();
         voice = voiceManager.getVoice(voiceName);
+        voice.allocate();
 	}
 	
 	public static void listAllVoices() {  
@@ -60,13 +62,13 @@ public class FreeTTSAudioEngine extends AudioEngine {
 	public void CreateSound(String textTobeSound, String FileNameOfSound) {
 		try
         {
-           System.setProperty("com.sun.speech.freetts.voice.defaultAudioPlayer", "com.sun.speech.freetts.audio.SingleFileAudioPlayer");
+          
            //this.AudioFileName=AudioFN;
-           voice.allocate();
+           
            sfap=new SingleFileAudioPlayer(FileNameOfSound,javax.sound.sampled.AudioFileFormat.Type.WAVE);
            voice.setAudioPlayer(sfap);
            voice.speak(textTobeSound);
-           voice.deallocate();
+           //voice.deallocate();
            sfap.close();
 			/*MaryInterface marytts = new LocalMaryInterface();
 			Set<String> voices = marytts.getAvailableVoices();

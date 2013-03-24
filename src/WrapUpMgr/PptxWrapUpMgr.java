@@ -67,7 +67,6 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 	
 	@Override	
 	public void doWrapUp(Story story){
-		        
         InputStream file = getClass().getClassLoader().getResourceAsStream("helpfiles/notes.pptx");
         try {
 			slideShowPPTX = new XMLSlideShow(file);
@@ -79,14 +78,15 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 		for(Act actItem : story.getActs()){
 			SlideXml=new String[actItem.getEpisodes().size()];
 			for(int j=0;j<actItem.getEpisodes().size();j++){
-				SlideXml[0]="";
+				SlideXml[j]="";
 				pptxSlide slide=(pptxSlide)actItem.getEpisodes().get(j);
-				XSLFcreateSlide(slide.getVisual().getPivotTable(),slide.getAudio().getFileName(),j);
+				XSLFcreateSlide(slide.getVisual().getPivotTable(),slide.getAudio().getFileName(),j+2);
 			}
 		}
 		slideShowPPTX.removeSlide(0);
 		FileOutputStream fout;
-        try  {
+        
+		try  {
             fout=new FileOutputStream(this.finalResult.getFilename());
             slideShowPPTX.write(fout);
             fout.close();
@@ -95,16 +95,17 @@ public class PptxWrapUpMgr extends WrapUpMgr {
         catch(Exception ex){
             System.out.println(ex.getMessage());
         } 
+        
+        
         RenamePPTXtoZip();
         UnZipFiles();
         InitializeContentType();
         for(Act actItem : story.getActs()){
 			for(int j=0;j<actItem.getEpisodes().size();j++){
 				pptxSlide slide=(pptxSlide)actItem.getEpisodes().get(j);
-				AddAudiotoPPTX(j,slide.getAudio().getFileName(),"notes");
+				AddAudiotoPPTX(j+2,slide.getAudio().getFileName(),slide.Notes);
 			}
         }
-        
         writeContentType();
         GenerateFileList(new File("ppt/unzip"));
         ZipFiles();
@@ -118,7 +119,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
         String NotesRelationShip="http://schemas.openxmlformats.org/officeDocument/2006/relationships/notesSlide";
         URI uri = null;
         try {
-            uri = new URI("../notesSlides/notesSlide"+String.valueOf(slides.length)+".xml");
+            uri = new URI("../notesSlides/notesSlide"+slideid+".xml");
         } catch (URISyntaxException ex) {
             Logger.getLogger(SlideElement.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -190,7 +191,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
             XmlObject xmlObject = slide.getXmlObject();
             
             String test="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"+xmlObject.toString().replace("main1","a").replace("<main", "<p").replace("</main", "</p").replace(":main=",":p=").replace("rel=","r=").replace("rel:","r:").replace("xml-fragment", "p:sld").replace("</p:spTree>",SoundNode+"</p:spTree>");
-            SlideXml[slideid]=test.replace("</p:sld>", AutoSlideShow()+TimingNode()+"</p:sld>").replace("<p:sld ", "<p:sld xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" ");
+            SlideXml[slideid-2]=test.replace("</p:sld>", AutoSlideShow()+TimingNode()+"</p:sld>").replace("<p:sld ", "<p:sld xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" ");
             
             
         } catch (Exception ex) {
@@ -392,8 +393,8 @@ public class PptxWrapUpMgr extends WrapUpMgr {
             File wavFrom=new File(AudioFilename +".wav");
             File wavTo=new File("ppt/unzip/ppt/media/"+AudioFilename.replace("audio/", "") +".wav");
 
-            String relsNotesFilename="ppt/unzip/ppt/notesSlides/_rels/notesSlide"+String.valueOf(slideId+2) +".xml.rels";
-            String NotesFilename="ppt/unzip/ppt/notesSlides/notesSlide"+String.valueOf(slideId+2) +".xml";
+            String relsNotesFilename="ppt/unzip/ppt/notesSlides/_rels/notesSlide"+String.valueOf(slideId) +".xml.rels";
+            String NotesFilename="ppt/unzip/ppt/notesSlides/notesSlide"+String.valueOf(slideId) +".xml";
             (new File(relsNotesFilename)).createNewFile();
             (new File(NotesFilename)).createNewFile();
             FileOutputStream noteRelsTo=new FileOutputStream(relsNotesFilename);
@@ -406,16 +407,16 @@ public class PptxWrapUpMgr extends WrapUpMgr {
             /*End of copy*/
             
             /*Write Notes */
-            this.Replace_papaki(relsNotesFilename,String.valueOf(slideId+2));
+            this.Replace_papaki(relsNotesFilename,String.valueOf(slideId));
             this.Replace_papaki(NotesFilename, NotesTxt);
-            ContenttypeNotesDef+=this.AppendContentTypeNotes(slideId+2);
+            ContenttypeNotesDef+=this.AppendContentTypeNotes(slideId);
             /*End of Write the Notes*/
             
             /* Write to Slide the audio */
-            FileOutputStream slide1=new FileOutputStream("ppt/unzip/ppt/slides/slide"+String.valueOf(slideId+2)+".xml");
+            FileOutputStream slide1=new FileOutputStream("ppt/unzip/ppt/slides/slide"+String.valueOf(slideId)+".xml");
             try {
-                slide1.write(SlideXml[slideId].getBytes());
-                this.AppendContentType(slideId+2);
+                slide1.write(SlideXml[slideId-2].getBytes());
+                this.AppendContentType(slideId);
                 slide1.close();
             } catch (IOException ex) {
                 Logger.getLogger(DBtoPPTX.class.getName()).log(Level.SEVERE, null, ex);

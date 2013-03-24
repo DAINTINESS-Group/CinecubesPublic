@@ -95,18 +95,20 @@ public class MainEngine {
     }
     
     public void SetupSlideEpisode(Act act){
-    	pptxSlide newSlide=new pptxSlide();
-    	SubTask subtsk=act.getTask().getLastSubTask();
-        newSlide.setSubTask(subtsk);
-        
-        Tabular tbl=new Tabular();
-        tbl.CreatePivotTable(subtsk.getExtractionMethod().Res.getRowPivot(), subtsk.getExtractionMethod().Res.getColPivot(), 
-				subtsk.getExtractionMethod().Res.getResultArray());
-        newSlide.createVisual(tbl);
-        
-        newSlide.setAudioFile("audio/"+AudioMgr.randomIdentifier());
-        AudioMgr.CreateSound("Text to Create", newSlide.getAudio().getFileName());
-        StorMgr.getStory().getLastAct().addEpisode(newSlide);
+    	
+    	for(SubTask subtsk : act.getTask().getSubTasks()){
+    		pptxSlide newSlide=new pptxSlide();
+	        newSlide.setSubTask(subtsk);
+	        newSlide.Notes=subtsk.getExtractionMethod().returnQuery();
+	        Tabular tbl=new Tabular();
+	        tbl.CreatePivotTable(subtsk.getExtractionMethod().Res.getRowPivot(), subtsk.getExtractionMethod().Res.getColPivot(), 
+					subtsk.getExtractionMethod().Res.getResultArray());
+	        newSlide.createVisual(tbl);
+	        
+	        newSlide.setAudioFile("audio/"+AudioMgr.randomIdentifier());
+	        AudioMgr.CreateSound("Text to Create", newSlide.getAudio().getFileName());
+	        StorMgr.getStory().getLastAct().addEpisode(newSlide);
+    	}
     }
     
     public File GetFileCmds(){
