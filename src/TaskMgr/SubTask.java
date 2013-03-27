@@ -4,8 +4,6 @@
  */
 package TaskMgr;
 
-import java.util.ArrayList;
-
 import CubeMgr.StarSchema.Database;
 
 /**
@@ -24,8 +22,8 @@ public class SubTask {
     	extractionMethod.setResult(dB.executeSql(extractionMethod.returnQuery()));
     };
     
-    public ArrayList<ArrayList<String>> computeFinding(Database dB){
-    	return extractionMethod.findBrothers(dB);
+    public void computeFinding(Database dB){
+    	
     }
 
 	public KeyFinding getKeyFinding() {

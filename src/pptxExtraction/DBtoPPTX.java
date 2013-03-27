@@ -74,13 +74,7 @@ public class DBtoPPTX {
         //Create folder audio
         if((new File("audio")).exists()==false) {boolean folder=(new File("audio")).mkdir();}
         if((new File("ppt")).exists()==false) {boolean folder=(new File("ppt")).mkdir();}
-        if((new File("ppt/notes.pptx")).exists()==false) {
-            try {
-                boolean folder=(new File("ppt/notes2.pptx")).createNewFile();
-            } catch (IOException ex) {
-                Logger.getLogger(DBtoPPTX.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+        
         XMLSlideShow slideShowPPTX=null;
        // PresentationMLPackage pMLPackage = null;
         try {

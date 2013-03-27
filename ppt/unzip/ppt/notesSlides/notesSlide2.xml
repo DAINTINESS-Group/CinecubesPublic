@@ -46,7 +46,7 @@
 							<a:rPr lang="en-US" smtClean="0"/>
 							<a:t>SELECT A.occupation,A.work_class,AVG(hours_per_week) 
 FROM  ADULT A, OCCUPATION O, WORK_CLASS W
-WHERE  A.occupation = O.level0 AND  O.level1 = 'Blue-collar' AND  W.level0 = A.work_class AND  W.level2 = 'With-Pay' AND  A.gender = 'Male'
+WHERE  A.occupation = O.level0 AND  O.level1 = 'Blue-collar' AND  W.level0 = A.work_class AND  W.level2 = 'With-Pay'
 GROUP BY A.occupation,A.work_class</a:t>
 						</a:r>
 						<a:endParaRPr lang="en-US"/>

@@ -69,11 +69,12 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 	public void doWrapUp(Story story){
         InputStream file = getClass().getClassLoader().getResourceAsStream("helpfiles/notes.pptx");
         try {
-			slideShowPPTX = new XMLSlideShow(file);
+			slideShowPPTX = new XMLSlideShow(file);			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		defaultMaster = slideShowPPTX.getSlideMasters()[0];
+		
 		
 		for(Act actItem : story.getActs()){
 			SlideXml=new String[actItem.getEpisodes().size()];
@@ -85,7 +86,6 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 		}
 		slideShowPPTX.removeSlide(0);
 		FileOutputStream fout;
-        
 		try  {
             fout=new FileOutputStream(this.finalResult.getFilename());
             slideShowPPTX.write(fout);
@@ -115,7 +115,6 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 	public void XSLFcreateSlide(String[][] table,String AudioFilename,int slideid){
 		 
         XSLFSlide slide=slideShowPPTX.createSlide();
-        XSLFSlide [] slides = slideShowPPTX.getSlides();
         String NotesRelationShip="http://schemas.openxmlformats.org/officeDocument/2006/relationships/notesSlide";
         URI uri = null;
         try {
@@ -345,7 +344,6 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 
 	@Override
 	public FinalResult getFinalResult() {
-		// TODO Auto-generated method stub
 		return finalResult;
 	}
 
@@ -368,8 +366,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
         oldFile.renameTo(new File(this.finalResult.getFilename()));
     }
     
-    private void AddAudiotoPPTX(int slideId,String AudioFilename,String NotesTxt){ 
-        
+    private void AddAudiotoPPTX(int slideId,String AudioFilename,String NotesTxt){  
         try {
                      
             /*Copy audio and image to ppt/media folder*/
@@ -413,11 +410,11 @@ public class PptxWrapUpMgr extends WrapUpMgr {
             /*End of Write the Notes*/
             
             /* Write to Slide the audio */
-            FileOutputStream slide1=new FileOutputStream("ppt/unzip/ppt/slides/slide"+String.valueOf(slideId)+".xml");
+            FileOutputStream slide=new FileOutputStream("ppt/unzip/ppt/slides/slide"+String.valueOf(slideId)+".xml");
             try {
-                slide1.write(SlideXml[slideId-2].getBytes());
+                slide.write(SlideXml[slideId-2].getBytes());
                 this.AppendContentType(slideId);
-                slide1.close();
+                slide.close();
             } catch (IOException ex) {
                 Logger.getLogger(DBtoPPTX.class.getName()).log(Level.SEVERE, null, ex);
             }            
@@ -470,7 +467,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
         }
     }
    
-   private void InitializeContentType(){
+    private void InitializeContentType(){
         this.Contenttype="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
         +"<Types xmlns=\"http://schemas.openxmlformats.org/package/2006/content-types\">"
 	+"<Default Extension=\"png\" ContentType=\"image/png\"/>"
@@ -537,16 +534,19 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 
             for(String file : this.fileList){
 
-                    //System.out.println("File Added : " + file);
-                    ZipEntry ze= new ZipEntry(file.replace("ppt\\unzip\\", ""));
-                    zos.putNextEntry(ze);
-                    FileInputStream in = new FileInputStream(file);
-
-                    int len;
-                    while ((len = in.read(buffer)) > 0) {
-                            zos.write(buffer, 0, len);
+                    
+            		if(file.contains("slide1")==false && file.contains("Slide1")==false){
+            			//System.out.println("File Added : " + file);
+	                    ZipEntry ze= new ZipEntry(file.replace("ppt\\unzip\\", ""));
+	                    zos.putNextEntry(ze);
+	                    FileInputStream in = new FileInputStream(file);
+	
+	                    int len;
+	                    while ((len = in.read(buffer)) > 0) {
+	                            zos.write(buffer, 0, len);
+	                    }
+	                    in.close();
                     }
-                    in.close();
             }
 
             zos.closeEntry();
