@@ -9,6 +9,7 @@ import TaskMgr.SubTask;
 public class pptxSlide extends Episode {
 	
 	public String Notes;
+	public String Title;
 	/**
 	 * 
 	 */

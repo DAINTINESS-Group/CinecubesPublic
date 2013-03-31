@@ -20,6 +20,7 @@ public abstract class ExtractionMethod {
     abstract public void setResult(ResultSet resultSet);
     abstract public Result getResult();
     abstract public String returnQuery();
+    abstract public boolean compareExtractionMethod(ExtractionMethod toCompare);
     //abstract public ArrayList<ArrayList<String>> findBrothers(Database db) ;
     
 }

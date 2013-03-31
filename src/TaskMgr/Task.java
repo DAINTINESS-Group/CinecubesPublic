@@ -7,7 +7,6 @@ package TaskMgr;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import CubeMgr.StarSchema.Database;
 import CubeMgr.StarSchema.SqlQuery;
 /**
@@ -39,16 +38,37 @@ public class Task {
     
     public void generateSubTasks(Database DB){
     	SubTask stsk=getLastSubTask();
-    	ArrayList<ArrayList<String>> lst=findBrothers(DB,(SqlQuery) stsk.getExtractionMethod());
     	SqlQuery Sbsql=(SqlQuery) stsk.getExtractionMethod();
+    	ArrayList<String[]> lst=findBrothers(DB,Sbsql);
+    	
     	for(int i=0;i<lst.size();i++){
-    		SubTask sbtsk=new SubTask();
-    		sbtsk.setExtractionMethod(new SqlQuery(Sbsql.SelectClauseMeasure,Sbsql.FromClause,lst.get(i),Sbsql.GroupByClause));
-    		sbtsk.execute(DB);
-    		subTasks.add(sbtsk);
+    		createSubTask(Sbsql,DB,lst.get(i),null);
+    		for(int j=i;j<lst.size();j++){
+    			if(j!=i  && lst.get(i)[1]!=lst.get(j)[1]){
+    				createSubTask(Sbsql,DB,lst.get(i),lst.get(j));
+    			}
+       		}
     	}
+    	printBorderLine();
+    	printBorderLine();
+    	Sbsql.printQuery();
     }
-        
+    
+    private void createSubTask(SqlQuery Sbsql,Database DB,String [] condA,String [] condB){
+    	SubTask sbtsk=new SubTask();
+		ArrayList<String []> newWhere=new ArrayList<String []>();
+		CopyWhereClause(Sbsql.WhereClause, newWhere);
+		newWhere.get(Integer.parseInt(condA[1]))[2]=condA[0];
+		if(condB!=null && condB[1]!=condA[1]) newWhere.get(Integer.parseInt(condB[1]))[2]=condB[0];
+		SqlQuery newsql=new SqlQuery(Sbsql.SelectClauseMeasure,Sbsql.FromClause,newWhere,Sbsql.GroupByClause);
+		newsql.printQuery();
+		sbtsk.setExtractionMethod(newsql);
+		sbtsk.addDifferenceFromOrigin(Integer.parseInt(condA[1]));
+		if(condB!=null && condB[1]!=condA[1]) sbtsk.addDifferenceFromOrigin(Integer.parseInt(condB[1]));
+		sbtsk.execute(DB);
+		subTasks.add(sbtsk);
+    }
+    
 	public ArrayList<SubTask> getSubTasks() {
 		return subTasks;
 	}
@@ -57,102 +77,40 @@ public class Task {
 	};
  
 	
-	public ArrayList<ArrayList<String>> findBrothers(Database DB, SqlQuery Original) {
+	public ArrayList<String[]> findBrothers(Database DB, SqlQuery Original) {
 		printBorderLine();
 		System.out.println("Generated Queries");
 		printBorderLine();
-		ArrayList<String> finds=new ArrayList<>();
-		for(String x : Original.WhereClause){
-			String [] tmp=x.split("~");
-			if(tmp[2].contains("'") || tryParseInt(tmp[2])){
-				String[] tmp2=tmp[0].split("\\."); //0->table  ,1--> field name
+		ArrayList<String[]> finds=new ArrayList<>();
+		for( int i=0;i<Original.WhereClause.size();i++){
+			String[] condition=Original.WhereClause.get(i);
+			if(condition[2].contains("'") || tryParseInt(condition[2])){
+				String[] tmp2=condition[0].split("\\."); //0->table  ,1--> field name
 				String table=tmp2[0];
-				for(String y : Original.FromClause){
-					String[] tmp3=y.split("~");
-					
-					if(tmp3.length==1 && table.equals(tmp3[0])) break;
-					else if(table.equals(tmp3[1]) || table.equals(tmp3[0])) {
-							table=tmp3[0];
+				for(String[] fromTable : Original.FromClause){
+					if(fromTable.length==1 && table.equals(fromTable[0])) break;
+					else if(table.equals(fromTable[1]) || table.equals(fromTable[0])) {
+							table=fromTable[0];
 							
 					}
 				}
-				String tmp_query="SELECT DISTINCT "+tmp2[1]+ " FROM "+table+" WHERE "+tmp2[1]+"!="+tmp[2];
+				String tmp_query="SELECT DISTINCT "+tmp2[1]+ " FROM "+table+" WHERE "+tmp2[1]+"!="+condition[2];
 				ResultSet rs=DB.executeSql(tmp_query);
 				
 				try {
+					rs.beforeFirst();
 					while(rs.next()){
-						finds.add(rs.getString(1)+"@"+x);
+						String newValue="'"+rs.getString(1)+"'";
+						if(tryParseInt(rs.getString(1))) newValue=rs.getString(1);
+						String[] toAdd={newValue,Integer.toString(i)};
+						finds.add(toAdd);
 					}
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			}
 		}
-		return generateQueries(finds,Original);
-	}
-	
-	private ArrayList<ArrayList<String>> generateQueries(ArrayList<String> finds, SqlQuery Original) {
-		ArrayList<SqlQuery> lstsql=new ArrayList<SqlQuery>();
-		ArrayList<String> tmp=new ArrayList<>();
-		for(String x:finds){
-			tmp.addAll(Original.WhereClause);
-			int j=0;
-			for(String y:Original.WhereClause){
-				//System.out.println(y+"||||"+x.split("@")[1]+"=>"+(y==x.split("@")[1]));
-				if(y.equals(x.split("@")[1])){
-					String[] tmp_tbl=y.split("~");
-					if(tryParseInt(x.split("@")[0])) tmp.set(j, tmp_tbl[0]+"~"+"="+x.split("@")[0]);
-					else tmp.set(j, tmp_tbl[0]+"~"+"='"+x.split("@")[0]+"'");
-				}
-				j++;
-			}
-			//lstsql.add(new SqlQuery(this.SelectClauseMeasure, this.FromClause, tmp, this.GroupByClause));
-			tmp.clear();
-		}
-		for(String x:finds){
-			tmp.clear();
-			tmp.addAll(Original.WhereClause);
-			for(String y:finds){
-				if(x.equals(y)==false && x.split("@")[0].equals(y.split("@")[0])==false){
-					int j=0;
-					for(String w:Original.WhereClause){
-						//System.out.println(y+"||||"+x.split("@")[1]+"=>"+(y==x.split("@")[1]));
-						if(w.equals(x.split("@")[1])){
-							String[] tmp_tbl=w.split("~");
-							if(tryParseInt(x.split("@")[0])) tmp.set(j, tmp_tbl[0]+"~"+"="+x.split("@")[0]);
-							else tmp.set(j, tmp_tbl[0]+"~"+"='"+x.split("@")[0]+"'");
-							createNewBrotherQuery(lstsql, tmp,Original);
-						}
-						else if(w.equals(y.split("@")[1])){
-							String[] tmp_tbl=w.split("~");
-							if(tryParseInt(y.split("@")[0])) tmp.set(j, tmp_tbl[0]+"~"+"="+y.split("@")[0]);
-							else tmp.set(j, tmp_tbl[0]+"~"+"='"+y.split("@")[0]+"'");
-							createNewBrotherQuery(lstsql, tmp,Original);
-						}
-						j++;
-					}
-				}
-			}
-			
-		}
-		printSqlQueryArrayList(lstsql);
-		
-		ArrayList<ArrayList<String>> ret_value ;
-		ret_value=new ArrayList<ArrayList<String>>();
-		for(int i=0;i<lstsql.size();i++){
-			ret_value.add(lstsql.get(i).WhereClause);
-		}
-		
-		return ret_value;
-	}
-	
-	void createNewBrotherQuery(ArrayList<SqlQuery> lstsql,ArrayList<String> tmp,SqlQuery Original){
-		SqlQuery sql_tmp=new SqlQuery(Original.SelectClauseMeasure, Original.FromClause, tmp, Original.GroupByClause);
-		boolean addTo=true;
-		for(SqlQuery s:lstsql) {
-			if(s.WhereClause.equals(tmp)) addTo=false;
-		}
-		if(addTo) lstsql.add(sql_tmp);
+		return finds;
 	}
 	
 	void printSqlQueryArrayList(ArrayList<SqlQuery> toprint){
@@ -180,5 +138,16 @@ public class Task {
 	void printBorderLine(){
     	System.out.println("=====================================");
     }
+	
+	void CopyWhereClause(ArrayList<String[]> from,ArrayList<String[]> to){
+		for(int i=0;i<from.size();i++){
+			String[] old=from.get(i);
+			String[] toadd=new String[old.length];
+			for(int j=0;j<old.length;j++){
+				toadd[j]=old[j];
+			}
+			to.add(toadd);
+		}
+	}
 	
 }

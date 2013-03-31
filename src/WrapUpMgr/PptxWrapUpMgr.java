@@ -34,6 +34,7 @@ import org.apache.poi.xslf.usermodel.XSLFSlideMaster;
 import org.apache.poi.xslf.usermodel.XSLFTable;
 import org.apache.poi.xslf.usermodel.XSLFTableCell;
 import org.apache.poi.xslf.usermodel.XSLFTableRow;
+import org.apache.poi.xslf.usermodel.XSLFTextBox;
 import org.apache.poi.xslf.usermodel.XSLFTextParagraph;
 import org.apache.poi.xslf.usermodel.XSLFTextRun;
 import org.apache.xmlbeans.XmlObject;
@@ -81,7 +82,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 			for(int j=0;j<actItem.getEpisodes().size();j++){
 				SlideXml[j]="";
 				pptxSlide slide=(pptxSlide)actItem.getEpisodes().get(j);
-				XSLFcreateSlide(slide.getVisual().getPivotTable(),slide.getAudio().getFileName(),j+2);
+				XSLFcreateSlide(slide.getVisual().getPivotTable(),slide.getAudio().getFileName(),slide.Title,j+2);
 			}
 		}
 		slideShowPPTX.removeSlide(0);
@@ -112,7 +113,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
         RenameZiptoPPTX();
 	}
 	
-	public void XSLFcreateSlide(String[][] table,String AudioFilename,int slideid){
+	public void XSLFcreateSlide(String[][] table,String AudioFilename,String Title,int slideid){
 		 
         XSLFSlide slide=slideShowPPTX.createSlide();
         String NotesRelationShip="http://schemas.openxmlformats.org/officeDocument/2006/relationships/notesSlide";
@@ -126,6 +127,10 @@ public class PptxWrapUpMgr extends WrapUpMgr {
         PackageRelationship addRelationship= slide.getPackagePart().addRelationship(uri, TargetMode.INTERNAL, NotesRelationShip);
         slide.addRelation(addRelationship.getId(), slide); 
         CreateTableInSlide(slide, slideShowPPTX.getPageSize(),table);
+        
+        XSLFTextBox tltBox=slide.createTextBox();
+        tltBox.addNewTextParagraph().addNewTextRun().setText(Title);
+        tltBox.setAnchor(new Rectangle2D.Double(100, 50,slideShowPPTX.getPageSize().width-200,50));
         CreateSlideWithXMlAudio(slide,AudioFilename,slideid);
      }
      

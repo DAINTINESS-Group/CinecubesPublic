@@ -82,7 +82,7 @@ public class MainEngine {
         AudioMgr=new FreeTTSAudioEngine();
         AudioMgr.InitializeVoiceEngine();
         
-        SetupSlideEpisode(StorMgr.getStory().getLastAct());
+        SetupSlideEpisodes(StorMgr.getStory().getLastAct());
         
         StorMgr.getStory().setFinalResult(new PptxSlideshow());
         StorMgr.getStory().getFinalResult().setFilename("ppt/slideshow2.pptx");
@@ -97,7 +97,7 @@ public class MainEngine {
     	
     }
     
-    public void SetupSlideEpisode(Act act){
+    public void SetupSlideEpisodes(Act act){
     	
     	for(SubTask subtsk : act.getTask().getSubTasks()){
     		pptxSlide newSlide=new pptxSlide();
@@ -109,6 +109,11 @@ public class MainEngine {
 	        newSlide.createVisual(tbl);
 	        
 	        newSlide.setAudioFile("audio/"+AudioMgr.randomIdentifier());
+	        newSlide.Title="The Conditions which changed are : ";
+	        for(int i=0;i<subtsk.getDifferencesFromOrigin().size();i++){
+	        	if(i>0) newSlide.Title+=" AND ";
+	        	newSlide.Title+=((SqlQuery)subtsk.getExtractionMethod()).WhereClause.get(subtsk.getDifferenceFromOrigin(i))[0];
+	        }
 	        AudioMgr.CreateSound("Text to Create", newSlide.getAudio().getFileName());
 	        StorMgr.getStory().getLastAct().addEpisode(newSlide);
     	}
