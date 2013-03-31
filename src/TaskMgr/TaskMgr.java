@@ -21,10 +21,8 @@ public class TaskMgr {
     	Tasks=new ArrayList<>();  	
     }
 
-    public Task createNewTask(){
-    	Task newTask=new Task();
-    	Tasks.add(newTask);
-    	return newTask;
+    public void createNewTask(Task toadd){
+    	Tasks.add(toadd);
     }
     
     public Task getTask(int i){

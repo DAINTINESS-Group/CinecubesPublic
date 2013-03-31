@@ -17,6 +17,7 @@ import StoryMgr.StoryMgr;
 import StoryMgr.Tabular;
 import StoryMgr.pptxSlide;
 import TaskMgr.SubTask;
+import TaskMgr.TaskBrothers;
 import TaskMgr.TaskMgr;
 import TextMgr.TextExtraction;
 import WrapUpMgr.PptxWrapUpMgr;
@@ -70,7 +71,11 @@ public class MainEngine {
         StorMgr.createStory();
         StorMgr.createStoryOriginalRequest();
         StorMgr.createTasks(TskMgr);
-        StorMgr.addNewTaskToStory(TskMgr.createNewTask());
+        
+        TaskBrothers tskBrths=new TaskBrothers();
+        
+        TskMgr.createNewTask(tskBrths);
+        StorMgr.addNewTaskToStory(tskBrths);
         TskMgr.getLastTask().addNewSubTask();
         TskMgr.getLastTask().getLastSubTask().setExtractionMethod(query);
         

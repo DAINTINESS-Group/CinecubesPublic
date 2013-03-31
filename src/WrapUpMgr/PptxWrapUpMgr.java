@@ -53,7 +53,7 @@ import StoryMgr.pptxSlide;
 public class PptxWrapUpMgr extends WrapUpMgr {
 
 	XMLSlideShow slideShowPPTX;
-	XSLFSlideMaster defaultMaster;
+	//XSLFSlideMaster defaultMaster;
 	private String[] SlideXml;
 	private ArrayList<String> fileList;
 	private String Contenttype;
@@ -74,7 +74,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		defaultMaster = slideShowPPTX.getSlideMasters()[0];
+		//defaultMaster = slideShowPPTX.getSlideMasters()[0];
 		
 		
 		for(Act actItem : story.getActs()){
@@ -338,7 +338,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 				+"<p:cut/>"
 			+"</p:transition>"
 		+"</mc:Choice>"
-		+"<mc:Fallback>"
+		+"<mc:Fallback xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"\">"
 			+"<p:transition advClick=\"0\" advTm=\"10000\">"
 				+"<p:cut/>"
 			+"</p:transition>"
