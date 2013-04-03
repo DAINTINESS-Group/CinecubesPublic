@@ -6,7 +6,7 @@ package TaskMgr;
 
 import java.util.ArrayList;
 
-import CubeMgr.StarSchema.Database;
+import CubeMgr.CubeBase.CubeBase;
 /**
  *
  * @author Asterix
@@ -27,7 +27,7 @@ public abstract class Task {
     
     public abstract SubTask getLastSubTask();
     
-    public abstract void generateSubTasks(Database DB);
+    public abstract void generateSubTasks(CubeBase DB);
         
     public abstract ArrayList<SubTask> getSubTasks() ;
     

@@ -15,35 +15,72 @@ import CubeMgr.StarSchema.SqlQuery;
  * @author Asterix
  *
  */
-public class TaskBrothers extends Task {
+public class TaskFathers extends Task {
 
 	/**
 	 * 
 	 */
-	public TaskBrothers() {
+	public TaskFathers() {
 		super();
 	}
 
-	public void addNewSubTask(){
-    	subTasks.add(new SubTask());
-    };
+	/* (non-Javadoc)
+	 * @see TaskMgr.Task#addNewSubTask()
+	 */
+	@Override
+	public void addNewSubTask() {
+		subTasks.add(new SubTask());
+	}
+
+	/* (non-Javadoc)
+	 * @see TaskMgr.Task#getNumSubTasks()
+	 */
+	@Override
+	public int getNumSubTasks() {
+		return subTasks.size();
+	}
+
+	/* (non-Javadoc)
+	 * @see TaskMgr.Task#getSubTask(int)
+	 */
+	@Override
+	public SubTask getSubTask(int i) {
+		return subTasks.get(i);
+	}
+
+	/* (non-Javadoc)
+	 * @see TaskMgr.Task#getLastSubTask()
+	 */
+	@Override
+	public SubTask getLastSubTask() {
+		return subTasks.get(getNumSubTasks()-1);
+	}
+
+	/* (non-Javadoc)
+	 * @see TaskMgr.Task#getSubTasks()
+	 */
+	@Override
+	public ArrayList<SubTask> getSubTasks() {
+		return subTasks;
+	}
+
+	/* (non-Javadoc)
+	 * @see TaskMgr.Task#setSubTasks(java.util.ArrayList)
+	 */
+	@Override
+	public void setSubTasks(ArrayList<SubTask> arrayList) {
+		subTasks.addAll(arrayList);
+	}
 	
-	public int getNumSubTasks(){
-    	return subTasks.size();
-    }
-    
-    public SubTask getSubTask(int i){
-    	return subTasks.get(i);
-    }
-    
-    public SubTask getLastSubTask(){
-    	return getSubTask(getNumSubTasks()-1);
-    }
-    
-    public void generateSubTasks(CubeBase cubeBase){
+	
+	/* (non-Javadoc)
+	 * @see TaskMgr.Task#generateSubTasks(CubeMgr.StarSchema.Database)
+	 */
+	@Override
+	 public void generateSubTasks(CubeBase cubeBase){
     	SubTask stsk=getLastSubTask();
     	SqlQuery Sbsql=(SqlQuery) stsk.getExtractionMethod();
-    	ArrayList<String[]> lst=findBrothers(cubeBase.DB,Sbsql);
+    	ArrayList<String[]> lst=findFathers(cubeBase,Sbsql);
     	
     	for(int i=0;i<lst.size();i++){
     		createSubTask(Sbsql,cubeBase.DB,lst.get(i),null);
@@ -58,31 +95,8 @@ public class TaskBrothers extends Task {
     	Sbsql.printQuery();
     }
     
-    private void createSubTask(SqlQuery Sbsql,Database DB,String [] condA,String [] condB){
-    	SubTask sbtsk=new SubTask();
-		ArrayList<String []> newWhere=new ArrayList<String []>();
-		CopyWhereClause(Sbsql.WhereClause, newWhere);
-		newWhere.get(Integer.parseInt(condA[1]))[2]=condA[0];
-		if(condB!=null && Integer.parseInt(condB[1])!=Integer.parseInt(condA[1])) newWhere.get(Integer.parseInt(condB[1]))[2]=condB[0];
-		SqlQuery newsql=new SqlQuery(Sbsql.SelectClauseMeasure,Sbsql.FromClause,newWhere,Sbsql.GroupByClause);
-		newsql.printQuery();
-		sbtsk.setExtractionMethod(newsql);
-		sbtsk.addDifferenceFromOrigin(Integer.parseInt(condA[1]));
-		if(condB!=null && Integer.parseInt(condB[1])!=Integer.parseInt(condA[1])) sbtsk.addDifferenceFromOrigin(Integer.parseInt(condB[1]));
-		sbtsk.execute(DB);
-		subTasks.add(sbtsk);
-    }
-    
-	public ArrayList<SubTask> getSubTasks() {
-		return subTasks;
-	}
-	public void setSubTasks(ArrayList<SubTask> arrayList) {
-		this.subTasks = arrayList;
-	};
- 
-	
-	public ArrayList<String[]> findBrothers(Database DB, SqlQuery Original) {
-		printBorderLine();
+    private ArrayList<String[]> findFathers(CubeBase cubeBase, SqlQuery Original) {
+    	printBorderLine();
 		System.out.println("Generated Queries");
 		printBorderLine();
 		ArrayList<String[]> finds=new ArrayList<>();
@@ -98,8 +112,14 @@ public class TaskBrothers extends Task {
 							
 					}
 				}
+				/*
+				 * I must create a function probably to Find fathers
+				 * That I do with Cube and Dimension
+				 * of tmp2[1] and after must create the tmp_query
+				 * SELECT DISTINCT <<father of tmp2[1] >> + " FROM "+table
+				 */
 				String tmp_query="SELECT DISTINCT "+tmp2[1]+ " FROM "+table+" WHERE "+tmp2[1]+"!="+condition[2];
-				ResultSet rs=DB.executeSql(tmp_query);
+				ResultSet rs=cubeBase.DB.executeSql(tmp_query);
 				
 				try {
 					rs.beforeFirst();
@@ -116,7 +136,22 @@ public class TaskBrothers extends Task {
 		}
 		return finds;
 	}
-	
+
+	private void createSubTask(SqlQuery Sbsql,Database DB,String [] condA,String [] condB){
+    	SubTask sbtsk=new SubTask();
+		ArrayList<String []> newWhere=new ArrayList<String []>();
+		CopyWhereClause(Sbsql.WhereClause, newWhere);
+		newWhere.get(Integer.parseInt(condA[1]))[2]=condA[0];
+		if(condB!=null && Integer.parseInt(condB[1])!=Integer.parseInt(condA[1])) newWhere.get(Integer.parseInt(condB[1]))[2]=condB[0];
+		SqlQuery newsql=new SqlQuery(Sbsql.SelectClauseMeasure,Sbsql.FromClause,newWhere,Sbsql.GroupByClause);
+		newsql.printQuery();
+		sbtsk.setExtractionMethod(newsql);
+		sbtsk.addDifferenceFromOrigin(Integer.parseInt(condA[1]));
+		if(condB!=null && Integer.parseInt(condB[1])!=Integer.parseInt(condA[1])) sbtsk.addDifferenceFromOrigin(Integer.parseInt(condB[1]));
+		sbtsk.execute(DB);
+		subTasks.add(sbtsk);
+    }
+
 	void printSqlQueryArrayList(ArrayList<SqlQuery> toprint){
 		for(SqlQuery x : toprint) x.printQuery();
 	}
