@@ -114,11 +114,29 @@ public class MainEngine {
 	        newSlide.createVisual(tbl);
 	        
 	        newSlide.setAudioFile("audio/"+AudioMgr.randomIdentifier());
-	        newSlide.Title="The Conditions which changed are : ";
-	        for(int i=0;i<subtsk.getDifferencesFromOrigin().size();i++){
-	        	if(i>0) newSlide.Title+=" AND ";
-	        	newSlide.Title+=((SqlQuery)subtsk.getExtractionMethod()).WhereClause.get(subtsk.getDifferenceFromOrigin(i))[0];
+	        
+	        if(subtsk.getDifferencesFromOrigin().size()==0){
+	        	newSlide.Title="Original";
 	        }
+	        else if(subtsk.getDifferencesFromOrigin().get(0)==-1){
+	        	newSlide.Title="Summarized Slide for field : ";
+	        	newSlide.Title+=((SqlQuery)act.getTask().getSubTask(0).getExtractionMethod()).WhereClause.get(subtsk.getDifferencesFromOrigin().get(1))[0];
+	        } 
+	        else {
+	        	newSlide.Title="The ~ which changed @ : ";
+	        	for(int i=0;i<subtsk.getDifferencesFromOrigin().size();i++){
+		        	if(i>0) newSlide.Title+=" AND ";
+		        	newSlide.Title+=((SqlQuery)subtsk.getExtractionMethod()).WhereClause.get(subtsk.getDifferenceFromOrigin(i))[0];
+		        }
+	        	String text_cond="Conditions";
+		        String text_are="are";
+		        if(subtsk.getDifferencesFromOrigin().size()==1){
+		        	text_cond="Condition";
+		        	text_are="is";
+		        }
+	        	newSlide.Title=newSlide.Title.replace("~", text_cond).replace("@", text_are);
+	        }
+	        
 	        AudioMgr.CreateSound("Text to Create", newSlide.getAudio().getFileName());
 	        StorMgr.getStory().getLastAct().addEpisode(newSlide);
     	}

@@ -134,4 +134,12 @@ public class CubeBase {
 		}
 		return ret_val;
 	}
+
+	public boolean returnIfTableIsDimensionTbl(String table) {
+		boolean ret_value=true;
+		for(BasicStoredCube basiccube: this.BasicCubes){
+			if(basiccube.FactTable().TblName==table) ret_value=false;
+		}
+		return ret_value;
+	}
 }

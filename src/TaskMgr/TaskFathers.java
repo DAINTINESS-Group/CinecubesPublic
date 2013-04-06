@@ -74,7 +74,7 @@ public class TaskFathers extends Task {
 	
 	
 	/* (non-Javadoc)
-	 * @see TaskMgr.Task#generateSubTasks(CubeMgr.StarSchema.Database)
+	 * @see TaskMgr.Task#generateSubTasks(CubeMgr.CubeBase.CubeBase)
 	 */
 	@Override
 	 public void generateSubTasks(CubeBase cubeBase){
@@ -118,6 +118,7 @@ public class TaskFathers extends Task {
 				 * of tmp2[1] and after must create the tmp_query
 				 * SELECT DISTINCT <<father of tmp2[1] >> + " FROM "+table
 				 */
+				//String father
 				String tmp_query="SELECT DISTINCT "+tmp2[1]+ " FROM "+table+" WHERE "+tmp2[1]+"!="+condition[2];
 				ResultSet rs=cubeBase.DB.executeSql(tmp_query);
 				
