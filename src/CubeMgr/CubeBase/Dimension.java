@@ -5,14 +5,13 @@
 package CubeMgr.CubeBase;
 
 import CubeMgr.StarSchema.DimensionTable;
-import CubeMgr.getTblAttr;
 import java.util.List;
 
 /**
  *
  * @author Asterix
  */
-public class Dimension implements getTblAttr {
+public class Dimension{
     private List<Hierarchy> Hier;
     private DimensionTable DimTbl;
     public String name;
@@ -25,15 +24,6 @@ public class Dimension implements getTblAttr {
         
     }
     
-    @Override
-    public void getTable(){
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void getAttribute() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
 
     public DimensionTable getDimTbl() {
             return DimTbl;

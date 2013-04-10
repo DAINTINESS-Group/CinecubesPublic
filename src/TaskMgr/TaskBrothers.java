@@ -99,7 +99,7 @@ public class TaskBrothers extends Task {
 	
 	public ArrayList<String[]> findBrothers(CubeBase cubebase, SqlQuery Original) {
 		printBorderLine();
-		System.out.println("Generated Queries");
+		//System.out.println("Generated Queries");
 		printBorderLine();
 		ArrayList<String[]> finds=new ArrayList<>();
 		for( int i=0;i<Original.WhereClause.size();i++){
@@ -136,7 +136,7 @@ public class TaskBrothers extends Task {
 	}
 	
 	void printSqlQueryArrayList(ArrayList<SqlQuery> toprint){
-		for(SqlQuery x : toprint) x.printQuery();
+		//for(SqlQuery x : toprint) x.printQuery();
 	}
 	
 	void printStringArrayList(ArrayList<String> toprint){
@@ -158,7 +158,7 @@ public class TaskBrothers extends Task {
 	}
 	
 	void printBorderLine(){
-    	System.out.println("=====================================");
+    	//System.out.println("=====================================");
     }
 	
 	void copyListofArrayString(ArrayList<String[]> from,ArrayList<String[]> to){
@@ -174,7 +174,7 @@ public class TaskBrothers extends Task {
 	
 	void createSummarizedQuery(ArrayList<String[]> lst,SqlQuery Original,Database DB,int tmp){
 		//ArrayList<String> numOffieldsToSummarized=getUniqueValueInListOfArrayString(lst,1);
-		System.out.println("Summarized Queries");
+		//System.out.println("Summarized Queries");
 		printBorderLine();
 		String condConnected=getConnectedCondition(Original.WhereClause,tmp);
 			

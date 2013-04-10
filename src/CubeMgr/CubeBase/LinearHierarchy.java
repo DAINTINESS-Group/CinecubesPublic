@@ -22,16 +22,5 @@ public class LinearHierarchy  extends Hierarchy {
     public void setDimension(Dimension dimensionToPoint){
     	this.dimension=dimensionToPoint;
     }
-    
-    
-    @Override
-    public void getTable() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void getAttribute() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-        
+     
 }

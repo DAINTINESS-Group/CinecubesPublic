@@ -10,6 +10,8 @@ public class pptxSlide extends Episode {
 	
 	public String Notes;
 	public String Title;
+	public String TitleColumn;
+	public String TitleRow;
 	/**
 	 * 
 	 */

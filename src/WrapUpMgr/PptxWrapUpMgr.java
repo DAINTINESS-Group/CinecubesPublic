@@ -27,6 +27,7 @@ import java.util.zip.ZipOutputStream;
 import org.apache.poi.openxml4j.opc.PackagePart;
 import org.apache.poi.openxml4j.opc.PackageRelationship;
 import org.apache.poi.openxml4j.opc.TargetMode;
+import org.apache.poi.xslf.usermodel.TextAlign;
 import org.apache.poi.xslf.usermodel.VerticalAlignment;
 import org.apache.poi.xslf.usermodel.XMLSlideShow;
 import org.apache.poi.xslf.usermodel.XSLFSlide;
@@ -81,7 +82,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 			for(int j=0;j<actItem.getEpisodes().size();j++){
 				SlideXml[j]="";
 				pptxSlide slide=(pptxSlide)actItem.getEpisodes().get(j);
-				XSLFcreateSlide(slide.getVisual().getPivotTable(),slide.getAudio().getFileName(),slide.Title,j+2);
+				XSLFcreateSlide(slide.getVisual().getPivotTable(),slide.getAudio().getFileName(),slide.Title,j+2,slide.TitleColumn,slide.TitleRow);
 			}
 		}
 		slideShowPPTX.removeSlide(0);
@@ -112,7 +113,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
         RenameZiptoPPTX();
 	}
 	
-	public void XSLFcreateSlide(String[][] table,String AudioFilename,String Title,int slideid){
+	public void XSLFcreateSlide(String[][] table,String AudioFilename,String Title,int slideid, String titleColumn, String titleRow){
 		 
         XSLFSlide slide=slideShowPPTX.createSlide();
         String NotesRelationShip="http://schemas.openxmlformats.org/officeDocument/2006/relationships/notesSlide";
@@ -122,15 +123,15 @@ public class PptxWrapUpMgr extends WrapUpMgr {
         } catch (URISyntaxException ex) {
             Logger.getLogger(SlideElement.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
+           
         PackageRelationship addRelationship= slide.getPackagePart().addRelationship(uri, TargetMode.INTERNAL, NotesRelationShip);
         slide.addRelation(addRelationship.getId(), slide); 
-        CreateTableInSlide(slide, slideShowPPTX.getPageSize(),table);
+        CreateTableInSlide(slide, slideShowPPTX.getPageSize(),table,titleColumn,titleRow);
         
-        XSLFTextBox tltBox=slide.createTextBox();
-        tltBox.addNewTextParagraph().addNewTextRun().setText(Title);
-        tltBox.setAnchor(new Rectangle2D.Double(100, 50,slideShowPPTX.getPageSize().width-200,50));
+        this.setTitle(slide, Title, new Rectangle2D.Double(100, 25,slideShowPPTX.getPageSize().width-200,20),16.0,true);
+//       / this.setTitle(slide, titleRow, new Rectangle2D.Double(40,40,30,100), 10.0, true);
         CreateSlideWithXMlAudio(slide,AudioFilename,slideid);
+        
      }
      
      
@@ -139,17 +140,34 @@ public class PptxWrapUpMgr extends WrapUpMgr {
      *  rId4 -->IMAGE relationship ID
      *
      */
-     private void CreateTableInSlide(XSLFSlide slide,java.awt.Dimension pgsize,String[][] table){
+     private XSLFTable CreateTableInSlide(XSLFSlide slide,java.awt.Dimension pgsize,String[][] table, String titleColumn, String titleRow){
          
        int pgx = pgsize.width; //slide width
+       int pgy=pgsize.height; //slide height
        XSLFTable tbl=slide.createTable();
+      /* XSLFTableRow ttlRow=tbl.addRow();
+       for(int j=0;j<table[0].length;j++){
+    	   XSLFTableCell titlecell = ttlRow.addCell();
+    	   if(j==table[0].length/2) {
+    		   XSLFTextParagraph p = titlecell.addNewTextParagraph();
+               XSLFTextRun r = p.addNewTextRun();
+               r.setFontFamily("Arial");
+               r.setFontSize(10);
+               r.setBold(true);
+    		   r.setText(titleColumn);
+    	   }
+    	   titlecell.setVerticalAlignment(VerticalAlignment.MIDDLE);
+       }*/
        for(int i=0;i<table.length;i++){
             XSLFTableRow addRow = tbl.addRow();
+           // XSLFTableCell first=addRow.addCell();
+            
            for(int j=0;j<table[i].length;j++){
               XSLFTableCell cell = addRow.addCell();
               
               XSLFTextParagraph p = cell.addNewTextParagraph();
               XSLFTextRun r = p.addNewTextRun();
+              p.setTextAlign(TextAlign.CENTER);
               r.setFontFamily("Arial");
               r.setFontSize(12);
               
@@ -163,8 +181,11 @@ public class PptxWrapUpMgr extends WrapUpMgr {
               if(i==0) tbl.setColumnWidth(j, 80);
            }
        }
-       int tst=table[0].length*80;
-       tbl.setAnchor(new Rectangle2D.Double(((pgx-tst)/2), 100,100,100));
+       int width_table=(table[0].length)*80;
+       int height_table=(table.length+1)*80;
+       
+       tbl.setAnchor(new Rectangle2D.Double(((pgx-width_table)/2), 100,100,100));
+       return tbl;
      }
      
      private void CreateSlideWithXMlAudio(XSLFSlide slide,String AudioFilename,int slideid){
@@ -640,6 +661,18 @@ public class PptxWrapUpMgr extends WrapUpMgr {
          {
              System.out.println(ex.getMessage());
          }
+    }
+    
+    void setTitle(XSLFSlide slide,String Title,Rectangle2D.Double Anchor,double fontSize,boolean bold){
+    	 XSLFTextBox tltBox=slide.createTextBox();
+         XSLFTextParagraph tltpara=tltBox.addNewTextParagraph();         
+         XSLFTextRun tltTxtRun=tltpara.addNewTextRun();
+         tltpara.setTextAlign(TextAlign.CENTER);
+         tltTxtRun.setFontFamily("Arial");
+         tltTxtRun.setBold(bold);
+         tltTxtRun.setFontSize(fontSize);
+         tltTxtRun.setText(Title);
+         tltBox.setAnchor(Anchor);
     }
 
 }

@@ -48,8 +48,11 @@ public class Tabular extends Visual {
             j=1;
             for(String y:ColPivot){
                 for (int r=0;r<QueryResult.length;r++){
-                        if(QueryResult[r][0].equals(x) && QueryResult[r][1].equals(y)){
+                        if((QueryResult[r][0].equals(x) && QueryResult[r][1].equals(y)) || (QueryResult[r][0].equals(y) && QueryResult[r][1].equals(x))){
                             this.PivotTable[i][j]=QueryResult[r][2];
+                        }
+                        if(this.PivotTable[i][j]==null) {
+                        	this.PivotTable[i][j]="-";
                         }
                 }
                 j++;

@@ -100,8 +100,8 @@ public class SqlQuery extends ExtractionMethod {
     }
     
     public void printQuery(){
-    	System.out.println(returnQuery());
-    	printBorderLine();
+    	//System.out.println(returnQuery());
+    	//printBorderLine();
     }
     
     

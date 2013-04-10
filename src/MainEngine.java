@@ -66,7 +66,7 @@ public class MainEngine {
     	}
         PrsMng.parse(Query);
         SqlQuery query=new SqlQuery(PrsMng.aggregatefunc,PrsMng.tablelst,PrsMng.conditionlst,PrsMng.groupperlst);
-        query.printQuery();
+        //query.printQuery();
         
         StorMgr.createStory();
         StorMgr.createStoryOriginalRequest();
@@ -83,7 +83,7 @@ public class MainEngine {
         
         TskMgr.getLastTask().getLastSubTask().execute(CubeManager.CBase.DB);
         //TskMgr.getLastTask().getLastSubTask().computeFinding();
-        TskMgr.getLastTask().generateSubTasks(CubeManager.CBase);
+       TskMgr.getLastTask().generateSubTasks(CubeManager.CBase);
         AudioMgr=new FreeTTSAudioEngine();
         AudioMgr.InitializeVoiceEngine();
         
@@ -103,7 +103,7 @@ public class MainEngine {
     }
     
     public void SetupSlideEpisodes(Act act){
-    	
+    	SqlQuery original=(SqlQuery)act.getTask().getSubTask(0).getExtractionMethod();
     	for(SubTask subtsk : act.getTask().getSubTasks()){
     		pptxSlide newSlide=new pptxSlide();
 	        newSlide.setSubTask(subtsk);
@@ -115,18 +115,21 @@ public class MainEngine {
 	        
 	        newSlide.setAudioFile("audio/"+AudioMgr.randomIdentifier());
 	        
+	        SqlQuery currentQuery=((SqlQuery)subtsk.getExtractionMethod());
+	        newSlide.TitleColumn=new String(currentQuery.Res.TitleOfColumns);
+	        newSlide.TitleRow=new String(currentQuery.Res.TitleOfRows);
 	        if(subtsk.getDifferencesFromOrigin().size()==0){
 	        	newSlide.Title="Original";
 	        }
 	        else if(subtsk.getDifferencesFromOrigin().get(0)==-1){
 	        	newSlide.Title="Summarized Slide for field : ";
-	        	newSlide.Title+=((SqlQuery)act.getTask().getSubTask(0).getExtractionMethod()).WhereClause.get(subtsk.getDifferencesFromOrigin().get(1))[0];
+	        	newSlide.Title+=original.WhereClause.get(subtsk.getDifferencesFromOrigin().get(1))[0];
 	        } 
 	        else {
 	        	newSlide.Title="The ~ which changed @ : ";
 	        	for(int i=0;i<subtsk.getDifferencesFromOrigin().size();i++){
 		        	if(i>0) newSlide.Title+=" AND ";
-		        	newSlide.Title+=((SqlQuery)subtsk.getExtractionMethod()).WhereClause.get(subtsk.getDifferenceFromOrigin(i))[0];
+		        	newSlide.Title+=original.WhereClause.get(subtsk.getDifferenceFromOrigin(i))[0];
 		        }
 	        	String text_cond="Conditions";
 		        String text_are="are";
@@ -136,7 +139,7 @@ public class MainEngine {
 		        }
 	        	newSlide.Title=newSlide.Title.replace("~", text_cond).replace("@", text_are);
 	        }
-	        
+	        newSlide.Title+="\n At columns are "+newSlide.TitleColumn+" and at rows are "+newSlide.TitleRow;
 	        AudioMgr.CreateSound("Text to Create", newSlide.getAudio().getFileName());
 	        StorMgr.getStory().getLastAct().addEpisode(newSlide);
     	}

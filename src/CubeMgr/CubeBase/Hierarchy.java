@@ -4,12 +4,11 @@
  */
 package CubeMgr.CubeBase;
 
-import CubeMgr.getTblAttr;
 
 /**
  *
  * @author Asterix
  */
-public abstract class Hierarchy implements getTblAttr {
+public abstract class Hierarchy {
     
 }
