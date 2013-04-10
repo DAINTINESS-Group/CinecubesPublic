@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<p:sld xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main" xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<p:sld xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main" xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">
   <p:cSld>
     <p:spTree>
       <p:nvGrpSpPr>
@@ -46,6 +46,7 @@
                     <a:bodyPr/>
                     <a:lstStyle/>
                     <a:p>
+                      <a:pPr algn="ctr"/>
                       <a:r>
                         <a:rPr lang="en-US" sz="1200">
                           <a:latin typeface="Arial"/>
@@ -77,194 +78,7 @@
                     <a:bodyPr/>
                     <a:lstStyle/>
                     <a:p>
-                      <a:r>
-                        <a:rPr lang="en-US" sz="1200">
-                          <a:latin typeface="Arial"/>
-                        </a:rPr>
-                        <a:t>Federal-gov</a:t>
-                      </a:r>
-                    </a:p>
-                  </a:txBody>
-                  <a:tcPr anchor="ctr">
-                    <a:lnL>
-                      <a:noFill/>
-                    </a:lnL>
-                    <a:lnR>
-                      <a:noFill/>
-                    </a:lnR>
-                    <a:lnT>
-                      <a:noFill/>
-                    </a:lnT>
-                    <a:lnB>
-                      <a:noFill/>
-                    </a:lnB>
-                    <a:solidFill>
-                      <a:srgbClr val="D0D8E8"/>
-                    </a:solidFill>
-                  </a:tcPr>
-                </a:tc>
-                <a:tc>
-                  <a:txBody>
-                    <a:bodyPr/>
-                    <a:lstStyle/>
-                    <a:p>
-                      <a:r>
-                        <a:rPr lang="en-US" sz="1200">
-                          <a:latin typeface="Arial"/>
-                        </a:rPr>
-                        <a:t>Self-emp-inc</a:t>
-                      </a:r>
-                    </a:p>
-                  </a:txBody>
-                  <a:tcPr anchor="ctr">
-                    <a:lnL>
-                      <a:noFill/>
-                    </a:lnL>
-                    <a:lnR>
-                      <a:noFill/>
-                    </a:lnR>
-                    <a:lnT>
-                      <a:noFill/>
-                    </a:lnT>
-                    <a:lnB>
-                      <a:noFill/>
-                    </a:lnB>
-                    <a:solidFill>
-                      <a:srgbClr val="D0D8E8"/>
-                    </a:solidFill>
-                  </a:tcPr>
-                </a:tc>
-                <a:tc>
-                  <a:txBody>
-                    <a:bodyPr/>
-                    <a:lstStyle/>
-                    <a:p>
-                      <a:r>
-                        <a:rPr lang="en-US" sz="1200">
-                          <a:latin typeface="Arial"/>
-                        </a:rPr>
-                        <a:t>State-gov</a:t>
-                      </a:r>
-                    </a:p>
-                  </a:txBody>
-                  <a:tcPr anchor="ctr">
-                    <a:lnL>
-                      <a:noFill/>
-                    </a:lnL>
-                    <a:lnR>
-                      <a:noFill/>
-                    </a:lnR>
-                    <a:lnT>
-                      <a:noFill/>
-                    </a:lnT>
-                    <a:lnB>
-                      <a:noFill/>
-                    </a:lnB>
-                    <a:solidFill>
-                      <a:srgbClr val="D0D8E8"/>
-                    </a:solidFill>
-                  </a:tcPr>
-                </a:tc>
-                <a:tc>
-                  <a:txBody>
-                    <a:bodyPr/>
-                    <a:lstStyle/>
-                    <a:p>
-                      <a:r>
-                        <a:rPr lang="en-US" sz="1200">
-                          <a:latin typeface="Arial"/>
-                        </a:rPr>
-                        <a:t>Local-gov</a:t>
-                      </a:r>
-                    </a:p>
-                  </a:txBody>
-                  <a:tcPr anchor="ctr">
-                    <a:lnL>
-                      <a:noFill/>
-                    </a:lnL>
-                    <a:lnR>
-                      <a:noFill/>
-                    </a:lnR>
-                    <a:lnT>
-                      <a:noFill/>
-                    </a:lnT>
-                    <a:lnB>
-                      <a:noFill/>
-                    </a:lnB>
-                    <a:solidFill>
-                      <a:srgbClr val="D0D8E8"/>
-                    </a:solidFill>
-                  </a:tcPr>
-                </a:tc>
-                <a:tc>
-                  <a:txBody>
-                    <a:bodyPr/>
-                    <a:lstStyle/>
-                    <a:p>
-                      <a:r>
-                        <a:rPr lang="en-US" sz="1200">
-                          <a:latin typeface="Arial"/>
-                        </a:rPr>
-                        <a:t>Self-emp-not-inc</a:t>
-                      </a:r>
-                    </a:p>
-                  </a:txBody>
-                  <a:tcPr anchor="ctr">
-                    <a:lnL>
-                      <a:noFill/>
-                    </a:lnL>
-                    <a:lnR>
-                      <a:noFill/>
-                    </a:lnR>
-                    <a:lnT>
-                      <a:noFill/>
-                    </a:lnT>
-                    <a:lnB>
-                      <a:noFill/>
-                    </a:lnB>
-                    <a:solidFill>
-                      <a:srgbClr val="D0D8E8"/>
-                    </a:solidFill>
-                  </a:tcPr>
-                </a:tc>
-                <a:tc>
-                  <a:txBody>
-                    <a:bodyPr/>
-                    <a:lstStyle/>
-                    <a:p>
-                      <a:r>
-                        <a:rPr lang="en-US" sz="1200">
-                          <a:latin typeface="Arial"/>
-                        </a:rPr>
-                        <a:t>Private</a:t>
-                      </a:r>
-                    </a:p>
-                  </a:txBody>
-                  <a:tcPr anchor="ctr">
-                    <a:lnL>
-                      <a:noFill/>
-                    </a:lnL>
-                    <a:lnR>
-                      <a:noFill/>
-                    </a:lnR>
-                    <a:lnT>
-                      <a:noFill/>
-                    </a:lnT>
-                    <a:lnB>
-                      <a:noFill/>
-                    </a:lnB>
-                    <a:solidFill>
-                      <a:srgbClr val="D0D8E8"/>
-                    </a:solidFill>
-                  </a:tcPr>
-                </a:tc>
-              </a:tr>
-              <a:tr h="254000">
-                <a:tc>
-                  <a:txBody>
-                    <a:bodyPr/>
-                    <a:lstStyle/>
-                    <a:p>
+                      <a:pPr algn="ctr"/>
                       <a:r>
                         <a:rPr lang="en-US" sz="1200">
                           <a:latin typeface="Arial"/>
@@ -287,7 +101,7 @@
                       <a:noFill/>
                     </a:lnB>
                     <a:solidFill>
-                      <a:srgbClr val="E9F7F4"/>
+                      <a:srgbClr val="D0D8E8"/>
                     </a:solidFill>
                   </a:tcPr>
                 </a:tc>
@@ -296,194 +110,7 @@
                     <a:bodyPr/>
                     <a:lstStyle/>
                     <a:p>
-                      <a:r>
-                        <a:rPr lang="en-US" sz="1200">
-                          <a:latin typeface="Arial"/>
-                        </a:rPr>
-                        <a:t>40.7937</a:t>
-                      </a:r>
-                    </a:p>
-                  </a:txBody>
-                  <a:tcPr anchor="ctr">
-                    <a:lnL>
-                      <a:noFill/>
-                    </a:lnL>
-                    <a:lnR>
-                      <a:noFill/>
-                    </a:lnR>
-                    <a:lnT>
-                      <a:noFill/>
-                    </a:lnT>
-                    <a:lnB>
-                      <a:noFill/>
-                    </a:lnB>
-                    <a:solidFill>
-                      <a:srgbClr val="E9F7F4"/>
-                    </a:solidFill>
-                  </a:tcPr>
-                </a:tc>
-                <a:tc>
-                  <a:txBody>
-                    <a:bodyPr/>
-                    <a:lstStyle/>
-                    <a:p>
-                      <a:r>
-                        <a:rPr lang="en-US" sz="1200">
-                          <a:latin typeface="Arial"/>
-                        </a:rPr>
-                        <a:t>46.5354</a:t>
-                      </a:r>
-                    </a:p>
-                  </a:txBody>
-                  <a:tcPr anchor="ctr">
-                    <a:lnL>
-                      <a:noFill/>
-                    </a:lnL>
-                    <a:lnR>
-                      <a:noFill/>
-                    </a:lnR>
-                    <a:lnT>
-                      <a:noFill/>
-                    </a:lnT>
-                    <a:lnB>
-                      <a:noFill/>
-                    </a:lnB>
-                    <a:solidFill>
-                      <a:srgbClr val="E9F7F4"/>
-                    </a:solidFill>
-                  </a:tcPr>
-                </a:tc>
-                <a:tc>
-                  <a:txBody>
-                    <a:bodyPr/>
-                    <a:lstStyle/>
-                    <a:p>
-                      <a:r>
-                        <a:rPr lang="en-US" sz="1200">
-                          <a:latin typeface="Arial"/>
-                        </a:rPr>
-                        <a:t>39.8909</a:t>
-                      </a:r>
-                    </a:p>
-                  </a:txBody>
-                  <a:tcPr anchor="ctr">
-                    <a:lnL>
-                      <a:noFill/>
-                    </a:lnL>
-                    <a:lnR>
-                      <a:noFill/>
-                    </a:lnR>
-                    <a:lnT>
-                      <a:noFill/>
-                    </a:lnT>
-                    <a:lnB>
-                      <a:noFill/>
-                    </a:lnB>
-                    <a:solidFill>
-                      <a:srgbClr val="E9F7F4"/>
-                    </a:solidFill>
-                  </a:tcPr>
-                </a:tc>
-                <a:tc>
-                  <a:txBody>
-                    <a:bodyPr/>
-                    <a:lstStyle/>
-                    <a:p>
-                      <a:r>
-                        <a:rPr lang="en-US" sz="1200">
-                          <a:latin typeface="Arial"/>
-                        </a:rPr>
-                        <a:t>41.1119</a:t>
-                      </a:r>
-                    </a:p>
-                  </a:txBody>
-                  <a:tcPr anchor="ctr">
-                    <a:lnL>
-                      <a:noFill/>
-                    </a:lnL>
-                    <a:lnR>
-                      <a:noFill/>
-                    </a:lnR>
-                    <a:lnT>
-                      <a:noFill/>
-                    </a:lnT>
-                    <a:lnB>
-                      <a:noFill/>
-                    </a:lnB>
-                    <a:solidFill>
-                      <a:srgbClr val="E9F7F4"/>
-                    </a:solidFill>
-                  </a:tcPr>
-                </a:tc>
-                <a:tc>
-                  <a:txBody>
-                    <a:bodyPr/>
-                    <a:lstStyle/>
-                    <a:p>
-                      <a:r>
-                        <a:rPr lang="en-US" sz="1200">
-                          <a:latin typeface="Arial"/>
-                        </a:rPr>
-                        <a:t>42.1587</a:t>
-                      </a:r>
-                    </a:p>
-                  </a:txBody>
-                  <a:tcPr anchor="ctr">
-                    <a:lnL>
-                      <a:noFill/>
-                    </a:lnL>
-                    <a:lnR>
-                      <a:noFill/>
-                    </a:lnR>
-                    <a:lnT>
-                      <a:noFill/>
-                    </a:lnT>
-                    <a:lnB>
-                      <a:noFill/>
-                    </a:lnB>
-                    <a:solidFill>
-                      <a:srgbClr val="E9F7F4"/>
-                    </a:solidFill>
-                  </a:tcPr>
-                </a:tc>
-                <a:tc>
-                  <a:txBody>
-                    <a:bodyPr/>
-                    <a:lstStyle/>
-                    <a:p>
-                      <a:r>
-                        <a:rPr lang="en-US" sz="1200">
-                          <a:latin typeface="Arial"/>
-                        </a:rPr>
-                        <a:t>42.3147</a:t>
-                      </a:r>
-                    </a:p>
-                  </a:txBody>
-                  <a:tcPr anchor="ctr">
-                    <a:lnL>
-                      <a:noFill/>
-                    </a:lnL>
-                    <a:lnR>
-                      <a:noFill/>
-                    </a:lnR>
-                    <a:lnT>
-                      <a:noFill/>
-                    </a:lnT>
-                    <a:lnB>
-                      <a:noFill/>
-                    </a:lnB>
-                    <a:solidFill>
-                      <a:srgbClr val="E9F7F4"/>
-                    </a:solidFill>
-                  </a:tcPr>
-                </a:tc>
-              </a:tr>
-              <a:tr h="254000">
-                <a:tc>
-                  <a:txBody>
-                    <a:bodyPr/>
-                    <a:lstStyle/>
-                    <a:p>
+                      <a:pPr algn="ctr"/>
                       <a:r>
                         <a:rPr lang="en-US" sz="1200">
                           <a:latin typeface="Arial"/>
@@ -515,194 +142,7 @@
                     <a:bodyPr/>
                     <a:lstStyle/>
                     <a:p>
-                      <a:r>
-                        <a:rPr lang="en-US" sz="1200">
-                          <a:latin typeface="Arial"/>
-                        </a:rPr>
-                        <a:t>38.2576</a:t>
-                      </a:r>
-                    </a:p>
-                  </a:txBody>
-                  <a:tcPr anchor="ctr">
-                    <a:lnL>
-                      <a:noFill/>
-                    </a:lnL>
-                    <a:lnR>
-                      <a:noFill/>
-                    </a:lnR>
-                    <a:lnT>
-                      <a:noFill/>
-                    </a:lnT>
-                    <a:lnB>
-                      <a:noFill/>
-                    </a:lnB>
-                    <a:solidFill>
-                      <a:srgbClr val="D0D8E8"/>
-                    </a:solidFill>
-                  </a:tcPr>
-                </a:tc>
-                <a:tc>
-                  <a:txBody>
-                    <a:bodyPr/>
-                    <a:lstStyle/>
-                    <a:p>
-                      <a:r>
-                        <a:rPr lang="en-US" sz="1200">
-                          <a:latin typeface="Arial"/>
-                        </a:rPr>
-                        <a:t>51.6667</a:t>
-                      </a:r>
-                    </a:p>
-                  </a:txBody>
-                  <a:tcPr anchor="ctr">
-                    <a:lnL>
-                      <a:noFill/>
-                    </a:lnL>
-                    <a:lnR>
-                      <a:noFill/>
-                    </a:lnR>
-                    <a:lnT>
-                      <a:noFill/>
-                    </a:lnT>
-                    <a:lnB>
-                      <a:noFill/>
-                    </a:lnB>
-                    <a:solidFill>
-                      <a:srgbClr val="D0D8E8"/>
-                    </a:solidFill>
-                  </a:tcPr>
-                </a:tc>
-                <a:tc>
-                  <a:txBody>
-                    <a:bodyPr/>
-                    <a:lstStyle/>
-                    <a:p>
-                      <a:r>
-                        <a:rPr lang="en-US" sz="1200">
-                          <a:latin typeface="Arial"/>
-                        </a:rPr>
-                        <a:t>34.5536</a:t>
-                      </a:r>
-                    </a:p>
-                  </a:txBody>
-                  <a:tcPr anchor="ctr">
-                    <a:lnL>
-                      <a:noFill/>
-                    </a:lnL>
-                    <a:lnR>
-                      <a:noFill/>
-                    </a:lnR>
-                    <a:lnT>
-                      <a:noFill/>
-                    </a:lnT>
-                    <a:lnB>
-                      <a:noFill/>
-                    </a:lnB>
-                    <a:solidFill>
-                      <a:srgbClr val="D0D8E8"/>
-                    </a:solidFill>
-                  </a:tcPr>
-                </a:tc>
-                <a:tc>
-                  <a:txBody>
-                    <a:bodyPr/>
-                    <a:lstStyle/>
-                    <a:p>
-                      <a:r>
-                        <a:rPr lang="en-US" sz="1200">
-                          <a:latin typeface="Arial"/>
-                        </a:rPr>
-                        <a:t>43.5000</a:t>
-                      </a:r>
-                    </a:p>
-                  </a:txBody>
-                  <a:tcPr anchor="ctr">
-                    <a:lnL>
-                      <a:noFill/>
-                    </a:lnL>
-                    <a:lnR>
-                      <a:noFill/>
-                    </a:lnR>
-                    <a:lnT>
-                      <a:noFill/>
-                    </a:lnT>
-                    <a:lnB>
-                      <a:noFill/>
-                    </a:lnB>
-                    <a:solidFill>
-                      <a:srgbClr val="D0D8E8"/>
-                    </a:solidFill>
-                  </a:tcPr>
-                </a:tc>
-                <a:tc>
-                  <a:txBody>
-                    <a:bodyPr/>
-                    <a:lstStyle/>
-                    <a:p>
-                      <a:r>
-                        <a:rPr lang="en-US" sz="1200">
-                          <a:latin typeface="Arial"/>
-                        </a:rPr>
-                        <a:t>37.8846</a:t>
-                      </a:r>
-                    </a:p>
-                  </a:txBody>
-                  <a:tcPr anchor="ctr">
-                    <a:lnL>
-                      <a:noFill/>
-                    </a:lnL>
-                    <a:lnR>
-                      <a:noFill/>
-                    </a:lnR>
-                    <a:lnT>
-                      <a:noFill/>
-                    </a:lnT>
-                    <a:lnB>
-                      <a:noFill/>
-                    </a:lnB>
-                    <a:solidFill>
-                      <a:srgbClr val="D0D8E8"/>
-                    </a:solidFill>
-                  </a:tcPr>
-                </a:tc>
-                <a:tc>
-                  <a:txBody>
-                    <a:bodyPr/>
-                    <a:lstStyle/>
-                    <a:p>
-                      <a:r>
-                        <a:rPr lang="en-US" sz="1200">
-                          <a:latin typeface="Arial"/>
-                        </a:rPr>
-                        <a:t>39.7607</a:t>
-                      </a:r>
-                    </a:p>
-                  </a:txBody>
-                  <a:tcPr anchor="ctr">
-                    <a:lnL>
-                      <a:noFill/>
-                    </a:lnL>
-                    <a:lnR>
-                      <a:noFill/>
-                    </a:lnR>
-                    <a:lnT>
-                      <a:noFill/>
-                    </a:lnT>
-                    <a:lnB>
-                      <a:noFill/>
-                    </a:lnB>
-                    <a:solidFill>
-                      <a:srgbClr val="D0D8E8"/>
-                    </a:solidFill>
-                  </a:tcPr>
-                </a:tc>
-              </a:tr>
-              <a:tr h="254000">
-                <a:tc>
-                  <a:txBody>
-                    <a:bodyPr/>
-                    <a:lstStyle/>
-                    <a:p>
+                      <a:pPr algn="ctr"/>
                       <a:r>
                         <a:rPr lang="en-US" sz="1200">
                           <a:latin typeface="Arial"/>
@@ -725,7 +165,7 @@
                       <a:noFill/>
                     </a:lnB>
                     <a:solidFill>
-                      <a:srgbClr val="E9F7F4"/>
+                      <a:srgbClr val="D0D8E8"/>
                     </a:solidFill>
                   </a:tcPr>
                 </a:tc>
@@ -734,194 +174,7 @@
                     <a:bodyPr/>
                     <a:lstStyle/>
                     <a:p>
-                      <a:r>
-                        <a:rPr lang="en-US" sz="1200">
-                          <a:latin typeface="Arial"/>
-                        </a:rPr>
-                        <a:t xsi:nil="true"/>
-                      </a:r>
-                    </a:p>
-                  </a:txBody>
-                  <a:tcPr anchor="ctr">
-                    <a:lnL>
-                      <a:noFill/>
-                    </a:lnL>
-                    <a:lnR>
-                      <a:noFill/>
-                    </a:lnR>
-                    <a:lnT>
-                      <a:noFill/>
-                    </a:lnT>
-                    <a:lnB>
-                      <a:noFill/>
-                    </a:lnB>
-                    <a:solidFill>
-                      <a:srgbClr val="E9F7F4"/>
-                    </a:solidFill>
-                  </a:tcPr>
-                </a:tc>
-                <a:tc>
-                  <a:txBody>
-                    <a:bodyPr/>
-                    <a:lstStyle/>
-                    <a:p>
-                      <a:r>
-                        <a:rPr lang="en-US" sz="1200">
-                          <a:latin typeface="Arial"/>
-                        </a:rPr>
-                        <a:t xsi:nil="true"/>
-                      </a:r>
-                    </a:p>
-                  </a:txBody>
-                  <a:tcPr anchor="ctr">
-                    <a:lnL>
-                      <a:noFill/>
-                    </a:lnL>
-                    <a:lnR>
-                      <a:noFill/>
-                    </a:lnR>
-                    <a:lnT>
-                      <a:noFill/>
-                    </a:lnT>
-                    <a:lnB>
-                      <a:noFill/>
-                    </a:lnB>
-                    <a:solidFill>
-                      <a:srgbClr val="E9F7F4"/>
-                    </a:solidFill>
-                  </a:tcPr>
-                </a:tc>
-                <a:tc>
-                  <a:txBody>
-                    <a:bodyPr/>
-                    <a:lstStyle/>
-                    <a:p>
-                      <a:r>
-                        <a:rPr lang="en-US" sz="1200">
-                          <a:latin typeface="Arial"/>
-                        </a:rPr>
-                        <a:t xsi:nil="true"/>
-                      </a:r>
-                    </a:p>
-                  </a:txBody>
-                  <a:tcPr anchor="ctr">
-                    <a:lnL>
-                      <a:noFill/>
-                    </a:lnL>
-                    <a:lnR>
-                      <a:noFill/>
-                    </a:lnR>
-                    <a:lnT>
-                      <a:noFill/>
-                    </a:lnT>
-                    <a:lnB>
-                      <a:noFill/>
-                    </a:lnB>
-                    <a:solidFill>
-                      <a:srgbClr val="E9F7F4"/>
-                    </a:solidFill>
-                  </a:tcPr>
-                </a:tc>
-                <a:tc>
-                  <a:txBody>
-                    <a:bodyPr/>
-                    <a:lstStyle/>
-                    <a:p>
-                      <a:r>
-                        <a:rPr lang="en-US" sz="1200">
-                          <a:latin typeface="Arial"/>
-                        </a:rPr>
-                        <a:t xsi:nil="true"/>
-                      </a:r>
-                    </a:p>
-                  </a:txBody>
-                  <a:tcPr anchor="ctr">
-                    <a:lnL>
-                      <a:noFill/>
-                    </a:lnL>
-                    <a:lnR>
-                      <a:noFill/>
-                    </a:lnR>
-                    <a:lnT>
-                      <a:noFill/>
-                    </a:lnT>
-                    <a:lnB>
-                      <a:noFill/>
-                    </a:lnB>
-                    <a:solidFill>
-                      <a:srgbClr val="E9F7F4"/>
-                    </a:solidFill>
-                  </a:tcPr>
-                </a:tc>
-                <a:tc>
-                  <a:txBody>
-                    <a:bodyPr/>
-                    <a:lstStyle/>
-                    <a:p>
-                      <a:r>
-                        <a:rPr lang="en-US" sz="1200">
-                          <a:latin typeface="Arial"/>
-                        </a:rPr>
-                        <a:t xsi:nil="true"/>
-                      </a:r>
-                    </a:p>
-                  </a:txBody>
-                  <a:tcPr anchor="ctr">
-                    <a:lnL>
-                      <a:noFill/>
-                    </a:lnL>
-                    <a:lnR>
-                      <a:noFill/>
-                    </a:lnR>
-                    <a:lnT>
-                      <a:noFill/>
-                    </a:lnT>
-                    <a:lnB>
-                      <a:noFill/>
-                    </a:lnB>
-                    <a:solidFill>
-                      <a:srgbClr val="E9F7F4"/>
-                    </a:solidFill>
-                  </a:tcPr>
-                </a:tc>
-                <a:tc>
-                  <a:txBody>
-                    <a:bodyPr/>
-                    <a:lstStyle/>
-                    <a:p>
-                      <a:r>
-                        <a:rPr lang="en-US" sz="1200">
-                          <a:latin typeface="Arial"/>
-                        </a:rPr>
-                        <a:t>32.7972</a:t>
-                      </a:r>
-                    </a:p>
-                  </a:txBody>
-                  <a:tcPr anchor="ctr">
-                    <a:lnL>
-                      <a:noFill/>
-                    </a:lnL>
-                    <a:lnR>
-                      <a:noFill/>
-                    </a:lnR>
-                    <a:lnT>
-                      <a:noFill/>
-                    </a:lnT>
-                    <a:lnB>
-                      <a:noFill/>
-                    </a:lnB>
-                    <a:solidFill>
-                      <a:srgbClr val="E9F7F4"/>
-                    </a:solidFill>
-                  </a:tcPr>
-                </a:tc>
-              </a:tr>
-              <a:tr h="254000">
-                <a:tc>
-                  <a:txBody>
-                    <a:bodyPr/>
-                    <a:lstStyle/>
-                    <a:p>
+                      <a:pPr algn="ctr"/>
                       <a:r>
                         <a:rPr lang="en-US" sz="1200">
                           <a:latin typeface="Arial"/>
@@ -953,11 +206,12 @@
                     <a:bodyPr/>
                     <a:lstStyle/>
                     <a:p>
+                      <a:pPr algn="ctr"/>
                       <a:r>
                         <a:rPr lang="en-US" sz="1200">
                           <a:latin typeface="Arial"/>
                         </a:rPr>
-                        <a:t>39.2857</a:t>
+                        <a:t>Handlers-cleaners</a:t>
                       </a:r>
                     </a:p>
                   </a:txBody>
@@ -984,135 +238,12 @@
                     <a:bodyPr/>
                     <a:lstStyle/>
                     <a:p>
+                      <a:pPr algn="ctr"/>
                       <a:r>
                         <a:rPr lang="en-US" sz="1200">
                           <a:latin typeface="Arial"/>
                         </a:rPr>
-                        <a:t>45.2000</a:t>
-                      </a:r>
-                    </a:p>
-                  </a:txBody>
-                  <a:tcPr anchor="ctr">
-                    <a:lnL>
-                      <a:noFill/>
-                    </a:lnL>
-                    <a:lnR>
-                      <a:noFill/>
-                    </a:lnR>
-                    <a:lnT>
-                      <a:noFill/>
-                    </a:lnT>
-                    <a:lnB>
-                      <a:noFill/>
-                    </a:lnB>
-                    <a:solidFill>
-                      <a:srgbClr val="D0D8E8"/>
-                    </a:solidFill>
-                  </a:tcPr>
-                </a:tc>
-                <a:tc>
-                  <a:txBody>
-                    <a:bodyPr/>
-                    <a:lstStyle/>
-                    <a:p>
-                      <a:r>
-                        <a:rPr lang="en-US" sz="1200">
-                          <a:latin typeface="Arial"/>
-                        </a:rPr>
-                        <a:t>36.9231</a:t>
-                      </a:r>
-                    </a:p>
-                  </a:txBody>
-                  <a:tcPr anchor="ctr">
-                    <a:lnL>
-                      <a:noFill/>
-                    </a:lnL>
-                    <a:lnR>
-                      <a:noFill/>
-                    </a:lnR>
-                    <a:lnT>
-                      <a:noFill/>
-                    </a:lnT>
-                    <a:lnB>
-                      <a:noFill/>
-                    </a:lnB>
-                    <a:solidFill>
-                      <a:srgbClr val="D0D8E8"/>
-                    </a:solidFill>
-                  </a:tcPr>
-                </a:tc>
-                <a:tc>
-                  <a:txBody>
-                    <a:bodyPr/>
-                    <a:lstStyle/>
-                    <a:p>
-                      <a:r>
-                        <a:rPr lang="en-US" sz="1200">
-                          <a:latin typeface="Arial"/>
-                        </a:rPr>
-                        <a:t>41.5455</a:t>
-                      </a:r>
-                    </a:p>
-                  </a:txBody>
-                  <a:tcPr anchor="ctr">
-                    <a:lnL>
-                      <a:noFill/>
-                    </a:lnL>
-                    <a:lnR>
-                      <a:noFill/>
-                    </a:lnR>
-                    <a:lnT>
-                      <a:noFill/>
-                    </a:lnT>
-                    <a:lnB>
-                      <a:noFill/>
-                    </a:lnB>
-                    <a:solidFill>
-                      <a:srgbClr val="D0D8E8"/>
-                    </a:solidFill>
-                  </a:tcPr>
-                </a:tc>
-                <a:tc>
-                  <a:txBody>
-                    <a:bodyPr/>
-                    <a:lstStyle/>
-                    <a:p>
-                      <a:r>
-                        <a:rPr lang="en-US" sz="1200">
-                          <a:latin typeface="Arial"/>
-                        </a:rPr>
-                        <a:t>40.8857</a:t>
-                      </a:r>
-                    </a:p>
-                  </a:txBody>
-                  <a:tcPr anchor="ctr">
-                    <a:lnL>
-                      <a:noFill/>
-                    </a:lnL>
-                    <a:lnR>
-                      <a:noFill/>
-                    </a:lnR>
-                    <a:lnT>
-                      <a:noFill/>
-                    </a:lnT>
-                    <a:lnB>
-                      <a:noFill/>
-                    </a:lnB>
-                    <a:solidFill>
-                      <a:srgbClr val="D0D8E8"/>
-                    </a:solidFill>
-                  </a:tcPr>
-                </a:tc>
-                <a:tc>
-                  <a:txBody>
-                    <a:bodyPr/>
-                    <a:lstStyle/>
-                    <a:p>
-                      <a:r>
-                        <a:rPr lang="en-US" sz="1200">
-                          <a:latin typeface="Arial"/>
-                        </a:rPr>
-                        <a:t>40.7200</a:t>
+                        <a:t>Transport-moving</a:t>
                       </a:r>
                     </a:p>
                   </a:txBody>
@@ -1141,11 +272,12 @@
                     <a:bodyPr/>
                     <a:lstStyle/>
                     <a:p>
+                      <a:pPr algn="ctr"/>
                       <a:r>
                         <a:rPr lang="en-US" sz="1200">
                           <a:latin typeface="Arial"/>
                         </a:rPr>
-                        <a:t>Handlers-cleaners</a:t>
+                        <a:t>Federal-gov</a:t>
                       </a:r>
                     </a:p>
                   </a:txBody>
@@ -1172,6 +304,135 @@
                     <a:bodyPr/>
                     <a:lstStyle/>
                     <a:p>
+                      <a:pPr algn="ctr"/>
+                      <a:r>
+                        <a:rPr lang="en-US" sz="1200">
+                          <a:latin typeface="Arial"/>
+                        </a:rPr>
+                        <a:t>40.7937</a:t>
+                      </a:r>
+                    </a:p>
+                  </a:txBody>
+                  <a:tcPr anchor="ctr">
+                    <a:lnL>
+                      <a:noFill/>
+                    </a:lnL>
+                    <a:lnR>
+                      <a:noFill/>
+                    </a:lnR>
+                    <a:lnT>
+                      <a:noFill/>
+                    </a:lnT>
+                    <a:lnB>
+                      <a:noFill/>
+                    </a:lnB>
+                    <a:solidFill>
+                      <a:srgbClr val="E9F7F4"/>
+                    </a:solidFill>
+                  </a:tcPr>
+                </a:tc>
+                <a:tc>
+                  <a:txBody>
+                    <a:bodyPr/>
+                    <a:lstStyle/>
+                    <a:p>
+                      <a:pPr algn="ctr"/>
+                      <a:r>
+                        <a:rPr lang="en-US" sz="1200">
+                          <a:latin typeface="Arial"/>
+                        </a:rPr>
+                        <a:t>38.2576</a:t>
+                      </a:r>
+                    </a:p>
+                  </a:txBody>
+                  <a:tcPr anchor="ctr">
+                    <a:lnL>
+                      <a:noFill/>
+                    </a:lnL>
+                    <a:lnR>
+                      <a:noFill/>
+                    </a:lnR>
+                    <a:lnT>
+                      <a:noFill/>
+                    </a:lnT>
+                    <a:lnB>
+                      <a:noFill/>
+                    </a:lnB>
+                    <a:solidFill>
+                      <a:srgbClr val="E9F7F4"/>
+                    </a:solidFill>
+                  </a:tcPr>
+                </a:tc>
+                <a:tc>
+                  <a:txBody>
+                    <a:bodyPr/>
+                    <a:lstStyle/>
+                    <a:p>
+                      <a:pPr algn="ctr"/>
+                      <a:r>
+                        <a:rPr lang="en-US" sz="1200">
+                          <a:latin typeface="Arial"/>
+                        </a:rPr>
+                        <a:t>-</a:t>
+                      </a:r>
+                    </a:p>
+                  </a:txBody>
+                  <a:tcPr anchor="ctr">
+                    <a:lnL>
+                      <a:noFill/>
+                    </a:lnL>
+                    <a:lnR>
+                      <a:noFill/>
+                    </a:lnR>
+                    <a:lnT>
+                      <a:noFill/>
+                    </a:lnT>
+                    <a:lnB>
+                      <a:noFill/>
+                    </a:lnB>
+                    <a:solidFill>
+                      <a:srgbClr val="E9F7F4"/>
+                    </a:solidFill>
+                  </a:tcPr>
+                </a:tc>
+                <a:tc>
+                  <a:txBody>
+                    <a:bodyPr/>
+                    <a:lstStyle/>
+                    <a:p>
+                      <a:pPr algn="ctr"/>
+                      <a:r>
+                        <a:rPr lang="en-US" sz="1200">
+                          <a:latin typeface="Arial"/>
+                        </a:rPr>
+                        <a:t>39.2857</a:t>
+                      </a:r>
+                    </a:p>
+                  </a:txBody>
+                  <a:tcPr anchor="ctr">
+                    <a:lnL>
+                      <a:noFill/>
+                    </a:lnL>
+                    <a:lnR>
+                      <a:noFill/>
+                    </a:lnR>
+                    <a:lnT>
+                      <a:noFill/>
+                    </a:lnT>
+                    <a:lnB>
+                      <a:noFill/>
+                    </a:lnB>
+                    <a:solidFill>
+                      <a:srgbClr val="E9F7F4"/>
+                    </a:solidFill>
+                  </a:tcPr>
+                </a:tc>
+                <a:tc>
+                  <a:txBody>
+                    <a:bodyPr/>
+                    <a:lstStyle/>
+                    <a:p>
+                      <a:pPr algn="ctr"/>
                       <a:r>
                         <a:rPr lang="en-US" sz="1200">
                           <a:latin typeface="Arial"/>
@@ -1203,11 +464,272 @@
                     <a:bodyPr/>
                     <a:lstStyle/>
                     <a:p>
+                      <a:pPr algn="ctr"/>
+                      <a:r>
+                        <a:rPr lang="en-US" sz="1200">
+                          <a:latin typeface="Arial"/>
+                        </a:rPr>
+                        <a:t>44.7083</a:t>
+                      </a:r>
+                    </a:p>
+                  </a:txBody>
+                  <a:tcPr anchor="ctr">
+                    <a:lnL>
+                      <a:noFill/>
+                    </a:lnL>
+                    <a:lnR>
+                      <a:noFill/>
+                    </a:lnR>
+                    <a:lnT>
+                      <a:noFill/>
+                    </a:lnT>
+                    <a:lnB>
+                      <a:noFill/>
+                    </a:lnB>
+                    <a:solidFill>
+                      <a:srgbClr val="E9F7F4"/>
+                    </a:solidFill>
+                  </a:tcPr>
+                </a:tc>
+              </a:tr>
+              <a:tr h="254000">
+                <a:tc>
+                  <a:txBody>
+                    <a:bodyPr/>
+                    <a:lstStyle/>
+                    <a:p>
+                      <a:pPr algn="ctr"/>
+                      <a:r>
+                        <a:rPr lang="en-US" sz="1200">
+                          <a:latin typeface="Arial"/>
+                        </a:rPr>
+                        <a:t>Self-emp-inc</a:t>
+                      </a:r>
+                    </a:p>
+                  </a:txBody>
+                  <a:tcPr anchor="ctr">
+                    <a:lnL>
+                      <a:noFill/>
+                    </a:lnL>
+                    <a:lnR>
+                      <a:noFill/>
+                    </a:lnR>
+                    <a:lnT>
+                      <a:noFill/>
+                    </a:lnT>
+                    <a:lnB>
+                      <a:noFill/>
+                    </a:lnB>
+                    <a:solidFill>
+                      <a:srgbClr val="D0D8E8"/>
+                    </a:solidFill>
+                  </a:tcPr>
+                </a:tc>
+                <a:tc>
+                  <a:txBody>
+                    <a:bodyPr/>
+                    <a:lstStyle/>
+                    <a:p>
+                      <a:pPr algn="ctr"/>
+                      <a:r>
+                        <a:rPr lang="en-US" sz="1200">
+                          <a:latin typeface="Arial"/>
+                        </a:rPr>
+                        <a:t>46.5354</a:t>
+                      </a:r>
+                    </a:p>
+                  </a:txBody>
+                  <a:tcPr anchor="ctr">
+                    <a:lnL>
+                      <a:noFill/>
+                    </a:lnL>
+                    <a:lnR>
+                      <a:noFill/>
+                    </a:lnR>
+                    <a:lnT>
+                      <a:noFill/>
+                    </a:lnT>
+                    <a:lnB>
+                      <a:noFill/>
+                    </a:lnB>
+                    <a:solidFill>
+                      <a:srgbClr val="D0D8E8"/>
+                    </a:solidFill>
+                  </a:tcPr>
+                </a:tc>
+                <a:tc>
+                  <a:txBody>
+                    <a:bodyPr/>
+                    <a:lstStyle/>
+                    <a:p>
+                      <a:pPr algn="ctr"/>
+                      <a:r>
+                        <a:rPr lang="en-US" sz="1200">
+                          <a:latin typeface="Arial"/>
+                        </a:rPr>
+                        <a:t>51.6667</a:t>
+                      </a:r>
+                    </a:p>
+                  </a:txBody>
+                  <a:tcPr anchor="ctr">
+                    <a:lnL>
+                      <a:noFill/>
+                    </a:lnL>
+                    <a:lnR>
+                      <a:noFill/>
+                    </a:lnR>
+                    <a:lnT>
+                      <a:noFill/>
+                    </a:lnT>
+                    <a:lnB>
+                      <a:noFill/>
+                    </a:lnB>
+                    <a:solidFill>
+                      <a:srgbClr val="D0D8E8"/>
+                    </a:solidFill>
+                  </a:tcPr>
+                </a:tc>
+                <a:tc>
+                  <a:txBody>
+                    <a:bodyPr/>
+                    <a:lstStyle/>
+                    <a:p>
+                      <a:pPr algn="ctr"/>
+                      <a:r>
+                        <a:rPr lang="en-US" sz="1200">
+                          <a:latin typeface="Arial"/>
+                        </a:rPr>
+                        <a:t>-</a:t>
+                      </a:r>
+                    </a:p>
+                  </a:txBody>
+                  <a:tcPr anchor="ctr">
+                    <a:lnL>
+                      <a:noFill/>
+                    </a:lnL>
+                    <a:lnR>
+                      <a:noFill/>
+                    </a:lnR>
+                    <a:lnT>
+                      <a:noFill/>
+                    </a:lnT>
+                    <a:lnB>
+                      <a:noFill/>
+                    </a:lnB>
+                    <a:solidFill>
+                      <a:srgbClr val="D0D8E8"/>
+                    </a:solidFill>
+                  </a:tcPr>
+                </a:tc>
+                <a:tc>
+                  <a:txBody>
+                    <a:bodyPr/>
+                    <a:lstStyle/>
+                    <a:p>
+                      <a:pPr algn="ctr"/>
+                      <a:r>
+                        <a:rPr lang="en-US" sz="1200">
+                          <a:latin typeface="Arial"/>
+                        </a:rPr>
+                        <a:t>45.2000</a:t>
+                      </a:r>
+                    </a:p>
+                  </a:txBody>
+                  <a:tcPr anchor="ctr">
+                    <a:lnL>
+                      <a:noFill/>
+                    </a:lnL>
+                    <a:lnR>
+                      <a:noFill/>
+                    </a:lnR>
+                    <a:lnT>
+                      <a:noFill/>
+                    </a:lnT>
+                    <a:lnB>
+                      <a:noFill/>
+                    </a:lnB>
+                    <a:solidFill>
+                      <a:srgbClr val="D0D8E8"/>
+                    </a:solidFill>
+                  </a:tcPr>
+                </a:tc>
+                <a:tc>
+                  <a:txBody>
+                    <a:bodyPr/>
+                    <a:lstStyle/>
+                    <a:p>
+                      <a:pPr algn="ctr"/>
                       <a:r>
                         <a:rPr lang="en-US" sz="1200">
                           <a:latin typeface="Arial"/>
                         </a:rPr>
                         <a:t>50.0000</a:t>
+                      </a:r>
+                    </a:p>
+                  </a:txBody>
+                  <a:tcPr anchor="ctr">
+                    <a:lnL>
+                      <a:noFill/>
+                    </a:lnL>
+                    <a:lnR>
+                      <a:noFill/>
+                    </a:lnR>
+                    <a:lnT>
+                      <a:noFill/>
+                    </a:lnT>
+                    <a:lnB>
+                      <a:noFill/>
+                    </a:lnB>
+                    <a:solidFill>
+                      <a:srgbClr val="D0D8E8"/>
+                    </a:solidFill>
+                  </a:tcPr>
+                </a:tc>
+                <a:tc>
+                  <a:txBody>
+                    <a:bodyPr/>
+                    <a:lstStyle/>
+                    <a:p>
+                      <a:pPr algn="ctr"/>
+                      <a:r>
+                        <a:rPr lang="en-US" sz="1200">
+                          <a:latin typeface="Arial"/>
+                        </a:rPr>
+                        <a:t>51.8077</a:t>
+                      </a:r>
+                    </a:p>
+                  </a:txBody>
+                  <a:tcPr anchor="ctr">
+                    <a:lnL>
+                      <a:noFill/>
+                    </a:lnL>
+                    <a:lnR>
+                      <a:noFill/>
+                    </a:lnR>
+                    <a:lnT>
+                      <a:noFill/>
+                    </a:lnT>
+                    <a:lnB>
+                      <a:noFill/>
+                    </a:lnB>
+                    <a:solidFill>
+                      <a:srgbClr val="D0D8E8"/>
+                    </a:solidFill>
+                  </a:tcPr>
+                </a:tc>
+              </a:tr>
+              <a:tr h="254000">
+                <a:tc>
+                  <a:txBody>
+                    <a:bodyPr/>
+                    <a:lstStyle/>
+                    <a:p>
+                      <a:pPr algn="ctr"/>
+                      <a:r>
+                        <a:rPr lang="en-US" sz="1200">
+                          <a:latin typeface="Arial"/>
+                        </a:rPr>
+                        <a:t>State-gov</a:t>
                       </a:r>
                     </a:p>
                   </a:txBody>
@@ -1234,6 +756,135 @@
                     <a:bodyPr/>
                     <a:lstStyle/>
                     <a:p>
+                      <a:pPr algn="ctr"/>
+                      <a:r>
+                        <a:rPr lang="en-US" sz="1200">
+                          <a:latin typeface="Arial"/>
+                        </a:rPr>
+                        <a:t>39.8909</a:t>
+                      </a:r>
+                    </a:p>
+                  </a:txBody>
+                  <a:tcPr anchor="ctr">
+                    <a:lnL>
+                      <a:noFill/>
+                    </a:lnL>
+                    <a:lnR>
+                      <a:noFill/>
+                    </a:lnR>
+                    <a:lnT>
+                      <a:noFill/>
+                    </a:lnT>
+                    <a:lnB>
+                      <a:noFill/>
+                    </a:lnB>
+                    <a:solidFill>
+                      <a:srgbClr val="E9F7F4"/>
+                    </a:solidFill>
+                  </a:tcPr>
+                </a:tc>
+                <a:tc>
+                  <a:txBody>
+                    <a:bodyPr/>
+                    <a:lstStyle/>
+                    <a:p>
+                      <a:pPr algn="ctr"/>
+                      <a:r>
+                        <a:rPr lang="en-US" sz="1200">
+                          <a:latin typeface="Arial"/>
+                        </a:rPr>
+                        <a:t>34.5536</a:t>
+                      </a:r>
+                    </a:p>
+                  </a:txBody>
+                  <a:tcPr anchor="ctr">
+                    <a:lnL>
+                      <a:noFill/>
+                    </a:lnL>
+                    <a:lnR>
+                      <a:noFill/>
+                    </a:lnR>
+                    <a:lnT>
+                      <a:noFill/>
+                    </a:lnT>
+                    <a:lnB>
+                      <a:noFill/>
+                    </a:lnB>
+                    <a:solidFill>
+                      <a:srgbClr val="E9F7F4"/>
+                    </a:solidFill>
+                  </a:tcPr>
+                </a:tc>
+                <a:tc>
+                  <a:txBody>
+                    <a:bodyPr/>
+                    <a:lstStyle/>
+                    <a:p>
+                      <a:pPr algn="ctr"/>
+                      <a:r>
+                        <a:rPr lang="en-US" sz="1200">
+                          <a:latin typeface="Arial"/>
+                        </a:rPr>
+                        <a:t>-</a:t>
+                      </a:r>
+                    </a:p>
+                  </a:txBody>
+                  <a:tcPr anchor="ctr">
+                    <a:lnL>
+                      <a:noFill/>
+                    </a:lnL>
+                    <a:lnR>
+                      <a:noFill/>
+                    </a:lnR>
+                    <a:lnT>
+                      <a:noFill/>
+                    </a:lnT>
+                    <a:lnB>
+                      <a:noFill/>
+                    </a:lnB>
+                    <a:solidFill>
+                      <a:srgbClr val="E9F7F4"/>
+                    </a:solidFill>
+                  </a:tcPr>
+                </a:tc>
+                <a:tc>
+                  <a:txBody>
+                    <a:bodyPr/>
+                    <a:lstStyle/>
+                    <a:p>
+                      <a:pPr algn="ctr"/>
+                      <a:r>
+                        <a:rPr lang="en-US" sz="1200">
+                          <a:latin typeface="Arial"/>
+                        </a:rPr>
+                        <a:t>36.9231</a:t>
+                      </a:r>
+                    </a:p>
+                  </a:txBody>
+                  <a:tcPr anchor="ctr">
+                    <a:lnL>
+                      <a:noFill/>
+                    </a:lnL>
+                    <a:lnR>
+                      <a:noFill/>
+                    </a:lnR>
+                    <a:lnT>
+                      <a:noFill/>
+                    </a:lnT>
+                    <a:lnB>
+                      <a:noFill/>
+                    </a:lnB>
+                    <a:solidFill>
+                      <a:srgbClr val="E9F7F4"/>
+                    </a:solidFill>
+                  </a:tcPr>
+                </a:tc>
+                <a:tc>
+                  <a:txBody>
+                    <a:bodyPr/>
+                    <a:lstStyle/>
+                    <a:p>
+                      <a:pPr algn="ctr"/>
                       <a:r>
                         <a:rPr lang="en-US" sz="1200">
                           <a:latin typeface="Arial"/>
@@ -1265,11 +916,272 @@
                     <a:bodyPr/>
                     <a:lstStyle/>
                     <a:p>
+                      <a:pPr algn="ctr"/>
+                      <a:r>
+                        <a:rPr lang="en-US" sz="1200">
+                          <a:latin typeface="Arial"/>
+                        </a:rPr>
+                        <a:t>39.1951</a:t>
+                      </a:r>
+                    </a:p>
+                  </a:txBody>
+                  <a:tcPr anchor="ctr">
+                    <a:lnL>
+                      <a:noFill/>
+                    </a:lnL>
+                    <a:lnR>
+                      <a:noFill/>
+                    </a:lnR>
+                    <a:lnT>
+                      <a:noFill/>
+                    </a:lnT>
+                    <a:lnB>
+                      <a:noFill/>
+                    </a:lnB>
+                    <a:solidFill>
+                      <a:srgbClr val="E9F7F4"/>
+                    </a:solidFill>
+                  </a:tcPr>
+                </a:tc>
+              </a:tr>
+              <a:tr h="254000">
+                <a:tc>
+                  <a:txBody>
+                    <a:bodyPr/>
+                    <a:lstStyle/>
+                    <a:p>
+                      <a:pPr algn="ctr"/>
+                      <a:r>
+                        <a:rPr lang="en-US" sz="1200">
+                          <a:latin typeface="Arial"/>
+                        </a:rPr>
+                        <a:t>Local-gov</a:t>
+                      </a:r>
+                    </a:p>
+                  </a:txBody>
+                  <a:tcPr anchor="ctr">
+                    <a:lnL>
+                      <a:noFill/>
+                    </a:lnL>
+                    <a:lnR>
+                      <a:noFill/>
+                    </a:lnR>
+                    <a:lnT>
+                      <a:noFill/>
+                    </a:lnT>
+                    <a:lnB>
+                      <a:noFill/>
+                    </a:lnB>
+                    <a:solidFill>
+                      <a:srgbClr val="D0D8E8"/>
+                    </a:solidFill>
+                  </a:tcPr>
+                </a:tc>
+                <a:tc>
+                  <a:txBody>
+                    <a:bodyPr/>
+                    <a:lstStyle/>
+                    <a:p>
+                      <a:pPr algn="ctr"/>
+                      <a:r>
+                        <a:rPr lang="en-US" sz="1200">
+                          <a:latin typeface="Arial"/>
+                        </a:rPr>
+                        <a:t>41.1119</a:t>
+                      </a:r>
+                    </a:p>
+                  </a:txBody>
+                  <a:tcPr anchor="ctr">
+                    <a:lnL>
+                      <a:noFill/>
+                    </a:lnL>
+                    <a:lnR>
+                      <a:noFill/>
+                    </a:lnR>
+                    <a:lnT>
+                      <a:noFill/>
+                    </a:lnT>
+                    <a:lnB>
+                      <a:noFill/>
+                    </a:lnB>
+                    <a:solidFill>
+                      <a:srgbClr val="D0D8E8"/>
+                    </a:solidFill>
+                  </a:tcPr>
+                </a:tc>
+                <a:tc>
+                  <a:txBody>
+                    <a:bodyPr/>
+                    <a:lstStyle/>
+                    <a:p>
+                      <a:pPr algn="ctr"/>
+                      <a:r>
+                        <a:rPr lang="en-US" sz="1200">
+                          <a:latin typeface="Arial"/>
+                        </a:rPr>
+                        <a:t>43.5000</a:t>
+                      </a:r>
+                    </a:p>
+                  </a:txBody>
+                  <a:tcPr anchor="ctr">
+                    <a:lnL>
+                      <a:noFill/>
+                    </a:lnL>
+                    <a:lnR>
+                      <a:noFill/>
+                    </a:lnR>
+                    <a:lnT>
+                      <a:noFill/>
+                    </a:lnT>
+                    <a:lnB>
+                      <a:noFill/>
+                    </a:lnB>
+                    <a:solidFill>
+                      <a:srgbClr val="D0D8E8"/>
+                    </a:solidFill>
+                  </a:tcPr>
+                </a:tc>
+                <a:tc>
+                  <a:txBody>
+                    <a:bodyPr/>
+                    <a:lstStyle/>
+                    <a:p>
+                      <a:pPr algn="ctr"/>
+                      <a:r>
+                        <a:rPr lang="en-US" sz="1200">
+                          <a:latin typeface="Arial"/>
+                        </a:rPr>
+                        <a:t>-</a:t>
+                      </a:r>
+                    </a:p>
+                  </a:txBody>
+                  <a:tcPr anchor="ctr">
+                    <a:lnL>
+                      <a:noFill/>
+                    </a:lnL>
+                    <a:lnR>
+                      <a:noFill/>
+                    </a:lnR>
+                    <a:lnT>
+                      <a:noFill/>
+                    </a:lnT>
+                    <a:lnB>
+                      <a:noFill/>
+                    </a:lnB>
+                    <a:solidFill>
+                      <a:srgbClr val="D0D8E8"/>
+                    </a:solidFill>
+                  </a:tcPr>
+                </a:tc>
+                <a:tc>
+                  <a:txBody>
+                    <a:bodyPr/>
+                    <a:lstStyle/>
+                    <a:p>
+                      <a:pPr algn="ctr"/>
+                      <a:r>
+                        <a:rPr lang="en-US" sz="1200">
+                          <a:latin typeface="Arial"/>
+                        </a:rPr>
+                        <a:t>41.5455</a:t>
+                      </a:r>
+                    </a:p>
+                  </a:txBody>
+                  <a:tcPr anchor="ctr">
+                    <a:lnL>
+                      <a:noFill/>
+                    </a:lnL>
+                    <a:lnR>
+                      <a:noFill/>
+                    </a:lnR>
+                    <a:lnT>
+                      <a:noFill/>
+                    </a:lnT>
+                    <a:lnB>
+                      <a:noFill/>
+                    </a:lnB>
+                    <a:solidFill>
+                      <a:srgbClr val="D0D8E8"/>
+                    </a:solidFill>
+                  </a:tcPr>
+                </a:tc>
+                <a:tc>
+                  <a:txBody>
+                    <a:bodyPr/>
+                    <a:lstStyle/>
+                    <a:p>
+                      <a:pPr algn="ctr"/>
                       <a:r>
                         <a:rPr lang="en-US" sz="1200">
                           <a:latin typeface="Arial"/>
                         </a:rPr>
                         <a:t>40.2174</a:t>
+                      </a:r>
+                    </a:p>
+                  </a:txBody>
+                  <a:tcPr anchor="ctr">
+                    <a:lnL>
+                      <a:noFill/>
+                    </a:lnL>
+                    <a:lnR>
+                      <a:noFill/>
+                    </a:lnR>
+                    <a:lnT>
+                      <a:noFill/>
+                    </a:lnT>
+                    <a:lnB>
+                      <a:noFill/>
+                    </a:lnB>
+                    <a:solidFill>
+                      <a:srgbClr val="D0D8E8"/>
+                    </a:solidFill>
+                  </a:tcPr>
+                </a:tc>
+                <a:tc>
+                  <a:txBody>
+                    <a:bodyPr/>
+                    <a:lstStyle/>
+                    <a:p>
+                      <a:pPr algn="ctr"/>
+                      <a:r>
+                        <a:rPr lang="en-US" sz="1200">
+                          <a:latin typeface="Arial"/>
+                        </a:rPr>
+                        <a:t>38.6783</a:t>
+                      </a:r>
+                    </a:p>
+                  </a:txBody>
+                  <a:tcPr anchor="ctr">
+                    <a:lnL>
+                      <a:noFill/>
+                    </a:lnL>
+                    <a:lnR>
+                      <a:noFill/>
+                    </a:lnR>
+                    <a:lnT>
+                      <a:noFill/>
+                    </a:lnT>
+                    <a:lnB>
+                      <a:noFill/>
+                    </a:lnB>
+                    <a:solidFill>
+                      <a:srgbClr val="D0D8E8"/>
+                    </a:solidFill>
+                  </a:tcPr>
+                </a:tc>
+              </a:tr>
+              <a:tr h="254000">
+                <a:tc>
+                  <a:txBody>
+                    <a:bodyPr/>
+                    <a:lstStyle/>
+                    <a:p>
+                      <a:pPr algn="ctr"/>
+                      <a:r>
+                        <a:rPr lang="en-US" sz="1200">
+                          <a:latin typeface="Arial"/>
+                        </a:rPr>
+                        <a:t>Self-emp-not-inc</a:t>
                       </a:r>
                     </a:p>
                   </a:txBody>
@@ -1296,6 +1208,135 @@
                     <a:bodyPr/>
                     <a:lstStyle/>
                     <a:p>
+                      <a:pPr algn="ctr"/>
+                      <a:r>
+                        <a:rPr lang="en-US" sz="1200">
+                          <a:latin typeface="Arial"/>
+                        </a:rPr>
+                        <a:t>42.1587</a:t>
+                      </a:r>
+                    </a:p>
+                  </a:txBody>
+                  <a:tcPr anchor="ctr">
+                    <a:lnL>
+                      <a:noFill/>
+                    </a:lnL>
+                    <a:lnR>
+                      <a:noFill/>
+                    </a:lnR>
+                    <a:lnT>
+                      <a:noFill/>
+                    </a:lnT>
+                    <a:lnB>
+                      <a:noFill/>
+                    </a:lnB>
+                    <a:solidFill>
+                      <a:srgbClr val="E9F7F4"/>
+                    </a:solidFill>
+                  </a:tcPr>
+                </a:tc>
+                <a:tc>
+                  <a:txBody>
+                    <a:bodyPr/>
+                    <a:lstStyle/>
+                    <a:p>
+                      <a:pPr algn="ctr"/>
+                      <a:r>
+                        <a:rPr lang="en-US" sz="1200">
+                          <a:latin typeface="Arial"/>
+                        </a:rPr>
+                        <a:t>37.8846</a:t>
+                      </a:r>
+                    </a:p>
+                  </a:txBody>
+                  <a:tcPr anchor="ctr">
+                    <a:lnL>
+                      <a:noFill/>
+                    </a:lnL>
+                    <a:lnR>
+                      <a:noFill/>
+                    </a:lnR>
+                    <a:lnT>
+                      <a:noFill/>
+                    </a:lnT>
+                    <a:lnB>
+                      <a:noFill/>
+                    </a:lnB>
+                    <a:solidFill>
+                      <a:srgbClr val="E9F7F4"/>
+                    </a:solidFill>
+                  </a:tcPr>
+                </a:tc>
+                <a:tc>
+                  <a:txBody>
+                    <a:bodyPr/>
+                    <a:lstStyle/>
+                    <a:p>
+                      <a:pPr algn="ctr"/>
+                      <a:r>
+                        <a:rPr lang="en-US" sz="1200">
+                          <a:latin typeface="Arial"/>
+                        </a:rPr>
+                        <a:t>-</a:t>
+                      </a:r>
+                    </a:p>
+                  </a:txBody>
+                  <a:tcPr anchor="ctr">
+                    <a:lnL>
+                      <a:noFill/>
+                    </a:lnL>
+                    <a:lnR>
+                      <a:noFill/>
+                    </a:lnR>
+                    <a:lnT>
+                      <a:noFill/>
+                    </a:lnT>
+                    <a:lnB>
+                      <a:noFill/>
+                    </a:lnB>
+                    <a:solidFill>
+                      <a:srgbClr val="E9F7F4"/>
+                    </a:solidFill>
+                  </a:tcPr>
+                </a:tc>
+                <a:tc>
+                  <a:txBody>
+                    <a:bodyPr/>
+                    <a:lstStyle/>
+                    <a:p>
+                      <a:pPr algn="ctr"/>
+                      <a:r>
+                        <a:rPr lang="en-US" sz="1200">
+                          <a:latin typeface="Arial"/>
+                        </a:rPr>
+                        <a:t>40.8857</a:t>
+                      </a:r>
+                    </a:p>
+                  </a:txBody>
+                  <a:tcPr anchor="ctr">
+                    <a:lnL>
+                      <a:noFill/>
+                    </a:lnL>
+                    <a:lnR>
+                      <a:noFill/>
+                    </a:lnR>
+                    <a:lnT>
+                      <a:noFill/>
+                    </a:lnT>
+                    <a:lnB>
+                      <a:noFill/>
+                    </a:lnB>
+                    <a:solidFill>
+                      <a:srgbClr val="E9F7F4"/>
+                    </a:solidFill>
+                  </a:tcPr>
+                </a:tc>
+                <a:tc>
+                  <a:txBody>
+                    <a:bodyPr/>
+                    <a:lstStyle/>
+                    <a:p>
+                      <a:pPr algn="ctr"/>
                       <a:r>
                         <a:rPr lang="en-US" sz="1200">
                           <a:latin typeface="Arial"/>
@@ -1327,11 +1368,12 @@
                     <a:bodyPr/>
                     <a:lstStyle/>
                     <a:p>
+                      <a:pPr algn="ctr"/>
                       <a:r>
                         <a:rPr lang="en-US" sz="1200">
                           <a:latin typeface="Arial"/>
                         </a:rPr>
-                        <a:t>37.8295</a:t>
+                        <a:t>49.7288</a:t>
                       </a:r>
                     </a:p>
                   </a:txBody>
@@ -1360,11 +1402,12 @@
                     <a:bodyPr/>
                     <a:lstStyle/>
                     <a:p>
+                      <a:pPr algn="ctr"/>
                       <a:r>
                         <a:rPr lang="en-US" sz="1200">
                           <a:latin typeface="Arial"/>
                         </a:rPr>
-                        <a:t>Transport-moving</a:t>
+                        <a:t>Private</a:t>
                       </a:r>
                     </a:p>
                   </a:txBody>
@@ -1391,11 +1434,12 @@
                     <a:bodyPr/>
                     <a:lstStyle/>
                     <a:p>
+                      <a:pPr algn="ctr"/>
                       <a:r>
                         <a:rPr lang="en-US" sz="1200">
                           <a:latin typeface="Arial"/>
                         </a:rPr>
-                        <a:t>44.7083</a:t>
+                        <a:t>42.3147</a:t>
                       </a:r>
                     </a:p>
                   </a:txBody>
@@ -1422,11 +1466,12 @@
                     <a:bodyPr/>
                     <a:lstStyle/>
                     <a:p>
+                      <a:pPr algn="ctr"/>
                       <a:r>
                         <a:rPr lang="en-US" sz="1200">
                           <a:latin typeface="Arial"/>
                         </a:rPr>
-                        <a:t>51.8077</a:t>
+                        <a:t>39.7607</a:t>
                       </a:r>
                     </a:p>
                   </a:txBody>
@@ -1453,11 +1498,12 @@
                     <a:bodyPr/>
                     <a:lstStyle/>
                     <a:p>
+                      <a:pPr algn="ctr"/>
                       <a:r>
                         <a:rPr lang="en-US" sz="1200">
                           <a:latin typeface="Arial"/>
                         </a:rPr>
-                        <a:t>39.1951</a:t>
+                        <a:t>32.7972</a:t>
                       </a:r>
                     </a:p>
                   </a:txBody>
@@ -1484,11 +1530,12 @@
                     <a:bodyPr/>
                     <a:lstStyle/>
                     <a:p>
+                      <a:pPr algn="ctr"/>
                       <a:r>
                         <a:rPr lang="en-US" sz="1200">
                           <a:latin typeface="Arial"/>
                         </a:rPr>
-                        <a:t>38.6783</a:t>
+                        <a:t>40.7200</a:t>
                       </a:r>
                     </a:p>
                   </a:txBody>
@@ -1515,11 +1562,12 @@
                     <a:bodyPr/>
                     <a:lstStyle/>
                     <a:p>
+                      <a:pPr algn="ctr"/>
                       <a:r>
                         <a:rPr lang="en-US" sz="1200">
                           <a:latin typeface="Arial"/>
                         </a:rPr>
-                        <a:t>49.7288</a:t>
+                        <a:t>37.8295</a:t>
                       </a:r>
                     </a:p>
                   </a:txBody>
@@ -1546,6 +1594,7 @@
                     <a:bodyPr/>
                     <a:lstStyle/>
                     <a:p>
+                      <a:pPr algn="ctr"/>
                       <a:r>
                         <a:rPr lang="en-US" sz="1200">
                           <a:latin typeface="Arial"/>
@@ -1585,8 +1634,8 @@
         </p:nvSpPr>
         <p:spPr>
           <a:xfrm>
-            <a:off x="1270000" y="635000"/>
-            <a:ext cx="6604000" cy="635000"/>
+            <a:off x="1270000" y="317500"/>
+            <a:ext cx="6604000" cy="254000"/>
           </a:xfrm>
           <a:prstGeom prst="rect">
             <a:avLst/>
@@ -1596,14 +1645,18 @@
           <a:bodyPr/>
           <a:lstStyle/>
           <a:p>
+            <a:pPr algn="ctr"/>
             <a:r>
-              <a:rPr lang="en-US"/>
-              <a:t>Original</a:t>
+              <a:rPr lang="en-US" b="true" sz="1600">
+                <a:latin typeface="Arial"/>
+              </a:rPr>
+              <a:t>Original
+ At columns are occupation and at rows are work_class</a:t>
             </a:r>
           </a:p>
         </p:txBody>
       </p:sp>
-    <p:pic><p:nvPicPr><p:cNvPr id="4" name="SC4STASK.wav"><a:hlinkClick r:id="" action="ppaction://media"/></p:cNvPr><p:cNvPicPr><a:picLocks noChangeAspect="1"/></p:cNvPicPr><p:nvPr><a:audioFile r:link="rId4"/><p:extLst><p:ext uri="{DAA4B4D4-6D71-4841-9C94-3DE7FCFB9230}"><p14:media xmlns:p14="http://schemas.microsoft.com/office/powerpoint/2010/main" r:embed="rId3"/></p:ext></p:extLst></p:nvPr></p:nvPicPr><p:blipFill><a:blip r:embed="rId5"/><a:stretch><a:fillRect/></a:stretch></p:blipFill><p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="609600" cy="609600"/>    </a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr></p:pic></p:spTree>
+    <p:pic><p:nvPicPr><p:cNvPr id="4" name="CHSNQ.wav"><a:hlinkClick r:id="" action="ppaction://media"/></p:cNvPr><p:cNvPicPr><a:picLocks noChangeAspect="1"/></p:cNvPicPr><p:nvPr><a:audioFile r:link="rId4"/><p:extLst><p:ext uri="{DAA4B4D4-6D71-4841-9C94-3DE7FCFB9230}"><p14:media xmlns:p14="http://schemas.microsoft.com/office/powerpoint/2010/main" r:embed="rId3"/></p:ext></p:extLst></p:nvPr></p:nvPicPr><p:blipFill><a:blip r:embed="rId5"/><a:stretch><a:fillRect/></a:stretch></p:blipFill><p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="609600" cy="609600"/>    </a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr></p:pic></p:spTree>
   </p:cSld>
   <p:clrMapOvr>
     <a:masterClrMapping/>
