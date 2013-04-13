@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package CubeMgr.StarSchema;
 
 import java.sql.Connection;
@@ -15,10 +11,6 @@ import java.util.List;
 
 import ErrorsEngine.ErrorClass;
 
-/**
- *
- * @author Asterix
- */
 public class Database {
 	private String DBName;
     public List<Table> Tbl;

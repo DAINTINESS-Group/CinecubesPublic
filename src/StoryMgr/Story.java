@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package StoryMgr;
 
 import java.util.ArrayList;
@@ -10,10 +6,6 @@ import AudioMgr.AudioEngine;
 import TaskMgr.FactCompilation;
 import TextMgr.TextExtraction;
 
-/**
- *
- * @author Asterix
- */
 public class Story {
     
     private TextExtraction Texts;

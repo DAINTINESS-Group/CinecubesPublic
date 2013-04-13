@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package CubeMgr.StarSchema;
 
 import java.sql.ResultSet;
@@ -9,10 +5,6 @@ import java.util.ArrayList;
 import TaskMgr.ExtractionMethod;
 import TaskMgr.Result;
 
-/**
- *
- * @author Asterix
- */
 public class SqlQuery extends ExtractionMethod {
     
     public String[] SelectClauseMeasure;  	/* 0-->AggregateFuncName, 1--> field */  
@@ -111,7 +103,7 @@ public class SqlQuery extends ExtractionMethod {
     /*
      *  
      */
-    public String returnQuery(){
+    public String returnMethodString(){
     	String ret_value="SELECT "+getSelectClause();
     	ret_value+="\nFROM "+ getFromClause();
     	ret_value+="\nWHERE "+getWhereClause();
@@ -127,9 +119,9 @@ public class SqlQuery extends ExtractionMethod {
     	return ret_value;
     }
     
-    public void setResult(ResultSet result){
+    public boolean setResult(ResultSet result){
     	Res=new Result();
-    	Res.createResultArray(result);
+    	return Res.createResultArray(result);
     }
 
 	@Override

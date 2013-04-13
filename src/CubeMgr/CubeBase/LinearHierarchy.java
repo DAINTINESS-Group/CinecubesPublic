@@ -1,16 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package CubeMgr.CubeBase;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Asterix
- */
 public class LinearHierarchy  extends Hierarchy {
 	public List<Level> lvls;
     public Dimension dimension;

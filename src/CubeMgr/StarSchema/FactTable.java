@@ -1,15 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package CubeMgr.StarSchema;
 
 import java.util.List;
 
-/**
- *
- * @author Asterix
- */
 public class FactTable extends Table {
     
 	private List<DimensionTable> DimTable;

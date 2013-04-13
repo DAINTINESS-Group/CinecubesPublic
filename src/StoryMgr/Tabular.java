@@ -1,19 +1,9 @@
-/**
- * 
- */
 package StoryMgr;
 
 import java.util.HashSet;
 
-/**
- * @author Asterix
- *
- */
 public class Tabular extends Visual {
 	
-	/**
-	 * 
-	 */
 	public Tabular() {
 		super();
 		PivotTable=null;

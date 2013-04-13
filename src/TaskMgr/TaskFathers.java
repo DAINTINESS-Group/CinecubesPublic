@@ -1,6 +1,3 @@
-/**
- * 
- */
 package TaskMgr;
 
 import java.sql.ResultSet;
@@ -11,15 +8,8 @@ import CubeMgr.CubeBase.CubeBase;
 import CubeMgr.StarSchema.Database;
 import CubeMgr.StarSchema.SqlQuery;
 
-/**
- * @author Asterix
- *
- */
 public class TaskFathers extends Task {
 
-	/**
-	 * 
-	 */
 	public TaskFathers() {
 		super();
 	}

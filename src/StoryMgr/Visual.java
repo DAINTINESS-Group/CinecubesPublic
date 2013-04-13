@@ -1,15 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package StoryMgr;
 
 import java.util.HashSet;
 
-/**
- *
- * @author Asterix
- */
 public abstract class  Visual {
     
 	protected String[][] PivotTable;

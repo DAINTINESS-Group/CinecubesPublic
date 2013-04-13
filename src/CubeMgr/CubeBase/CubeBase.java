@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package CubeMgr.CubeBase;
 
 import CubeMgr.StarSchema.Database;
@@ -13,10 +9,6 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Asterix
- */
 public class CubeBase {
     public String name;
     public Database DB;
@@ -79,7 +71,8 @@ public class CubeBase {
 				lvlattr.setLevel(lvl);
 				lvlattr.setAttribute(DB.getFieldOfSqlTable(tmp_str[0],tmp_str[1]));
 				
-				lvl.setLevelAttribute(lvlattr);
+				//lvl.setLevelAttribute(lvlattr);
+				lvl.addLevelAttribute(lvlattr);
 				lvl.setLinearHierarchy(LinHier);
 				
 				LinHier.lvls.add(lvl);

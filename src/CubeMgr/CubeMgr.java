@@ -1,17 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package CubeMgr;
 
 import java.util.ArrayList;
 
 import CubeMgr.CubeBase.CubeBase;
 
-/**
- *
- * @author Asterix
- */
+
 public class CubeMgr {
     
     public CubeBase CBase;

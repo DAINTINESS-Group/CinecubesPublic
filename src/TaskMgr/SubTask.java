@@ -1,17 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package TaskMgr;
 
 import java.util.ArrayList;
 
 import CubeMgr.StarSchema.Database;
 
-/**
- *
- * @author Asterix
- */
 public class SubTask {
     private KeyFinding keyfinding;
     private ExtractionMethod extractionMethod;  
@@ -22,8 +14,8 @@ public class SubTask {
     	setKeyFinding(new KeyFinding());
     }
         
-    public void execute(Database dB){
-    	extractionMethod.setResult(dB.executeSql(extractionMethod.returnQuery()));
+    public boolean execute(Database dB){
+    	return extractionMethod.setResult(dB.executeSql(extractionMethod.returnMethodString()));
     };
     
     public void computeFinding(Database dB){

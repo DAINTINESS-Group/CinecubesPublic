@@ -2,19 +2,13 @@ package StoryMgr;
 import AudioMgr.Audio;
 import TaskMgr.SubTask;
 
-/**
- * @author Asterix
- *
- */
 public class pptxSlide extends Episode {
 	
 	public String Notes;
 	public String Title;
 	public String TitleColumn;
 	public String TitleRow;
-	/**
-	 * 
-	 */
+	
 	public pptxSlide() {
 		super();
 	}

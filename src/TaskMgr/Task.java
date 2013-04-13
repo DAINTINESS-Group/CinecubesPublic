@@ -1,16 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package TaskMgr;
 
 import java.util.ArrayList;
 
 import CubeMgr.CubeBase.CubeBase;
-/**
- *
- * @author Asterix
- */
+
 public abstract class Task {
     protected ArrayList<SubTask> subTasks;
     

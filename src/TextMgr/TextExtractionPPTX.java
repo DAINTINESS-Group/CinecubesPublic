@@ -1,14 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package TextMgr;
 
-
-/**
- *
- * @author Asterix
- */
 public class TextExtractionPPTX extends TextExtraction {
     
     public String textForNotes;

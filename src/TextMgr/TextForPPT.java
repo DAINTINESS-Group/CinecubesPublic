@@ -1,15 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package TextMgr;
 
 import java.util.HashSet;
 
-/**
- *
- * @author Asterix
- */
 public class TextForPPT extends TextExtraction {
     
     final String lexicon = "ABCDEFGHIJKLMNOPQRSTUVWXYZ12345674890";

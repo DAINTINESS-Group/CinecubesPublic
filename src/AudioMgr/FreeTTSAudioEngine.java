@@ -1,6 +1,3 @@
-/**
- * 
- */
 package AudioMgr;
 
 import java.io.File;
@@ -8,10 +5,7 @@ import java.io.File;
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 import com.sun.speech.freetts.audio.SingleFileAudioPlayer;
-/**
- * @author Asterix
- *
- */
+
 public class FreeTTSAudioEngine extends AudioEngine {
 
     private String voiceName;
@@ -22,9 +16,7 @@ public class FreeTTSAudioEngine extends AudioEngine {
     final String lexicon = "ABCDEFGHIJKLMNOPQRSTUVWXYZ12345674890";
     final java.util.Random rand = new java.util.Random();
     
-	/**
-	 * 
-	 */
+	
 	public FreeTTSAudioEngine() {
 		super();
 	}

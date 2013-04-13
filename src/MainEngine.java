@@ -1,4 +1,3 @@
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -24,15 +23,6 @@ import WrapUpMgr.PptxWrapUpMgr;
 import WrapUpMgr.WrapUpMgr;
 
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author Asterix
- */
 public class MainEngine {
     
 	public CubeMgr CubeManager;
@@ -58,11 +48,26 @@ public class MainEngine {
     
     public void NewRequest(String Query){
     	if(Query.length()==0){
-    		Query="SELECT A.occupation,A.work_class,AVG(hours_per_week) \n" +
+    		/*Query="SELECT A.occupation,A.work_class,AVG(hours_per_week) \n" +
         	   "FROM ADULT A, OCCUPATION O, WORK_CLASS W \n" +
         	   "WHERE A.occupation = O.level0 AND O.level1 = 'Blue-collar' \n" +
         	   " AND W.level0 = A.work_class AND W.level2 = 'With-Pay' \n" +
-        	   " GROUP BY A.occupation,A.work_class";
+        	   " GROUP BY A.occupation,A.work_class";x
+    		Query="SELECT A.education,A.work_class,AVG(hours_per_week) \n" +
+    	        	   "FROM ADULT A, EDUCATION E, WORK_CLASS W \n" +
+    	        	   "WHERE A.education = E.level0 AND E.level2 = 'Assoc' \n" +
+    	        	   " AND W.level0 = A.work_class AND W.level2 = 'With-Pay' \n" +
+    	        	   " GROUP BY A.education,A.work_class";*/
+    		/*Query="SELECT A.education,A.occupation,AVG(hours_per_week) \n" +
+ 	        	   "FROM ADULT A, EDUCATION E, OCCUPATION O \n" +
+ 	        	   "WHERE A.education = E.level0 AND E.level2 = 'Assoc' \n" +
+ 	        	   " AND A.occupation = O.level0 AND O.level1 = 'Blue-collar' \n" +
+ 	        	   " GROUP BY A.education,A.occupation";*/
+    		Query="SELECT A.education,A.MARITAL_STATUS,AVG(hours_per_week) \n" +
+  	        	   "FROM ADULT A, EDUCATION E, MARITAL_STATUS M \n" +
+  	        	   "WHERE A.education = E.level0 AND E.level2 = 'University' \n" +
+  	        	   " AND A.MARITAL_STATUS = M.level0 AND M.level1 = 'Partner-absent' \n" +
+  	        	   " GROUP BY A.education,A.MARITAL_STATUS";
     	}
         PrsMng.parse(Query);
         SqlQuery query=new SqlQuery(PrsMng.aggregatefunc,PrsMng.tablelst,PrsMng.conditionlst,PrsMng.groupperlst);
@@ -90,7 +95,7 @@ public class MainEngine {
         SetupSlideEpisodes(StorMgr.getStory().getLastAct());
         
         StorMgr.getStory().setFinalResult(new PptxSlideshow());
-        StorMgr.getStory().getFinalResult().setFilename("ppt/slideshow2.pptx");
+        StorMgr.getStory().getFinalResult().setFilename("ppt/q6.pptx");
         
         WrapUp=new PptxWrapUpMgr();
         WrapUp.setFinalResult(StorMgr.getStory().getFinalResult());
@@ -104,45 +109,52 @@ public class MainEngine {
     
     public void SetupSlideEpisodes(Act act){
     	SqlQuery original=(SqlQuery)act.getTask().getSubTask(0).getExtractionMethod();
+    	int timesIN=0;
+    	System.out.println("Sum of subtasks:"+act.getTask().getSubTasks().size());
     	for(SubTask subtsk : act.getTask().getSubTasks()){
-    		pptxSlide newSlide=new pptxSlide();
-	        newSlide.setSubTask(subtsk);
-	        newSlide.Notes=subtsk.getExtractionMethod().returnQuery();
-	        Tabular tbl=new Tabular();
-	        tbl.CreatePivotTable(subtsk.getExtractionMethod().Res.getRowPivot(), subtsk.getExtractionMethod().Res.getColPivot(), 
-					subtsk.getExtractionMethod().Res.getResultArray());
-	        newSlide.createVisual(tbl);
-	        
-	        newSlide.setAudioFile("audio/"+AudioMgr.randomIdentifier());
-	        
-	        SqlQuery currentQuery=((SqlQuery)subtsk.getExtractionMethod());
-	        newSlide.TitleColumn=new String(currentQuery.Res.TitleOfColumns);
-	        newSlide.TitleRow=new String(currentQuery.Res.TitleOfRows);
-	        if(subtsk.getDifferencesFromOrigin().size()==0){
-	        	newSlide.Title="Original";
-	        }
-	        else if(subtsk.getDifferencesFromOrigin().get(0)==-1){
-	        	newSlide.Title="Summarized Slide for field : ";
-	        	newSlide.Title+=original.WhereClause.get(subtsk.getDifferencesFromOrigin().get(1))[0];
-	        } 
-	        else {
-	        	newSlide.Title="The ~ which changed @ : ";
-	        	for(int i=0;i<subtsk.getDifferencesFromOrigin().size();i++){
-		        	if(i>0) newSlide.Title+=" AND ";
-		        	newSlide.Title+=original.WhereClause.get(subtsk.getDifferenceFromOrigin(i))[0];
+    		SqlQuery currentQuery=((SqlQuery)subtsk.getExtractionMethod());
+	        if((subtsk.getExtractionMethod().Res.getResultArray()!=null || subtsk.getExtractionMethod().Res.getResultArray().length>0)){
+	        	timesIN++;
+	        	pptxSlide newSlide=new pptxSlide();
+		        newSlide.setSubTask(subtsk);
+		        newSlide.Notes=subtsk.getExtractionMethod().returnMethodString();
+		        
+		        Tabular tbl=new Tabular();
+		        tbl.CreatePivotTable(subtsk.getExtractionMethod().Res.getRowPivot(), subtsk.getExtractionMethod().Res.getColPivot(), 
+						subtsk.getExtractionMethod().Res.getResultArray());
+		        newSlide.createVisual(tbl);
+		        
+		        newSlide.setAudioFile("audio/"+AudioMgr.randomIdentifier());
+		        
+		        newSlide.TitleColumn=new String(currentQuery.Res.TitleOfColumns);
+		        newSlide.TitleRow=new String(currentQuery.Res.TitleOfRows);
+		        if(subtsk.getDifferencesFromOrigin().size()==0){
+		        	newSlide.Title="Original";
 		        }
-	        	String text_cond="Conditions";
-		        String text_are="are";
-		        if(subtsk.getDifferencesFromOrigin().size()==1){
-		        	text_cond="Condition";
-		        	text_are="is";
+		        else if(subtsk.getDifferencesFromOrigin().get(0)==-1){
+		        	newSlide.Title="Summarized Slide for field : ";
+		        	newSlide.Title+=original.WhereClause.get(subtsk.getDifferencesFromOrigin().get(1))[0];
+		        } 
+		        else {
+		        	newSlide.Title="The ~ which changed @ : ";
+		        	for(int i=0;i<subtsk.getDifferencesFromOrigin().size();i++){
+			        	if(i>0) newSlide.Title+=" AND ";
+			        	newSlide.Title+=original.WhereClause.get(subtsk.getDifferenceFromOrigin(i))[0];
+			        }
+		        	String text_cond="Conditions";
+			        String text_are="are";
+			        if(subtsk.getDifferencesFromOrigin().size()==1){
+			        	text_cond="Condition";
+			        	text_are="is";
+			        }
+		        	newSlide.Title=newSlide.Title.replace("~", text_cond).replace("@", text_are);
 		        }
-	        	newSlide.Title=newSlide.Title.replace("~", text_cond).replace("@", text_are);
+		        newSlide.Title+="\n At columns are "+newSlide.TitleColumn+" and at rows are "+newSlide.TitleRow;
+		        AudioMgr.CreateSound("Text to Create", newSlide.getAudio().getFileName());
+		        StorMgr.getStory().getLastAct().addEpisode(newSlide);
 	        }
-	        newSlide.Title+="\n At columns are "+newSlide.TitleColumn+" and at rows are "+newSlide.TitleRow;
-	        AudioMgr.CreateSound("Text to Create", newSlide.getAudio().getFileName());
-	        StorMgr.getStory().getLastAct().addEpisode(newSlide);
     	}
+    	System.out.println("TimesIN:"+timesIN);
     }
     
     public File GetFileCmds(){
@@ -327,7 +339,7 @@ public class MainEngine {
         MainEng.CubeManager.CreateCubeBase(MainEng.InsertFromKeyboardDBInfos());        
         //Me.ParseFile(Me.GetFileCmds());
         
-        MainEng.ParseFile(new File("D:/Master-Vassileiadis/InputFiles/BETA/beta.txt"));
+        MainEng.ParseFile(new File("InputFiles/BETA/beta.txt"));
         MainEng.NewRequest("");
         System.out.println("=======Finish======");
     }

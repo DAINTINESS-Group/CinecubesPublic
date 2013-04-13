@@ -1,16 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package StoryMgr;
 
 import TaskMgr.Task;
 import TaskMgr.TaskMgr;
 
-/**
- *
- * @author Asterix
- */
 public class StoryMgr {
     private Story story;
     

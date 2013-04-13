@@ -1,6 +1,3 @@
-/**
- * 
- */
 package TaskMgr;
 
 import java.sql.ResultSet;
@@ -11,16 +8,8 @@ import CubeMgr.CubeBase.CubeBase;
 import CubeMgr.StarSchema.Database;
 import CubeMgr.StarSchema.SqlQuery;
 
-/**
- * @author Asterix
- *
- */
 public class TaskBrothers extends Task {
 
-	/**
-	 * 
-	 */
-		
 	public TaskBrothers() {
 		super();
 	}
@@ -85,8 +74,7 @@ public class TaskBrothers extends Task {
 			}
 		}
 		
-		sbtsk.execute(DB);
-		subTasks.add(sbtsk);
+		if(sbtsk.execute(DB)) subTasks.add(sbtsk);
     }
     
 	public ArrayList<SubTask> getSubTasks() {

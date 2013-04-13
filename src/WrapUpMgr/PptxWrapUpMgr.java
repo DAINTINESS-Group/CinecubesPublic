@@ -1,6 +1,3 @@
-/**
- * 
- */
 package WrapUpMgr;
 
 import java.awt.Color;
@@ -27,16 +24,19 @@ import java.util.zip.ZipOutputStream;
 import org.apache.poi.openxml4j.opc.PackagePart;
 import org.apache.poi.openxml4j.opc.PackageRelationship;
 import org.apache.poi.openxml4j.opc.TargetMode;
+import org.apache.poi.xslf.usermodel.SlideLayout;
 import org.apache.poi.xslf.usermodel.TextAlign;
 import org.apache.poi.xslf.usermodel.VerticalAlignment;
 import org.apache.poi.xslf.usermodel.XMLSlideShow;
 import org.apache.poi.xslf.usermodel.XSLFSlide;
+import org.apache.poi.xslf.usermodel.XSLFSlideLayout;
+import org.apache.poi.xslf.usermodel.XSLFSlideMaster;
 import org.apache.poi.xslf.usermodel.XSLFTable;
 import org.apache.poi.xslf.usermodel.XSLFTableCell;
 import org.apache.poi.xslf.usermodel.XSLFTableRow;
-import org.apache.poi.xslf.usermodel.XSLFTextBox;
 import org.apache.poi.xslf.usermodel.XSLFTextParagraph;
 import org.apache.poi.xslf.usermodel.XSLFTextRun;
+import org.apache.poi.xslf.usermodel.XSLFTextShape;
 import org.apache.xmlbeans.XmlObject;
 
 import pptxExtraction.DBtoPPTX;
@@ -46,14 +46,10 @@ import StoryMgr.FinalResult;
 import StoryMgr.Story;
 import StoryMgr.pptxSlide;
 
-/**
- * @author Asterix
- *
- */
 public class PptxWrapUpMgr extends WrapUpMgr {
 
 	XMLSlideShow slideShowPPTX;
-	//XSLFSlideMaster defaultMaster;
+	XSLFSlideMaster defaultMaster;
 	private String[] SlideXml;
 	private ArrayList<String> fileList;
 	private String Contenttype;
@@ -75,8 +71,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 			e.printStackTrace();
 		}
 		//defaultMaster = slideShowPPTX.getSlideMasters()[0];
-		
-		
+        defaultMaster = slideShowPPTX.getSlideMasters()[0];
 		for(Act actItem : story.getActs()){
 			SlideXml=new String[actItem.getEpisodes().size()];
 			for(int j=0;j<actItem.getEpisodes().size();j++){
@@ -91,19 +86,19 @@ public class PptxWrapUpMgr extends WrapUpMgr {
             fout=new FileOutputStream(this.finalResult.getFilename());
             slideShowPPTX.write(fout);
             fout.close();
-            
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         } 
         
-        
+        System.out.println(SlideXml.length);
         RenamePPTXtoZip();
         UnZipFiles();
         InitializeContentType();
         for(Act actItem : story.getActs()){
 			for(int j=0;j<actItem.getEpisodes().size();j++){
 				pptxSlide slide=(pptxSlide)actItem.getEpisodes().get(j);
+				//System.out.println("Slide Num:"+(j+1)+"=>"+slide.Title);
 				AddAudiotoPPTX(j+2,slide.getAudio().getFileName(),slide.Notes);
 			}
         }
@@ -114,8 +109,8 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 	}
 	
 	public void XSLFcreateSlide(String[][] table,String AudioFilename,String Title,int slideid, String titleColumn, String titleRow){
-		 
-        XSLFSlide slide=slideShowPPTX.createSlide();
+		 XSLFSlideLayout titleLayout = defaultMaster.getLayout(SlideLayout.TITLE_ONLY); 
+        XSLFSlide slide=slideShowPPTX.createSlide(titleLayout);
         String NotesRelationShip="http://schemas.openxmlformats.org/officeDocument/2006/relationships/notesSlide";
         URI uri = null;
         try {
@@ -129,7 +124,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
         CreateTableInSlide(slide, slideShowPPTX.getPageSize(),table,titleColumn,titleRow);
         
         this.setTitle(slide, Title, new Rectangle2D.Double(100, 25,slideShowPPTX.getPageSize().width-200,20),16.0,true);
-//       / this.setTitle(slide, titleRow, new Rectangle2D.Double(40,40,30,100), 10.0, true);
+        //this.setTitle(slide, titleRow, new Rectangle2D.Double(40,40,30,100), 10.0, true);
         CreateSlideWithXMlAudio(slide,AudioFilename,slideid);
         
      }
@@ -143,7 +138,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
      private XSLFTable CreateTableInSlide(XSLFSlide slide,java.awt.Dimension pgsize,String[][] table, String titleColumn, String titleRow){
          
        int pgx = pgsize.width; //slide width
-       int pgy=pgsize.height; //slide height
+       
        XSLFTable tbl=slide.createTable();
       /* XSLFTableRow ttlRow=tbl.addRow();
        for(int j=0;j<table[0].length;j++){
@@ -159,9 +154,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
     	   titlecell.setVerticalAlignment(VerticalAlignment.MIDDLE);
        }*/
        for(int i=0;i<table.length;i++){
-            XSLFTableRow addRow = tbl.addRow();
-           // XSLFTableCell first=addRow.addCell();
-            
+           XSLFTableRow addRow = tbl.addRow();
            for(int j=0;j<table[i].length;j++){
               XSLFTableCell cell = addRow.addCell();
               
@@ -182,8 +175,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
            }
        }
        int width_table=(table[0].length)*80;
-       int height_table=(table.length+1)*80;
-       
+              
        tbl.setAnchor(new Rectangle2D.Double(((pgx-width_table)/2), 100,100,100));
        return tbl;
      }
@@ -560,7 +552,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
             for(String file : this.fileList){
 
                     
-            		if(file.contains("slide1")==false && file.contains("Slide1")==false){
+            		if(file.equals("slide1")==false && file.equals("Slide1")==false){
             			//System.out.println("File Added : " + file);
 	                    ZipEntry ze= new ZipEntry(file.replace("ppt\\unzip\\", ""));
 	                    zos.putNextEntry(ze);
@@ -663,16 +655,15 @@ public class PptxWrapUpMgr extends WrapUpMgr {
          }
     }
     
+    /* Set Title In Slide */
     void setTitle(XSLFSlide slide,String Title,Rectangle2D.Double Anchor,double fontSize,boolean bold){
-    	 XSLFTextBox tltBox=slide.createTextBox();
-         XSLFTextParagraph tltpara=tltBox.addNewTextParagraph();         
-         XSLFTextRun tltTxtRun=tltpara.addNewTextRun();
-         tltpara.setTextAlign(TextAlign.CENTER);
-         tltTxtRun.setFontFamily("Arial");
-         tltTxtRun.setBold(bold);
-         tltTxtRun.setFontSize(fontSize);
-         tltTxtRun.setText(Title);
-         tltBox.setAnchor(Anchor);
+    	  	XSLFTextShape title1 = slide.getPlaceholder(0);
+	    	title1.clearText(); /*Clear The txt Type Here Title*/
+	    	XSLFTextRun tltTxtRun =title1.addNewTextParagraph().addNewTextRun();
+	    	tltTxtRun.setFontFamily("Arial");
+	        tltTxtRun.setBold(bold);
+	    	tltTxtRun.setFontSize(fontSize);
+	    	tltTxtRun.setText(Title);
     }
 
 }

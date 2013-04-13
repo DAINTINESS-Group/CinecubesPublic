@@ -1,16 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package CubeMgr.CubeBase;
 
 import java.util.ArrayList;
 import java.util.List;
  
-/**
- *
- * @author Asterix
- */
 public class Cube {
    // public ArrayList<FactTable> SqlTbl;
    //public MetaData MtDt;
@@ -19,14 +11,14 @@ public class Cube {
     public List<Level> lvl;
     private List<Measure> Msr;
     public List<Dimension> Dim;
-    protected ArrayList<String> DimemsionRefField;
+    protected ArrayList<String> DimensionRefField;
     
     public Cube(String NAME){
     	name=NAME;
     	lvl=new ArrayList<>();
     	Msr=new ArrayList<>();
     	Dim=new ArrayList<>();
-    	DimemsionRefField=new ArrayList<>();
+    	DimensionRefField=new ArrayList<>();
     }
     
     public void getDimensions(){
@@ -41,12 +33,20 @@ public class Cube {
 		Msr = msr;
 	}
 
-	public ArrayList<String> getDimemsionRefField() {
-		return DimemsionRefField;
+	public ArrayList<String> getDimensionRefField() {
+		return DimensionRefField;
 	}
 
-	public void setDimemsionRefField(ArrayList<String> dimemsionRefField) {
-		DimemsionRefField = dimemsionRefField;
+	public void setDimensionRefField(ArrayList<String> dimemsionRefField) {
+		DimensionRefField = dimemsionRefField;
+	}
+	
+	public void addDimension(Dimension dimension) {
+		this.Dim.add(dimension);
+	}
+
+	public void addDimensionRefField(String namefield) {
+		this.DimensionRefField.add(namefield);
 	}
     
 }

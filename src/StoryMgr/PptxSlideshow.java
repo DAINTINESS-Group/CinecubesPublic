@@ -1,17 +1,7 @@
-/**
- * 
- */
 package StoryMgr;
 
-/**
- * @author Asterix
- *
- */
 public class PptxSlideshow extends FinalResult {
 	
-	/**
-	 * 
-	 */
 	public PptxSlideshow() {
 		super();
 	}

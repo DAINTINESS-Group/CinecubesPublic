@@ -1,17 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package TaskMgr;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
 
-/**
- *
- * @author Asterix
- */
 public class Result {
     
 	private String [][] resultArray;
@@ -48,62 +40,66 @@ public class Result {
 		return resultArray[row][column];
 	}
 	
-	public void createResultArray(ResultSet resultSet){			
+	public boolean createResultArray(ResultSet resultSet){			
 			int columns;
 	        int rows;
 	        float temp;
-	        
+	        boolean ret_value=false;
 			try {
 				resultSet.last();
 				rows=resultSet.getRow();
-				columns=resultSet.getMetaData().getColumnCount();
-				
-				temp=resultSet.getFloat(columns);
-				setMaxValueIndex(resultSet.getRow());
-		        //back to first line
-		        resultSet.first();
-		        resultSet.beforeFirst();
-		        resultArray=new String[rows+2][columns];
-		        for(int i=1;i<=columns;i++) {
-		        	resultArray[0][i-1]=resultSet.getMetaData().getColumnName(i);
-		        	resultArray[1][i-1]=resultSet.getMetaData().getColumnLabel(i);
-		        }
-		        
-		        TitleOfColumns=resultSet.getMetaData().getColumnName(1);
-				TitleOfRows=resultSet.getMetaData().getColumnName(2);
-				System.out.println("74:"+TitleOfColumns+" "+TitleOfRows);
-		        while(resultSet.next()){
-		           for(int i=0;i<columns;i++){
-		        	   resultArray[resultSet.getRow()+1][i]=resultSet.getString(i+1);
-		        	   this.ColPivot.add(resultSet.getString(1));
-	                   this.RowPivot.add(resultSet.getString(2));
-		           }
-		           		           
-		           if(temp<resultSet.getFloat(columns)){
-		               temp=resultSet.getFloat(columns);
-		               setMaxValueIndex(resultSet.getRow());
-		           }
-		        }
-		       
-		       if(ColPivot.size()<RowPivot.size()){
-		        	HashSet<String> copySet=new HashSet<String>();
-		        	copyStringHashet(RowPivot,copySet);
-		        	RowPivot.clear();
-		        	copyStringHashet(ColPivot,RowPivot);
-		        	ColPivot.clear();
-		        	copyStringHashet(copySet,ColPivot);
-		        	
-		        	TitleOfColumns=new String(resultSet.getMetaData().getColumnName(2));
-					TitleOfRows=new String(resultSet.getMetaData().getColumnName(1));
-					System.out.println("98:"+TitleOfColumns+" "+TitleOfRows);
+				if(rows>0){
+					ret_value=true;
+					columns=resultSet.getMetaData().getColumnCount();
 					
-		        }
-		       System.out.println("======");
+					temp=resultSet.getFloat(columns);
+					setMaxValueIndex(resultSet.getRow());
+			        //back to first line
+			        resultSet.first();
+			        resultSet.beforeFirst();
+			        resultArray=new String[rows+2][columns];
+			        for(int i=1;i<=columns;i++) {
+			        	resultArray[0][i-1]=resultSet.getMetaData().getColumnName(i);
+			        	resultArray[1][i-1]=resultSet.getMetaData().getColumnLabel(i);
+			        }
+			        
+			        TitleOfColumns=resultSet.getMetaData().getColumnName(1);
+					TitleOfRows=resultSet.getMetaData().getColumnName(2);
+					//System.out.println("74:"+TitleOfColumns+" "+TitleOfRows);
+			        while(resultSet.next()){
+			           for(int i=0;i<columns;i++){
+			        	   resultArray[resultSet.getRow()+1][i]=resultSet.getString(i+1);
+			        	   this.ColPivot.add(resultSet.getString(1));
+		                   this.RowPivot.add(resultSet.getString(2));
+			           }
+			           		           
+			           if(temp<resultSet.getFloat(columns)){
+			               temp=resultSet.getFloat(columns);
+			               setMaxValueIndex(resultSet.getRow());
+			           }
+			        }
+			       
+			       /*if(ColPivot.size()>RowPivot.size()){
+			        	HashSet<String> copySet=new HashSet<String>();
+			        	copyStringHashet(RowPivot,copySet);
+			        	RowPivot.clear();
+			        	copyStringHashet(ColPivot,RowPivot);
+			        	ColPivot.clear();
+			        	copyStringHashet(copySet,ColPivot);
+			        	
+			        	TitleOfColumns=new String(resultSet.getMetaData().getColumnName(2));
+						TitleOfRows=new String(resultSet.getMetaData().getColumnName(1));
+						System.out.println("98:"+TitleOfColumns+" "+TitleOfRows);
+						
+			        }*/
+				}
+		      // System.out.println("======");
 		       // printStringArray(resultArray);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			return ret_value;
 		}
 
 	public void printStringArray(String[][] result){

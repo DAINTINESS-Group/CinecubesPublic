@@ -1,17 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package StoryMgr;
 
 import java.util.ArrayList;
 import TaskMgr.Task;
 
 
-/**
- *
- * @author Asterix
- */
 public class Act {
     private ArrayList<Episode> Episodes;
     private Task tsk;

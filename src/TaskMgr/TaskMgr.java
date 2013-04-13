@@ -1,15 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package TaskMgr;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author Asterix
- */
 public class TaskMgr {
     private ArrayList<Task> Tasks;
     
