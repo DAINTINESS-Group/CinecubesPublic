@@ -2,6 +2,10 @@ package CubeMgr.StarSchema;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+
+import CubeMgr.CubeBase.CubeQuery;
+import CubeMgr.CubeBase.Dimension;
+import CubeMgr.CubeBase.LinearHierarchy;
 import TaskMgr.ExtractionMethod;
 import TaskMgr.Result;
 
@@ -20,6 +24,7 @@ public class SqlQuery extends ExtractionMethod {
     	FromClause=new ArrayList<>();
     	WhereClause=new ArrayList<>();
     	GroupByClause=new ArrayList<>();
+    	SelectClauseMeasure=new String[2];
     }
     
     public SqlQuery(String Aggregatefunc,ArrayList<String> Tables,ArrayList<String> Conditions,ArrayList<String> GroupAttr){
@@ -39,7 +44,6 @@ public class SqlQuery extends ExtractionMethod {
     
     public SqlQuery(String[] Aggregatefunc,ArrayList<String[]> Tables,ArrayList<String[]> Conditions,ArrayList<String[]> GroupAttr){
     	init();
-    	SelectClauseMeasure=new String[2];
     	SelectClauseMeasure[0]=Aggregatefunc[0];
     	SelectClauseMeasure[1]=Aggregatefunc[1];
     	FromClause.addAll(Tables);
@@ -92,8 +96,8 @@ public class SqlQuery extends ExtractionMethod {
     }
     
     public void printQuery(){
-    	//System.out.println(returnQuery());
-    	//printBorderLine();
+    	System.out.println(returnMethodString());
+    	printBorderLine();
     }
     
     
@@ -143,6 +147,46 @@ public class SqlQuery extends ExtractionMethod {
 			}
 		}
 		return (count == this.WhereClause.size() ? true : false);
+	}
+
+	@Override
+	public void produceExtractionMethod(CubeQuery cubeQuery) {
+		this.SelectClauseMeasure[0]=cubeQuery.AggregateFunction;
+		this.SelectClauseMeasure[1]="hours_per_week";
+		
+		/*Create Fromclause*/
+		String[] tbl_tmp=new String[1];
+		tbl_tmp[0]=cubeQuery.referCube.FactTable().TblName;
+		this.FromClause.add(tbl_tmp);
+		for(int i=0;i<cubeQuery.GammaExpressions.size();i++){
+			String[] toAdd=new String[1];
+			toAdd[0]=cubeQuery.GammaExpressions.get(i)[0];
+			this.FromClause.add(toAdd);
+		}
+		
+		/*Create WhereClausse */
+		for(String[] sigmaExpr: cubeQuery.SigmaExpressions){
+			for(int i=0;i<cubeQuery.referCube.Dim.size();i++){
+				Dimension dimension=cubeQuery.referCube.Dim.get(i);
+				String[] tmp=sigmaExpr[0].split("\\.");
+				if(dimension.getDimTbl().TblName.equals(tmp[0])){
+					 String toadd[]=new String[3];
+					 toadd[0]=cubeQuery.referCube.getDimensionRefField().get(i);
+					 toadd[1]="=";
+					 toadd[2]=tmp[0]+"."+((LinearHierarchy)dimension.getHier().get(0)).lvls.get(0).lvlAttributes.get(0).getAttribute().name;
+					 
+					 this.WhereClause.add(toadd);
+					 this.WhereClause.add(sigmaExpr);					 
+				}
+			}
+		}
+		
+		/*Create groupClausse*/
+		for(String[] sigmaExpr: cubeQuery.GammaExpressions){
+			String[] toadd=new String[1];
+			toadd[0]=sigmaExpr[0]+"."+sigmaExpr[1];
+			this.GroupByClause.add(toadd);
+		}
 	}
  
     

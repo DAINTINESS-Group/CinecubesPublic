@@ -61,7 +61,7 @@ public class CubeBase {
 		LinearHierarchy LinHier=new LinearHierarchy();
 		LinHier.setDimension(tmp);
 		for(int i=0;i<hierachylst.size();i++){
-			if(custFld_name.equals(hierachylst.get(i))){
+			if(custFld_name.get(i).equals(hierachylst.get(i))){
 				Level lvl=new Level(i,hierachylst.get(i));
 				
 				String temp_string=fld_tbl.get(i).replace(".","#");
@@ -78,6 +78,7 @@ public class CubeBase {
 				LinHier.lvls.add(lvl);
 			}
 		}
+		tmp.getHier().add(LinHier);
 	}
 	
 	

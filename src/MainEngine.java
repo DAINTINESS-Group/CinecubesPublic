@@ -8,6 +8,9 @@ import javax.swing.JFileChooser;
 import AudioMgr.AudioEngine;
 import AudioMgr.FreeTTSAudioEngine;
 import CubeMgr.CubeMgr;
+import CubeMgr.CubeBase.BasicStoredCube;
+import CubeMgr.CubeBase.CubeQuery;
+import CubeMgr.CubeBase.Measure;
 import CubeMgr.StarSchema.SqlQuery;
 import ParserMgr.ParserManager;
 import StoryMgr.Act;
@@ -40,13 +43,7 @@ public class MainEngine {
     	TskMgr=new TaskMgr();
     }
     
-    /* 
-     * Maybe the parameter of this function
-     * must change to different type (Like Query).....
-     * 
-     */
-    
-    public void NewRequest(String Query){
+    public String predefinedSqlQueries(String Query){
     	if(Query.length()==0){
     		/*Query="SELECT A.occupation,A.work_class,AVG(hours_per_week) \n" +
         	   "FROM ADULT A, OCCUPATION O, WORK_CLASS W \n" +
@@ -69,10 +66,49 @@ public class MainEngine {
   	        	   " AND A.MARITAL_STATUS = M.level0 AND M.level1 = 'Partner-absent' \n" +
   	        	   " GROUP BY A.education,A.MARITAL_STATUS";
     	}
-        PrsMng.parse(Query);
-        SqlQuery query=new SqlQuery(PrsMng.aggregatefunc,PrsMng.tablelst,PrsMng.conditionlst,PrsMng.groupperlst);
+    	return Query;
+    }
+    
+    public CubeQuery DefaultCubeQuery(){
+    	CubeQuery cubequery=new CubeQuery("New Request");
+    	cubequery.AggregateFunction="AVG";
+    	cubequery.Msr=new ArrayList<Measure>();
+    	
+    	Measure msrToAdd=new Measure();
+    	msrToAdd.id=1;
+    	msrToAdd.name="Hrs";
+    	msrToAdd.Attr=CubeManager.CBase.DB.getFieldOfSqlTable("occupation", "hours_per_week");
+    	
+    	cubequery.addGammaExpression("marital_status", "level0");
+    	cubequery.addGammaExpression("education", "level1");
+    	
+    	cubequery.addSigmaExpression("marital_status.level1", "=", "Partner-absent");
+    	cubequery.addSigmaExpression("education.level2", "=", "University");
+    	for(BasicStoredCube bsc: CubeManager.CBase.BasicCubes){
+    		if(bsc.name.equals("adult_cube")){
+    			cubequery.referCube=bsc;
+    		}
+    	}
+    	return cubequery;
+    	
+    }
+    
+    /* 
+     * Maybe the parameter of this function
+     * must change to different type (Like Query).....
+     * 
+     */
+    
+    public void NewRequest(String Query){
+    	
+        //PrsMng.parse(predefinedSqlQueries(Query));
+        //SqlQuery query=new SqlQuery(PrsMng.aggregatefunc,PrsMng.tablelst,PrsMng.conditionlst,PrsMng.groupperlst);
         //query.printQuery();
         
+    	SqlQuery query=new SqlQuery();
+    	query.produceExtractionMethod(this.DefaultCubeQuery());
+    	query.printQuery();
+        System.exit(1);
         StorMgr.createStory();
         StorMgr.createStoryOriginalRequest();
         StorMgr.createTasks(TskMgr);
@@ -88,7 +124,7 @@ public class MainEngine {
         
         TskMgr.getLastTask().getLastSubTask().execute(CubeManager.CBase.DB);
         //TskMgr.getLastTask().getLastSubTask().computeFinding();
-       TskMgr.getLastTask().generateSubTasks(CubeManager.CBase);
+        TskMgr.getLastTask().generateSubTasks(CubeManager.CBase);
         AudioMgr=new FreeTTSAudioEngine();
         AudioMgr.InitializeVoiceEngine();
         
@@ -180,7 +216,7 @@ public class MainEngine {
 					//ParseCreation(sc.next().replaceAll("(?m)^[ \t]*\r?\n", ""));
 					PrsMng.parse(sc.next()+";");
 					if(PrsMng.mode==2){
-						this.CubeManager.InsertionDimensionLvl(PrsMng.name_creation,PrsMng.sqltable,PrsMng.originallvllst,PrsMng.customlvllst,PrsMng.hierachylst);
+						this.CubeManager.InsertionDimensionLvl(PrsMng.name_creation,PrsMng.sqltable,PrsMng.originallvllst,PrsMng.customlvllst,PrsMng.dimensionlst);
 						//System.out.println("DIMENSION");
 					}
 					else if(PrsMng.mode==1){

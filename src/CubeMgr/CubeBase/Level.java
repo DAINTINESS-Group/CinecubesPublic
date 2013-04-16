@@ -18,6 +18,7 @@ public class Level {
     public Level(Integer position,String nm){
     	id=position;
     	name=nm;
+    	lvlAttributes=new ArrayList<LevelAttribute>();
     }
         
     public void setLevelAttribute(ArrayList<LevelAttribute> levelAttributes){

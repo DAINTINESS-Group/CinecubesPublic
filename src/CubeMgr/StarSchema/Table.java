@@ -26,7 +26,6 @@ public class Table {
     	      }
     		
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }
@@ -39,7 +38,7 @@ public class Table {
     
     public Attribute getAttribute(String name){
     	for(Attribute item : LstAttr){
-    		if (item.name==name) return item;
+    		if (item.name.equals(name)) return item;
     	}
     	return null;
     }

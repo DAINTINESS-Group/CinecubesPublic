@@ -77,4 +77,5 @@ REFERENCES DIMENSION age_dim AT adutl.age,
 					 occupation_dim AT adult.occupation,
 					 race_dim AT adult.race,
 					 gender_dim AT adult.gender,
-					 country_dim AT adult.native_country
+					 country_dim AT adult.native_country,
+					 education_dim AT adult.education

@@ -8,7 +8,7 @@ public class LinearHierarchy  extends Hierarchy {
     public Dimension dimension;
 
     public LinearHierarchy(){
-    	lvls=new ArrayList<>();
+    	lvls=new ArrayList<Level>();
     }
     
     public void setDimension(Dimension dimensionToPoint){

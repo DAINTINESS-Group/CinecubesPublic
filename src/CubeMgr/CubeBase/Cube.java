@@ -9,7 +9,7 @@ public class Cube {
 	//private Dimension CubDim;
     public String name;
     public List<Level> lvl;
-    private List<Measure> Msr;
+    public List<Measure> Msr;
     public List<Dimension> Dim;
     protected ArrayList<String> DimensionRefField;
     
