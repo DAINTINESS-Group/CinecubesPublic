@@ -4,9 +4,8 @@ import java.util.ArrayList;
 
 public class TaskMgr {
     private ArrayList<Task> Tasks;
-    
+        
     public TaskMgr(){
-    	
     }
     
     public void createTasks(){

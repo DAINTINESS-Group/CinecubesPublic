@@ -15,7 +15,7 @@ public class SubTask {
     }
         
     public boolean execute(Database dB){
-    	return extractionMethod.setResult(dB.executeSql(extractionMethod.returnMethodString()));
+    	return extractionMethod.setResult(dB.executeSql(extractionMethod.toString()));
     };
     
     public void computeFinding(Database dB){

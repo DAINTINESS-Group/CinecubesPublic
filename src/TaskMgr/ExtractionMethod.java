@@ -12,7 +12,7 @@ public abstract class ExtractionMethod {
 
     abstract public boolean setResult(ResultSet resultSet);
     abstract public Result getResult();
-    abstract public String returnMethodString();
+    abstract public String toString();
     abstract public void produceExtractionMethod(CubeQuery cubeQuery);
     abstract public boolean compareExtractionMethod(ExtractionMethod toCompare);
     

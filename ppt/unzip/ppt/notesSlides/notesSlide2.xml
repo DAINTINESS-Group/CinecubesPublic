@@ -44,10 +44,15 @@
 					<a:p>
 						<a:r>
 							<a:rPr lang="en-US" smtClean="0"/>
-							<a:t>SELECT  A.education, A.MARITAL_STATUS,AVG(hours_per_week) 
-FROM  ADULT A, EDUCATION E, MARITAL_STATUS M
-WHERE  A.education = E.level0 AND  E.level2 = 'University' AND  A.MARITAL_STATUS = M.level0 AND  M.level1 = 'Partner-absent'
-GROUP BY  A.education, A.MARITAL_STATUS</a:t>
+							<a:t>SQL QUERY:
+SELECT  marital_status.level0, education.level1,AVG(hours_per_week) 
+FROM  adult, marital_status, education
+WHERE  adult.marital_status = marital_status.level0 AND  marital_status.level1 = 'Partner-absent' AND  adult.education = education.level0 AND  education.level2 = 'University'
+GROUP BY  marital_status.level0, education.level1
+CUBE QUERY:
+Aggregate Function : AVG
+Measure : hours_per_week
+Gamma Expression: marital_status.level0 , education.level1Sigma Expression: marital_status.level1='Partner-absent' AND education.level2='University'</a:t>
 						</a:r>
 						<a:endParaRPr lang="en-US"/>
 					</a:p>

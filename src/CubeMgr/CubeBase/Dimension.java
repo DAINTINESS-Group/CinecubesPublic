@@ -3,7 +3,6 @@ package CubeMgr.CubeBase;
 import CubeMgr.StarSchema.DimensionTable;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Dimension{
     private ArrayList<Hierarchy> hierachy;
@@ -15,11 +14,6 @@ public class Dimension{
     	hierachy=new ArrayList<Hierarchy>();
     }
     
-    void getLevels(){
-        
-    }
-    
-
     public DimensionTable getDimTbl() {
             return DimTbl;
     }
@@ -34,10 +28,5 @@ public class Dimension{
 
     public void setHier(ArrayList<Hierarchy> hier) {
     	hierachy = hier;
-    }
-    
-    public void addHierachyWithLevels(){
-    	
-    }
-    
+    }    
 }

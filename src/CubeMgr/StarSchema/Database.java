@@ -136,7 +136,6 @@ public class Database {
 			res = createStatement.executeQuery(query);
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return res;

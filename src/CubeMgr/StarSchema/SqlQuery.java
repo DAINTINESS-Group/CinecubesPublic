@@ -96,7 +96,7 @@ public class SqlQuery extends ExtractionMethod {
     }
     
     public void printQuery(){
-    	System.out.println(returnMethodString());
+    	System.out.println(toString());
     	printBorderLine();
     }
     
@@ -107,7 +107,7 @@ public class SqlQuery extends ExtractionMethod {
     /*
      *  
      */
-    public String returnMethodString(){
+    public String toString(){
     	String ret_value="SELECT "+getSelectClause();
     	ret_value+="\nFROM "+ getFromClause();
     	ret_value+="\nWHERE "+getWhereClause();
@@ -123,6 +123,7 @@ public class SqlQuery extends ExtractionMethod {
     	return ret_value;
     }
     
+    @Override
     public boolean setResult(ResultSet result){
     	Res=new Result();
     	return Res.createResultArray(result);
@@ -152,7 +153,7 @@ public class SqlQuery extends ExtractionMethod {
 	@Override
 	public void produceExtractionMethod(CubeQuery cubeQuery) {
 		this.SelectClauseMeasure[0]=cubeQuery.AggregateFunction;
-		this.SelectClauseMeasure[1]="hours_per_week";
+		this.SelectClauseMeasure[1]=cubeQuery.Msr.get(0).Attr.name;
 		
 		/*Create Fromclause*/
 		String[] tbl_tmp=new String[1];
@@ -188,6 +189,5 @@ public class SqlQuery extends ExtractionMethod {
 			this.GroupByClause.add(toadd);
 		}
 	}
- 
-    
+	
 }

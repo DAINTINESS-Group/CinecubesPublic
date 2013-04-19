@@ -12,12 +12,12 @@ public class CubeQuery extends Cube {
     public SqlQuery sqlQuery;    
     public BasicStoredCube referCube;
     
-    public CubeQuery(String NAME) {
-		super(NAME);
+    public CubeQuery(String Name) {
+		super(Name);
 		GammaExpressions=new ArrayList<String[]>();
 		SigmaExpressions=new ArrayList<String[]>();
 	}
-    
+       
     public void addGammaExpression(String table,String field){
     	String toadd[]=new String[2];
     	toadd[0]=table;
@@ -31,6 +31,23 @@ public class CubeQuery extends Cube {
     	toadd[1]=operator;
     	toadd[2]=value;
     	SigmaExpressions.add(toadd);
+    }
+    
+    public String toString(){
+    	String ret_value="Aggregate Function : "+AggregateFunction+"\n";
+    	ret_value+="Measure : "+this.Msr.get(0).Attr.name+"\n";
+    	ret_value+="Gamma Expression: ";
+    	for(int i=0;i<GammaExpressions.size();i++){
+    		if(i>0) ret_value+=" , ";
+    		ret_value+=GammaExpressions.get(i)[0]+"."+GammaExpressions.get(i)[1];
+    	}
+    	
+    	ret_value+="Sigma Expression: ";
+    	for(int i=0;i<SigmaExpressions.size();i++){
+    		if(i>0) ret_value+=" AND ";
+    		ret_value+=SigmaExpressions.get(i)[0]+SigmaExpressions.get(i)[1]+SigmaExpressions.get(i)[2];
+    	}
+		return ret_value;
     }
     
 }

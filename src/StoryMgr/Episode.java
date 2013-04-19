@@ -1,7 +1,6 @@
 package StoryMgr;
 
 import AudioMgr.Audio;
-import CubeMgr.CubeBase.CubeQuery;
 import TaskMgr.SubTask;
 import TextMgr.Text;
 
@@ -11,10 +10,8 @@ public abstract class Episode {
     protected Visual visual;
     protected Audio audio;
     protected Text txt;
-    public CubeQuery cubeQuery;
     
-    public Episode(){
-    	setSubTask(new SubTask());
+    public Episode(){    	
     	//keyFinding=new KeyFinding();
     	audio=new Audio();
     	txt=new Text();

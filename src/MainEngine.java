@@ -77,13 +77,13 @@ public class MainEngine {
     	Measure msrToAdd=new Measure();
     	msrToAdd.id=1;
     	msrToAdd.name="Hrs";
-    	msrToAdd.Attr=CubeManager.CBase.DB.getFieldOfSqlTable("occupation", "hours_per_week");
-    	
+    	msrToAdd.Attr=CubeManager.CBase.DB.getFieldOfSqlTable("adult", "hours_per_week");
+    	cubequery.Msr.add(msrToAdd);
     	cubequery.addGammaExpression("marital_status", "level0");
     	cubequery.addGammaExpression("education", "level1");
     	
-    	cubequery.addSigmaExpression("marital_status.level1", "=", "Partner-absent");
-    	cubequery.addSigmaExpression("education.level2", "=", "University");
+    	cubequery.addSigmaExpression("marital_status.level1", "=", "'Partner-absent'");
+    	cubequery.addSigmaExpression("education.level2", "=", "'University'");
     	for(BasicStoredCube bsc: CubeManager.CBase.BasicCubes){
     		if(bsc.name.equals("adult_cube")){
     			cubequery.referCube=bsc;
@@ -93,22 +93,50 @@ public class MainEngine {
     	
     }
     
+    public void NewRequestCubeQuery(){
+    	StorMgr.createStory();
+        StorMgr.createStoryOriginalRequest();
+        StorMgr.createTasks(TskMgr);
+        TskMgr.createNewTask(new TaskBrothers());
+        StorMgr.addNewTaskToStory(TskMgr.getLastTask());
+        TskMgr.getLastTask().cubeQuery.add(DefaultCubeQuery());
+        TskMgr.getLastTask().addNewSubTask();
+        
+        SqlQuery newSqlQuery=new SqlQuery();
+        newSqlQuery.produceExtractionMethod(TskMgr.getLastTask().cubeQuery.get(0));
+        TskMgr.getLastTask().getLastSubTask().setExtractionMethod(newSqlQuery);
+        TskMgr.getLastTask().getLastSubTask().execute(CubeManager.CBase.DB);
+        
+        TskMgr.getLastTask().generateSubTasks(CubeManager.CBase);
+        
+        AudioMgr=new FreeTTSAudioEngine();
+        AudioMgr.InitializeVoiceEngine();
+        
+        SetupSlideEpisodes(StorMgr.getStory().getLastAct());
+        
+        StorMgr.getStory().setFinalResult(new PptxSlideshow());
+        StorMgr.getStory().getFinalResult().setFilename("ppt/cubeQuery1.pptx");
+        
+        WrapUp=new PptxWrapUpMgr();
+        WrapUp.setFinalResult(StorMgr.getStory().getFinalResult());
+        WrapUp.doWrapUp(StorMgr.getStory());
+    }
+    
     /* 
      * Maybe the parameter of this function
      * must change to different type (Like Query).....
      * 
      */
-    
-    public void NewRequest(String Query){
+    public void NewRequestSqlQuery(String Query){
     	
-        //PrsMng.parse(predefinedSqlQueries(Query));
-        //SqlQuery query=new SqlQuery(PrsMng.aggregatefunc,PrsMng.tablelst,PrsMng.conditionlst,PrsMng.groupperlst);
+        PrsMng.parse(predefinedSqlQueries(Query));
+        SqlQuery query=new SqlQuery(PrsMng.aggregatefunc,PrsMng.tablelst,PrsMng.conditionlst,PrsMng.groupperlst);
         //query.printQuery();
         
-    	SqlQuery query=new SqlQuery();
-    	query.produceExtractionMethod(this.DefaultCubeQuery());
-    	query.printQuery();
-        System.exit(1);
+    	//SqlQuery query=new SqlQuery();
+    	//query.produceExtractionMethod(this.DefaultCubeQuery());
+    	//query.printQuery();
+        /*System.exit(1);*/
         StorMgr.createStory();
         StorMgr.createStoryOriginalRequest();
         StorMgr.createTasks(TskMgr);
@@ -131,11 +159,11 @@ public class MainEngine {
         SetupSlideEpisodes(StorMgr.getStory().getLastAct());
         
         StorMgr.getStory().setFinalResult(new PptxSlideshow());
-        StorMgr.getStory().getFinalResult().setFilename("ppt/q6.pptx");
+        /*StorMgr.getStory().getFinalResult().setFilename("ppt/q6.pptx");
         
         WrapUp=new PptxWrapUpMgr();
         WrapUp.setFinalResult(StorMgr.getStory().getFinalResult());
-        WrapUp.doWrapUp(StorMgr.getStory());
+        WrapUp.doWrapUp(StorMgr.getStory());*/
         
     }
     
@@ -147,13 +175,14 @@ public class MainEngine {
     	SqlQuery original=(SqlQuery)act.getTask().getSubTask(0).getExtractionMethod();
     	int timesIN=0;
     	System.out.println("Sum of subtasks:"+act.getTask().getSubTasks().size());
-    	for(SubTask subtsk : act.getTask().getSubTasks()){
+    	for(int j=0;j<act.getTask().getSubTasks().size();j++){
+    		SubTask subtsk=act.getTask().getSubTask(j);
     		SqlQuery currentQuery=((SqlQuery)subtsk.getExtractionMethod());
-	        if((subtsk.getExtractionMethod().Res.getResultArray()!=null || subtsk.getExtractionMethod().Res.getResultArray().length>0)){
+	        if((currentQuery.Res.getResultArray()!=null || currentQuery.Res.getResultArray().length>0)){
 	        	timesIN++;
 	        	pptxSlide newSlide=new pptxSlide();
 		        newSlide.setSubTask(subtsk);
-		        newSlide.Notes=subtsk.getExtractionMethod().returnMethodString();
+		        newSlide.Notes="SQL QUERY:\n"+subtsk.getExtractionMethod().toString()+"\n\nCUBE QUERY:\n"+act.getTask().cubeQuery.get(j).toString();
 		        
 		        Tabular tbl=new Tabular();
 		        tbl.CreatePivotTable(subtsk.getExtractionMethod().Res.getRowPivot(), subtsk.getExtractionMethod().Res.getColPivot(), 
@@ -175,7 +204,7 @@ public class MainEngine {
 		        	newSlide.Title="The ~ which changed @ : ";
 		        	for(int i=0;i<subtsk.getDifferencesFromOrigin().size();i++){
 			        	if(i>0) newSlide.Title+=" AND ";
-			        	newSlide.Title+=original.WhereClause.get(subtsk.getDifferenceFromOrigin(i))[0];
+			        	newSlide.Title+=act.getTask().cubeQuery.get(0).GammaExpressions.get(subtsk.getDifferenceFromOrigin(i))[0];
 			        }
 		        	String text_cond="Conditions";
 			        String text_are="are";
@@ -376,7 +405,8 @@ public class MainEngine {
         //Me.ParseFile(Me.GetFileCmds());
         
         MainEng.ParseFile(new File("InputFiles/BETA/beta.txt"));
-        MainEng.NewRequest("");
+        //MainEng.NewRequestSqlQuery("");
+        MainEng.NewRequestCubeQuery();
         System.out.println("=======Finish======");
     }
     
