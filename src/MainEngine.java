@@ -198,7 +198,7 @@ public class MainEngine {
 		        }
 		        else if(subtsk.getDifferencesFromOrigin().get(0)==-1){
 		        	newSlide.Title="Summarized Slide for field : ";
-		        	newSlide.Title+=original.WhereClause.get(subtsk.getDifferencesFromOrigin().get(1))[0];
+		        	newSlide.Title+=act.getTask().cubeQuery.get(0).GammaExpressions.get(subtsk.getDifferenceFromOrigin(1))[0];
 		        } 
 		        else {
 		        	newSlide.Title="The ~ which changed @ : ";
@@ -214,7 +214,7 @@ public class MainEngine {
 			        }
 		        	newSlide.Title=newSlide.Title.replace("~", text_cond).replace("@", text_are);
 		        }
-		        newSlide.Title+="\n At columns are "+newSlide.TitleColumn+" and at rows are "+newSlide.TitleRow;
+		       // newSlide.Title+="\n At columns are "+newSlide.TitleColumn+" and at rows are "+newSlide.TitleRow;
 		        AudioMgr.CreateSound("Text to Create", newSlide.getAudio().getFileName());
 		        StorMgr.getStory().getLastAct().addEpisode(newSlide);
 	        }

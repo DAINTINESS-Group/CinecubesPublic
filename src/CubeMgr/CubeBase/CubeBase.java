@@ -64,8 +64,8 @@ public class CubeBase {
 			if(custFld_name.get(i).equals(hierachylst.get(i))){
 				Level lvl=new Level(i,hierachylst.get(i));
 				
-				String temp_string=fld_tbl.get(i).replace(".","#");
-				String[] tmp_str=temp_string.split("#");
+				//String temp_string=fld_tbl.get(i).replace(".","#");
+				String[] tmp_str=fld_tbl.get(i).split("\\.");
 				
 				LevelAttribute lvlattr=new LevelAttribute(tmp_str[1],tmp_str[0]);
 				lvlattr.setLevel(lvl);
@@ -73,7 +73,7 @@ public class CubeBase {
 				
 				//lvl.setLevelAttribute(lvlattr);
 				lvl.addLevelAttribute(lvlattr);
-				lvl.setLinearHierarchy(LinHier);
+				lvl.setHierarchy(LinHier);
 				
 				LinHier.lvls.add(lvl);
 			}

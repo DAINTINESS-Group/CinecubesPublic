@@ -42,7 +42,7 @@ public class CubeQuery extends Cube {
     		ret_value+=GammaExpressions.get(i)[0]+"."+GammaExpressions.get(i)[1];
     	}
     	
-    	ret_value+="Sigma Expression: ";
+    	ret_value+="\nSigma Expression: ";
     	for(int i=0;i<SigmaExpressions.size();i++){
     		if(i>0) ret_value+=" AND ";
     		ret_value+=SigmaExpressions.get(i)[0]+SigmaExpressions.get(i)[1]+SigmaExpressions.get(i)[2];

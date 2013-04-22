@@ -3,9 +3,14 @@ package TaskMgr;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import CubeMgr.CubeBase.CubeBase;
 import CubeMgr.CubeBase.CubeQuery;
+import CubeMgr.CubeBase.Dimension;
+import CubeMgr.CubeBase.Hierarchy;
+import CubeMgr.CubeBase.Level;
+import CubeMgr.StarSchema.Attribute;
 import CubeMgr.StarSchema.Database;
 import CubeMgr.StarSchema.SqlQuery;
 
@@ -56,31 +61,72 @@ public class TaskBrothers extends Task {
      * 
      */
     public void generateSubTasks(CubeBase cubeBase){
-    	CubeQuery startQuery=this.cubeQuery.get(0);
-    	for(int i=0;i<startQuery.SigmaExpressions.size();i++){
-    		String table=startQuery.SigmaExpressions.get(i)[0].split("\\.")[0];
-    		String field=startQuery.SigmaExpressions.get(i)[0].split("\\.")[1];
-    		String tmp_query="SELECT DISTINCT "+field+ " FROM "+table+" WHERE "+field+"!="+startQuery.SigmaExpressions.get(i)[2];
-			ResultSet rs=cubeBase.DB.executeSql(tmp_query);
-									
-			try {
-				rs.beforeFirst();
-				while(rs.next()){
-					String newValue="'"+rs.getString(1)+"'";
-					if(tryParseInt(rs.getString(1))) newValue=rs.getString(1);				
-					createSubTask(startQuery,newValue,i,-1);
-					this.getLastSubTask().execute(cubeBase.DB);
-					
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+    	for(int i=0;i<this.cubeQuery.get(0).SigmaExpressions.size();i++){
+    		createSummarizeSubTask(i,cubeBase,this.cubeQuery.get(0));
+    		createBrothers(i,cubeBase,this.cubeQuery.get(0));
     	}
     	printBorderLine();
     	printBorderLine();
     }
     
-    private void createSubTask(CubeQuery startQuery,String value,int toChange,int toRemove){
+    void createSummarizeSubTask(int i,CubeBase cubeBase,CubeQuery startQuery){
+    	String table=startQuery.SigmaExpressions.get(i)[0].split("\\.")[0];
+		String field=startQuery.SigmaExpressions.get(i)[0].split("\\.")[1];
+		String field2="";
+		Attribute attr=cubeBase.DB.getFieldOfSqlTable(table,field);
+		List<Dimension> dimensions=cubeBase.dimensions;
+		for(int j=0;j<dimensions.size();j++){
+			ArrayList<Hierarchy> current_hierachy=dimensions.get(j).getHier();
+			for(int k=0;k<current_hierachy.size();k++){
+				List<Level> current_lvls=current_hierachy.get(k).lvls;
+				for(int l=0;l<current_lvls.size();l++){
+					for(int m=0;m<current_lvls.get(l).lvlAttributes.size();m++){
+						if(current_lvls.get(l).lvlAttributes.get(m).getAttribute().equals(attr)){
+							field2=current_lvls.get(l+1).lvlAttributes.get(m).getAttribute().name;
+						}
+					}
+				}
+			}
+		}
+		String tmp_query="SELECT DISTINCT "+field2+ " FROM "+table+" WHERE "+field+"="+startQuery.SigmaExpressions.get(i)[2];
+		ResultSet rs=cubeBase.DB.executeSql(tmp_query);
+		try {
+			rs.beforeFirst();
+			while(rs.next()){
+				String newValue="'"+rs.getString(1)+"'";
+				if(tryParseInt(rs.getString(1))) newValue=rs.getString(1);				
+				createSubTask(startQuery,newValue,i,1,field2);
+				this.getLastSubTask().execute(cubeBase.DB);
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+    }
+    
+    void createBrothers(int i,CubeBase cubeBase,CubeQuery startQuery){
+    	String table=startQuery.SigmaExpressions.get(i)[0].split("\\.")[0];
+		String field=startQuery.SigmaExpressions.get(i)[0].split("\\.")[1];
+		String tmp_query="SELECT DISTINCT "+field+ " FROM "+table+" WHERE "+field+"!="+startQuery.SigmaExpressions.get(i)[2];
+		ResultSet rs=cubeBase.DB.executeSql(tmp_query);
+								
+		try {
+			rs.beforeFirst();
+			while(rs.next()){
+				String newValue="'"+rs.getString(1)+"'";
+				if(tryParseInt(rs.getString(1))) newValue=rs.getString(1);				
+				createSubTask(startQuery,newValue,i,-1,null);
+				this.getLastSubTask().execute(cubeBase.DB);
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    }
+    
+        
+    private void createSubTask(CubeQuery startQuery,String value,int toChange,int toReplace,String changevalue){
     	CubeQuery newQuery=new CubeQuery("");
 		copyListofArrayString(startQuery.GammaExpressions, newQuery.GammaExpressions);
 		copyListofArrayString(startQuery.SigmaExpressions, newQuery.SigmaExpressions);
@@ -88,9 +134,20 @@ public class TaskBrothers extends Task {
 		newQuery.referCube=startQuery.referCube;
 		newQuery.setMsr(startQuery.getMsr());		
 		newQuery.SigmaExpressions.get(toChange)[2]=value;
+		this.addNewSubTask();
+		if(toReplace==1){
+			this.getLastSubTask().addDifferenceFromOrigin(-1);
+			String[] tobeGamma=newQuery.SigmaExpressions.get(toChange)[0].split("\\.");
+			for(int i=0;i<newQuery.GammaExpressions.size();i++){
+				if(newQuery.GammaExpressions.get(i)[0].equals(tobeGamma[0])){
+					newQuery.GammaExpressions.get(i)[1]=tobeGamma[1];
+				}
+			}
+			newQuery.SigmaExpressions.get(toChange)[0]=tobeGamma[0]+"."+changevalue;
+		}
 		this.cubeQuery.add(newQuery);
 		
-		this.addNewSubTask();
+		
         SqlQuery newSqlQuery=new SqlQuery();
         newSqlQuery.produceExtractionMethod(newQuery);
         this.getLastSubTask().setExtractionMethod(newSqlQuery);

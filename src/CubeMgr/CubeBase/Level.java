@@ -3,16 +3,16 @@ package CubeMgr.CubeBase;
 import java.util.ArrayList;
 
 public class Level {
-    private LinearHierarchy LinHier;
+    private Hierarchy hierarchy;
     public ArrayList<LevelAttribute> lvlAttributes;
     public Integer id;
     public String name;
     
-    public Level(Integer position,String nm,LinearHierarchy Hier){
+    public Level(Integer position,String nm,Hierarchy Hier){
     	id=position;
     	name=nm;
     	lvlAttributes=new ArrayList<LevelAttribute>();
-    	setLinearHierarchy(Hier);
+    	setHierarchy(Hier);
     }
 
     public Level(Integer position,String nm){
@@ -25,12 +25,12 @@ public class Level {
     	this.lvlAttributes=levelAttributes;
     }
 
-	public LinearHierarchy getLinearHierarchy() {
-		return LinHier;
+	public Hierarchy getLinearHierarchy() {
+		return hierarchy;
 	}
 
-	public void setLinearHierarchy(LinearHierarchy linHier) {
-		LinHier = linHier;
+	public void setHierarchy(Hierarchy hier) {
+		hierarchy = hier;
 	}
 
 	public void addLevelAttribute(LevelAttribute lvlattribute) {
