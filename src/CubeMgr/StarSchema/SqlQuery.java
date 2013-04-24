@@ -2,9 +2,13 @@ package CubeMgr.StarSchema;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 import CubeMgr.CubeBase.CubeQuery;
 import CubeMgr.CubeBase.Dimension;
+import CubeMgr.CubeBase.Hierarchy;
+import CubeMgr.CubeBase.Level;
 import CubeMgr.CubeBase.LinearHierarchy;
 import TaskMgr.ExtractionMethod;
 import TaskMgr.Result;
@@ -150,43 +154,80 @@ public class SqlQuery extends ExtractionMethod {
 		return (count == this.WhereClause.size() ? true : false);
 	}
 
+	
+	
 	@Override
 	public void produceExtractionMethod(CubeQuery cubeQuery) {
 		this.SelectClauseMeasure[0]=cubeQuery.AggregateFunction;
 		this.SelectClauseMeasure[1]=cubeQuery.Msr.get(0).Attr.name;
-		
-		/*Create Fromclause*/
-		String[] tbl_tmp=new String[1];
-		tbl_tmp[0]=cubeQuery.referCube.FactTable().TblName;
-		this.FromClause.add(tbl_tmp);
-		for(int i=0;i<cubeQuery.GammaExpressions.size();i++){
-			String[] toAdd=new String[1];
-			toAdd[0]=cubeQuery.GammaExpressions.get(i)[0];
-			this.FromClause.add(toAdd);
-		}
+		HashSet<String> FromTables=new HashSet<String>();
 		
 		/*Create WhereClausse */
 		for(String[] sigmaExpr: cubeQuery.SigmaExpressions){
 			for(int i=0;i<cubeQuery.referCube.Dim.size();i++){
 				Dimension dimension=cubeQuery.referCube.Dim.get(i);
 				String[] tmp=sigmaExpr[0].split("\\.");
-				if(dimension.getDimTbl().TblName.equals(tmp[0])){
-					 String toadd[]=new String[3];
-					 toadd[0]=cubeQuery.referCube.getDimensionRefField().get(i);
-					 toadd[1]="=";
-					 toadd[2]=tmp[0]+"."+((LinearHierarchy)dimension.getHier().get(0)).lvls.get(0).lvlAttributes.get(0).getAttribute().name;
+				if(dimension.name.equals(tmp[0])){
+					 /* FOR JOIN WITH Basic CUBE*/
+					 String toaddJoin[]=new String[3];
+					 toaddJoin[0]=cubeQuery.referCube.getDimensionRefField().get(i);
+					 toaddJoin[1]="=";
+					 toaddJoin[2]=dimension.getDimTbl().TblName+"."+((LinearHierarchy)dimension.getHier().get(0)).lvls.get(0).lvlAttributes.get(0).getAttribute().name;
+					 this.WhereClause.add(toaddJoin);
 					 
-					 this.WhereClause.add(toadd);
-					 this.WhereClause.add(sigmaExpr);					 
+					 FromTables.add(dimension.getDimTbl().TblName);
+					 
+					 /* Add the Sigma Expression */
+					 ArrayList<Hierarchy> current_hierachy=dimension.getHier();
+					 String toaddSigma[]=new String[3];
+					 toaddSigma[0]=dimension.getDimTbl().TblName+".";
+					 for(int k=0;k<current_hierachy.size();k++){//for each hierarchy of dimension
+						List<Level> current_lvls=current_hierachy.get(k).lvls;
+						for(int l=0;l<current_lvls.size();l++){
+							if(current_lvls.get(l).name.equals(tmp[1])){
+								toaddSigma[0]+=current_lvls.get(l).lvlAttributes.get(0).getAttribute().name;
+							}
+						}
+					}
+					toaddSigma[1]=sigmaExpr[1];
+					toaddSigma[2]=sigmaExpr[2];
+					this.WhereClause.add(toaddSigma);					 
 				}
 			}
 		}
 		
+		/*Create From clause */
+		String[] tbl_tmp=new String[1];
+		tbl_tmp[0]=cubeQuery.referCube.FactTable().TblName;
+		this.FromClause.add(tbl_tmp);
+		
+		for(int i=0;i<FromTables.size();i++){
+			String[] toAdd=new String[1];
+			toAdd[0]=(String) FromTables.toArray()[i];
+			this.FromClause.add(toAdd);
+		}
+		
+		
 		/*Create groupClausse*/
-		for(String[] sigmaExpr: cubeQuery.GammaExpressions){
-			String[] toadd=new String[1];
-			toadd[0]=sigmaExpr[0]+"."+sigmaExpr[1];
-			this.GroupByClause.add(toadd);
+		for(String[] gammaExpr: cubeQuery.GammaExpressions){
+			for(int i=0;i<cubeQuery.referCube.Dim.size();i++){
+				Dimension dimension=cubeQuery.referCube.Dim.get(i);
+				if(dimension.name.equals(gammaExpr[0])){
+					String[] toadd=new String[1];
+					toadd[0]=dimension.getDimTbl().TblName+".";
+					ArrayList<Hierarchy> current_hierachy=dimension.getHier();
+					for(int k=0;k<current_hierachy.size();k++){//for each hierarchy of dimension
+						List<Level> current_lvls=current_hierachy.get(k).lvls;
+						for(int l=0;l<current_lvls.size();l++){
+							if(current_lvls.get(l).name.equals(gammaExpr[1])){
+								toadd[0]+=current_lvls.get(l).lvlAttributes.get(0).getAttribute().name;
+							}
+						}
+					}
+					
+					this.GroupByClause.add(toadd);
+				}
+			}
 		}
 	}
 	

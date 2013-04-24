@@ -51,9 +51,9 @@ public class CubeBase {
 		this.getLastInsertedDimension().setDimTbl(dm);
 	}
 
-	public void addLevels(ArrayList<String> fld_Name,ArrayList<String> customFld_Name) {
+	/*public void addLevels(ArrayList<String> fld_Name,ArrayList<String> customFld_Name) {
 		
-	}
+	}*/
 
 	public void setDimensionLinearHierachy(ArrayList<String> hierachylst,List<String> fld_tbl,List<String> custFld_name) {
 		Dimension tmp;
@@ -132,8 +132,9 @@ public class CubeBase {
 	public boolean returnIfTableIsDimensionTbl(String table) {
 		boolean ret_value=true;
 		for(BasicStoredCube basiccube: this.BasicCubes){
-			if(basiccube.FactTable().TblName==table) ret_value=false;
+			if(basiccube.FactTable().TblName.equals(table)) ret_value=false;
 		}
 		return ret_value;
 	}
+	   
 }

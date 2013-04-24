@@ -70,24 +70,14 @@ public class TaskBrothers extends Task {
     }
     
     void createSummarizeSubTask(int i,CubeBase cubeBase,CubeQuery startQuery){
-    	String table=startQuery.SigmaExpressions.get(i)[0].split("\\.")[0];
-		String field=startQuery.SigmaExpressions.get(i)[0].split("\\.")[1];
-		String field2="";
-		Attribute attr=cubeBase.DB.getFieldOfSqlTable(table,field);
-		List<Dimension> dimensions=cubeBase.dimensions;
-		for(int j=0;j<dimensions.size();j++){
-			ArrayList<Hierarchy> current_hierachy=dimensions.get(j).getHier();
-			for(int k=0;k<current_hierachy.size();k++){
-				List<Level> current_lvls=current_hierachy.get(k).lvls;
-				for(int l=0;l<current_lvls.size();l++){
-					for(int m=0;m<current_lvls.get(l).lvlAttributes.size();m++){
-						if(current_lvls.get(l).lvlAttributes.get(m).getAttribute().equals(attr)){
-							field2=current_lvls.get(l+1).lvlAttributes.get(m).getAttribute().name;
-						}
-					}
-				}
-			}
-		}
+    	String dimension=startQuery.SigmaExpressions.get(i)[0].split("\\.")[0];
+		String lvlname=startQuery.SigmaExpressions.get(i)[0].split("\\.")[1];
+		String table=startQuery.referCube.getSqlTableByDimensionName(dimension);
+		String field=startQuery.referCube.getSqlFieldByDimensionLevelName(dimension, lvlname);
+		
+		Level parentLvl=startQuery.referCube.getParentLevel(dimension,lvlname);
+		String field2=parentLvl.lvlAttributes.get(0).getAttribute().name;
+		
 		String tmp_query="SELECT DISTINCT "+field2+ " FROM "+table+" WHERE "+field+"="+startQuery.SigmaExpressions.get(i)[2];
 		ResultSet rs=cubeBase.DB.executeSql(tmp_query);
 		try {
@@ -95,7 +85,7 @@ public class TaskBrothers extends Task {
 			while(rs.next()){
 				String newValue="'"+rs.getString(1)+"'";
 				if(tryParseInt(rs.getString(1))) newValue=rs.getString(1);				
-				createSubTask(startQuery,newValue,i,1,field2);
+				createSubTask(startQuery,newValue,i,1,parentLvl.name);
 				this.getLastSubTask().execute(cubeBase.DB);
 				
 			}
@@ -105,9 +95,41 @@ public class TaskBrothers extends Task {
 		
     }
     
+    /*	
+     * 
+     * This function return Parent Level Attribute name
+     * Parameters
+     * 		cubeBase such that to get Dimensions of Cube
+     * 		table 	 dimension table name
+     * 		field 	 name of field witch need to find Parent
+     *
+     */
+    private String getParentLevel_version_sqltable(CubeBase cubeBase,String table,String field){
+    	Attribute attr=cubeBase.DB.getFieldOfSqlTable(table,field);
+		List<Dimension> dimensions=cubeBase.dimensions;
+		for(int j=0;j<dimensions.size();j++){ //for each dimension
+			ArrayList<Hierarchy> current_hierachy=dimensions.get(j).getHier();
+			for(int k=0;k<current_hierachy.size();k++){//for each hierarchy of dimension
+				List<Level> current_lvls=current_hierachy.get(k).lvls;
+				for(int l=0;l<current_lvls.size();l++){ 
+					for(int m=0;m<current_lvls.get(l).lvlAttributes.size();m++){
+						if(current_lvls.get(l).lvlAttributes.get(m).getAttribute().equals(attr)){
+							return current_lvls.get(l+1).lvlAttributes.get(m).getAttribute().name;
+						}
+					}
+				}
+			}
+		}
+		return "";
+    }
+        
     void createBrothers(int i,CubeBase cubeBase,CubeQuery startQuery){
-    	String table=startQuery.SigmaExpressions.get(i)[0].split("\\.")[0];
-		String field=startQuery.SigmaExpressions.get(i)[0].split("\\.")[1];
+    	
+    	String dimension=startQuery.SigmaExpressions.get(i)[0].split("\\.")[0];
+		String lvlname=startQuery.SigmaExpressions.get(i)[0].split("\\.")[1];
+		String table=startQuery.referCube.getSqlTableByDimensionName(dimension);
+		String field=startQuery.referCube.getSqlFieldByDimensionLevelName(dimension, lvlname);
+		
 		String tmp_query="SELECT DISTINCT "+field+ " FROM "+table+" WHERE "+field+"!="+startQuery.SigmaExpressions.get(i)[2];
 		ResultSet rs=cubeBase.DB.executeSql(tmp_query);
 								

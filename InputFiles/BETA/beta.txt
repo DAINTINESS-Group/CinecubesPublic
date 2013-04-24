@@ -6,7 +6,7 @@ LIST OF LEVEL { age.level0 AS real_age ,
 				age.level3 AS lvl3 ,
 				age.level4 AS all
 			}
-HIERARCHY real_age>lvl1>lvl2>lvl3>lvl4;
+HIERARCHY real_age>lvl1>lvl2>lvl3>all;
 
 
 CREATE DIMENSION	marital_dim

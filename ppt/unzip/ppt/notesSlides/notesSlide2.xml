@@ -53,8 +53,8 @@ GROUP BY  marital_status.level0, education.level1
 CUBE QUERY:
 Aggregate Function : AVG
 Measure : hours_per_week
-Gamma Expression: marital_status.level0 , education.level1
-Sigma Expression: marital_status.level1='Partner-absent' AND education.level2='University'</a:t>
+Gamma Expression: marital_dim.lvl0 , education_dim.lvl1
+Sigma Expression: marital_dim.lvl1='Partner-absent' AND education_dim.lvl2='University'</a:t>
 						</a:r>
 						<a:endParaRPr lang="en-US"/>
 					</a:p>

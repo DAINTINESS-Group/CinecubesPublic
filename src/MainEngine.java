@@ -79,11 +79,11 @@ public class MainEngine {
     	msrToAdd.name="Hrs";
     	msrToAdd.Attr=CubeManager.CBase.DB.getFieldOfSqlTable("adult", "hours_per_week");
     	cubequery.Msr.add(msrToAdd);
-    	cubequery.addGammaExpression("marital_status", "level0");
-    	cubequery.addGammaExpression("education", "level1");
+    	cubequery.addGammaExpression("marital_dim", "lvl0");
+    	cubequery.addGammaExpression("education_dim", "lvl1");
     	
-    	cubequery.addSigmaExpression("marital_status.level1", "=", "'Partner-absent'");
-    	cubequery.addSigmaExpression("education.level2", "=", "'University'");
+    	cubequery.addSigmaExpression("marital_dim.lvl1", "=", "'Partner-absent'");
+    	cubequery.addSigmaExpression("education_dim.lvl2", "=", "'University'");
     	for(BasicStoredCube bsc: CubeManager.CBase.BasicCubes){
     		if(bsc.name.equals("adult_cube")){
     			cubequery.referCube=bsc;
