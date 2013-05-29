@@ -28,7 +28,10 @@ public class CubeMgr {
 		CBase.setDimensionLinearHierachy(hierachylst,fld_Name,customFld_Name);
 	}
 
-	public void InsertionCube(String name_creation, String sqltable,ArrayList<String> dimensionlst,ArrayList<String>  DimemsionRefField) {
+	public void InsertionCube(String name_creation, 
+							  String sqltable,
+							  ArrayList<String> dimensionlst,ArrayList<String>  DimemsionRefField,
+							  ArrayList<String> measurelst, ArrayList<String> measureRefField) {
 		
 		CBase.addCube(name_creation);
 		CBase.addSqlRelatedTbl(sqltable);

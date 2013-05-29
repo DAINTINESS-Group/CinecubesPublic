@@ -28,6 +28,8 @@ tokens{
   ArrayList<String> conditionlst;
   ArrayList<String> tablelst;
   ArrayList<String> groupperlst;
+  ArrayList<String> measurelst;
+  ArrayList<String> measurefields;
   String aggregatefunc;
   String tmp_con;
   boolean group;
@@ -48,6 +50,8 @@ start :{
     conditionlst=new ArrayList<String>();
     groupperlst=new ArrayList<String>();
     tablelst=new ArrayList<String>();
+    measurelst=new ArrayList<String>();
+    measurefields=new ArrayList<String>();
   } parse; 
 
 parse :  ({  mode=0;
@@ -66,7 +70,7 @@ creation_statement : creation QUESTMARK;
 
 creation: creation_cube | creation_dimension ;
 
-creation_cube : create_statement related_statement referdimension_statement;
+creation_cube : create_statement related_statement measure_statement referdimension_statement;
 
 creation_dimension : create_statement related_statement level_statement hierarchy_statement;
 
@@ -78,6 +82,8 @@ related_statement : RELATED SQL_TABLE NAME {sql_table=$NAME.text;} ;
 
 referdimension_statement : REFERENCES DIMENSION dimensions;
 
+measure_statement : MEASURES measures;
+
 level_statement: LIST OF LEVEL LBRACE levels RBRACE ;
 
 hierarchy_statement : HIERARCHY hierarchy;
@@ -85,6 +91,10 @@ hierarchy_statement : HIERARCHY hierarchy;
 dimensions : dimension  (comma_statement dimension)* ;
 
 dimension : NAME {dimensionlst.add($NAME.text);} AT sqlfield;
+
+measures : measure (comma_statement measure)*;
+
+measure : NAME {measurelst.add($NAME.text);mode=3;tmp_con="";} AT sqlfield {mode=1;measurefields.add(tmp_con);} ;
 
 levels: level (comma_statement level)*;
 
@@ -197,6 +207,8 @@ FROM : F R O M;
 GROUP : G R O U P;
 
 BY: B Y;
+
+MEASURES : M E A S U R E S;
 
 NAME: Letter (Letter | Digit | '_'  | '-' )*;
 

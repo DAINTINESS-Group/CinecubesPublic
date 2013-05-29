@@ -6,8 +6,8 @@ import CubeMgr.StarSchema.SqlQuery;
 
 public class CubeQuery extends Cube {
     
-	public ArrayList<String[]> GammaExpressions; //0->table, 1->field of table
-	public ArrayList<String[]> SigmaExpressions; //0->TABLE.field, 1-> operator , 2->VALUE
+	public ArrayList<String[]> GammaExpressions; //0->dimension_name, 1->level of dimension
+	public ArrayList<String[]> SigmaExpressions; //0->dimension_name.level, 1-> operator , 2->VALUE
 	public String AggregateFunction;
     public SqlQuery sqlQuery;    
     public BasicStoredCube referCube;
@@ -34,7 +34,7 @@ public class CubeQuery extends Cube {
     }
     
     public String toString(){
-    	String ret_value="Aggregate Function : "+AggregateFunction+"\n";
+    	String ret_value="Name:"+this.name+"\nAggregate Function : "+AggregateFunction+"\n";
     	ret_value+="Measure : "+this.Msr.get(0).Attr.name+"\n";
     	ret_value+="Gamma Expression: ";
     	for(int i=0;i<GammaExpressions.size();i++){

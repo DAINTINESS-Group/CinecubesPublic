@@ -58,7 +58,7 @@ public class SqlQuery extends ExtractionMethod {
     	String ret_value="";
     	
     	ret_value+=getGroupClause()+",";
-    	ret_value+= SelectClauseMeasure[0]+"("+SelectClauseMeasure[1]+") ";
+    	ret_value+= SelectClauseMeasure[0]+"("+SelectClauseMeasure[1]+") as measure";
     	return ret_value;
     }
        
@@ -115,8 +115,17 @@ public class SqlQuery extends ExtractionMethod {
     	String ret_value="SELECT "+getSelectClause();
     	ret_value+="\nFROM "+ getFromClause();
     	ret_value+="\nWHERE "+getWhereClause();
-    	ret_value+="\nGROUP BY "+getGroupClause();
+    	ret_value+="\nGROUP BY "+getGroupClause(); 
+    	ret_value+="\n"+getOrderClauseByMeasure(0);
     	return ret_value ;
+    }
+    
+    /*  order_type=0 -> ASCENING
+     *  order_type=1 -> DESCENDING
+     */
+    public String getOrderClauseByMeasure(int order_type){
+    	if(order_type==0) return " ORDER BY measure ASC";
+    	return " ORDER BY measure DESC";
     }
     
     private String mergeStringTable(String[] tomerge){

@@ -1,6 +1,7 @@
 package StoryMgr;
 
 import java.util.HashSet;
+import java.util.TreeSet;
 
 public class Tabular extends Visual {
 	
@@ -19,7 +20,7 @@ public class Tabular extends Visual {
      *      Colpivot have the name of each column for PivotTable
      *      QueryResult have the result of the query
      */
-    public void CreatePivotTable(HashSet<String> RowPivot,HashSet<String> ColPivot,String QueryResult[][]){
+    public void CreatePivotTable(TreeSet<String> RowPivot,TreeSet<String> ColPivot,String QueryResult[][]){
         this.PivotTable=new String[RowPivot.size()+1][ColPivot.size()+1];
         this.PivotTable[0][0]="";
         int i=0;

@@ -71,6 +71,7 @@ HIERARCHY lvl0>lvl1>lvl2>lvl3>lvl4;
 
 CREATE CUBE adult_cube 
 RELATED SQL_TABLE adult
+MEASURES hrs AT adult.hours_per_week
 REFERENCES DIMENSION age_dim AT adutl.age,
 					 work_dim AT adult.work_class,
 					 marital_dim AT adult.marital_status,

@@ -1,6 +1,6 @@
 package StoryMgr;
 
-import java.util.HashSet;
+import java.util.TreeSet;
 
 public abstract class  Visual {
     
@@ -10,7 +10,7 @@ public abstract class  Visual {
 		
 	}
 	
-	abstract public void CreatePivotTable(HashSet<String> RowPivot,HashSet<String> ColPivot,String QueryResult[][]);
+	abstract public void CreatePivotTable(TreeSet<String> RowPivot,TreeSet<String> ColPivot,String QueryResult[][]);
 	abstract  public String[][] getPivotTable();
 	abstract  public void setPivotTable(String[][] pivotTable);
 	

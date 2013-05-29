@@ -90,16 +90,96 @@ public class MainEngine {
     		}
     	}
     	return cubequery;
-    	
     }
     
-    public void NewRequestCubeQuery(){
+    public void getCubeQueriesFromFile(File file){
+    	/*String file="InputFiles/cubeQueries.ini";*/
+    	Scanner sc;
+		try {
+			sc = (new Scanner(file)).useDelimiter("@");
+			while(sc.hasNext()){
+				/*String Query=sc.next();*/
+				/*CubeQuery cubequery=*/
+				newRequestCubeQuery(createCubeQueryFromString(sc.next()));
+				
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+    }
+    
+    public CubeQuery createCubeQueryFromString(String cubeQstring){
+    	String[] rows=cubeQstring.trim().split("\n");
+    	String nameCQ = null, aggregateFunction = null, measureName = null;
+    	String[][] sigma = null;
+    	String[][] gamma = null;
+    	for(int i=0;i<rows.length;i++){
+    		String[] temp=rows[i].split(":");
+    		if(temp[0].equals("Name")){
+    			nameCQ=temp[1].trim();
+    		}
+    		else if(temp[0].equals("AggrFunc")){
+    			aggregateFunction=temp[1].trim();
+    		}
+    		else if(temp[0].equals("Measure")){
+    			measureName=temp[1];
+    		}
+    		else if(temp[0].equals("Gamma")){
+    			String[] tmp_gamma=temp[1].split(",");
+    			gamma=new String[tmp_gamma.length][2];
+    			for(int j=0;j<tmp_gamma.length;j++){
+    				String[] split_gamma=tmp_gamma[j].trim().split("\\.");
+    				gamma[j][0]=split_gamma[0];
+    				gamma[j][1]=split_gamma[1];
+    			}
+    		}
+    		else if(temp[0].equals("Sigma")){
+    			String[] tmp_sigma=temp[1].split(",");
+    			sigma=new String[tmp_sigma.length][3];
+    			for(int j=0;j<tmp_sigma.length;j++){
+    				String[] split_sigma=tmp_sigma[j].trim().split("=");
+    				sigma[j][0]=split_sigma[0];
+    				sigma[j][1]="=";
+    				sigma[j][2]=split_sigma[1];
+    			}
+    		}
+    	}
+    	CubeQuery cubequery=new CubeQuery(nameCQ);
+    	cubequery.AggregateFunction=aggregateFunction;
+    	/* Must Create Measure In Cube Parser->> I Have Done this */
+    	/* Search for Measure */
+    	Measure msrToAdd=new Measure();
+    	msrToAdd.id=1;
+    	msrToAdd.name=measureName;
+    	msrToAdd.Attr=CubeManager.CBase.DB.getFieldOfSqlTable("adult", "hours_per_week");
+    	cubequery.Msr.add(msrToAdd);
+    	/*Need work to done up here */
+    	
+    	for(int i=0;i<gamma.length;i++){
+	    	cubequery.addGammaExpression(gamma[i][0], gamma[i][1]);	    	
+    	}
+    	
+    	for(int i=0;i<sigma.length;i++){
+    		cubequery.addSigmaExpression(sigma[i][0],sigma[i][1], sigma[i][2]);
+    	}
+    	for(BasicStoredCube bsc: CubeManager.CBase.BasicCubes){
+    		if(bsc.name.equals("adult_cube")){
+    			cubequery.referCube=bsc;
+    		}
+    	}
+    	
+    	return cubequery;
+    }
+    
+    public void newRequestCubeQuery(CubeQuery cubequery){
     	StorMgr.createStory();
         StorMgr.createStoryOriginalRequest();
         StorMgr.createTasks(TskMgr);
         TskMgr.createNewTask(new TaskBrothers());
         StorMgr.addNewTaskToStory(TskMgr.getLastTask());
-        TskMgr.getLastTask().cubeQuery.add(DefaultCubeQuery());
+        if(cubequery==null) cubequery=DefaultCubeQuery();
+        TskMgr.getLastTask().cubeQuery.add(cubequery);
         TskMgr.getLastTask().addNewSubTask();
         
         SqlQuery newSqlQuery=new SqlQuery();
@@ -115,7 +195,7 @@ public class MainEngine {
         SetupSlideEpisodes(StorMgr.getStory().getLastAct());
         
         StorMgr.getStory().setFinalResult(new PptxSlideshow());
-        StorMgr.getStory().getFinalResult().setFilename("ppt/cubeQuery1.pptx");
+        StorMgr.getStory().getFinalResult().setFilename("ppt/"+cubequery.name+".pptx");
         
         WrapUp=new PptxWrapUpMgr();
         WrapUp.setFinalResult(StorMgr.getStory().getFinalResult());
@@ -172,13 +252,13 @@ public class MainEngine {
     }
     
     public void SetupSlideEpisodes(Act act){
-    	SqlQuery original=(SqlQuery)act.getTask().getSubTask(0).getExtractionMethod();
+    	//SqlQuery original=(SqlQuery)act.getTask().getSubTask(0).getExtractionMethod();
     	int timesIN=0;
     	System.out.println("Sum of subtasks:"+act.getTask().getSubTasks().size());
     	for(int j=0;j<act.getTask().getSubTasks().size();j++){
     		SubTask subtsk=act.getTask().getSubTask(j);
     		SqlQuery currentQuery=((SqlQuery)subtsk.getExtractionMethod());
-	        if((currentQuery.Res.getResultArray()!=null || currentQuery.Res.getResultArray().length>0)){
+	        if((currentQuery.Res.getResultArray()!=null)){
 	        	timesIN++;
 	        	pptxSlide newSlide=new pptxSlide();
 		        newSlide.setSubTask(subtsk);
@@ -250,7 +330,7 @@ public class MainEngine {
 					}
 					else if(PrsMng.mode==1){
 						//System.out.println("CUBE");
-						this.CubeManager.InsertionCube(PrsMng.name_creation,PrsMng.sqltable,PrsMng.dimensionlst,PrsMng.originallvllst);
+						this.CubeManager.InsertionCube(PrsMng.name_creation,PrsMng.sqltable,PrsMng.dimensionlst,PrsMng.originallvllst,PrsMng.measurelst,PrsMng.measurefields);
 					}
 				}
 			} catch (FileNotFoundException e) {
@@ -406,7 +486,9 @@ public class MainEngine {
         
         MainEng.ParseFile(new File("InputFiles/BETA/beta.txt"));
         //MainEng.NewRequestSqlQuery("");
-        MainEng.NewRequestCubeQuery();
+        MainEng.getCubeQueriesFromFile(new File("InputFiles/cubeQueries.ini"));
+//        MainEng.newRequestCubeQuery(null);
+        
         System.out.println("=======Finish======");
     }
     

@@ -105,7 +105,7 @@ public class CubeBase {
 		for(String item : dimensionlst){
 			int tmp=findDimensionIdByName(item);
 			if(tmp==-1){
-				System.err.println("Error with Dimension");
+				System.err.println("Error with Dimension At Cube construction!");
 				System.exit(1);
 			}
 			last_cube.addDimension(this.dimensions.get(tmp));
@@ -114,6 +114,18 @@ public class CubeBase {
 		}
 	}
 	
+	public void setCubeMeasure(ArrayList<String> measurelst, ArrayList<String> measureRefField){
+		BasicStoredCube last_cube=BasicCubes.get(BasicCubes.size()-1);
+		int i=0;
+		for(String item : measurelst){
+			Measure to_add=new Measure();
+			to_add.id=i+1;
+			to_add.name=item;
+			String[] tmp=measureRefField.get(i).split("\\.");
+			to_add.Attr=this.DB.getFieldOfSqlTable(tmp[0], tmp[1]);
+			last_cube.Msr.add(to_add);
+		}
+	}
 	
 	public Connection getSqlConnection(){
 		return DB.getConnection();
@@ -135,6 +147,18 @@ public class CubeBase {
 			if(basiccube.FactTable().TblName.equals(table)) ret_value=false;
 		}
 		return ret_value;
+	}
+	
+	/* Maybe need code or parameter to finding proper cube
+	 * Now check the last cube in cubebase only  
+	 */
+	public Measure getMeasureInstanceByName(String name){
+		BasicStoredCube last_cube=BasicCubes.get(BasicCubes.size()-1);
+		for(int i=0 ;i<last_cube.Msr.size();i++){
+			Measure msr=last_cube.Msr.get(i);
+			if(msr.name.equals(name)) return msr;
+		}
+		return null;
 	}
 	   
 }

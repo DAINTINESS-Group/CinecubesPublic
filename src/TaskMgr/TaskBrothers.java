@@ -96,7 +96,6 @@ public class TaskBrothers extends Task {
     }
     
     /*	
-     * 
      * This function return Parent Level Attribute name
      * Parameters
      * 		cubeBase such that to get Dimensions of Cube
@@ -104,7 +103,8 @@ public class TaskBrothers extends Task {
      * 		field 	 name of field witch need to find Parent
      *
      */
-    private String getParentLevel_version_sqltable(CubeBase cubeBase,String table,String field){
+    @SuppressWarnings("unused")
+	private String getParentLevel_version_sqltable(CubeBase cubeBase,String table,String field){
     	Attribute attr=cubeBase.DB.getFieldOfSqlTable(table,field);
 		List<Dimension> dimensions=cubeBase.dimensions;
 		for(int j=0;j<dimensions.size();j++){ //for each dimension
@@ -156,9 +156,8 @@ public class TaskBrothers extends Task {
 		newQuery.referCube=startQuery.referCube;
 		newQuery.setMsr(startQuery.getMsr());		
 		newQuery.SigmaExpressions.get(toChange)[2]=value;
-		this.addNewSubTask();
-		if(toReplace==1){
-			this.getLastSubTask().addDifferenceFromOrigin(-1);
+		
+		if(toReplace==1){			
 			String[] tobeGamma=newQuery.SigmaExpressions.get(toChange)[0].split("\\.");
 			for(int i=0;i<newQuery.GammaExpressions.size();i++){
 				if(newQuery.GammaExpressions.get(i)[0].equals(tobeGamma[0])){
@@ -167,16 +166,51 @@ public class TaskBrothers extends Task {
 			}
 			newQuery.SigmaExpressions.get(toChange)[0]=tobeGamma[0]+"."+changevalue;
 		}
-		this.cubeQuery.add(newQuery);
 		
 		
-        SqlQuery newSqlQuery=new SqlQuery();
-        newSqlQuery.produceExtractionMethod(newQuery);
-        this.getLastSubTask().setExtractionMethod(newSqlQuery);
-        this.getLastSubTask().addDifferenceFromOrigin(toChange);
+		
+		if(checkIfSigmaExprIsInGamma(toChange,newQuery)==false){
+			for(int i=0;i<newQuery.GammaExpressions.size();i++){
+				
+				CubeQuery newQuery1=new CubeQuery("");
+				copyListofArrayString(newQuery.GammaExpressions, newQuery1.GammaExpressions);
+				copyListofArrayString(newQuery.SigmaExpressions, newQuery1.SigmaExpressions);
+				newQuery1.AggregateFunction=newQuery.AggregateFunction;
+				newQuery1.referCube=newQuery.referCube;
+				newQuery1.setMsr(newQuery.getMsr());
+				String [] tmp=newQuery1.SigmaExpressions.get(toChange)[0].split("\\.");
+				newQuery1.GammaExpressions.get(i)[0]=tmp[0];
+				newQuery1.GammaExpressions.get(i)[1]=tmp[1];
+				
+				addSubTask(newQuery1,i,0);
+		        
+			}
+        }
+		else {
+			addSubTask(newQuery,toChange,1);
+		}
     }
     
-    private void createSubTask(SqlQuery Sbsql,Database DB,String [] condA,String [] condB){
+    private void addSubTask(CubeQuery cubequery,int difference,int replace){
+    	this.addNewSubTask();
+		this.cubeQuery.add(cubequery);
+        SqlQuery newSqlQuery=new SqlQuery();
+        newSqlQuery.produceExtractionMethod(cubequery);
+        this.getLastSubTask().setExtractionMethod(newSqlQuery);
+        if(replace==1) this.getLastSubTask().addDifferenceFromOrigin(-1);
+        this.getLastSubTask().addDifferenceFromOrigin(difference);
+    }
+    
+    private boolean checkIfSigmaExprIsInGamma(int toChange, CubeQuery newQuery) {
+			boolean ret_value=false;
+			String [] tmp=newQuery.SigmaExpressions.get(toChange)[0].split("\\.");
+			for(String [] gammaExpr : newQuery.GammaExpressions){
+				if(gammaExpr[0].equals(tmp[0])) ret_value=true; 
+			}
+			return ret_value;
+	}
+
+	private void createSubTask(SqlQuery Sbsql,Database DB,String [] condA,String [] condB){
     	SubTask sbtsk=new SubTask();
 		ArrayList<String []> newWhere=new ArrayList<String []>();
 		copyListofArrayString(Sbsql.WhereClause, newWhere);
@@ -189,7 +223,6 @@ public class TaskBrothers extends Task {
 		}
 		
 		SqlQuery newsql=new SqlQuery(Sbsql.SelectClauseMeasure,Sbsql.FromClause,newWhere,Sbsql.GroupByClause);
-		//newsql.printQuery();
 		sbtsk.setExtractionMethod(newsql);
 		sbtsk.addDifferenceFromOrigin(Integer.parseInt(condA[1]));
 		
@@ -271,7 +304,7 @@ public class TaskBrothers extends Task {
 	}
 	
 	void printBorderLine(){
-    	System.out.println("=====================================");
+    	//System.out.println("=====================================");
     }
 	
 	void copyListofArrayString(ArrayList<String[]> from,ArrayList<String[]> to){

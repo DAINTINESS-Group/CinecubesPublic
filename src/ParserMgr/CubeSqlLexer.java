@@ -1,4 +1,4 @@
-// $ANTLR 3.4 D:\\workspace\\Master\\src\\CubeSql.g 2013-04-09 19:45:55
+// $ANTLR 3.4 D:\\workspace\\Master\\src\\CubeSql.g 2013-05-27 19:48:38
 
   package ParserMgr;
 
@@ -11,7 +11,6 @@ import java.util.ArrayList;
 @SuppressWarnings({"all", "warnings", "unchecked"})
 public class CubeSqlLexer extends Lexer {
     public static final int EOF=-1;
-    public static final int T__66=66;
     public static final int T__67=67;
     public static final int T__68=68;
     public static final int T__69=69;
@@ -20,6 +19,7 @@ public class CubeSqlLexer extends Lexer {
     public static final int T__72=72;
     public static final int T__73=73;
     public static final int T__74=74;
+    public static final int T__75=75;
     public static final int A=4;
     public static final int AND=5;
     public static final int AS=6;
@@ -55,33 +55,34 @@ public class CubeSqlLexer extends Lexer {
     public static final int Letter=36;
     public static final int M=37;
     public static final int MAX=38;
-    public static final int MIN=39;
-    public static final int N=40;
-    public static final int NAME=41;
-    public static final int O=42;
-    public static final int OF=43;
-    public static final int OR=44;
-    public static final int P=45;
-    public static final int Q=46;
-    public static final int QUESTMARK=47;
-    public static final int R=48;
-    public static final int RBRACE=49;
-    public static final int REFERENCES=50;
-    public static final int RELATED=51;
-    public static final int S=52;
-    public static final int SELECT=53;
-    public static final int SQL_TABLE=54;
-    public static final int SUM=55;
-    public static final int T=56;
-    public static final int U=57;
-    public static final int UNDERSCORE=58;
-    public static final int V=59;
-    public static final int W=60;
-    public static final int WHERE=61;
-    public static final int WS=62;
-    public static final int X=63;
-    public static final int Y=64;
-    public static final int Z=65;
+    public static final int MEASURES=39;
+    public static final int MIN=40;
+    public static final int N=41;
+    public static final int NAME=42;
+    public static final int O=43;
+    public static final int OF=44;
+    public static final int OR=45;
+    public static final int P=46;
+    public static final int Q=47;
+    public static final int QUESTMARK=48;
+    public static final int R=49;
+    public static final int RBRACE=50;
+    public static final int REFERENCES=51;
+    public static final int RELATED=52;
+    public static final int S=53;
+    public static final int SELECT=54;
+    public static final int SQL_TABLE=55;
+    public static final int SUM=56;
+    public static final int T=57;
+    public static final int U=58;
+    public static final int UNDERSCORE=59;
+    public static final int V=60;
+    public static final int W=61;
+    public static final int WHERE=62;
+    public static final int WS=63;
+    public static final int X=64;
+    public static final int Y=65;
+    public static final int Z=66;
 
     // delegates
     // delegators
@@ -98,36 +99,15 @@ public class CubeSqlLexer extends Lexer {
     }
     public String getGrammarFileName() { return "D:\\workspace\\Master\\src\\CubeSql.g"; }
 
-    // $ANTLR start "T__66"
-    public final void mT__66() throws RecognitionException {
-        try {
-            int _type = T__66;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:6:7: ( '\"' )
-            // D:\\workspace\\Master\\src\\CubeSql.g:6:9: '\"'
-            {
-            match('\"'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__66"
-
     // $ANTLR start "T__67"
     public final void mT__67() throws RecognitionException {
         try {
             int _type = T__67;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:7:7: ( '(' )
-            // D:\\workspace\\Master\\src\\CubeSql.g:7:9: '('
+            // D:\\workspace\\Master\\src\\CubeSql.g:6:7: ( '\"' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:6:9: '\"'
             {
-            match('('); 
+            match('\"'); 
 
             }
 
@@ -145,10 +125,10 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = T__68;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:8:7: ( ')' )
-            // D:\\workspace\\Master\\src\\CubeSql.g:8:9: ')'
+            // D:\\workspace\\Master\\src\\CubeSql.g:7:7: ( '(' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:7:9: '('
             {
-            match(')'); 
+            match('('); 
 
             }
 
@@ -166,10 +146,10 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = T__69;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:9:7: ( '<' )
-            // D:\\workspace\\Master\\src\\CubeSql.g:9:9: '<'
+            // D:\\workspace\\Master\\src\\CubeSql.g:8:7: ( ')' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:8:9: ')'
             {
-            match('<'); 
+            match(')'); 
 
             }
 
@@ -187,12 +167,10 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = T__70;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:10:7: ( '<=' )
-            // D:\\workspace\\Master\\src\\CubeSql.g:10:9: '<='
+            // D:\\workspace\\Master\\src\\CubeSql.g:9:7: ( '<' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:9:9: '<'
             {
-            match("<="); 
-
-
+            match('<'); 
 
             }
 
@@ -210,10 +188,12 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = T__71;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:11:7: ( '=' )
-            // D:\\workspace\\Master\\src\\CubeSql.g:11:9: '='
+            // D:\\workspace\\Master\\src\\CubeSql.g:10:7: ( '<=' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:10:9: '<='
             {
-            match('='); 
+            match("<="); 
+
+
 
             }
 
@@ -231,12 +211,10 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = T__72;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:12:7: ( '>=' )
-            // D:\\workspace\\Master\\src\\CubeSql.g:12:9: '>='
+            // D:\\workspace\\Master\\src\\CubeSql.g:11:7: ( '=' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:11:9: '='
             {
-            match(">="); 
-
-
+            match('='); 
 
             }
 
@@ -254,10 +232,10 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = T__73;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:13:7: ( 'LIKE' )
-            // D:\\workspace\\Master\\src\\CubeSql.g:13:9: 'LIKE'
+            // D:\\workspace\\Master\\src\\CubeSql.g:12:7: ( '>=' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:12:9: '>='
             {
-            match("LIKE"); 
+            match(">="); 
 
 
 
@@ -277,6 +255,29 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = T__74;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+            // D:\\workspace\\Master\\src\\CubeSql.g:13:7: ( 'LIKE' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:13:9: 'LIKE'
+            {
+            match("LIKE"); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__74"
+
+    // $ANTLR start "T__75"
+    public final void mT__75() throws RecognitionException {
+        try {
+            int _type = T__75;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
             // D:\\workspace\\Master\\src\\CubeSql.g:14:7: ( '\\'' )
             // D:\\workspace\\Master\\src\\CubeSql.g:14:9: '\\''
             {
@@ -291,15 +292,15 @@ public class CubeSqlLexer extends Lexer {
         	// do for sure before leaving
         }
     }
-    // $ANTLR end "T__74"
+    // $ANTLR end "T__75"
 
     // $ANTLR start "OR"
     public final void mOR() throws RecognitionException {
         try {
             int _type = OR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:151:4: ( O R )
-            // D:\\workspace\\Master\\src\\CubeSql.g:151:6: O R
+            // D:\\workspace\\Master\\src\\CubeSql.g:161:4: ( O R )
+            // D:\\workspace\\Master\\src\\CubeSql.g:161:6: O R
             {
             mO(); 
 
@@ -323,8 +324,8 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = AND;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:153:5: ( A N D )
-            // D:\\workspace\\Master\\src\\CubeSql.g:153:7: A N D
+            // D:\\workspace\\Master\\src\\CubeSql.g:163:5: ( A N D )
+            // D:\\workspace\\Master\\src\\CubeSql.g:163:7: A N D
             {
             mA(); 
 
@@ -351,8 +352,8 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = CREATE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:155:7: ( C R E A T E )
-            // D:\\workspace\\Master\\src\\CubeSql.g:155:9: C R E A T E
+            // D:\\workspace\\Master\\src\\CubeSql.g:165:7: ( C R E A T E )
+            // D:\\workspace\\Master\\src\\CubeSql.g:165:9: C R E A T E
             {
             mC(); 
 
@@ -388,8 +389,8 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = CUBE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:157:6: ( C U B E )
-            // D:\\workspace\\Master\\src\\CubeSql.g:157:9: C U B E
+            // D:\\workspace\\Master\\src\\CubeSql.g:167:6: ( C U B E )
+            // D:\\workspace\\Master\\src\\CubeSql.g:167:9: C U B E
             {
             mC(); 
 
@@ -419,8 +420,8 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = RELATED;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:159:9: ( R E L A T E D )
-            // D:\\workspace\\Master\\src\\CubeSql.g:159:11: R E L A T E D
+            // D:\\workspace\\Master\\src\\CubeSql.g:169:9: ( R E L A T E D )
+            // D:\\workspace\\Master\\src\\CubeSql.g:169:11: R E L A T E D
             {
             mR(); 
 
@@ -459,8 +460,8 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = SQL_TABLE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:161:10: ( S Q L UNDERSCORE T A B L E )
-            // D:\\workspace\\Master\\src\\CubeSql.g:161:12: S Q L UNDERSCORE T A B L E
+            // D:\\workspace\\Master\\src\\CubeSql.g:171:10: ( S Q L UNDERSCORE T A B L E )
+            // D:\\workspace\\Master\\src\\CubeSql.g:171:12: S Q L UNDERSCORE T A B L E
             {
             mS(); 
 
@@ -505,8 +506,8 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = REFERENCES;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:163:11: ( R E F E R E N C E S )
-            // D:\\workspace\\Master\\src\\CubeSql.g:163:13: R E F E R E N C E S
+            // D:\\workspace\\Master\\src\\CubeSql.g:173:11: ( R E F E R E N C E S )
+            // D:\\workspace\\Master\\src\\CubeSql.g:173:13: R E F E R E N C E S
             {
             mR(); 
 
@@ -554,8 +555,8 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = DIMENSION;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:165:11: ( D I M E N S I O N )
-            // D:\\workspace\\Master\\src\\CubeSql.g:165:13: D I M E N S I O N
+            // D:\\workspace\\Master\\src\\CubeSql.g:175:11: ( D I M E N S I O N )
+            // D:\\workspace\\Master\\src\\CubeSql.g:175:13: D I M E N S I O N
             {
             mD(); 
 
@@ -600,8 +601,8 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = DIMENSION_TABLE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:167:16: ( D I M E N S I O N UNDERSCORE T A B L E )
-            // D:\\workspace\\Master\\src\\CubeSql.g:167:18: D I M E N S I O N UNDERSCORE T A B L E
+            // D:\\workspace\\Master\\src\\CubeSql.g:177:16: ( D I M E N S I O N UNDERSCORE T A B L E )
+            // D:\\workspace\\Master\\src\\CubeSql.g:177:18: D I M E N S I O N UNDERSCORE T A B L E
             {
             mD(); 
 
@@ -664,8 +665,8 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = LIST;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:169:5: ( L I S T )
-            // D:\\workspace\\Master\\src\\CubeSql.g:169:7: L I S T
+            // D:\\workspace\\Master\\src\\CubeSql.g:179:5: ( L I S T )
+            // D:\\workspace\\Master\\src\\CubeSql.g:179:7: L I S T
             {
             mL(); 
 
@@ -695,8 +696,8 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = OF;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:171:3: ( O F )
-            // D:\\workspace\\Master\\src\\CubeSql.g:171:5: O F
+            // D:\\workspace\\Master\\src\\CubeSql.g:181:3: ( O F )
+            // D:\\workspace\\Master\\src\\CubeSql.g:181:5: O F
             {
             mO(); 
 
@@ -720,8 +721,8 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = LEVEL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:173:6: ( L E V E L )
-            // D:\\workspace\\Master\\src\\CubeSql.g:173:7: L E V E L
+            // D:\\workspace\\Master\\src\\CubeSql.g:183:6: ( L E V E L )
+            // D:\\workspace\\Master\\src\\CubeSql.g:183:7: L E V E L
             {
             mL(); 
 
@@ -754,8 +755,8 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = AS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:175:3: ( A S )
-            // D:\\workspace\\Master\\src\\CubeSql.g:175:5: A S
+            // D:\\workspace\\Master\\src\\CubeSql.g:185:3: ( A S )
+            // D:\\workspace\\Master\\src\\CubeSql.g:185:5: A S
             {
             mA(); 
 
@@ -779,8 +780,8 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = AT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:177:4: ( A T )
-            // D:\\workspace\\Master\\src\\CubeSql.g:177:5: A T
+            // D:\\workspace\\Master\\src\\CubeSql.g:187:4: ( A T )
+            // D:\\workspace\\Master\\src\\CubeSql.g:187:5: A T
             {
             mA(); 
 
@@ -804,8 +805,8 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = HIERARCHY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:179:10: ( H I E R A R C H Y )
-            // D:\\workspace\\Master\\src\\CubeSql.g:179:12: H I E R A R C H Y
+            // D:\\workspace\\Master\\src\\CubeSql.g:189:10: ( H I E R A R C H Y )
+            // D:\\workspace\\Master\\src\\CubeSql.g:189:12: H I E R A R C H Y
             {
             mH(); 
 
@@ -850,8 +851,8 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = SELECT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:181:8: ( S E L E C T )
-            // D:\\workspace\\Master\\src\\CubeSql.g:181:10: S E L E C T
+            // D:\\workspace\\Master\\src\\CubeSql.g:191:8: ( S E L E C T )
+            // D:\\workspace\\Master\\src\\CubeSql.g:191:10: S E L E C T
             {
             mS(); 
 
@@ -887,8 +888,8 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = AVG;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:183:5: ( A V G )
-            // D:\\workspace\\Master\\src\\CubeSql.g:183:7: A V G
+            // D:\\workspace\\Master\\src\\CubeSql.g:193:5: ( A V G )
+            // D:\\workspace\\Master\\src\\CubeSql.g:193:7: A V G
             {
             mA(); 
 
@@ -915,8 +916,8 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = SUM;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:185:5: ( S U M )
-            // D:\\workspace\\Master\\src\\CubeSql.g:185:7: S U M
+            // D:\\workspace\\Master\\src\\CubeSql.g:195:5: ( S U M )
+            // D:\\workspace\\Master\\src\\CubeSql.g:195:7: S U M
             {
             mS(); 
 
@@ -943,8 +944,8 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = MAX;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:187:5: ( M A X )
-            // D:\\workspace\\Master\\src\\CubeSql.g:187:7: M A X
+            // D:\\workspace\\Master\\src\\CubeSql.g:197:5: ( M A X )
+            // D:\\workspace\\Master\\src\\CubeSql.g:197:7: M A X
             {
             mM(); 
 
@@ -971,8 +972,8 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = MIN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:189:5: ( M I N )
-            // D:\\workspace\\Master\\src\\CubeSql.g:189:7: M I N
+            // D:\\workspace\\Master\\src\\CubeSql.g:199:5: ( M I N )
+            // D:\\workspace\\Master\\src\\CubeSql.g:199:7: M I N
             {
             mM(); 
 
@@ -999,8 +1000,8 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = COUNT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:191:7: ( C O U N T )
-            // D:\\workspace\\Master\\src\\CubeSql.g:191:9: C O U N T
+            // D:\\workspace\\Master\\src\\CubeSql.g:201:7: ( C O U N T )
+            // D:\\workspace\\Master\\src\\CubeSql.g:201:9: C O U N T
             {
             mC(); 
 
@@ -1033,8 +1034,8 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = WHERE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:193:7: ( W H E R E )
-            // D:\\workspace\\Master\\src\\CubeSql.g:193:9: W H E R E
+            // D:\\workspace\\Master\\src\\CubeSql.g:203:7: ( W H E R E )
+            // D:\\workspace\\Master\\src\\CubeSql.g:203:9: W H E R E
             {
             mW(); 
 
@@ -1067,8 +1068,8 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = FROM;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:195:6: ( F R O M )
-            // D:\\workspace\\Master\\src\\CubeSql.g:195:8: F R O M
+            // D:\\workspace\\Master\\src\\CubeSql.g:205:6: ( F R O M )
+            // D:\\workspace\\Master\\src\\CubeSql.g:205:8: F R O M
             {
             mF(); 
 
@@ -1098,8 +1099,8 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = GROUP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:197:7: ( G R O U P )
-            // D:\\workspace\\Master\\src\\CubeSql.g:197:9: G R O U P
+            // D:\\workspace\\Master\\src\\CubeSql.g:207:7: ( G R O U P )
+            // D:\\workspace\\Master\\src\\CubeSql.g:207:9: G R O U P
             {
             mG(); 
 
@@ -1132,8 +1133,8 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = BY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:199:3: ( B Y )
-            // D:\\workspace\\Master\\src\\CubeSql.g:199:5: B Y
+            // D:\\workspace\\Master\\src\\CubeSql.g:209:3: ( B Y )
+            // D:\\workspace\\Master\\src\\CubeSql.g:209:5: B Y
             {
             mB(); 
 
@@ -1152,18 +1153,61 @@ public class CubeSqlLexer extends Lexer {
     }
     // $ANTLR end "BY"
 
+    // $ANTLR start "MEASURES"
+    public final void mMEASURES() throws RecognitionException {
+        try {
+            int _type = MEASURES;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // D:\\workspace\\Master\\src\\CubeSql.g:211:10: ( M E A S U R E S )
+            // D:\\workspace\\Master\\src\\CubeSql.g:211:12: M E A S U R E S
+            {
+            mM(); 
+
+
+            mE(); 
+
+
+            mA(); 
+
+
+            mS(); 
+
+
+            mU(); 
+
+
+            mR(); 
+
+
+            mE(); 
+
+
+            mS(); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "MEASURES"
+
     // $ANTLR start "NAME"
     public final void mNAME() throws RecognitionException {
         try {
             int _type = NAME;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:201:5: ( Letter ( Letter | Digit | '_' | '-' )* )
-            // D:\\workspace\\Master\\src\\CubeSql.g:201:7: Letter ( Letter | Digit | '_' | '-' )*
+            // D:\\workspace\\Master\\src\\CubeSql.g:213:5: ( Letter ( Letter | Digit | '_' | '-' )* )
+            // D:\\workspace\\Master\\src\\CubeSql.g:213:7: Letter ( Letter | Digit | '_' | '-' )*
             {
             mLetter(); 
 
 
-            // D:\\workspace\\Master\\src\\CubeSql.g:201:14: ( Letter | Digit | '_' | '-' )*
+            // D:\\workspace\\Master\\src\\CubeSql.g:213:14: ( Letter | Digit | '_' | '-' )*
             loop1:
             do {
                 int alt1=2;
@@ -1213,8 +1257,8 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = LBRACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:203:7: ( '{' )
-            // D:\\workspace\\Master\\src\\CubeSql.g:203:8: '{'
+            // D:\\workspace\\Master\\src\\CubeSql.g:215:7: ( '{' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:215:8: '{'
             {
             match('{'); 
 
@@ -1234,8 +1278,8 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = RBRACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:204:7: ( '}' )
-            // D:\\workspace\\Master\\src\\CubeSql.g:204:8: '}'
+            // D:\\workspace\\Master\\src\\CubeSql.g:216:7: ( '}' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:216:8: '}'
             {
             match('}'); 
 
@@ -1255,8 +1299,8 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = DOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:205:4: ( '.' )
-            // D:\\workspace\\Master\\src\\CubeSql.g:205:5: '.'
+            // D:\\workspace\\Master\\src\\CubeSql.g:217:4: ( '.' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:217:5: '.'
             {
             match('.'); 
 
@@ -1276,8 +1320,8 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = COMMA;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:206:6: ( ',' )
-            // D:\\workspace\\Master\\src\\CubeSql.g:206:7: ','
+            // D:\\workspace\\Master\\src\\CubeSql.g:218:6: ( ',' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:218:7: ','
             {
             match(','); 
 
@@ -1297,8 +1341,8 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = CHILDOF;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:207:8: ( '>' )
-            // D:\\workspace\\Master\\src\\CubeSql.g:207:9: '>'
+            // D:\\workspace\\Master\\src\\CubeSql.g:219:8: ( '>' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:219:9: '>'
             {
             match('>'); 
 
@@ -1318,8 +1362,8 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = QUESTMARK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:208:10: ( ';' )
-            // D:\\workspace\\Master\\src\\CubeSql.g:208:11: ';'
+            // D:\\workspace\\Master\\src\\CubeSql.g:220:10: ( ';' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:220:11: ';'
             {
             match(';'); 
 
@@ -1339,8 +1383,8 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = UNDERSCORE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:209:11: ( '_' )
-            // D:\\workspace\\Master\\src\\CubeSql.g:209:12: '_'
+            // D:\\workspace\\Master\\src\\CubeSql.g:221:11: ( '_' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:221:12: '_'
             {
             match('_'); 
 
@@ -1358,7 +1402,7 @@ public class CubeSqlLexer extends Lexer {
     // $ANTLR start "Digit"
     public final void mDigit() throws RecognitionException {
         try {
-            // D:\\workspace\\Master\\src\\CubeSql.g:211:16: ( '0' .. '9' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:223:16: ( '0' .. '9' )
             // D:\\workspace\\Master\\src\\CubeSql.g:
             {
             if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
@@ -1384,7 +1428,7 @@ public class CubeSqlLexer extends Lexer {
     // $ANTLR start "Letter"
     public final void mLetter() throws RecognitionException {
         try {
-            // D:\\workspace\\Master\\src\\CubeSql.g:212:17: ( 'a' .. 'z' | 'A' .. 'Z' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:224:17: ( 'a' .. 'z' | 'A' .. 'Z' )
             // D:\\workspace\\Master\\src\\CubeSql.g:
             {
             if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
@@ -1410,7 +1454,7 @@ public class CubeSqlLexer extends Lexer {
     // $ANTLR start "A"
     public final void mA() throws RecognitionException {
         try {
-            // D:\\workspace\\Master\\src\\CubeSql.g:213:11: ( 'A' | 'a' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:225:11: ( 'A' | 'a' )
             // D:\\workspace\\Master\\src\\CubeSql.g:
             {
             if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
@@ -1436,7 +1480,7 @@ public class CubeSqlLexer extends Lexer {
     // $ANTLR start "B"
     public final void mB() throws RecognitionException {
         try {
-            // D:\\workspace\\Master\\src\\CubeSql.g:214:11: ( 'B' | 'b' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:226:11: ( 'B' | 'b' )
             // D:\\workspace\\Master\\src\\CubeSql.g:
             {
             if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
@@ -1462,7 +1506,7 @@ public class CubeSqlLexer extends Lexer {
     // $ANTLR start "C"
     public final void mC() throws RecognitionException {
         try {
-            // D:\\workspace\\Master\\src\\CubeSql.g:215:11: ( 'C' | 'c' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:227:11: ( 'C' | 'c' )
             // D:\\workspace\\Master\\src\\CubeSql.g:
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
@@ -1488,7 +1532,7 @@ public class CubeSqlLexer extends Lexer {
     // $ANTLR start "D"
     public final void mD() throws RecognitionException {
         try {
-            // D:\\workspace\\Master\\src\\CubeSql.g:216:11: ( 'D' | 'd' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:228:11: ( 'D' | 'd' )
             // D:\\workspace\\Master\\src\\CubeSql.g:
             {
             if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
@@ -1514,7 +1558,7 @@ public class CubeSqlLexer extends Lexer {
     // $ANTLR start "E"
     public final void mE() throws RecognitionException {
         try {
-            // D:\\workspace\\Master\\src\\CubeSql.g:217:11: ( 'E' | 'e' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:229:11: ( 'E' | 'e' )
             // D:\\workspace\\Master\\src\\CubeSql.g:
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
@@ -1540,7 +1584,7 @@ public class CubeSqlLexer extends Lexer {
     // $ANTLR start "F"
     public final void mF() throws RecognitionException {
         try {
-            // D:\\workspace\\Master\\src\\CubeSql.g:218:11: ( 'F' | 'f' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:230:11: ( 'F' | 'f' )
             // D:\\workspace\\Master\\src\\CubeSql.g:
             {
             if ( input.LA(1)=='F'||input.LA(1)=='f' ) {
@@ -1566,7 +1610,7 @@ public class CubeSqlLexer extends Lexer {
     // $ANTLR start "G"
     public final void mG() throws RecognitionException {
         try {
-            // D:\\workspace\\Master\\src\\CubeSql.g:219:11: ( 'G' | 'g' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:231:11: ( 'G' | 'g' )
             // D:\\workspace\\Master\\src\\CubeSql.g:
             {
             if ( input.LA(1)=='G'||input.LA(1)=='g' ) {
@@ -1592,7 +1636,7 @@ public class CubeSqlLexer extends Lexer {
     // $ANTLR start "H"
     public final void mH() throws RecognitionException {
         try {
-            // D:\\workspace\\Master\\src\\CubeSql.g:220:11: ( 'H' | 'h' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:232:11: ( 'H' | 'h' )
             // D:\\workspace\\Master\\src\\CubeSql.g:
             {
             if ( input.LA(1)=='H'||input.LA(1)=='h' ) {
@@ -1618,7 +1662,7 @@ public class CubeSqlLexer extends Lexer {
     // $ANTLR start "I"
     public final void mI() throws RecognitionException {
         try {
-            // D:\\workspace\\Master\\src\\CubeSql.g:221:11: ( 'I' | 'i' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:233:11: ( 'I' | 'i' )
             // D:\\workspace\\Master\\src\\CubeSql.g:
             {
             if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
@@ -1644,7 +1688,7 @@ public class CubeSqlLexer extends Lexer {
     // $ANTLR start "J"
     public final void mJ() throws RecognitionException {
         try {
-            // D:\\workspace\\Master\\src\\CubeSql.g:222:11: ( 'J' | 'j' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:234:11: ( 'J' | 'j' )
             // D:\\workspace\\Master\\src\\CubeSql.g:
             {
             if ( input.LA(1)=='J'||input.LA(1)=='j' ) {
@@ -1670,7 +1714,7 @@ public class CubeSqlLexer extends Lexer {
     // $ANTLR start "K"
     public final void mK() throws RecognitionException {
         try {
-            // D:\\workspace\\Master\\src\\CubeSql.g:223:11: ( 'K' | 'k' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:235:11: ( 'K' | 'k' )
             // D:\\workspace\\Master\\src\\CubeSql.g:
             {
             if ( input.LA(1)=='K'||input.LA(1)=='k' ) {
@@ -1696,7 +1740,7 @@ public class CubeSqlLexer extends Lexer {
     // $ANTLR start "L"
     public final void mL() throws RecognitionException {
         try {
-            // D:\\workspace\\Master\\src\\CubeSql.g:224:11: ( 'L' | 'l' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:236:11: ( 'L' | 'l' )
             // D:\\workspace\\Master\\src\\CubeSql.g:
             {
             if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
@@ -1722,7 +1766,7 @@ public class CubeSqlLexer extends Lexer {
     // $ANTLR start "M"
     public final void mM() throws RecognitionException {
         try {
-            // D:\\workspace\\Master\\src\\CubeSql.g:225:11: ( 'M' | 'm' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:237:11: ( 'M' | 'm' )
             // D:\\workspace\\Master\\src\\CubeSql.g:
             {
             if ( input.LA(1)=='M'||input.LA(1)=='m' ) {
@@ -1748,7 +1792,7 @@ public class CubeSqlLexer extends Lexer {
     // $ANTLR start "N"
     public final void mN() throws RecognitionException {
         try {
-            // D:\\workspace\\Master\\src\\CubeSql.g:226:11: ( 'N' | 'n' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:238:11: ( 'N' | 'n' )
             // D:\\workspace\\Master\\src\\CubeSql.g:
             {
             if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
@@ -1774,7 +1818,7 @@ public class CubeSqlLexer extends Lexer {
     // $ANTLR start "O"
     public final void mO() throws RecognitionException {
         try {
-            // D:\\workspace\\Master\\src\\CubeSql.g:227:11: ( 'O' | 'o' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:239:11: ( 'O' | 'o' )
             // D:\\workspace\\Master\\src\\CubeSql.g:
             {
             if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
@@ -1800,7 +1844,7 @@ public class CubeSqlLexer extends Lexer {
     // $ANTLR start "P"
     public final void mP() throws RecognitionException {
         try {
-            // D:\\workspace\\Master\\src\\CubeSql.g:228:11: ( 'P' | 'p' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:240:11: ( 'P' | 'p' )
             // D:\\workspace\\Master\\src\\CubeSql.g:
             {
             if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
@@ -1826,7 +1870,7 @@ public class CubeSqlLexer extends Lexer {
     // $ANTLR start "Q"
     public final void mQ() throws RecognitionException {
         try {
-            // D:\\workspace\\Master\\src\\CubeSql.g:229:11: ( 'Q' | 'q' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:241:11: ( 'Q' | 'q' )
             // D:\\workspace\\Master\\src\\CubeSql.g:
             {
             if ( input.LA(1)=='Q'||input.LA(1)=='q' ) {
@@ -1852,7 +1896,7 @@ public class CubeSqlLexer extends Lexer {
     // $ANTLR start "R"
     public final void mR() throws RecognitionException {
         try {
-            // D:\\workspace\\Master\\src\\CubeSql.g:230:11: ( 'R' | 'r' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:242:11: ( 'R' | 'r' )
             // D:\\workspace\\Master\\src\\CubeSql.g:
             {
             if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
@@ -1878,7 +1922,7 @@ public class CubeSqlLexer extends Lexer {
     // $ANTLR start "S"
     public final void mS() throws RecognitionException {
         try {
-            // D:\\workspace\\Master\\src\\CubeSql.g:231:11: ( 'S' | 's' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:243:11: ( 'S' | 's' )
             // D:\\workspace\\Master\\src\\CubeSql.g:
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
@@ -1904,7 +1948,7 @@ public class CubeSqlLexer extends Lexer {
     // $ANTLR start "T"
     public final void mT() throws RecognitionException {
         try {
-            // D:\\workspace\\Master\\src\\CubeSql.g:232:11: ( 'T' | 't' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:244:11: ( 'T' | 't' )
             // D:\\workspace\\Master\\src\\CubeSql.g:
             {
             if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
@@ -1930,7 +1974,7 @@ public class CubeSqlLexer extends Lexer {
     // $ANTLR start "U"
     public final void mU() throws RecognitionException {
         try {
-            // D:\\workspace\\Master\\src\\CubeSql.g:233:11: ( 'U' | 'u' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:245:11: ( 'U' | 'u' )
             // D:\\workspace\\Master\\src\\CubeSql.g:
             {
             if ( input.LA(1)=='U'||input.LA(1)=='u' ) {
@@ -1956,7 +2000,7 @@ public class CubeSqlLexer extends Lexer {
     // $ANTLR start "V"
     public final void mV() throws RecognitionException {
         try {
-            // D:\\workspace\\Master\\src\\CubeSql.g:234:11: ( 'V' | 'v' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:246:11: ( 'V' | 'v' )
             // D:\\workspace\\Master\\src\\CubeSql.g:
             {
             if ( input.LA(1)=='V'||input.LA(1)=='v' ) {
@@ -1982,7 +2026,7 @@ public class CubeSqlLexer extends Lexer {
     // $ANTLR start "W"
     public final void mW() throws RecognitionException {
         try {
-            // D:\\workspace\\Master\\src\\CubeSql.g:235:11: ( 'W' | 'w' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:247:11: ( 'W' | 'w' )
             // D:\\workspace\\Master\\src\\CubeSql.g:
             {
             if ( input.LA(1)=='W'||input.LA(1)=='w' ) {
@@ -2008,7 +2052,7 @@ public class CubeSqlLexer extends Lexer {
     // $ANTLR start "X"
     public final void mX() throws RecognitionException {
         try {
-            // D:\\workspace\\Master\\src\\CubeSql.g:236:11: ( 'X' | 'x' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:248:11: ( 'X' | 'x' )
             // D:\\workspace\\Master\\src\\CubeSql.g:
             {
             if ( input.LA(1)=='X'||input.LA(1)=='x' ) {
@@ -2034,7 +2078,7 @@ public class CubeSqlLexer extends Lexer {
     // $ANTLR start "Y"
     public final void mY() throws RecognitionException {
         try {
-            // D:\\workspace\\Master\\src\\CubeSql.g:237:11: ( 'Y' | 'y' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:249:11: ( 'Y' | 'y' )
             // D:\\workspace\\Master\\src\\CubeSql.g:
             {
             if ( input.LA(1)=='Y'||input.LA(1)=='y' ) {
@@ -2060,7 +2104,7 @@ public class CubeSqlLexer extends Lexer {
     // $ANTLR start "Z"
     public final void mZ() throws RecognitionException {
         try {
-            // D:\\workspace\\Master\\src\\CubeSql.g:238:11: ( 'Z' | 'z' )
+            // D:\\workspace\\Master\\src\\CubeSql.g:250:11: ( 'Z' | 'z' )
             // D:\\workspace\\Master\\src\\CubeSql.g:
             {
             if ( input.LA(1)=='Z'||input.LA(1)=='z' ) {
@@ -2088,10 +2132,10 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:240:4: ( ( ( ' ' | '\\t' | '\\f' )+ | ( '\\r\\n' | '\\r' | '\\n' ) ) )
-            // D:\\workspace\\Master\\src\\CubeSql.g:240:6: ( ( ' ' | '\\t' | '\\f' )+ | ( '\\r\\n' | '\\r' | '\\n' ) )
+            // D:\\workspace\\Master\\src\\CubeSql.g:252:4: ( ( ( ' ' | '\\t' | '\\f' )+ | ( '\\r\\n' | '\\r' | '\\n' ) ) )
+            // D:\\workspace\\Master\\src\\CubeSql.g:252:6: ( ( ' ' | '\\t' | '\\f' )+ | ( '\\r\\n' | '\\r' | '\\n' ) )
             {
-            // D:\\workspace\\Master\\src\\CubeSql.g:240:6: ( ( ' ' | '\\t' | '\\f' )+ | ( '\\r\\n' | '\\r' | '\\n' ) )
+            // D:\\workspace\\Master\\src\\CubeSql.g:252:6: ( ( ' ' | '\\t' | '\\f' )+ | ( '\\r\\n' | '\\r' | '\\n' ) )
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -2110,9 +2154,9 @@ public class CubeSqlLexer extends Lexer {
             }
             switch (alt4) {
                 case 1 :
-                    // D:\\workspace\\Master\\src\\CubeSql.g:241:5: ( ' ' | '\\t' | '\\f' )+
+                    // D:\\workspace\\Master\\src\\CubeSql.g:253:5: ( ' ' | '\\t' | '\\f' )+
                     {
-                    // D:\\workspace\\Master\\src\\CubeSql.g:241:5: ( ' ' | '\\t' | '\\f' )+
+                    // D:\\workspace\\Master\\src\\CubeSql.g:253:5: ( ' ' | '\\t' | '\\f' )+
                     int cnt2=0;
                     loop2:
                     do {
@@ -2154,9 +2198,9 @@ public class CubeSqlLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // D:\\workspace\\Master\\src\\CubeSql.g:244:5: ( '\\r\\n' | '\\r' | '\\n' )
+                    // D:\\workspace\\Master\\src\\CubeSql.g:256:5: ( '\\r\\n' | '\\r' | '\\n' )
                     {
-                    // D:\\workspace\\Master\\src\\CubeSql.g:244:5: ( '\\r\\n' | '\\r' | '\\n' )
+                    // D:\\workspace\\Master\\src\\CubeSql.g:256:5: ( '\\r\\n' | '\\r' | '\\n' )
                     int alt3=3;
                     int LA3_0 = input.LA(1);
 
@@ -2182,7 +2226,7 @@ public class CubeSqlLexer extends Lexer {
                     }
                     switch (alt3) {
                         case 1 :
-                            // D:\\workspace\\Master\\src\\CubeSql.g:244:7: '\\r\\n'
+                            // D:\\workspace\\Master\\src\\CubeSql.g:256:7: '\\r\\n'
                             {
                             match("\r\n"); 
 
@@ -2191,14 +2235,14 @@ public class CubeSqlLexer extends Lexer {
                             }
                             break;
                         case 2 :
-                            // D:\\workspace\\Master\\src\\CubeSql.g:245:9: '\\r'
+                            // D:\\workspace\\Master\\src\\CubeSql.g:257:9: '\\r'
                             {
                             match('\r'); 
 
                             }
                             break;
                         case 3 :
-                            // D:\\workspace\\Master\\src\\CubeSql.g:246:9: '\\n'
+                            // D:\\workspace\\Master\\src\\CubeSql.g:258:9: '\\n'
                             {
                             match('\n'); 
 
@@ -2228,78 +2272,78 @@ public class CubeSqlLexer extends Lexer {
     // $ANTLR end "WS"
 
     public void mTokens() throws RecognitionException {
-        // D:\\workspace\\Master\\src\\CubeSql.g:1:8: ( T__66 | T__67 | T__68 | T__69 | T__70 | T__71 | T__72 | T__73 | T__74 | OR | AND | CREATE | CUBE | RELATED | SQL_TABLE | REFERENCES | DIMENSION | DIMENSION_TABLE | LIST | OF | LEVEL | AS | AT | HIERARCHY | SELECT | AVG | SUM | MAX | MIN | COUNT | WHERE | FROM | GROUP | BY | NAME | LBRACE | RBRACE | DOT | COMMA | CHILDOF | QUESTMARK | UNDERSCORE | WS )
-        int alt5=43;
+        // D:\\workspace\\Master\\src\\CubeSql.g:1:8: ( T__67 | T__68 | T__69 | T__70 | T__71 | T__72 | T__73 | T__74 | T__75 | OR | AND | CREATE | CUBE | RELATED | SQL_TABLE | REFERENCES | DIMENSION | DIMENSION_TABLE | LIST | OF | LEVEL | AS | AT | HIERARCHY | SELECT | AVG | SUM | MAX | MIN | COUNT | WHERE | FROM | GROUP | BY | MEASURES | NAME | LBRACE | RBRACE | DOT | COMMA | CHILDOF | QUESTMARK | UNDERSCORE | WS )
+        int alt5=44;
         alt5 = dfa5.predict(input);
         switch (alt5) {
             case 1 :
-                // D:\\workspace\\Master\\src\\CubeSql.g:1:10: T__66
-                {
-                mT__66(); 
-
-
-                }
-                break;
-            case 2 :
-                // D:\\workspace\\Master\\src\\CubeSql.g:1:16: T__67
+                // D:\\workspace\\Master\\src\\CubeSql.g:1:10: T__67
                 {
                 mT__67(); 
 
 
                 }
                 break;
-            case 3 :
-                // D:\\workspace\\Master\\src\\CubeSql.g:1:22: T__68
+            case 2 :
+                // D:\\workspace\\Master\\src\\CubeSql.g:1:16: T__68
                 {
                 mT__68(); 
 
 
                 }
                 break;
-            case 4 :
-                // D:\\workspace\\Master\\src\\CubeSql.g:1:28: T__69
+            case 3 :
+                // D:\\workspace\\Master\\src\\CubeSql.g:1:22: T__69
                 {
                 mT__69(); 
 
 
                 }
                 break;
-            case 5 :
-                // D:\\workspace\\Master\\src\\CubeSql.g:1:34: T__70
+            case 4 :
+                // D:\\workspace\\Master\\src\\CubeSql.g:1:28: T__70
                 {
                 mT__70(); 
 
 
                 }
                 break;
-            case 6 :
-                // D:\\workspace\\Master\\src\\CubeSql.g:1:40: T__71
+            case 5 :
+                // D:\\workspace\\Master\\src\\CubeSql.g:1:34: T__71
                 {
                 mT__71(); 
 
 
                 }
                 break;
-            case 7 :
-                // D:\\workspace\\Master\\src\\CubeSql.g:1:46: T__72
+            case 6 :
+                // D:\\workspace\\Master\\src\\CubeSql.g:1:40: T__72
                 {
                 mT__72(); 
 
 
                 }
                 break;
-            case 8 :
-                // D:\\workspace\\Master\\src\\CubeSql.g:1:52: T__73
+            case 7 :
+                // D:\\workspace\\Master\\src\\CubeSql.g:1:46: T__73
                 {
                 mT__73(); 
 
 
                 }
                 break;
-            case 9 :
-                // D:\\workspace\\Master\\src\\CubeSql.g:1:58: T__74
+            case 8 :
+                // D:\\workspace\\Master\\src\\CubeSql.g:1:52: T__74
                 {
                 mT__74(); 
+
+
+                }
+                break;
+            case 9 :
+                // D:\\workspace\\Master\\src\\CubeSql.g:1:58: T__75
+                {
+                mT__75(); 
 
 
                 }
@@ -2505,71 +2549,79 @@ public class CubeSqlLexer extends Lexer {
                 }
                 break;
             case 35 :
-                // D:\\workspace\\Master\\src\\CubeSql.g:1:217: NAME
+                // D:\\workspace\\Master\\src\\CubeSql.g:1:217: MEASURES
+                {
+                mMEASURES(); 
+
+
+                }
+                break;
+            case 36 :
+                // D:\\workspace\\Master\\src\\CubeSql.g:1:226: NAME
                 {
                 mNAME(); 
 
 
                 }
                 break;
-            case 36 :
-                // D:\\workspace\\Master\\src\\CubeSql.g:1:222: LBRACE
+            case 37 :
+                // D:\\workspace\\Master\\src\\CubeSql.g:1:231: LBRACE
                 {
                 mLBRACE(); 
 
 
                 }
                 break;
-            case 37 :
-                // D:\\workspace\\Master\\src\\CubeSql.g:1:229: RBRACE
+            case 38 :
+                // D:\\workspace\\Master\\src\\CubeSql.g:1:238: RBRACE
                 {
                 mRBRACE(); 
 
 
                 }
                 break;
-            case 38 :
-                // D:\\workspace\\Master\\src\\CubeSql.g:1:236: DOT
+            case 39 :
+                // D:\\workspace\\Master\\src\\CubeSql.g:1:245: DOT
                 {
                 mDOT(); 
 
 
                 }
                 break;
-            case 39 :
-                // D:\\workspace\\Master\\src\\CubeSql.g:1:240: COMMA
+            case 40 :
+                // D:\\workspace\\Master\\src\\CubeSql.g:1:249: COMMA
                 {
                 mCOMMA(); 
 
 
                 }
                 break;
-            case 40 :
-                // D:\\workspace\\Master\\src\\CubeSql.g:1:246: CHILDOF
+            case 41 :
+                // D:\\workspace\\Master\\src\\CubeSql.g:1:255: CHILDOF
                 {
                 mCHILDOF(); 
 
 
                 }
                 break;
-            case 41 :
-                // D:\\workspace\\Master\\src\\CubeSql.g:1:254: QUESTMARK
+            case 42 :
+                // D:\\workspace\\Master\\src\\CubeSql.g:1:263: QUESTMARK
                 {
                 mQUESTMARK(); 
 
 
                 }
                 break;
-            case 42 :
-                // D:\\workspace\\Master\\src\\CubeSql.g:1:264: UNDERSCORE
+            case 43 :
+                // D:\\workspace\\Master\\src\\CubeSql.g:1:273: UNDERSCORE
                 {
                 mUNDERSCORE(); 
 
 
                 }
                 break;
-            case 43 :
-                // D:\\workspace\\Master\\src\\CubeSql.g:1:275: WS
+            case 44 :
+                // D:\\workspace\\Master\\src\\CubeSql.g:1:284: WS
                 {
                 mWS(); 
 
@@ -2584,51 +2636,54 @@ public class CubeSqlLexer extends Lexer {
 
     protected DFA5 dfa5 = new DFA5(this);
     static final String DFA5_eotS =
-        "\4\uffff\1\37\1\uffff\1\41\1\26\1\uffff\15\26\14\uffff\3\26\1\75"+
-        "\1\76\1\26\1\100\1\101\17\26\1\122\3\26\2\uffff\1\126\2\uffff\1"+
-        "\127\7\26\1\137\2\26\1\142\1\143\3\26\1\uffff\1\147\1\150\1\26\2"+
-        "\uffff\1\26\1\153\5\26\1\uffff\2\26\2\uffff\1\26\1\164\1\26\2\uffff"+
-        "\1\166\1\26\1\uffff\1\170\6\26\1\177\1\uffff\1\u0080\1\uffff\1\u0081"+
-        "\1\uffff\3\26\1\u0085\2\26\3\uffff\1\u0088\2\26\1\uffff\2\26\1\uffff"+
-        "\5\26\1\u0092\1\u0093\1\u0095\1\u0096\2\uffff\1\26\2\uffff\4\26"+
-        "\1\u009c\1\uffff";
+        "\4\uffff\1\37\1\uffff\1\41\1\26\1\uffff\15\26\14\uffff\3\26\1\76"+
+        "\1\77\1\26\1\101\1\102\20\26\1\124\3\26\2\uffff\1\130\2\uffff\1"+
+        "\131\7\26\1\141\2\26\1\144\1\145\4\26\1\uffff\1\152\1\153\1\26\2"+
+        "\uffff\1\26\1\156\5\26\1\uffff\2\26\2\uffff\2\26\1\170\1\26\2\uffff"+
+        "\1\172\1\26\1\uffff\1\174\7\26\1\u0084\1\uffff\1\u0085\1\uffff\1"+
+        "\u0086\1\uffff\3\26\1\u008a\3\26\3\uffff\1\u008e\2\26\1\uffff\3"+
+        "\26\1\uffff\4\26\1\u0098\1\26\1\u009a\1\u009b\1\u009d\1\uffff\1"+
+        "\u009e\2\uffff\1\26\2\uffff\4\26\1\u00a4\1\uffff";
     static final String DFA5_eofS =
-        "\u009d\uffff";
+        "\u00a5\uffff";
     static final String DFA5_minS =
         "\1\11\3\uffff\1\75\1\uffff\1\75\1\105\1\uffff\1\106\1\116\1\117"+
         "\2\105\1\111\1\105\1\111\1\101\1\110\2\122\1\131\14\uffff\1\113"+
         "\1\123\1\126\2\55\1\104\2\55\1\107\1\105\1\102\1\125\1\106\2\114"+
-        "\2\115\1\105\1\130\1\116\1\105\2\117\1\55\1\105\1\124\1\105\2\uffff"+
-        "\1\55\2\uffff\1\55\1\101\1\105\1\116\1\101\1\105\1\137\1\105\1\55"+
-        "\1\105\1\122\2\55\1\122\1\115\1\125\1\uffff\2\55\1\114\2\uffff\1"+
-        "\124\1\55\2\124\1\122\1\124\1\103\1\uffff\1\116\1\101\2\uffff\1"+
-        "\105\1\55\1\120\2\uffff\1\55\1\105\1\uffff\1\55\2\105\1\101\1\124"+
-        "\1\123\1\122\1\55\1\uffff\1\55\1\uffff\1\55\1\uffff\1\104\1\116"+
-        "\1\102\1\55\1\111\1\103\3\uffff\1\55\1\103\1\114\1\uffff\1\117\1"+
-        "\110\1\uffff\2\105\1\116\1\131\1\123\4\55\2\uffff\1\124\2\uffff"+
-        "\1\101\1\102\1\114\1\105\1\55\1\uffff";
+        "\2\115\1\105\1\130\1\116\1\101\1\105\2\117\1\55\1\105\1\124\1\105"+
+        "\2\uffff\1\55\2\uffff\1\55\1\101\1\105\1\116\1\101\1\105\1\137\1"+
+        "\105\1\55\1\105\1\122\2\55\1\123\1\122\1\115\1\125\1\uffff\2\55"+
+        "\1\114\2\uffff\1\124\1\55\2\124\1\122\1\124\1\103\1\uffff\1\116"+
+        "\1\101\2\uffff\1\125\1\105\1\55\1\120\2\uffff\1\55\1\105\1\uffff"+
+        "\1\55\2\105\1\101\1\124\1\123\2\122\1\55\1\uffff\1\55\1\uffff\1"+
+        "\55\1\uffff\1\104\1\116\1\102\1\55\1\111\1\103\1\105\3\uffff\1\55"+
+        "\1\103\1\114\1\uffff\1\117\1\110\1\123\1\uffff\2\105\1\116\1\131"+
+        "\1\55\1\123\3\55\1\uffff\1\55\2\uffff\1\124\2\uffff\1\101\1\102"+
+        "\1\114\1\105\1\55\1\uffff";
     static final String DFA5_maxS =
         "\1\175\3\uffff\1\75\1\uffff\1\75\1\151\1\uffff\1\162\1\166\1\165"+
         "\1\145\1\165\4\151\1\150\2\162\1\171\14\uffff\2\163\1\166\2\172"+
         "\1\144\2\172\1\147\1\145\1\142\1\165\3\154\2\155\1\145\1\170\1\156"+
-        "\1\145\2\157\1\172\1\105\1\164\1\145\2\uffff\1\172\2\uffff\1\172"+
-        "\1\141\1\145\1\156\1\141\1\145\1\137\1\145\1\172\1\145\1\162\2\172"+
-        "\1\162\1\155\1\165\1\uffff\2\172\1\154\2\uffff\1\164\1\172\2\164"+
-        "\1\162\1\164\1\143\1\uffff\1\156\1\141\2\uffff\1\145\1\172\1\160"+
-        "\2\uffff\1\172\1\145\1\uffff\1\172\2\145\1\141\1\164\1\163\1\162"+
-        "\1\172\1\uffff\1\172\1\uffff\1\172\1\uffff\1\144\1\156\1\142\1\172"+
-        "\1\151\1\143\3\uffff\1\172\1\143\1\154\1\uffff\1\157\1\150\1\uffff"+
-        "\2\145\1\156\1\171\1\163\4\172\2\uffff\1\164\2\uffff\1\141\1\142"+
-        "\1\154\1\145\1\172\1\uffff";
+        "\1\141\1\145\2\157\1\172\1\105\1\164\1\145\2\uffff\1\172\2\uffff"+
+        "\1\172\1\141\1\145\1\156\1\141\1\145\1\137\1\145\1\172\1\145\1\162"+
+        "\2\172\1\163\1\162\1\155\1\165\1\uffff\2\172\1\154\2\uffff\1\164"+
+        "\1\172\2\164\1\162\1\164\1\143\1\uffff\1\156\1\141\2\uffff\1\165"+
+        "\1\145\1\172\1\160\2\uffff\1\172\1\145\1\uffff\1\172\2\145\1\141"+
+        "\1\164\1\163\2\162\1\172\1\uffff\1\172\1\uffff\1\172\1\uffff\1\144"+
+        "\1\156\1\142\1\172\1\151\1\143\1\145\3\uffff\1\172\1\143\1\154\1"+
+        "\uffff\1\157\1\150\1\163\1\uffff\2\145\1\156\1\171\1\172\1\163\3"+
+        "\172\1\uffff\1\172\2\uffff\1\164\2\uffff\1\141\1\142\1\154\1\145"+
+        "\1\172\1\uffff";
     static final String DFA5_acceptS =
-        "\1\uffff\1\1\1\2\1\3\1\uffff\1\6\2\uffff\1\11\15\uffff\1\43\1\44"+
-        "\1\45\1\46\1\47\1\51\1\52\1\53\1\5\1\4\1\7\1\50\33\uffff\1\12\1"+
-        "\24\1\uffff\1\26\1\27\20\uffff\1\42\3\uffff\1\13\1\32\7\uffff\1"+
-        "\33\2\uffff\1\34\1\35\3\uffff\1\10\1\23\2\uffff\1\15\10\uffff\1"+
-        "\40\1\uffff\1\25\1\uffff\1\36\6\uffff\1\37\1\41\1\14\3\uffff\1\31"+
-        "\2\uffff\1\16\11\uffff\1\17\1\21\1\uffff\1\30\1\20\5\uffff\1\22";
+        "\1\uffff\1\1\1\2\1\3\1\uffff\1\6\2\uffff\1\11\15\uffff\1\44\1\45"+
+        "\1\46\1\47\1\50\1\52\1\53\1\54\1\5\1\4\1\7\1\51\34\uffff\1\12\1"+
+        "\24\1\uffff\1\26\1\27\21\uffff\1\42\3\uffff\1\13\1\32\7\uffff\1"+
+        "\33\2\uffff\1\34\1\35\4\uffff\1\10\1\23\2\uffff\1\15\11\uffff\1"+
+        "\40\1\uffff\1\25\1\uffff\1\36\7\uffff\1\37\1\41\1\14\3\uffff\1\31"+
+        "\3\uffff\1\16\11\uffff\1\43\1\uffff\1\17\1\21\1\uffff\1\30\1\20"+
+        "\5\uffff\1\22";
     static final String DFA5_specialS =
-        "\u009d\uffff}>";
+        "\u00a5\uffff}>";
     static final String[] DFA5_transitionS = {
             "\2\35\1\uffff\2\35\22\uffff\1\35\1\uffff\1\1\4\uffff\1\10\1"+
             "\2\1\3\2\uffff\1\32\1\uffff\1\31\14\uffff\1\33\1\4\1\5\1\6\2"+
@@ -2655,11 +2710,12 @@ public class CubeSqlLexer extends Lexer {
             "\1\62\37\uffff\1\62",
             "\1\44\3\uffff\1\43\33\uffff\1\44\3\uffff\1\43",
             "\1\63\37\uffff\1\63",
-            "\1\64\7\uffff\1\65\27\uffff\1\64\7\uffff\1\65",
-            "\1\66\37\uffff\1\66",
+            "\1\64\3\uffff\1\66\3\uffff\1\65\27\uffff\1\64\3\uffff\1\66"+
+            "\3\uffff\1\65",
             "\1\67\37\uffff\1\67",
             "\1\70\37\uffff\1\70",
             "\1\71\37\uffff\1\71",
+            "\1\72\37\uffff\1\72",
             "",
             "",
             "",
@@ -2672,20 +2728,19 @@ public class CubeSqlLexer extends Lexer {
             "",
             "",
             "",
-            "\1\72\7\uffff\1\73\37\uffff\1\73",
-            "\1\73\37\uffff\1\73",
+            "\1\73\7\uffff\1\74\37\uffff\1\74",
             "\1\74\37\uffff\1\74",
+            "\1\75\37\uffff\1\75",
             "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
             "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
-            "\1\77\37\uffff\1\77",
+            "\1\100\37\uffff\1\100",
             "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
             "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
-            "\1\102\37\uffff\1\102",
             "\1\103\37\uffff\1\103",
             "\1\104\37\uffff\1\104",
             "\1\105\37\uffff\1\105",
-            "\1\107\5\uffff\1\106\31\uffff\1\107\5\uffff\1\106",
-            "\1\110\37\uffff\1\110",
+            "\1\106\37\uffff\1\106",
+            "\1\110\5\uffff\1\107\31\uffff\1\110\5\uffff\1\107",
             "\1\111\37\uffff\1\111",
             "\1\112\37\uffff\1\112",
             "\1\113\37\uffff\1\113",
@@ -2695,105 +2750,114 @@ public class CubeSqlLexer extends Lexer {
             "\1\117\37\uffff\1\117",
             "\1\120\37\uffff\1\120",
             "\1\121\37\uffff\1\121",
+            "\1\122\37\uffff\1\122",
+            "\1\123\37\uffff\1\123",
             "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
-            "\1\123",
-            "\1\124\37\uffff\1\124",
-            "\1\125\37\uffff\1\125",
+            "\1\125",
+            "\1\126\37\uffff\1\126",
+            "\1\127\37\uffff\1\127",
             "",
             "",
             "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
             "",
             "",
             "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
-            "\1\130\37\uffff\1\130",
-            "\1\131\37\uffff\1\131",
             "\1\132\37\uffff\1\132",
             "\1\133\37\uffff\1\133",
             "\1\134\37\uffff\1\134",
-            "\1\135",
+            "\1\135\37\uffff\1\135",
             "\1\136\37\uffff\1\136",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\1\137",
             "\1\140\37\uffff\1\140",
-            "\1\141\37\uffff\1\141",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\1\142\37\uffff\1\142",
+            "\1\143\37\uffff\1\143",
             "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
             "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
-            "\1\144\37\uffff\1\144",
-            "\1\145\37\uffff\1\145",
             "\1\146\37\uffff\1\146",
-            "",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\1\147\37\uffff\1\147",
+            "\1\150\37\uffff\1\150",
             "\1\151\37\uffff\1\151",
             "",
-            "",
-            "\1\152\37\uffff\1\152",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
             "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
             "\1\154\37\uffff\1\154",
+            "",
+            "",
             "\1\155\37\uffff\1\155",
-            "\1\156\37\uffff\1\156",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
             "\1\157\37\uffff\1\157",
             "\1\160\37\uffff\1\160",
-            "",
             "\1\161\37\uffff\1\161",
             "\1\162\37\uffff\1\162",
-            "",
-            "",
             "\1\163\37\uffff\1\163",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "",
+            "\1\164\37\uffff\1\164",
             "\1\165\37\uffff\1\165",
             "",
             "",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\1\166\37\uffff\1\166",
             "\1\167\37\uffff\1\167",
-            "",
             "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
             "\1\171\37\uffff\1\171",
-            "\1\172\37\uffff\1\172",
+            "",
+            "",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
             "\1\173\37\uffff\1\173",
-            "\1\174\37\uffff\1\174",
+            "",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
             "\1\175\37\uffff\1\175",
             "\1\176\37\uffff\1\176",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
-            "",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
-            "",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
-            "",
+            "\1\177\37\uffff\1\177",
+            "\1\u0080\37\uffff\1\u0080",
+            "\1\u0081\37\uffff\1\u0081",
             "\1\u0082\37\uffff\1\u0082",
             "\1\u0083\37\uffff\1\u0083",
-            "\1\u0084\37\uffff\1\u0084",
             "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
-            "\1\u0086\37\uffff\1\u0086",
+            "",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "",
             "\1\u0087\37\uffff\1\u0087",
-            "",
-            "",
-            "",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\1\u0088\37\uffff\1\u0088",
             "\1\u0089\37\uffff\1\u0089",
-            "\1\u008a\37\uffff\1\u008a",
-            "",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
             "\1\u008b\37\uffff\1\u008b",
             "\1\u008c\37\uffff\1\u008c",
-            "",
             "\1\u008d\37\uffff\1\u008d",
-            "\1\u008e\37\uffff\1\u008e",
+            "",
+            "",
+            "",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
             "\1\u008f\37\uffff\1\u008f",
             "\1\u0090\37\uffff\1\u0090",
+            "",
             "\1\u0091\37\uffff\1\u0091",
+            "\1\u0092\37\uffff\1\u0092",
+            "\1\u0093\37\uffff\1\u0093",
+            "",
+            "\1\u0094\37\uffff\1\u0094",
+            "\1\u0095\37\uffff\1\u0095",
+            "\1\u0096\37\uffff\1\u0096",
+            "\1\u0097\37\uffff\1\u0097",
             "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\u0094\1\uffff\32"+
+            "\1\u0099\37\uffff\1\u0099",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\u009c\1\uffff\32"+
             "\26",
             "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "",
             "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
             "",
             "",
-            "\1\u0097\37\uffff\1\u0097",
+            "\1\u009f\37\uffff\1\u009f",
             "",
             "",
-            "\1\u0098\37\uffff\1\u0098",
-            "\1\u0099\37\uffff\1\u0099",
-            "\1\u009a\37\uffff\1\u009a",
-            "\1\u009b\37\uffff\1\u009b",
+            "\1\u00a0\37\uffff\1\u00a0",
+            "\1\u00a1\37\uffff\1\u00a1",
+            "\1\u00a2\37\uffff\1\u00a2",
+            "\1\u00a3\37\uffff\1\u00a3",
             "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
             ""
     };
@@ -2828,7 +2892,7 @@ public class CubeSqlLexer extends Lexer {
             this.transition = DFA5_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__66 | T__67 | T__68 | T__69 | T__70 | T__71 | T__72 | T__73 | T__74 | OR | AND | CREATE | CUBE | RELATED | SQL_TABLE | REFERENCES | DIMENSION | DIMENSION_TABLE | LIST | OF | LEVEL | AS | AT | HIERARCHY | SELECT | AVG | SUM | MAX | MIN | COUNT | WHERE | FROM | GROUP | BY | NAME | LBRACE | RBRACE | DOT | COMMA | CHILDOF | QUESTMARK | UNDERSCORE | WS );";
+            return "1:1: Tokens : ( T__67 | T__68 | T__69 | T__70 | T__71 | T__72 | T__73 | T__74 | T__75 | OR | AND | CREATE | CUBE | RELATED | SQL_TABLE | REFERENCES | DIMENSION | DIMENSION_TABLE | LIST | OF | LEVEL | AS | AT | HIERARCHY | SELECT | AVG | SUM | MAX | MIN | COUNT | WHERE | FROM | GROUP | BY | MEASURES | NAME | LBRACE | RBRACE | DOT | COMMA | CHILDOF | QUESTMARK | UNDERSCORE | WS );";
         }
     }
  

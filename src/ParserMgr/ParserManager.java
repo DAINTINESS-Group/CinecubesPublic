@@ -21,6 +21,8 @@ public class ParserManager {
 	public ArrayList<String> conditionlst;
 	public ArrayList<String> tablelst;
 	public ArrayList<String> groupperlst;
+	public ArrayList<String> measurelst;
+	public ArrayList<String> measurefields;
 	public String aggregatefunc;
 	
 	public ParserManager() {
@@ -31,6 +33,9 @@ public class ParserManager {
 		conditionlst=new ArrayList<String>();
 		tablelst=new ArrayList<String>();
 		groupperlst=new ArrayList<String>();
+		measurelst=new ArrayList<String>();
+		measurefields=new ArrayList<String>();
+		
 	}
 	
 	public void parse(String toParse){
@@ -44,13 +49,23 @@ public class ParserManager {
 		customlvllst.clear();
 		try {
 			parser.start();	
-			dimensionlst.addAll(parser.dimensionlst);
+			
+			/*For DIMENSION only*/
 			hierachylst.addAll(parser.hierachylst);
+			
+			/*For CUBE only*/
+			measurefields.addAll(parser.measurefields);
+			measurelst.addAll(parser.measurelst);
+			
+			/*SHARED CUBE,DIMENSION */
+			dimensionlst.addAll(parser.dimensionlst);
 			originallvllst.addAll(parser.originallvllst);
 			customlvllst.addAll(parser.customlvllst);
 			mode=parser.mode;
 			name_creation=parser.name_creation;
 			sqltable=parser.sql_table;
+			
+			/* SQL QUERY STAFF */ 
 			aggregatefunc=parser.aggregatefunc;
 			conditionlst.addAll(parser.conditionlst);
 			tablelst.addAll(parser.tablelst);
