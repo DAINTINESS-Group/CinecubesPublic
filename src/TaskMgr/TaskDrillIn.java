@@ -14,9 +14,9 @@ import CubeMgr.StarSchema.Attribute;
 import CubeMgr.StarSchema.Database;
 import CubeMgr.StarSchema.SqlQuery;
 
-public class TaskBrothers extends Task {
+public class TaskDrillIn extends Task {
 
-	public TaskBrothers() {
+	public TaskDrillIn() {
 		super();
 	}
 
@@ -56,6 +56,9 @@ public class TaskBrothers extends Task {
      * 
      */
     public void generateSubTasks(CubeBase cubeBase){
+    	SqlQuery newSqlQuery=new SqlQuery();
+        newSqlQuery.produceExtractionMethod(this.cubeQuery.get(0));
+        
     	for(int i=0;i<this.cubeQuery.get(0).SigmaExpressions.size();i++){
     		createSummarizeSubTask(i,cubeBase,this.cubeQuery.get(0));
     		createBrothers(i,cubeBase,this.cubeQuery.get(0));

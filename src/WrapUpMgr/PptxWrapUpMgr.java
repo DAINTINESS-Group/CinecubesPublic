@@ -109,7 +109,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 	}
 	
 	public void XSLFcreateSlide(String[][] table,String AudioFilename,String Title,int slideid, String titleColumn, String titleRow){
-		 XSLFSlideLayout titleLayout = defaultMaster.getLayout(SlideLayout.TITLE_ONLY); 
+		XSLFSlideLayout titleLayout = defaultMaster.getLayout(SlideLayout.TITLE_ONLY); 
         XSLFSlide slide=slideShowPPTX.createSlide(titleLayout);
         String NotesRelationShip="http://schemas.openxmlformats.org/officeDocument/2006/relationships/notesSlide";
         URI uri = null;

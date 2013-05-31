@@ -45,18 +45,18 @@
 						<a:r>
 							<a:rPr lang="en-US" smtClean="0"/>
 							<a:t>SQL QUERY:
-SELECT  education.level2, occupation.level0,Avg(hours_per_week) as measure
+SELECT  education.level2, work_class.level1,Avg(hours_per_week) as measure
 FROM  adult, occupation, education, work_class
-WHERE  adult.education = education.level0 AND  education.level3 = 'Post-Secondary' AND  adult.work_class = work_class.level0 AND  work_class.level2 = 'With-Pay' AND  adult.occupation = occupation.level0 AND  occupation.level0 = 'Adm-clerical'
-GROUP BY  education.level2, occupation.level0
+WHERE  adult.education = education.level0 AND  education.level3 = 'Post-Secondary' AND  adult.work_class = work_class.level0 AND  work_class.level2 = 'With-Pay' AND  adult.occupation = occupation.level0 AND  occupation.level1 = 'Other'
+GROUP BY  education.level2, work_class.level1
  ORDER BY measure ASC
 
 CUBE QUERY:
-Name:
+Name:CubeQuery5
 Aggregate Function : Avg
 Measure : hours_per_week
-Gamma Expression: education_dim.lvl2 , occupation_dim.lvl0
-Sigma Expression: education_dim.lvl3='Post-Secondary' AND work_dim.lvl2='With-Pay' AND occupation_dim.lvl0='Adm-clerical'</a:t>
+Gamma Expression: education_dim.lvl2 , work_dim.lvl1
+Sigma Expression: education_dim.lvl3='Post-Secondary' AND work_dim.lvl2='With-Pay' AND occupation_dim.lvl1='Other'</a:t>
 						</a:r>
 						<a:endParaRPr lang="en-US"/>
 					</a:p>

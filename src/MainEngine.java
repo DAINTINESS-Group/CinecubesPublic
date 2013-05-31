@@ -20,6 +20,7 @@ import StoryMgr.Tabular;
 import StoryMgr.pptxSlide;
 import TaskMgr.SubTask;
 import TaskMgr.TaskBrothers;
+import TaskMgr.TaskDrillIn;
 import TaskMgr.TaskMgr;
 import TextMgr.TextExtraction;
 import WrapUpMgr.PptxWrapUpMgr;
@@ -100,7 +101,7 @@ public class MainEngine {
 			while(sc.hasNext()){
 				/*String Query=sc.next();*/
 				/*CubeQuery cubequery=*/
-				newRequestCubeQuery(createCubeQueryFromString(sc.next()));
+				newRequestCubeQuery(createCubeQueryFromString(sc.next()));/*create Story For Query*/
 				
 			}
 		} catch (FileNotFoundException e) {
@@ -174,7 +175,8 @@ public class MainEngine {
     
     public void newRequestCubeQuery(CubeQuery cubequery){
     	StorMgr.createStory();
-        StorMgr.createStoryOriginalRequest();
+        /*StorMgr.createStoryOriginalRequest();*/
+    	StorMgr.getStory().createNewAct();
         StorMgr.createTasks(TskMgr);
         TskMgr.createNewTask(new TaskBrothers());
         StorMgr.addNewTaskToStory(TskMgr.getLastTask());
@@ -192,6 +194,23 @@ public class MainEngine {
         AudioMgr=new FreeTTSAudioEngine();
         AudioMgr.InitializeVoiceEngine();
         
+        SetupSlideEpisodes(StorMgr.getStory().getLastAct());
+        
+        /* Setup Slide For Simade4oume ACT 2*/
+        
+        /* CREATE ACT2 
+         * (slide==query===task)
+         * 	FOR each slide of ACT1
+         *  	Create 2 slides :
+         *  		1. Drill in for MIN-value
+         *  		2. Drill in for MAX-value
+         *  		3. Drill in for Closest to AVG of all(MEDIAN) not yet implemend
+         */
+        StorMgr.getStory().createNewAct();
+        TskMgr.createNewTask(new TaskDrillIn());
+        TskMgr.getLastTask().cubeQuery.add(cubequery);
+        StorMgr.addNewTaskToStory(TskMgr.getLastTask());
+        TskMgr.getLastTask().generateSubTasks(CubeManager.CBase);
         SetupSlideEpisodes(StorMgr.getStory().getLastAct());
         
         StorMgr.getStory().setFinalResult(new PptxSlideshow());
@@ -251,6 +270,7 @@ public class MainEngine {
     	
     }
     
+    /* This Function Add Create Slide per ACT*/
     public void SetupSlideEpisodes(Act act){
     	//SqlQuery original=(SqlQuery)act.getTask().getSubTask(0).getExtractionMethod();
     	int timesIN=0;
@@ -484,9 +504,9 @@ public class MainEngine {
         MainEng.CubeManager.CreateCubeBase(MainEng.InsertFromKeyboardDBInfos());        
         //Me.ParseFile(Me.GetFileCmds());
         
-        MainEng.ParseFile(new File("InputFiles/BETA/beta.txt"));
+        MainEng.ParseFile(new File("InputFiles/BETA/beta.txt"));/*Create Dimension,Cube*/
         //MainEng.NewRequestSqlQuery("");
-        MainEng.getCubeQueriesFromFile(new File("InputFiles/cubeQueries.ini"));
+        MainEng.getCubeQueriesFromFile(new File("InputFiles/cubeQueries.ini"));/*Create Stories*/
 //        MainEng.newRequestCubeQuery(null);
         
         System.out.println("=======Finish======");

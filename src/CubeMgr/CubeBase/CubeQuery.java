@@ -1,7 +1,6 @@
 package CubeMgr.CubeBase;
 
 import java.util.ArrayList;
-
 import CubeMgr.StarSchema.SqlQuery;
 
 public class CubeQuery extends Cube {

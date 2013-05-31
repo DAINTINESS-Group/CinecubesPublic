@@ -1,6 +1,5 @@
 package StoryMgr;
 
-import java.util.HashSet;
 import java.util.TreeSet;
 
 public class Tabular extends Visual {

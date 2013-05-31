@@ -35,7 +35,7 @@ public class StoryMgr {
     }
     
     public void regroup(){};
-    public void DoWrapUp(){}
+    public void DoWrapUp(){};
     
 	
 }

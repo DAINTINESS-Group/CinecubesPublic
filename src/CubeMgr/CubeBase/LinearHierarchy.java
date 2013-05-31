@@ -1,7 +1,6 @@
 package CubeMgr.CubeBase;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class LinearHierarchy  extends Hierarchy {
 	

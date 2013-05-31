@@ -2,14 +2,13 @@ package TaskMgr;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Iterator;
 import java.util.TreeSet;
 
 public class Result {
     
 	private String [][] resultArray; /* 1st row has Column Name, 
 										2nd row has Column Labels, 
-										the next rows are data. 
+										the following rows are data. 
 										MIN: resultArray[2][columns-1]
 										MAX: resultArray[resultArray.length-1][columns-1]
 										*/ 	
@@ -49,8 +48,9 @@ public class Result {
 	public boolean createResultArray(ResultSet resultSet){			
 			int columns;
 	        int rows;
-	        float temp;
 	        boolean ret_value=false;
+	        /*float temp;*/
+	        
 			try {
 				resultSet.last();
 				rows=resultSet.getRow();
@@ -58,7 +58,7 @@ public class Result {
 					ret_value=true;
 					columns=resultSet.getMetaData().getColumnCount();
 					
-					temp=resultSet.getFloat(columns);
+					/*temp=resultSet.getFloat(columns);*/
 			        //back to first line
 			        resultSet.first();
 			        resultSet.beforeFirst();
