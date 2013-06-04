@@ -24,6 +24,8 @@ import java.util.zip.ZipOutputStream;
 import org.apache.poi.openxml4j.opc.PackagePart;
 import org.apache.poi.openxml4j.opc.PackageRelationship;
 import org.apache.poi.openxml4j.opc.TargetMode;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.xslf.usermodel.LineDash;
 import org.apache.poi.xslf.usermodel.SlideLayout;
 import org.apache.poi.xslf.usermodel.TextAlign;
 import org.apache.poi.xslf.usermodel.VerticalAlignment;
@@ -72,15 +74,24 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 		}
 		//defaultMaster = slideShowPPTX.getSlideMasters()[0];
         defaultMaster = slideShowPPTX.getSlideMasters()[0];
+        
+        int num_slide_create=0;
+		for(Act actItem : story.getActs()) num_slide_create+=actItem.getEpisodes().size();
+		
+        SlideXml=new String[num_slide_create];
+		
+		int slide_so_far_created=0;
 		for(Act actItem : story.getActs()){
-			SlideXml=new String[actItem.getEpisodes().size()];
 			for(int j=0;j<actItem.getEpisodes().size();j++){
-				SlideXml[j]="";
+				SlideXml[j+slide_so_far_created]="";
 				pptxSlide slide=(pptxSlide)actItem.getEpisodes().get(j);
-				XSLFcreateSlide(slide.getVisual().getPivotTable(),slide.getAudio().getFileName(),slide.Title,j+2,slide.TitleColumn,slide.TitleRow);
+				if(slide.Title.contains("Act")) XSLFcreateSlide(null,null,slide.Title,j+slide_so_far_created+2,null,null);
+				else XSLFcreateSlide(slide.getVisual().getPivotTable(),slide.getAudio().getFileName(),slide.Title,j+slide_so_far_created+2,slide.TitleColumn,slide.TitleRow);
 			}
+			slide_so_far_created+=actItem.getEpisodes().size();
 		}
 		slideShowPPTX.removeSlide(0);
+		
 		FileOutputStream fout;
 		try  {
             fout=new FileOutputStream(this.finalResult.getFilename());
@@ -95,12 +106,15 @@ public class PptxWrapUpMgr extends WrapUpMgr {
         RenamePPTXtoZip();
         UnZipFiles();
         InitializeContentType();
+        slide_so_far_created=0;
         for(Act actItem : story.getActs()){
 			for(int j=0;j<actItem.getEpisodes().size();j++){
 				pptxSlide slide=(pptxSlide)actItem.getEpisodes().get(j);
 				//System.out.println("Slide Num:"+(j+1)+"=>"+slide.Title);
-				AddAudiotoPPTX(j+2,slide.getAudio().getFileName(),slide.Notes);
+				if(slide.Title.contains("Act")) AddAudiotoPPTX(j+slide_so_far_created+2,null,null);
+				else AddAudiotoPPTX(j+slide_so_far_created+2,slide.getAudio().getFileName(),slide.Notes);
 			}
+			slide_so_far_created+=actItem.getEpisodes().size();
         }
         writeContentType();
         GenerateFileList(new File("ppt/unzip"));
@@ -110,21 +124,30 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 	
 	public void XSLFcreateSlide(String[][] table,String AudioFilename,String Title,int slideid, String titleColumn, String titleRow){
 		XSLFSlideLayout titleLayout = defaultMaster.getLayout(SlideLayout.TITLE_ONLY); 
-        XSLFSlide slide=slideShowPPTX.createSlide(titleLayout);
+        XSLFSlide slide;
         String NotesRelationShip="http://schemas.openxmlformats.org/officeDocument/2006/relationships/notesSlide";
-        URI uri = null;
-        try {
-            uri = new URI("../notesSlides/notesSlide"+slideid+".xml");
-        } catch (URISyntaxException ex) {
-            Logger.getLogger(SlideElement.class.getName()).log(Level.SEVERE, null, ex);
-        }
-           
-        PackageRelationship addRelationship= slide.getPackagePart().addRelationship(uri, TargetMode.INTERNAL, NotesRelationShip);
-        slide.addRelation(addRelationship.getId(), slide); 
-        CreateTableInSlide(slide, slideShowPPTX.getPageSize(),table,titleColumn,titleRow);
+        if(table!=null) {
+        	slide=slideShowPPTX.createSlide(titleLayout);
+	        URI uri = null;
+	        try {
+	            uri = new URI("../notesSlides/notesSlide"+slideid+".xml");
+	        } catch (URISyntaxException ex) {
+	            Logger.getLogger(SlideElement.class.getName()).log(Level.SEVERE, null, ex);
+	        }
+	           
+	        PackageRelationship addRelationship= slide.getPackagePart().addRelationship(uri, TargetMode.INTERNAL, NotesRelationShip);
+	        slide.addRelation(addRelationship.getId(), slide); 
         
-        this.setTitle(slide, Title, new Rectangle2D.Double(100, 25,slideShowPPTX.getPageSize().width-200,20),16.0,true);
-        //this.setTitle(slide, titleRow, new Rectangle2D.Double(40,40,30,100), 10.0, true);
+        	CreateTableInSlide(slide, slideShowPPTX.getPageSize(),table,titleColumn,titleRow);
+        	this.setTitle(slide, Title, new Rectangle2D.Double(100, 25,slideShowPPTX.getPageSize().width-200,20),16.0,true);
+        }
+        else {
+        	slide=slideShowPPTX.createSlide(defaultMaster.getLayout(SlideLayout.TITLE)); 
+        	XSLFTextShape title1 = slide.getPlaceholder(0);
+        	title1.setText(Title);
+        	XSLFTextShape title2 = slide.getPlaceholder(1);
+        	title2.setText("");
+        }
         CreateSlideWithXMlAudio(slide,AudioFilename,slideid);
         
      }
@@ -153,25 +176,47 @@ public class PptxWrapUpMgr extends WrapUpMgr {
     	   }
     	   titlecell.setVerticalAlignment(VerticalAlignment.MIDDLE);
        }*/
+       
        for(int i=0;i<table.length;i++){
            XSLFTableRow addRow = tbl.addRow();
+           
            for(int j=0;j<table[i].length;j++){
               XSLFTableCell cell = addRow.addCell();
-              
+             
               XSLFTextParagraph p = cell.addNewTextParagraph();
               XSLFTextRun r = p.addNewTextRun();
               p.setTextAlign(TextAlign.CENTER);
               r.setFontFamily("Arial");
+              
               r.setFontSize(12);
               
               r.setText(table[i][j]);
-              if(i % 2 == 0)
+              /*if(i % 2 == 0)
                     cell.setFillColor(new Color(208, 216, 232));
               else
-                    cell.setFillColor(new Color(233, 247, 244));
-              cell.setVerticalAlignment(VerticalAlignment.MIDDLE);
+                    cell.setFillColor(new Color(233, 247, 244));*/
               
-              if(i==0) tbl.setColumnWidth(j, 80);
+              cell.setVerticalAlignment(VerticalAlignment.MIDDLE);
+              cell.setBorderBottom(1.2);
+              if((i==0 || j==0) && !(i==0 && j==0)) {
+            	  //cell.setFillColor(Color.darkGray);
+            	  r.setFontColor(Color.darkGray);
+              }
+              else if(i==0 && j==0)cell.setFillColor(Color.white);
+              
+             if(j==0 && i!=0) {
+            	  cell.setBorderBottom(1);cell.setBorderBottomColor(Color.black);
+            	  cell.setBorderRight(1);cell.setBorderRightColor(Color.black);
+             }
+             else if(i==0){
+            	 tbl.setColumnWidth(j, 80);
+            	 cell.setBorderBottom(1);cell.setBorderBottomColor(Color.black);
+            	 cell.setBorderRight(1);cell.setBorderRightColor(Color.black);
+             }
+             else {
+            	/* cell.setsetLineDash(LineDash.DASH);*/
+            	/* cell.setBorderRight(BorderStyle.DASHED);cell.setBorderRightColor(Color.black);*/
+             }
            }
        }
        int width_table=(table[0].length)*80;
@@ -185,29 +230,37 @@ public class PptxWrapUpMgr extends WrapUpMgr {
        String MediaRelationShip="http://schemas.microsoft.com/office/2007/relationships/media" ;
        String ImageRelationShip="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image";
        PackagePart packagePart = slide.getPackagePart();
+       XmlObject xmlObject = slide.getXmlObject();
        try {
-            URI uri = null;
-            URI uri2=null;
-            try {
-            	String tmp=AudioFilename.replace("audio/", "");
-                uri = new URI("../media/"+tmp+".wav");
-                uri2 = new URI("../media/play.png");
-            } catch (URISyntaxException ex) {
-                System.out.println(ex.getMessage());
-            }
-            
-            PackageRelationship addRelationship2 = packagePart.addRelationship(uri, TargetMode.INTERNAL, MediaRelationShip);
-            PackageRelationship addRelationship1 = packagePart.addRelationship(uri, TargetMode.INTERNAL, AudioRelationShip);
-            PackageRelationship addRelationship3 = packagePart.addRelationship(uri2, TargetMode.INTERNAL, ImageRelationShip);
-            slide.addRelation(addRelationship3.getId(), slide);
-            slide.addRelation(addRelationship2.getId(), slide);
-            slide.addRelation(addRelationship1.getId(), slide);
-            
-            String SoundNode = this.SoundNodeString(addRelationship2.getId(), addRelationship1.getId(), addRelationship3.getId(),AudioFilename);
-            XmlObject xmlObject = slide.getXmlObject();
-            
-            String test="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"+xmlObject.toString().replace("main1","a").replace("<main", "<p").replace("</main", "</p").replace(":main=",":p=").replace("rel=","r=").replace("rel:","r:").replace("xml-fragment", "p:sld").replace("</p:spTree>",SoundNode+"</p:spTree>");
-            SlideXml[slideid-2]=test.replace("</p:sld>", AutoSlideShow()+TimingNode()+"</p:sld>").replace("<p:sld ", "<p:sld xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" ");
+    	   if(AudioFilename!=null){
+	            URI uri = null;
+	            URI uri2=null;
+	            try {
+	            	String tmp=AudioFilename.replace("audio/", "");
+	                uri = new URI("../media/"+tmp+".wav");
+	                uri2 = new URI("../media/play.png");
+	            } catch (URISyntaxException ex) {
+	                System.out.println(ex.getMessage());
+	            }
+	            
+	            PackageRelationship addRelationship2 = packagePart.addRelationship(uri, TargetMode.INTERNAL, MediaRelationShip);
+	            PackageRelationship addRelationship1 = packagePart.addRelationship(uri, TargetMode.INTERNAL, AudioRelationShip);
+	            PackageRelationship addRelationship3 = packagePart.addRelationship(uri2, TargetMode.INTERNAL, ImageRelationShip);
+	            slide.addRelation(addRelationship3.getId(), slide);
+	            slide.addRelation(addRelationship2.getId(), slide);
+	            slide.addRelation(addRelationship1.getId(), slide);
+	            
+	            String SoundNode = this.SoundNodeString(addRelationship2.getId(), addRelationship1.getId(), addRelationship3.getId(),AudioFilename);
+	            
+	            
+	            String test="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"+xmlObject.toString().replace("main1","a").replace("<main", "<p").replace("</main", "</p").replace(":main=",":p=").replace("rel=","r=").replace("rel:","r:").replace("xml-fragment", "p:sld").replace("</p:spTree>",SoundNode+"</p:spTree>");
+	            SlideXml[slideid-2]=test.replace("</p:sld>", AutoSlideShow()+TimingNode()+"</p:sld>").replace("<p:sld ", "<p:sld xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" ");
+    	   }
+    	   else{
+    		   String test="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"+xmlObject.toString().replace("main1","a").replace("<main", "<p").replace("</main", "</p").replace(":main=",":p=").replace("rel=","r=").replace("rel:","r:").replace("xml-fragment", "p:sld");
+	           SlideXml[slideid-2]=test.replace("</p:sld>", AutoSlideShow()+"</p:sld>");
+    		  
+    	   }
             
             
         } catch (Exception ex) {
@@ -387,49 +440,55 @@ public class PptxWrapUpMgr extends WrapUpMgr {
         try {
                      
             /*Copy audio and image to ppt/media folder*/
-            File folder_media = new File("ppt/unzip/ppt/media");
-            if(!folder_media.exists()){
-                        folder_media.mkdir();
+        	if(AudioFilename!=null){
+        		byte[] noteRelsFrom=new byte[getClass().getClassLoader().getResourceAsStream("helpfiles/notesSlide.xml.rels").available()];
+                byte[] noteFrom=new byte[getClass().getClassLoader().getResourceAsStream("helpfiles/notesSlide.xml").available()];
+                getClass().getClassLoader().getResourceAsStream("helpfiles/notesSlide.xml.rels").read(noteRelsFrom);
+                getClass().getClassLoader().getResourceAsStream("helpfiles/notesSlide.xml").read(noteFrom);
+	        	File folder_media = new File("ppt/unzip/ppt/media");
+	            if(!folder_media.exists()){
+	                        folder_media.mkdir();
+	            }
+	             
+	            byte[] pngFrom=new byte[getClass().getClassLoader().getResourceAsStream("helpfiles/play.png").available()]; 
+	            getClass().getClassLoader().getResourceAsStream("helpfiles/play.png").read(pngFrom);
+	            File pngTo1=new File("ppt/unzip/ppt/media/play.png");
+	            pngTo1.createNewFile();
+	            FileOutputStream pngTo=new FileOutputStream("ppt/unzip/ppt/media/play.png");
+	            pngTo.write(pngFrom);
+	            pngTo.close();
+	           
+	            File wavFrom=new File(AudioFilename +".wav");
+	            File wavTo=new File("ppt/unzip/ppt/media/"+AudioFilename.replace("audio/", "") +".wav");
+	
+	            
+	            /*Start Copy*/
+	            Files.copy(wavFrom.toPath(), wavTo.toPath(),StandardCopyOption.REPLACE_EXISTING );
+	            /*End of copy*/
+	            
+	            /*Write Notes */
+	            String relsNotesFilename="ppt/unzip/ppt/notesSlides/_rels/notesSlide"+String.valueOf(slideId) +".xml.rels";
+	            String NotesFilename="ppt/unzip/ppt/notesSlides/notesSlide"+String.valueOf(slideId) +".xml";
+	            (new File(relsNotesFilename)).createNewFile();
+	            (new File(NotesFilename)).createNewFile();
+	            FileOutputStream noteRelsTo=new FileOutputStream(relsNotesFilename);
+	            FileOutputStream noteTo=new FileOutputStream(NotesFilename);
+	            noteRelsTo.write(noteRelsFrom);
+	            noteRelsTo.close();
+	            noteTo.write(noteFrom);
+	            noteTo.close();
+	            
+	            this.Replace_papaki(relsNotesFilename,String.valueOf(slideId));
+	            this.Replace_papaki(NotesFilename, NotesTxt);
+	            ContenttypeNotesDef+=this.AppendContentTypeNotes(slideId);
+	            /*End of Write the Notes*/
             }
             
-            byte[] noteRelsFrom=new byte[getClass().getClassLoader().getResourceAsStream("helpfiles/notesSlide.xml.rels").available()];
-            byte[] noteFrom=new byte[getClass().getClassLoader().getResourceAsStream("helpfiles/notesSlide.xml").available()]; 
-            byte[] pngFrom=new byte[getClass().getClassLoader().getResourceAsStream("helpfiles/play.png").available()]; 
-            getClass().getClassLoader().getResourceAsStream("helpfiles/notesSlide.xml.rels").read(noteRelsFrom);
-            getClass().getClassLoader().getResourceAsStream("helpfiles/notesSlide.xml").read(noteFrom);
-            getClass().getClassLoader().getResourceAsStream("helpfiles/play.png").read(pngFrom);
-            File pngTo1=new File("ppt/unzip/ppt/media/play.png");
-            pngTo1.createNewFile();
-            FileOutputStream pngTo=new FileOutputStream("ppt/unzip/ppt/media/play.png");
-            pngTo.write(pngFrom);pngTo.close();
-            //AppendContentType(1);
-           
-            File wavFrom=new File(AudioFilename +".wav");
-            File wavTo=new File("ppt/unzip/ppt/media/"+AudioFilename.replace("audio/", "") +".wav");
-
-            String relsNotesFilename="ppt/unzip/ppt/notesSlides/_rels/notesSlide"+String.valueOf(slideId) +".xml.rels";
-            String NotesFilename="ppt/unzip/ppt/notesSlides/notesSlide"+String.valueOf(slideId) +".xml";
-            (new File(relsNotesFilename)).createNewFile();
-            (new File(NotesFilename)).createNewFile();
-            FileOutputStream noteRelsTo=new FileOutputStream(relsNotesFilename);
-            FileOutputStream noteTo=new FileOutputStream(NotesFilename);
-            /*Start Copy*/
-            Files.copy(wavFrom.toPath(), wavTo.toPath(),StandardCopyOption.REPLACE_EXISTING );
-            
-            noteRelsTo.write(noteRelsFrom);noteRelsTo.close();
-            noteTo.write(noteFrom);noteTo.close();
-            /*End of copy*/
-            
-            /*Write Notes */
-            this.Replace_papaki(relsNotesFilename,String.valueOf(slideId));
-            this.Replace_papaki(NotesFilename, NotesTxt);
-            ContenttypeNotesDef+=this.AppendContentTypeNotes(slideId);
-            /*End of Write the Notes*/
-            
+                     
             /* Write to Slide the audio */
             FileOutputStream slide=new FileOutputStream("ppt/unzip/ppt/slides/slide"+String.valueOf(slideId)+".xml");
             try {
-                slide.write(SlideXml[slideId-2].getBytes());
+            	slide.write(SlideXml[slideId-2].getBytes());
                 this.AppendContentType(slideId);
                 slide.close();
             } catch (IOException ex) {

@@ -55,9 +55,14 @@ public class Result {
 				resultSet.last();
 				rows=resultSet.getRow();
 				if(rows>0){
+					
 					ret_value=true;
 					columns=resultSet.getMetaData().getColumnCount();
-					
+					if(columns==1) {
+						resultSet.beforeFirst();
+						 while(resultSet.next()) TitleOfColumns=resultSet.getString(1);
+						return ret_value;
+					}
 					/*temp=resultSet.getFloat(columns);*/
 			        //back to first line
 			        resultSet.first();
@@ -74,9 +79,9 @@ public class Result {
 			        while(resultSet.next()){
 			           for(int i=0;i<columns;i++){
 			        	   resultArray[resultSet.getRow()+1][i]=resultSet.getString(i+1);
-			        	   this.ColPivot.add(resultSet.getString(1));
-		                   this.RowPivot.add(resultSet.getString(2));
 			           }
+			           this.ColPivot.add(resultSet.getString(1));
+	                   this.RowPivot.add(resultSet.getString(2));
 			        }
 			       
 			        setMinValue(Float.parseFloat(resultArray[2][columns-1]));

@@ -117,7 +117,8 @@ public class SqlQuery extends ExtractionMethod {
     	ret_value+="\nWHERE "+getWhereClause();
     	ret_value+="\nGROUP BY "+getGroupClause(); 
     	ret_value+="\n"+getOrderClauseByMeasure(0);
-    	return ret_value ;
+    	if(getGroupClause().length()>0)	return ret_value ;
+    	else return "SELECT '"+this.SelectClauseMeasure[0]+"'";
     }
     
     /*  order_type=0 -> ASCENING
@@ -168,7 +169,8 @@ public class SqlQuery extends ExtractionMethod {
 	@Override
 	public void produceExtractionMethod(CubeQuery cubeQuery) {
 		this.SelectClauseMeasure[0]=cubeQuery.AggregateFunction;
-		this.SelectClauseMeasure[1]=cubeQuery.Msr.get(0).Attr.name;
+		if(cubeQuery.Msr.get(0).Attr!=null ) this.SelectClauseMeasure[1]=cubeQuery.Msr.get(0).Attr.name;
+		else this.SelectClauseMeasure[1]="";
 		HashSet<String> FromTables=new HashSet<String>();
 		
 		/*Create WhereClausse */
@@ -207,7 +209,8 @@ public class SqlQuery extends ExtractionMethod {
 		
 		/*Create From clause */
 		String[] tbl_tmp=new String[1];
-		tbl_tmp[0]=cubeQuery.referCube.FactTable().TblName;
+		tbl_tmp[0]="";
+		if(cubeQuery.referCube!=null) tbl_tmp[0]=cubeQuery.referCube.FactTable().TblName;
 		this.FromClause.add(tbl_tmp);
 		
 		for(int i=0;i<FromTables.size();i++){

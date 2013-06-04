@@ -188,7 +188,7 @@ public class TaskBrothers extends Task {
 			}
         }
 		else {
-			addSubTask(newQuery,toChange,1);
+			addSubTask(newQuery,toChange,toReplace);
 		}
     }
     

@@ -14,7 +14,7 @@ public abstract class Task {
     	cubeQuery=new ArrayList<CubeQuery>();
     }
    
-    public abstract void addNewSubTask();;
+    public abstract void addNewSubTask();
     
     public abstract int getNumSubTasks();    
     

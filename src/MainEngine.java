@@ -94,15 +94,11 @@ public class MainEngine {
     }
     
     public void getCubeQueriesFromFile(File file){
-    	/*String file="InputFiles/cubeQueries.ini";*/
     	Scanner sc;
 		try {
 			sc = (new Scanner(file)).useDelimiter("@");
 			while(sc.hasNext()){
-				/*String Query=sc.next();*/
-				/*CubeQuery cubequery=*/
 				newRequestCubeQuery(createCubeQueryFromString(sc.next()));/*create Story For Query*/
-				
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -189,6 +185,13 @@ public class MainEngine {
         TskMgr.getLastTask().getLastSubTask().setExtractionMethod(newSqlQuery);
         TskMgr.getLastTask().getLastSubTask().execute(CubeManager.CBase.DB);
         
+        
+        
+        TskMgr.getLastTask().addNewSubTask();
+        TskMgr.getLastTask().getLastSubTask().setExtractionMethod(createCubeQueryStartOfActSlide(StorMgr.getStory().getLastAct(),1));
+        TskMgr.getLastTask().getLastSubTask().execute(CubeManager.CBase.DB);
+        
+        
         TskMgr.getLastTask().generateSubTasks(CubeManager.CBase);
         
         AudioMgr=new FreeTTSAudioEngine();
@@ -196,7 +199,7 @@ public class MainEngine {
         
         SetupSlideEpisodes(StorMgr.getStory().getLastAct());
         
-        /* Setup Slide For Simade4oume ACT 2*/
+        /* Setup Slide For ACT 2*/
         
         /* CREATE ACT2 
          * (slide==query===task)
@@ -207,14 +210,23 @@ public class MainEngine {
          *  		3. Drill in for Closest to AVG of all(MEDIAN) not yet implemend
          */
         StorMgr.getStory().createNewAct();
-        TskMgr.createNewTask(new TaskDrillIn());
+        TaskDrillIn tskdrillin=new TaskDrillIn();
+        TskMgr.createNewTask(tskdrillin);
+        
         TskMgr.getLastTask().cubeQuery.add(cubequery);
         StorMgr.addNewTaskToStory(TskMgr.getLastTask());
-        TskMgr.getLastTask().generateSubTasks(CubeManager.CBase);
-        SetupSlideEpisodes(StorMgr.getStory().getLastAct());
         
+        TskMgr.getLastTask().addNewSubTask();
+        TskMgr.getLastTask().getLastSubTask().setExtractionMethod(createCubeQueryStartOfActSlide(StorMgr.getStory().getLastAct(),2));
+        TskMgr.getLastTask().getLastSubTask().execute(CubeManager.CBase.DB);
+        
+        TskMgr.getLastTask().generateSubTasks(CubeManager.CBase);
+        TskMgr.getLastTask().cubeQuery.remove(0);
+        SetupSlideEpisodes(StorMgr.getStory().getLastAct());
+       
         StorMgr.getStory().setFinalResult(new PptxSlideshow());
         StorMgr.getStory().getFinalResult().setFilename("ppt/"+cubequery.name+".pptx");
+        
         
         WrapUp=new PptxWrapUpMgr();
         WrapUp.setFinalResult(StorMgr.getStory().getFinalResult());
@@ -230,12 +242,7 @@ public class MainEngine {
     	
         PrsMng.parse(predefinedSqlQueries(Query));
         SqlQuery query=new SqlQuery(PrsMng.aggregatefunc,PrsMng.tablelst,PrsMng.conditionlst,PrsMng.groupperlst);
-        //query.printQuery();
         
-    	//SqlQuery query=new SqlQuery();
-    	//query.produceExtractionMethod(this.DefaultCubeQuery());
-    	//query.printQuery();
-        /*System.exit(1);*/
         StorMgr.createStory();
         StorMgr.createStoryOriginalRequest();
         StorMgr.createTasks(TskMgr);
@@ -270,6 +277,23 @@ public class MainEngine {
     	
     }
     
+    public SqlQuery createCubeQueryStartOfActSlide(Act act,int num_act){
+    	CubeQuery cubequery=new CubeQuery("Act "+String.valueOf(num_act));
+    	cubequery.AggregateFunction="Act "+String.valueOf(num_act);
+    	Measure msrToAdd=new Measure();
+    	msrToAdd.id=1;
+    	msrToAdd.name="Hrs";
+    	msrToAdd.Attr=null;
+    	cubequery.Msr.add(msrToAdd);
+    	cubequery.referCube=null;
+    	act.getTask().cubeQuery.add(cubequery);
+    	SqlQuery newSqlQuery=new SqlQuery();
+        newSqlQuery.produceExtractionMethod(cubequery);
+    	        
+        return newSqlQuery;
+    	
+    }
+    
     /* This Function Add Create Slide per ACT*/
     public void SetupSlideEpisodes(Act act){
     	//SqlQuery original=(SqlQuery)act.getTask().getSubTask(0).getExtractionMethod();
@@ -299,7 +323,13 @@ public class MainEngine {
 		        else if(subtsk.getDifferencesFromOrigin().get(0)==-1){
 		        	newSlide.Title="Summarized Slide for field : ";
 		        	newSlide.Title+=act.getTask().cubeQuery.get(0).GammaExpressions.get(subtsk.getDifferenceFromOrigin(1))[0];
-		        } 
+		        }
+		        else if(subtsk.getDifferencesFromOrigin().get(0)==-2){
+		        	newSlide.Title="Drill In Slide For Min";
+		        }
+		        else if(subtsk.getDifferencesFromOrigin().get(0)==-3){
+		        	newSlide.Title="Drill In Slide For Max";
+		        }
 		        else {
 		        	newSlide.Title="The ~ which changed @ : ";
 		        	for(int i=0;i<subtsk.getDifferencesFromOrigin().size();i++){
@@ -317,6 +347,12 @@ public class MainEngine {
 		       // newSlide.Title+="\n At columns are "+newSlide.TitleColumn+" and at rows are "+newSlide.TitleRow;
 		        AudioMgr.CreateSound("Text to Create", newSlide.getAudio().getFileName());
 		        StorMgr.getStory().getLastAct().addEpisode(newSlide);
+	        }
+	        else if(currentQuery.Res.TitleOfColumns!=null && currentQuery.Res.TitleOfColumns.contains("Act")) {
+	        	pptxSlide newSlide=new pptxSlide();
+		        newSlide.setSubTask(subtsk);
+	        	newSlide.Title=currentQuery.Res.TitleOfColumns;
+	        	StorMgr.getStory().getLastAct().addEpisode(newSlide);	        	
 	        }
     	}
     	System.out.println("TimesIN:"+timesIN);
@@ -506,7 +542,7 @@ public class MainEngine {
         
         MainEng.ParseFile(new File("InputFiles/BETA/beta.txt"));/*Create Dimension,Cube*/
         //MainEng.NewRequestSqlQuery("");
-        MainEng.getCubeQueriesFromFile(new File("InputFiles/cubeQueries.ini"));/*Create Stories*/
+        MainEng.getCubeQueriesFromFile(new File("InputFiles/cubeQueries2013_05_31.ini"));/*Create Stories*/
 //        MainEng.newRequestCubeQuery(null);
         
         System.out.println("=======Finish======");
