@@ -2,21 +2,28 @@ package StoryMgr;
 import AudioMgr.Audio;
 import TaskMgr.SubTask;
 
-public class pptxSlide extends Episode {
+public class PptxSlide extends Episode {
 	
 	public String Notes;
 	public String Title;
 	public String TitleColumn;
 	public String TitleRow;
 	
-	public pptxSlide() {
+	public PptxSlide() {
 		super();
 	}
 	
 	public void setText(String txt){
 		this.txt.setText(txt);
 	}
-
+	
+	public void createHighlight(){
+		this.highlight=new PptxHighlight();
+		((PptxHighlight)highlight).findMax(this.visual.PivotTable);
+		((PptxHighlight)highlight).findMin(this.visual.PivotTable);
+		((PptxHighlight)highlight).findMedian(this.visual.PivotTable);
+	}
+	
 	@Override
 	public SubTask getSubTask() {
 		return subTask;

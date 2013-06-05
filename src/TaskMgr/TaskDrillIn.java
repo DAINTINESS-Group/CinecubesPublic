@@ -54,7 +54,6 @@ public class TaskDrillIn extends Task {
         
         doDrillIn(cubeBase,valueOfMin,-2);
         doDrillIn(cubeBase,valueOfMax,-3);
-        String x=null;
     }
     
     

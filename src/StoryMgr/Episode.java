@@ -10,6 +10,7 @@ public abstract class Episode {
     protected Visual visual;
     protected Audio audio;
     protected Text txt;
+    public Highlight highlight;
     
     public Episode(){    	
     	//keyFinding=new KeyFinding();
@@ -21,7 +22,6 @@ public abstract class Episode {
 	 * @return the subTask
 	 */
 	abstract public SubTask getSubTask();
-
 	/**
 	 * @param subtask the subTask to set
 	 */

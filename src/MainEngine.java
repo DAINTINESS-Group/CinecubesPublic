@@ -17,7 +17,7 @@ import StoryMgr.Act;
 import StoryMgr.PptxSlideshow;
 import StoryMgr.StoryMgr;
 import StoryMgr.Tabular;
-import StoryMgr.pptxSlide;
+import StoryMgr.PptxSlide;
 import TaskMgr.SubTask;
 import TaskMgr.TaskBrothers;
 import TaskMgr.TaskDrillIn;
@@ -304,7 +304,7 @@ public class MainEngine {
     		SqlQuery currentQuery=((SqlQuery)subtsk.getExtractionMethod());
 	        if((currentQuery.Res.getResultArray()!=null)){
 	        	timesIN++;
-	        	pptxSlide newSlide=new pptxSlide();
+	        	PptxSlide newSlide=new PptxSlide();
 		        newSlide.setSubTask(subtsk);
 		        newSlide.Notes="SQL QUERY:\n"+subtsk.getExtractionMethod().toString()+"\n\nCUBE QUERY:\n"+act.getTask().cubeQuery.get(j).toString();
 		        
@@ -314,7 +314,7 @@ public class MainEngine {
 		        newSlide.createVisual(tbl);
 		        
 		        newSlide.setAudioFile("audio/"+AudioMgr.randomIdentifier());
-		        
+		        newSlide.createHighlight();
 		        newSlide.TitleColumn=new String(currentQuery.Res.TitleOfColumns);
 		        newSlide.TitleRow=new String(currentQuery.Res.TitleOfRows);
 		        if(subtsk.getDifferencesFromOrigin().size()==0){
@@ -349,7 +349,7 @@ public class MainEngine {
 		        StorMgr.getStory().getLastAct().addEpisode(newSlide);
 	        }
 	        else if(currentQuery.Res.TitleOfColumns!=null && currentQuery.Res.TitleOfColumns.contains("Act")) {
-	        	pptxSlide newSlide=new pptxSlide();
+	        	PptxSlide newSlide=new PptxSlide();
 		        newSlide.setSubTask(subtsk);
 	        	newSlide.Title=currentQuery.Res.TitleOfColumns;
 	        	StorMgr.getStory().getLastAct().addEpisode(newSlide);	        	
