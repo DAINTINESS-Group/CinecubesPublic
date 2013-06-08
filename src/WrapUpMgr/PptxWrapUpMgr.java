@@ -14,7 +14,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -27,6 +26,7 @@ import org.apache.poi.xslf.usermodel.SlideLayout;
 import org.apache.poi.xslf.usermodel.TextAlign;
 import org.apache.poi.xslf.usermodel.VerticalAlignment;
 import org.apache.poi.xslf.usermodel.XMLSlideShow;
+import org.apache.poi.xslf.usermodel.XSLFBackground;
 import org.apache.poi.xslf.usermodel.XSLFSlide;
 import org.apache.poi.xslf.usermodel.XSLFSlideLayout;
 import org.apache.poi.xslf.usermodel.XSLFSlideMaster;
@@ -37,10 +37,11 @@ import org.apache.poi.xslf.usermodel.XSLFTextParagraph;
 import org.apache.poi.xslf.usermodel.XSLFTextRun;
 import org.apache.poi.xslf.usermodel.XSLFTextShape;
 import org.apache.xmlbeans.XmlObject;
+import org.openxmlformats.schemas.drawingml.x2006.main.CTScRgbColor;
 
+import HighlightMgr.PptxHighlight;
 import StoryMgr.Act;
 import StoryMgr.FinalResult;
-import StoryMgr.PptxHighlight;
 import StoryMgr.Story;
 import StoryMgr.PptxSlide;
 
@@ -121,9 +122,16 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 	public void XSLFcreateSlide(String[][] table,String AudioFilename,String Title,int slideid, String titleColumn, String titleRow,PptxHighlight highlight){
 		XSLFSlideLayout titleLayout = defaultMaster.getLayout(SlideLayout.TITLE_ONLY); 
         XSLFSlide slide;
+       
+        
         String NotesRelationShip="http://schemas.openxmlformats.org/officeDocument/2006/relationships/notesSlide";
         if(table!=null) {
         	slide=slideShowPPTX.createSlide(titleLayout);
+        	slide.setFollowMasterGraphics(false);
+        	
+        	//XSLFBackground background = slide.getBackground();
+        	//background.
+        	//background.setFillColor(new Color(221,217,195,75));
 	        URI uri = null;
 	        try {
 	            uri = new URI("../notesSlides/notesSlide"+slideid+".xml");
@@ -145,7 +153,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
         	title2.setText("");
         }
         CreateSlideWithXMlAudio(slide,AudioFilename,slideid);
-        
+                
      }
      
      
@@ -157,9 +165,10 @@ public class PptxWrapUpMgr extends WrapUpMgr {
      private XSLFTable CreateTableInSlide(XSLFSlide slide,java.awt.Dimension pgsize,String[][] table, String titleColumn, String titleRow,PptxHighlight highlight){
          
        int pgx = pgsize.width; //slide width
-       
+       int toColorDarkGray=0;
        XSLFTable tbl=slide.createTable();
-            
+       
+       if(table[0][0].length()>0) toColorDarkGray=1;     
        for(int i=0;i<table.length;i++){
            XSLFTableRow addRow = tbl.addRow();
            
@@ -171,37 +180,34 @@ public class PptxWrapUpMgr extends WrapUpMgr {
               p.setTextAlign(TextAlign.CENTER);
               r.setFontFamily("Calibri");             
               r.setFontSize(13);
-              DecimalFormat df = new DecimalFormat("#.##");
-              df.setMinimumFractionDigits(2);
-              if(j>0 && i>0 && table[i][j]!="-") {
-            	 /* double tmp_round=Math.round(Float.parseFloat(table[i][j])*100.0)/100.0;*/
-            	  r.setText(df.format(Float.parseFloat(table[i][j])));
-              }
-              else r.setText(table[i][j]);
+                            
+              r.setText(table[i][j]);
              
               cell.setVerticalAlignment(VerticalAlignment.MIDDLE);
               
-              if((i==0 || j==0) && !(i==0 && j==0)) {
-            	  r.setFontColor(Color.darkGray);
-              }
+              if((i==0 || j==toColorDarkGray) && !(i==0 && j==toColorDarkGray)) {
+            	  r.setFontColor(new Color(127,127,127));
+             }
+             if(toColorDarkGray==1 && i==0 && j==0) {
+            	 r.setItalic(true);
+            	 r.setFontColor(Color.DARK_GRAY);
+             }
             
-             
-              
              if((j==0) && i!=0) {
             	 p.setTextAlign(TextAlign.RIGHT);
               }
              if(i==0){
-            	 tbl.setColumnWidth(j, 80);
+            	 tbl.setColumnWidth(j, 90);
              }
-             if(i!=0 && j!=0 && table[i][j]!="-"){
-            	 if(highlight.max==Float.parseFloat(table[i][j])) r.setFontColor(new Color(173,216,230));
-            	 if(highlight.min==Float.parseFloat(table[i][j])) r.setFontColor(new Color(144,238,144));
-            	 if(highlight.mean[0]!=null && highlight.mean[0]==Float.parseFloat(table[i][j])) r.setFontColor(new Color(255,99,71));
-            	 if(highlight.mean[1]!=null && highlight.mean[1]==Float.parseFloat(table[i][j])) r.setFontColor(new Color(255,99,71));
+             if(i!=0 && j!=0 && table[i][j]!="-" && !table[i][j].equals("measure")){
+            	/* if(highlight.max==Float.parseFloat(table[i][j])) r.setFontColor(Color.red);
+            	 if(highlight.min==Float.parseFloat(table[i][j])) r.setFontColor(Color.green);
+            	 if(highlight.mean[0]!=null && highlight.mean[0]==Float.parseFloat(table[i][j])) r.setFontColor(Color.gray);
+            	 if(highlight.mean[1]!=null && highlight.mean[1]==Float.parseFloat(table[i][j])) r.setFontColor(Color.gray);*/
              }
            }
        }
-       int width_table=(table[0].length)*80;
+       int width_table=(table[0].length)*90;
               
        tbl.setAnchor(new Rectangle2D.Double(((pgx-width_table)/2), 100,100,100));
        return tbl;
@@ -695,6 +701,8 @@ public class PptxWrapUpMgr extends WrapUpMgr {
              System.out.println(ex.getMessage());
          }
     }
+    
+    
     
     /* Set Title In Slide */
     void setTitle(XSLFSlide slide,String Title,Rectangle2D.Double Anchor,double fontSize,boolean bold){

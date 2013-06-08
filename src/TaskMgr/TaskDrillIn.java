@@ -12,8 +12,13 @@ import CubeMgr.StarSchema.SqlQuery;
 
 public class TaskDrillIn extends Task {
 
+	ArrayList<SubTask> substodelete;
+	ArrayList<SubTask> subschecked;
+	
 	public TaskDrillIn() {
 		super();
+		substodelete=new ArrayList<SubTask>();
+		subschecked=new ArrayList<SubTask>();
 	}
 
 	public void addNewSubTask(){
@@ -38,33 +43,94 @@ public class TaskDrillIn extends Task {
      */
     public void generateSubTasks(CubeBase cubeBase){
     	
-    	SqlQuery newSqlQuery=new SqlQuery();
-        newSqlQuery.produceExtractionMethod(this.cubeQuery.get(0));
-        SubTask tmp=new SubTask(); 
-        tmp.setExtractionMethod(newSqlQuery);
-        tmp.execute(cubeBase.DB);
+    	SqlQuery newSqlQuery=this.cubeQuery.get(1).sqlQuery;
+    	    	
+    	int[] minRowPerValue=new int[newSqlQuery.Res.getRowPivot().size()];
+    	for(int i=0;i<newSqlQuery.Res.getRowPivot().size();i++){
+    		minRowPerValue[i]=this.getMinRow(newSqlQuery.Res.getResultArray(), newSqlQuery.Res.getRowPivot().toArray()[i].toString(), 1);
+    	}
+    	
+    	int[] maxRowPerValue=new int[newSqlQuery.Res.getRowPivot().size()];
+    	for(int i=0;i<newSqlQuery.Res.getRowPivot().size();i++){
+    		maxRowPerValue[i]=this.getMaxRow(newSqlQuery.Res.getResultArray(), newSqlQuery.Res.getRowPivot().toArray()[i].toString(), 1);
+    	}
+    	
+    	    	
+    	/* First Approach*/
+    	for(int i=0;i<newSqlQuery.Res.getRowPivot().size();i++){
+	        String[] valueOfMin=new String[2];
+	        valueOfMin[0]=newSqlQuery.Res.getResultArray()[minRowPerValue[i]][0]; /*Gamma La value*/
+	        valueOfMin[1]=newSqlQuery.Res.getResultArray()[minRowPerValue[i]][1]; /*Gamma Lb balue*/
+	        String[] valueOfMax=new String[2];
+	        valueOfMax[0]=newSqlQuery.Res.getResultArray()[maxRowPerValue[i]][0]; /*Gamma La value*/
+	        valueOfMax[1]=newSqlQuery.Res.getResultArray()[maxRowPerValue[i]][1]; /*Gamma Lb balue*/
+	        
+	        
+	       /* doDrillIn(cubeBase,valueOfMin,-2);/*MIN*/
+	       /* doDrillIn(cubeBase,valueOfMax,-3);/*MAX*/
+	        System.out.println("Row Min Drill In : "+String.valueOf(i+1));
+	        doDrillInRowVersion(cubeBase,valueOfMin,-2);
+	        this.getLastSubTask().addDifferenceFromOrigin(i);
+	        
+	        System.out.println("Row Max Drill In : "+String.valueOf(i+1));
+	        doDrillInRowVersion(cubeBase,valueOfMax,-3);
+	        this.getLastSubTask().addDifferenceFromOrigin(i);
+	        
+	        recreateResultArrayForMinMaxOfArray_v1();
+    	}
+    	//for(SubTask dlt:substodelete) this.subTasks.remove(dlt);
         
-        String[] valueOfMin=new String[2];
-        valueOfMin[0]=newSqlQuery.Res.getResultArray()[2][0]; /*Gamma La value*/
-        valueOfMin[1]=newSqlQuery.Res.getResultArray()[2][1]; /*Gamma Lb balue*/
-        String[] valueOfMax=new String[2];
-        valueOfMax[0]=newSqlQuery.Res.getResultArray()[newSqlQuery.Res.getResultArray().length-1][0]; /*Gamma La value*/
-        valueOfMax[1]=newSqlQuery.Res.getResultArray()[newSqlQuery.Res.getResultArray().length-1][1]; /*Gamma Lb balue*/
-        
-        
-        doDrillIn(cubeBase,valueOfMin,-2);
-        doDrillIn(cubeBase,valueOfMax,-3);
     }
     
+    void doDrillInRowVersion(CubeBase cubeBase,String[] GammaLaLb,int mode){
+    	
+    	String[] gamma_tmp=this.cubeQuery.get(1).GammaExpressions.get(1);
+    	
+    	int index_sigma_todelete=this.getIndexOfSigmaToDelete(this.cubeQuery.get(1).SigmaExpressions,gamma_tmp[0]);
+    	int index_sigma_todelete_column=this.getIndexOfSigmaToDelete(this.cubeQuery.get(1).SigmaExpressions,this.cubeQuery.get(1).GammaExpressions.get(0)[0]);
+		String child_level_of_gamma=this.getChildOfGamma(cubeBase,gamma_tmp);
+		
+		CubeQuery newQuery=new CubeQuery("");
+		copyListofArrayString(this.cubeQuery.get(1).GammaExpressions, newQuery.GammaExpressions);
+		copyListofArrayString(this.cubeQuery.get(1).SigmaExpressions, newQuery.SigmaExpressions);
+		newQuery.AggregateFunction=this.cubeQuery.get(1).AggregateFunction;
+		newQuery.referCube=this.cubeQuery.get(1).referCube;
+		newQuery.setMsr(this.cubeQuery.get(1).getMsr());		
+		
+		if(index_sigma_todelete>-1){
+			newQuery.SigmaExpressions.get(index_sigma_todelete)[0]=newQuery.GammaExpressions.get(1)[0]+"."+newQuery.GammaExpressions.get(1)[1];
+			newQuery.SigmaExpressions.get(index_sigma_todelete)[2]="'"+GammaLaLb[1]+"'";
+		}
+		if(index_sigma_todelete_column>-1){
+			newQuery.SigmaExpressions.get(index_sigma_todelete_column)[0]=newQuery.GammaExpressions.get(0)[0]+"."+newQuery.GammaExpressions.get(0)[1];
+			newQuery.SigmaExpressions.get(index_sigma_todelete_column)[2]="'"+GammaLaLb[0]+"'";
+		}
+		
+		
+		newQuery.GammaExpressions.get(1)[1]=child_level_of_gamma;
+		newQuery.GammaExpressions.remove(0);
+		String [] toadd=new String[2];
+		toadd[0]="";
+		if(mode==-2) toadd[1]="'min'";
+		else toadd[1]="'max'";
+		
+		newQuery.GammaExpressions.add(toadd);
+		
+		addSubTask(newQuery,mode);
+		
+		this.getLastSubTask().execute(cubeBase.DB);
+    }
     
-    private void doDrillIn(CubeBase cubeBase,String[] GammaLaLb,int mode){
-    	for(int i=0;i<this.cubeQuery.get(0).GammaExpressions.size();i++){
-    		String[] gamma_tmp=this.cubeQuery.get(0).GammaExpressions.get(i); /*get Gamma Li*/
-    		int index_sigma_todelete=this.getIndexOfSigmaToDelete(this.cubeQuery.get(0).SigmaExpressions,gamma_tmp[0]);
+    @SuppressWarnings("unused")
+	private void doDrillIn(CubeBase cubeBase,String[] GammaLaLb,int mode){
+    	for(int i=0;i<this.cubeQuery.get(1).GammaExpressions.size();i++){
+    		String[] gamma_tmp=this.cubeQuery.get(1).GammaExpressions.get(i); /*get Gamma Li*/
+    		int index_sigma_todelete=this.getIndexOfSigmaToDelete(this.cubeQuery.get(1).SigmaExpressions,gamma_tmp[0]);
     		String child_level_of_gamma=this.getChildOfGamma(cubeBase,gamma_tmp);
     		if(child_level_of_gamma!=null) {
-    			this.createSubTask(this.cubeQuery.get(0), GammaLaLb[i], index_sigma_todelete,child_level_of_gamma,i,mode);
+    			this.createSubTask(this.cubeQuery.get(1), GammaLaLb[i], index_sigma_todelete,child_level_of_gamma,i,mode);
     			this.getLastSubTask().execute(cubeBase.DB);
+    			
     		}
     	}
     }
@@ -108,8 +174,9 @@ public class TaskDrillIn extends Task {
 			newQuery.SigmaExpressions.get(index_sigma_todelete)[0]=startQuery.GammaExpressions.get(index_gamma)[0]+"."+startQuery.GammaExpressions.get(index_gamma)[1];
 			newQuery.SigmaExpressions.get(index_sigma_todelete)[2]="'"+value+"'";
 		}
-		newQuery.GammaExpressions.get(index_gamma)[1]=child_level_of_gamma;		
-		addSubTask(newQuery,mode);
+		newQuery.GammaExpressions.get(index_gamma)[1]=child_level_of_gamma;
+		//newQuery.GammaExpressions.remove((index_gamma+1)%2);
+		
     }
     
     private void addSubTask(CubeQuery cubequery,int difference){
@@ -117,7 +184,7 @@ public class TaskDrillIn extends Task {
 		this.cubeQuery.add(cubequery);
         SqlQuery newSqlQuery=new SqlQuery();
         newSqlQuery.produceExtractionMethod(cubequery);
-        System.out.println(newSqlQuery.toString());
+        System.out.println(cubequery.toString());
         printBorderLine();
         this.getLastSubTask().setExtractionMethod(newSqlQuery);
         this.getLastSubTask().addDifferenceFromOrigin(difference);
@@ -230,5 +297,94 @@ public class TaskDrillIn extends Task {
 			}
 		}
 		return null;
+	}
+	
+	/*this maybe help for highlight*/
+	int getMinRow(String[][] table,String Value,int column){ /*For result Array Not Pivot Table*/
+		Float min=Float.parseFloat(table[table.length-1][2]);
+		int ret_value=2;
+		for(int i=2;i<table.length;i++){
+			if(table[i][column].equals(Value)){
+				if(min>Float.parseFloat(table[i][2])) {
+					min=Float.parseFloat(table[i][2]);
+					ret_value=i;
+				}
+			}
+		}
+		return ret_value;
+	}
+	
+	int getMaxRow(String[][] table,String Value,int column){ /*For result Array Not Pivot Table*/
+		Float max=Float.parseFloat(table[2][2]);
+		int ret_value=2;
+		for(int i=2;i<table.length;i++){
+			if(table[i][column].equals(Value)){
+				if(max<Float.parseFloat(table[i][2])) {
+					max=Float.parseFloat(table[i][2]);
+					ret_value=i;
+				}
+			}
+		}
+		return ret_value;
+	}
+	
+	private void recreateResultArrayForMinMaxOfArray_v1(){
+		
+        for(int i=2;i<this.subTasks.size();i++){
+        	for(int j=i+1;j<this.subTasks.size();j++){
+        		if(this.cubeQuery.get(i).GammaExpressions.get(0)[0].equals(this.cubeQuery.get(j).GammaExpressions.get(0)[0])){
+        			if(this.subTasks.get(i).getDifferenceFromOrigin(0)!=this.subTasks.get(j).getDifferenceFromOrigin(0) 
+        					&& !substodelete.contains(this.subTasks.get(j)) && !subschecked.contains(this.subTasks.get(i))){
+        				String[][] tmp_i=this.subTasks.get(i).getExtractionMethod().Res.getResultArray();
+        				String[][] tmp_j=this.subTasks.get(j).getExtractionMethod().Res.getResultArray();
+        				
+        				String[][] new_array=new String[tmp_i.length+tmp_j.length-2][tmp_i[0].length]; 
+        				int new_array_iterator=0;
+        				this.subTasks.get(i).getExtractionMethod().Res.getRowPivot().clear();
+        				this.subTasks.get(i).getExtractionMethod().Res.getColPivot().clear();
+        				try{
+	        				for(int l=0;l<tmp_i.length;l++) {
+	        					
+	        					new_array[new_array_iterator][0]=new String(tmp_i[l][0]);	        					
+	        					new_array[new_array_iterator][1]=new String(tmp_i[l][1]);
+	        					new_array[new_array_iterator][2]=new String(tmp_i[l][2]);
+	        					new_array[new_array_iterator][3]=new String(tmp_i[l][3]);
+	        					
+	        					if(!tmp_i[l][2].equals("measure")) {
+	        						this.subTasks.get(i).getExtractionMethod().Res.getRowPivot().add(new String(tmp_i[l][0]));
+	        						this.subTasks.get(i).getExtractionMethod().Res.getColPivot().add(new String(tmp_i[l][1]));
+	        					}
+	        					
+	        					new_array_iterator++;
+	        				}
+	        				
+	        				for(int m=0;m<tmp_j.length;m++) {
+	        					if(!tmp_j[m][2].equals("measure")){
+		        					
+		        					new_array[new_array_iterator][0]=new String(tmp_j[m][0]);
+		        					this.subTasks.get(i).getExtractionMethod().Res.getColPivot().add(new String(tmp_j[m][1]));
+		        					
+		        					new_array[new_array_iterator][1]=new String(tmp_j[m][1]);
+		        					this.subTasks.get(i).getExtractionMethod().Res.getRowPivot().add(new String(tmp_j[m][0]));
+		        					
+		        					new_array[new_array_iterator][2]=new String(tmp_j[m][2]);
+		        					new_array[new_array_iterator][3]=new String(tmp_j[m][3]);
+		        					
+		        					new_array_iterator++;
+	        					}
+	        				}
+        				}
+        				catch(Exception ex){
+        					ex.printStackTrace();
+        				}
+        				this.subTasks.get(i).getExtractionMethod().Res.setResultArray(new_array);
+        				substodelete.add(this.subTasks.get(j));
+        				subschecked.add(this.subTasks.get(i));
+        			}
+        		}
+        	}
+        }
+        for(SubTask dlt:substodelete) this.subTasks.remove(dlt);
+        
 	}
 }

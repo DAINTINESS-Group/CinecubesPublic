@@ -1,5 +1,6 @@
 package StoryMgr;
 
+import java.text.DecimalFormat;
 import java.util.TreeSet;
 
 public class Tabular extends Visual {
@@ -18,14 +19,24 @@ public class Tabular extends Visual {
      *      Rowpivot have the name of each row for PivotTable  
      *      Colpivot have the name of each column for PivotTable
      *      QueryResult have the result of the query
+	 * @param extraPivot 
      */
-    public void CreatePivotTable(TreeSet<String> RowPivot,TreeSet<String> ColPivot,String QueryResult[][]){
-        this.PivotTable=new String[RowPivot.size()+1][ColPivot.size()+1];
+    public void CreatePivotTable(TreeSet<String> RowPivot,TreeSet<String> ColPivot,String QueryResult[][], String[] extraPivot){
+        int col=0;
+        
+        if(extraPivot[0].equals("-2") || extraPivot[0].equals("-3")) col=1;
+        
+    	this.PivotTable=new String[RowPivot.size()+1][ColPivot.size()+1+col];
         this.PivotTable[0][0]="";
+        if(col==1){
+        	this.PivotTable[0][1]="";
+        	this.PivotTable[0][0]=extraPivot[1];
+        	for(int k=1;k<RowPivot.size()+1;k++) this.PivotTable[k][0]="";
+        }
         int i=0;
-        int j=0;
+        int j=0+col;
         for(String x : RowPivot) {
-            this.PivotTable[i+1][0]=x;
+            this.PivotTable[i+1][0+col]=x;
             i++;
         }
         
@@ -34,12 +45,17 @@ public class Tabular extends Visual {
             j++;
         }
         i=1;
+        
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.setMinimumFractionDigits(2);
         for(String x:RowPivot){
-            j=1;
+            j=1+col;
             for(String y:ColPivot){
                 for (int r=0;r<QueryResult.length;r++){
                         if((QueryResult[r][0].equals(x) && QueryResult[r][1].equals(y)) || (QueryResult[r][0].equals(y) && QueryResult[r][1].equals(x))){
                             this.PivotTable[i][j]=QueryResult[r][2];
+                            if(tryParseFloat(this.PivotTable[i][j])) this.PivotTable[i][j]=df.format(Float.parseFloat(this.PivotTable[i][j]));
+                            if(col==1) this.PivotTable[i][j]+=" ("+QueryResult[r][3]+")";
                         }
                         if(this.PivotTable[i][j]==null) {
                         	this.PivotTable[i][j]="-";
@@ -52,6 +68,16 @@ public class Tabular extends Visual {
         
     }
 
+    boolean tryParseFloat(String value){
+    	try{
+    		Float.parseFloat(value);
+    	}
+    	catch(Exception ex){
+    		return false;
+    	}
+    	return true;
+    }
+    
 	@Override
 	public String[][] getPivotTable() {
 		return this.PivotTable;

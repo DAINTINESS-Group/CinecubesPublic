@@ -8,7 +8,7 @@ public class SubTask {
     private KeyFinding keyfinding;
     private ExtractionMethod extractionMethod;  
     private ArrayList<Integer> differencesFromOrigin;
-    
+        
     public SubTask(){
     	differencesFromOrigin=new ArrayList<Integer>();
     	setKeyFinding(new KeyFinding());

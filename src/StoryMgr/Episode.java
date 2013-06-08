@@ -1,6 +1,7 @@
 package StoryMgr;
 
 import AudioMgr.Audio;
+import HighlightMgr.Highlight;
 import TaskMgr.SubTask;
 import TextMgr.Text;
 

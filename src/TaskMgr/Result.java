@@ -12,8 +12,8 @@ public class Result {
 										MIN: resultArray[2][columns-1]
 										MAX: resultArray[resultArray.length-1][columns-1]
 										*/ 	
-    private TreeSet<String> ColPivot;
-    private TreeSet<String> RowPivot;
+    private TreeSet<String> ColPivot; /* In all option Colpivot has the values of 1st Column of resultArray exept when merge two tables like max,min comparison*/
+    private TreeSet<String> RowPivot; /* In all option RowPivot has the values of 2nd Column of resultArray exept when merge two tables like max,min comparison*/
     public String TitleOfColumns;
     public String TitleOfRows;
     public Float max,min;
@@ -33,12 +33,15 @@ public class Result {
 		return resultArray;
 	}
 
-	public void setResultArray(String [][] resultArray) {
-		this.resultArray = resultArray;
+	public void setResultArray(String [][] resultarray) {
+		this.resultArray = new String [resultarray.length][resultarray[0].length]; 
+		for(int i=0;i<resultarray.length;i++){
+			for(int j=0;j<resultarray[i].length;j++) setCellOfResultArray(resultarray[i][j],i,j); 
+		}
 	}
 	
 	public void setCellOfResultArray(String setValue,int row,int column){
-		resultArray[row][column]=setValue;
+		resultArray[row][column]=new String(setValue);
 	}
 	
 	public String getCellOfResultArray(int row,int column){
@@ -60,7 +63,7 @@ public class Result {
 					columns=resultSet.getMetaData().getColumnCount();
 					if(columns==1) {
 						resultSet.beforeFirst();
-						 while(resultSet.next()) TitleOfColumns=resultSet.getString(1);
+						while(resultSet.next()) TitleOfColumns=resultSet.getString(1);
 						return ret_value;
 					}
 					/*temp=resultSet.getFloat(columns);*/
@@ -84,8 +87,8 @@ public class Result {
 	                   this.RowPivot.add(resultSet.getString(2));
 			        }
 			       
-			        setMinValue(Float.parseFloat(resultArray[2][columns-1]));
-			        setMaxValue(Float.parseFloat(resultArray[resultArray.length-1][columns-1]));
+			        //setMinValue(Float.parseFloat(resultArray[2][2]));
+			        //setMaxValue(Float.parseFloat(resultArray[resultArray.length-1][2]));
 			        
 				}
 			} catch (SQLException e) {

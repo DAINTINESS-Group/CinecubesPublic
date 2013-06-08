@@ -4,14 +4,17 @@ import java.util.ArrayList;
 
 import CubeMgr.CubeBase.CubeBase;
 import CubeMgr.CubeBase.CubeQuery;
+import HighlightMgr.Highlight;
 
 public abstract class Task {
     protected ArrayList<SubTask> subTasks;
     public ArrayList<CubeQuery> cubeQuery;
+    public ArrayList<Highlight> highlights;
     
     public Task(){
     	subTasks=new ArrayList<SubTask>();
     	cubeQuery=new ArrayList<CubeQuery>();
+    	highlights=new ArrayList<Highlight>();
     }
    
     public abstract void addNewSubTask();

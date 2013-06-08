@@ -56,9 +56,9 @@ public class TaskBrothers extends Task {
      * 
      */
     public void generateSubTasks(CubeBase cubeBase){
-    	for(int i=0;i<this.cubeQuery.get(0).SigmaExpressions.size();i++){
-    		createSummarizeSubTask(i,cubeBase,this.cubeQuery.get(0));
-    		createBrothers(i,cubeBase,this.cubeQuery.get(0));
+    	for(int i=0;i<this.cubeQuery.get(1).SigmaExpressions.size();i++){
+    		createSummarizeSubTask(i,cubeBase,this.cubeQuery.get(1));
+    		createBrothers(i,cubeBase,this.cubeQuery.get(1));
     	}
     	printBorderLine();
     	printBorderLine();

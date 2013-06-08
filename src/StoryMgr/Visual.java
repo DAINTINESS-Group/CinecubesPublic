@@ -10,7 +10,7 @@ public abstract class  Visual {
 		
 	}
 	
-	abstract public void CreatePivotTable(TreeSet<String> RowPivot,TreeSet<String> ColPivot,String QueryResult[][]);
+	abstract public void CreatePivotTable(TreeSet<String> RowPivot,TreeSet<String> ColPivot,String QueryResult[][],String[] extraPivot);
 	abstract  public String[][] getPivotTable();
 	abstract  public void setPivotTable(String[][] pivotTable);
 	

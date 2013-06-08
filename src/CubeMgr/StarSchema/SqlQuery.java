@@ -58,7 +58,7 @@ public class SqlQuery extends ExtractionMethod {
     	String ret_value="";
     	
     	ret_value+=getGroupClause()+",";
-    	ret_value+= SelectClauseMeasure[0]+"("+SelectClauseMeasure[1]+") as measure";
+    	ret_value+= SelectClauseMeasure[0]+"("+SelectClauseMeasure[1]+") as measure,COUNT(*) as cnt";
     	return ret_value;
     }
        
@@ -86,7 +86,7 @@ public class SqlQuery extends ExtractionMethod {
     	return ret_value;
     }
     
-    public String getGroupClause(){
+    public String getGroupClause(){/*add this to play groupper=1 to select clause*/
     	String ret_value="";
     	int i=0;
     	
@@ -222,22 +222,29 @@ public class SqlQuery extends ExtractionMethod {
 		
 		/*Create groupClausse*/
 		for(String[] gammaExpr: cubeQuery.GammaExpressions){
-			for(int i=0;i<cubeQuery.referCube.Dim.size();i++){
-				Dimension dimension=cubeQuery.referCube.Dim.get(i);
-				if(dimension.name.equals(gammaExpr[0])){
-					String[] toadd=new String[1];
-					toadd[0]=dimension.getDimTbl().TblName+".";
-					ArrayList<Hierarchy> current_hierachy=dimension.getHier();
-					for(int k=0;k<current_hierachy.size();k++){//for each hierarchy of dimension
-						List<Level> current_lvls=current_hierachy.get(k).lvls;
-						for(int l=0;l<current_lvls.size();l++){
-							if(current_lvls.get(l).name.equals(gammaExpr[1])){
-								toadd[0]+=current_lvls.get(l).lvlAttributes.get(0).getAttribute().name;
+			if(gammaExpr[0].length()==0) {
+				String[] toadd=new String[1];
+				toadd[0]=gammaExpr[1];
+				this.GroupByClause.add(toadd);
+			}
+			else{
+				for(int i=0;i<cubeQuery.referCube.Dim.size();i++){
+					Dimension dimension=cubeQuery.referCube.Dim.get(i);
+					if(dimension.name.equals(gammaExpr[0])){
+						String[] toadd=new String[1];
+						toadd[0]=dimension.getDimTbl().TblName+".";
+						ArrayList<Hierarchy> current_hierachy=dimension.getHier();
+						for(int k=0;k<current_hierachy.size();k++){//for each hierarchy of dimension
+							List<Level> current_lvls=current_hierachy.get(k).lvls;
+							for(int l=0;l<current_lvls.size();l++){
+								if(current_lvls.get(l).name.equals(gammaExpr[1])){
+									toadd[0]+=current_lvls.get(l).lvlAttributes.get(0).getAttribute().name;
+								}
 							}
 						}
+						
+						this.GroupByClause.add(toadd);
 					}
-					
-					this.GroupByClause.add(toadd);
 				}
 			}
 		}

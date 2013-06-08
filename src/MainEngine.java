@@ -177,20 +177,18 @@ public class MainEngine {
         TskMgr.createNewTask(new TaskBrothers());
         StorMgr.addNewTaskToStory(TskMgr.getLastTask());
         if(cubequery==null) cubequery=DefaultCubeQuery();
-        TskMgr.getLastTask().cubeQuery.add(cubequery);
-        TskMgr.getLastTask().addNewSubTask();
-        
-        SqlQuery newSqlQuery=new SqlQuery();
-        newSqlQuery.produceExtractionMethod(TskMgr.getLastTask().cubeQuery.get(0));
-        TskMgr.getLastTask().getLastSubTask().setExtractionMethod(newSqlQuery);
-        TskMgr.getLastTask().getLastSubTask().execute(CubeManager.CBase.DB);
-        
-        
         
         TskMgr.getLastTask().addNewSubTask();
         TskMgr.getLastTask().getLastSubTask().setExtractionMethod(createCubeQueryStartOfActSlide(StorMgr.getStory().getLastAct(),1));
         TskMgr.getLastTask().getLastSubTask().execute(CubeManager.CBase.DB);
         
+        
+        TskMgr.getLastTask().addNewSubTask();
+        TskMgr.getLastTask().cubeQuery.add(cubequery);
+        SqlQuery newSqlQuery=new SqlQuery();
+        newSqlQuery.produceExtractionMethod(TskMgr.getLastTask().cubeQuery.get(1));
+        TskMgr.getLastTask().getLastSubTask().setExtractionMethod(newSqlQuery);
+        TskMgr.getLastTask().getLastSubTask().execute(CubeManager.CBase.DB);
         
         TskMgr.getLastTask().generateSubTasks(CubeManager.CBase);
         
@@ -212,16 +210,22 @@ public class MainEngine {
         StorMgr.getStory().createNewAct();
         TaskDrillIn tskdrillin=new TaskDrillIn();
         TskMgr.createNewTask(tskdrillin);
-        
-        TskMgr.getLastTask().cubeQuery.add(cubequery);
         StorMgr.addNewTaskToStory(TskMgr.getLastTask());
+        
         
         TskMgr.getLastTask().addNewSubTask();
         TskMgr.getLastTask().getLastSubTask().setExtractionMethod(createCubeQueryStartOfActSlide(StorMgr.getStory().getLastAct(),2));
         TskMgr.getLastTask().getLastSubTask().execute(CubeManager.CBase.DB);
         
+        TskMgr.getLastTask().addNewSubTask();
+        TskMgr.getLastTask().cubeQuery.add(cubequery);        
+        SqlQuery newSqlQuery2=new SqlQuery();
+        newSqlQuery2.produceExtractionMethod(TskMgr.getLastTask().cubeQuery.get(1));        
+        TskMgr.getLastTask().getLastSubTask().setExtractionMethod(newSqlQuery);
+        TskMgr.getLastTask().getLastSubTask().execute(CubeManager.CBase.DB);
+        TskMgr.getLastTask().cubeQuery.get(1).sqlQuery=newSqlQuery;
         TskMgr.getLastTask().generateSubTasks(CubeManager.CBase);
-        TskMgr.getLastTask().cubeQuery.remove(0);
+        
         SetupSlideEpisodes(StorMgr.getStory().getLastAct());
        
         StorMgr.getStory().setFinalResult(new PptxSlideshow());
@@ -294,13 +298,19 @@ public class MainEngine {
     	
     }
     
-    /* This Function Add Create Slide per ACT*/
+    /* This Function Add Create Slide per ACT
+     *  
+     * MAybe this Function to add in each Task!!
+     * 
+     */
     public void SetupSlideEpisodes(Act act){
     	//SqlQuery original=(SqlQuery)act.getTask().getSubTask(0).getExtractionMethod();
     	int timesIN=0;
     	System.out.println("Sum of subtasks:"+act.getTask().getSubTasks().size());
+    	SubTask origSubtsk=new SubTask();
     	for(int j=0;j<act.getTask().getSubTasks().size();j++){
     		SubTask subtsk=act.getTask().getSubTask(j);
+    		if(j==1) origSubtsk=act.getTask().getSubTask(j);
     		SqlQuery currentQuery=((SqlQuery)subtsk.getExtractionMethod());
 	        if((currentQuery.Res.getResultArray()!=null)){
 	        	timesIN++;
@@ -309,8 +319,15 @@ public class MainEngine {
 		        newSlide.Notes="SQL QUERY:\n"+subtsk.getExtractionMethod().toString()+"\n\nCUBE QUERY:\n"+act.getTask().cubeQuery.get(j).toString();
 		        
 		        Tabular tbl=new Tabular();
+		        String[] extraPivot=new String[2];
+		        extraPivot[0]="";
+		        extraPivot[1]="";
+		        if(subtsk.getDifferencesFromOrigin().size()>0 && (subtsk.getDifferencesFromOrigin().get(0)==-2 || subtsk.getDifferencesFromOrigin().get(0)==-3)){
+		        	extraPivot[0]=String.valueOf(subtsk.getDifferencesFromOrigin().get(0));
+		        	extraPivot[1]=origSubtsk.getExtractionMethod().Res.getRowPivot().toArray()[subtsk.getDifferencesFromOrigin().get(1)].toString();
+		        }
 		        tbl.CreatePivotTable(subtsk.getExtractionMethod().Res.getRowPivot(), subtsk.getExtractionMethod().Res.getColPivot(), 
-						subtsk.getExtractionMethod().Res.getResultArray());
+						subtsk.getExtractionMethod().Res.getResultArray(),extraPivot);
 		        newSlide.createVisual(tbl);
 		        
 		        newSlide.setAudioFile("audio/"+AudioMgr.randomIdentifier());
@@ -322,19 +339,19 @@ public class MainEngine {
 		        }
 		        else if(subtsk.getDifferencesFromOrigin().get(0)==-1){
 		        	newSlide.Title="Summarized Slide for field : ";
-		        	newSlide.Title+=act.getTask().cubeQuery.get(0).GammaExpressions.get(subtsk.getDifferenceFromOrigin(1))[0];
+		        	newSlide.Title+=act.getTask().cubeQuery.get(1).GammaExpressions.get(subtsk.getDifferenceFromOrigin(1))[0];
 		        }
 		        else if(subtsk.getDifferencesFromOrigin().get(0)==-2){
-		        	newSlide.Title="Drill In Slide For Min";
+		        	newSlide.Title="Drill In Slide For Row "+String.valueOf(j-1)+" of Original";
 		        }
 		        else if(subtsk.getDifferencesFromOrigin().get(0)==-3){
-		        	newSlide.Title="Drill In Slide For Max";
+		        	newSlide.Title="Drill In Slide For "+String.valueOf(j-1)+" of Original";
 		        }
 		        else {
 		        	newSlide.Title="The ~ which changed @ : ";
 		        	for(int i=0;i<subtsk.getDifferencesFromOrigin().size();i++){
 			        	if(i>0) newSlide.Title+=" AND ";
-			        	newSlide.Title+=act.getTask().cubeQuery.get(0).GammaExpressions.get(subtsk.getDifferenceFromOrigin(i))[0];
+			        	newSlide.Title+=act.getTask().cubeQuery.get(1).GammaExpressions.get(subtsk.getDifferenceFromOrigin(i))[0];
 			        }
 		        	String text_cond="Conditions";
 			        String text_are="are";

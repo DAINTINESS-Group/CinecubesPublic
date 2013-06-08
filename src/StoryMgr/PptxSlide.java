@@ -1,5 +1,6 @@
 package StoryMgr;
 import AudioMgr.Audio;
+import HighlightMgr.PptxHighlight;
 import TaskMgr.SubTask;
 
 public class PptxSlide extends Episode {
@@ -19,9 +20,9 @@ public class PptxSlide extends Episode {
 	
 	public void createHighlight(){
 		this.highlight=new PptxHighlight();
-		((PptxHighlight)highlight).findMax(this.visual.PivotTable);
+		/*((PptxHighlight)highlight).findMax(this.visual.PivotTable);
 		((PptxHighlight)highlight).findMin(this.visual.PivotTable);
-		((PptxHighlight)highlight).findMedian(this.visual.PivotTable);
+		((PptxHighlight)highlight).findMedian(this.visual.PivotTable);*/
 	}
 	
 	@Override

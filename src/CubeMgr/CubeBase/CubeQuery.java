@@ -38,7 +38,8 @@ public class CubeQuery extends Cube {
     	ret_value+="Gamma Expression: ";
     	for(int i=0;i<GammaExpressions.size();i++){
     		if(i>0) ret_value+=" , ";
-    		ret_value+=GammaExpressions.get(i)[0]+"."+GammaExpressions.get(i)[1];
+    		if(GammaExpressions.get(i)[0].length() > 0) ret_value+=GammaExpressions.get(i)[0]+".";
+    		ret_value+=GammaExpressions.get(i)[1];
     	}
     	
     	ret_value+="\nSigma Expression: ";
