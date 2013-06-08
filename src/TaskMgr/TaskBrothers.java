@@ -13,6 +13,7 @@ import CubeMgr.CubeBase.Level;
 import CubeMgr.StarSchema.Attribute;
 import CubeMgr.StarSchema.Database;
 import CubeMgr.StarSchema.SqlQuery;
+import HighlightMgr.HighlightTable;
 
 public class TaskBrothers extends Task {
 
@@ -59,6 +60,16 @@ public class TaskBrothers extends Task {
     	for(int i=0;i<this.cubeQuery.get(1).SigmaExpressions.size();i++){
     		createSummarizeSubTask(i,cubeBase,this.cubeQuery.get(1));
     		createBrothers(i,cubeBase,this.cubeQuery.get(1));
+    	}
+    	
+    	for(int i=1;i<this.subTasks.size();i++){
+    		SubTask sbtk=this.subTasks.get(i);
+	    	String[][] current=sbtk.getExtractionMethod().Res.getResultArray();
+	    	HighlightTable hltbl=new HighlightTable();
+	    	this.highlights.add(hltbl);
+	    	hltbl.createMinHightlight(current);
+	    	hltbl.createMaxHightlight(current);
+	    	hltbl.createMiddleHightlight(current);
     	}
     	printBorderLine();
     	printBorderLine();

@@ -12,6 +12,7 @@ import CubeMgr.CubeBase.BasicStoredCube;
 import CubeMgr.CubeBase.CubeQuery;
 import CubeMgr.CubeBase.Measure;
 import CubeMgr.StarSchema.SqlQuery;
+import HighlightMgr.HighlightTable;
 import ParserMgr.ParserManager;
 import StoryMgr.Act;
 import StoryMgr.PptxSlideshow;
@@ -230,8 +231,7 @@ public class MainEngine {
        
         StorMgr.getStory().setFinalResult(new PptxSlideshow());
         StorMgr.getStory().getFinalResult().setFilename("ppt/"+cubequery.name+".pptx");
-        
-        
+                
         WrapUp=new PptxWrapUpMgr();
         WrapUp.setFinalResult(StorMgr.getStory().getFinalResult());
         WrapUp.doWrapUp(StorMgr.getStory());
@@ -300,7 +300,7 @@ public class MainEngine {
     
     /* This Function Add Create Slide per ACT
      *  
-     * MAybe this Function to add in each Task!!
+     * Maybe this Function to add in each Task!!
      * 
      */
     public void SetupSlideEpisodes(Act act){
@@ -328,6 +328,7 @@ public class MainEngine {
 		        }
 		        tbl.CreatePivotTable(subtsk.getExtractionMethod().Res.getRowPivot(), subtsk.getExtractionMethod().Res.getColPivot(), 
 						subtsk.getExtractionMethod().Res.getResultArray(),extraPivot);
+		        if(j>0 && act.getTask().highlights.size()>0) tbl.setColorTable((HighlightTable) act.getTask().highlights.get(j-1));
 		        newSlide.createVisual(tbl);
 		        
 		        newSlide.setAudioFile("audio/"+AudioMgr.randomIdentifier());

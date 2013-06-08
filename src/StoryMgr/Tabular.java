@@ -1,9 +1,14 @@
 package StoryMgr;
 
+import java.awt.Color;
 import java.text.DecimalFormat;
 import java.util.TreeSet;
 
+import HighlightMgr.HighlightTable;
+
 public class Tabular extends Visual {
+	
+	public Color[][] colortable;
 	
 	public Tabular() {
 		super();
@@ -78,6 +83,21 @@ public class Tabular extends Visual {
     	return true;
     }
     
+    public void setColorTable(HighlightTable highlight){
+    	colortable=new Color[this.PivotTable.length][this.PivotTable[0].length];
+    	Color other=new Color(127,127,127);
+    	for(int i=0;i<colortable.length;i++){
+    		for(int j=0;j<colortable[i].length;j++){
+    			if(tryParseFloat(this.PivotTable[i][j])){
+    				if(highlight.minValues.contains(Float.parseFloat(this.PivotTable[i][j]))) colortable[i][j]=highlight.mincolor;
+    				else if(highlight.maxValues.contains(Float.parseFloat(this.PivotTable[i][j]))) colortable[i][j]=highlight.mincolor;
+    				else if(highlight.minValues.contains(Float.parseFloat(this.PivotTable[i][j]))) colortable[i][j]=highlight.middlecolor;
+    			}
+    			else colortable[i][j]=other;
+    		}
+    	}
+    }
+    
 	@Override
 	public String[][] getPivotTable() {
 		return this.PivotTable;
@@ -87,4 +107,5 @@ public class Tabular extends Visual {
 	public void setPivotTable(String[][] pivotTable) {
 		this.PivotTable=pivotTable;
 	}
+	
 }

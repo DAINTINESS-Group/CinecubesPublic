@@ -26,7 +26,6 @@ import org.apache.poi.xslf.usermodel.SlideLayout;
 import org.apache.poi.xslf.usermodel.TextAlign;
 import org.apache.poi.xslf.usermodel.VerticalAlignment;
 import org.apache.poi.xslf.usermodel.XMLSlideShow;
-import org.apache.poi.xslf.usermodel.XSLFBackground;
 import org.apache.poi.xslf.usermodel.XSLFSlide;
 import org.apache.poi.xslf.usermodel.XSLFSlideLayout;
 import org.apache.poi.xslf.usermodel.XSLFSlideMaster;
@@ -37,13 +36,13 @@ import org.apache.poi.xslf.usermodel.XSLFTextParagraph;
 import org.apache.poi.xslf.usermodel.XSLFTextRun;
 import org.apache.poi.xslf.usermodel.XSLFTextShape;
 import org.apache.xmlbeans.XmlObject;
-import org.openxmlformats.schemas.drawingml.x2006.main.CTScRgbColor;
 
 import HighlightMgr.PptxHighlight;
 import StoryMgr.Act;
 import StoryMgr.FinalResult;
 import StoryMgr.Story;
 import StoryMgr.PptxSlide;
+import StoryMgr.Tabular;
 
 public class PptxWrapUpMgr extends WrapUpMgr {
 
@@ -82,8 +81,11 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 			for(int j=0;j<actItem.getEpisodes().size();j++){
 				SlideXml[j+slide_so_far_created]="";
 				PptxSlide slide=(PptxSlide)actItem.getEpisodes().get(j);
-				if(slide.Title.contains("Act")) XSLFcreateSlide(null,null,slide.Title,j+slide_so_far_created+2,null,null,null);
-				else XSLFcreateSlide(slide.getVisual().getPivotTable(),slide.getAudio().getFileName(),slide.Title,j+slide_so_far_created+2,slide.TitleColumn,slide.TitleRow,(PptxHighlight)slide.highlight);
+				if(slide.Title.contains("Act")) XSLFcreateSlide(null,null,null,slide.Title,j+slide_so_far_created+2,null,null,null);
+				else {
+					Tabular tmp_tbl=((Tabular)slide.getVisual());
+					XSLFcreateSlide(slide.getVisual().getPivotTable(),tmp_tbl.colortable,slide.getAudio().getFileName(),slide.Title,j+slide_so_far_created+2,slide.TitleColumn,slide.TitleRow,(PptxHighlight)slide.highlight);
+				}
 			}
 			slide_so_far_created+=actItem.getEpisodes().size();
 		}
@@ -119,7 +121,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
         RenameZiptoPPTX();
 	}
 	
-	public void XSLFcreateSlide(String[][] table,String AudioFilename,String Title,int slideid, String titleColumn, String titleRow,PptxHighlight highlight){
+	public void XSLFcreateSlide(String[][] table, Color[][] colorTable,String AudioFilename,String Title,int slideid, String titleColumn, String titleRow,PptxHighlight highlight){
 		XSLFSlideLayout titleLayout = defaultMaster.getLayout(SlideLayout.TITLE_ONLY); 
         XSLFSlide slide;
        
@@ -142,7 +144,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 	        PackageRelationship addRelationship= slide.getPackagePart().addRelationship(uri, TargetMode.INTERNAL, NotesRelationShip);
 	        slide.addRelation(addRelationship.getId(), slide); 
         
-        	CreateTableInSlide(slide, slideShowPPTX.getPageSize(),table,titleColumn,titleRow,highlight);
+        	CreateTableInSlide(slide, slideShowPPTX.getPageSize(),table,colorTable,titleColumn,titleRow,highlight);
         	this.setTitle(slide, Title, new Rectangle2D.Double(100, 25,slideShowPPTX.getPageSize().width-200,20),16.0,true);
         }
         else {
@@ -162,7 +164,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
      *  rId4 -->IMAGE relationship ID
      *
      */
-     private XSLFTable CreateTableInSlide(XSLFSlide slide,java.awt.Dimension pgsize,String[][] table, String titleColumn, String titleRow,PptxHighlight highlight){
+     private XSLFTable CreateTableInSlide(XSLFSlide slide,java.awt.Dimension pgsize,String[][] table, Color[][] colorTable,String titleColumn, String titleRow,PptxHighlight highlight){
          
        int pgx = pgsize.width; //slide width
        int toColorDarkGray=0;
@@ -180,12 +182,19 @@ public class PptxWrapUpMgr extends WrapUpMgr {
               p.setTextAlign(TextAlign.CENTER);
               r.setFontFamily("Calibri");             
               r.setFontSize(13);
-                            
+              try{
+            	  if(colorTable!=null && colorTable.length>0) r.setFontColor(colorTable[i][j]);
+              }
+              catch (Exception e) {
+            	  System.err.print("i: "); System.err.print(i);
+            	  System.err.print(",j: "); System.err.print(j);
+            	System.err.println();
+              }
               r.setText(table[i][j]);
-             
+              
               cell.setVerticalAlignment(VerticalAlignment.MIDDLE);
               
-              if((i==0 || j==toColorDarkGray) && !(i==0 && j==toColorDarkGray)) {
+             /* if((i==0 || j==toColorDarkGray) && !(i==0 && j==toColorDarkGray)) {
             	  r.setFontColor(new Color(127,127,127));
              }
              if(toColorDarkGray==1 && i==0 && j==0) {
@@ -198,7 +207,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
               }
              if(i==0){
             	 tbl.setColumnWidth(j, 90);
-             }
+             }*/
              if(i!=0 && j!=0 && table[i][j]!="-" && !table[i][j].equals("measure")){
             	/* if(highlight.max==Float.parseFloat(table[i][j])) r.setFontColor(Color.red);
             	 if(highlight.min==Float.parseFloat(table[i][j])) r.setFontColor(Color.green);
