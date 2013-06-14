@@ -6,6 +6,7 @@ import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 import com.sun.speech.freetts.audio.SingleFileAudioPlayer;
 
+
 public class FreeTTSAudioEngine extends AudioEngine {
 
     private String voiceName;
@@ -28,12 +29,13 @@ public class FreeTTSAudioEngine extends AudioEngine {
 	public void InitializeVoiceEngine() {
         voiceName = "kevin16"; // the only usable general purpose voice
         
-       //System.setProperty("mbrola.base", "D:/workspace/Master/libs/mbrola/Voices2/") ;
-        //listAllVoices();
+        
         System.setProperty("com.sun.speech.freetts.voice.defaultAudioPlayer", "com.sun.speech.freetts.audio.SingleFileAudioPlayer");
+               
         voiceManager= VoiceManager.getInstance();
+        
         voice = voiceManager.getVoice(voiceName);
-        voice.allocate();
+        voice.allocate();        
 	}
 	
 	public static void listAllVoices() {  

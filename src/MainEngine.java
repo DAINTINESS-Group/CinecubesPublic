@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ import TaskMgr.TaskBrothers;
 import TaskMgr.TaskDrillIn;
 import TaskMgr.TaskMgr;
 import TextMgr.TextExtraction;
+import TextMgr.TextExtractionPPTX;
 import WrapUpMgr.PptxWrapUpMgr;
 import WrapUpMgr.WrapUpMgr;
 
@@ -171,6 +173,7 @@ public class MainEngine {
     }
     
     public void newRequestCubeQuery(CubeQuery cubequery){
+    	this.TxtMgr=new TextExtractionPPTX();
     	StorMgr.createStory();
         /*StorMgr.createStoryOriginalRequest();*/
     	StorMgr.getStory().createNewAct();
@@ -306,70 +309,127 @@ public class MainEngine {
     public void SetupSlideEpisodes(Act act){
     	//SqlQuery original=(SqlQuery)act.getTask().getSubTask(0).getExtractionMethod();
     	int timesIN=0;
-    	System.out.println("Sum of subtasks:"+act.getTask().getSubTasks().size());
-    	SubTask origSubtsk=new SubTask();
-    	for(int j=0;j<act.getTask().getSubTasks().size();j++){
+    	System.out.println("Sum of subtasks:"+act.getTask().getNumSubTasks());
+    	SubTask origSubtsk=new SubTask();   
+    	CubeQuery origCubeQuery = null;
+    	for(int j=0;j<act.getTask().getNumSubTasks();j++){
     		SubTask subtsk=act.getTask().getSubTask(j);
-    		if(j==1) origSubtsk=act.getTask().getSubTask(j);
-    		SqlQuery currentQuery=((SqlQuery)subtsk.getExtractionMethod());
-	        if((currentQuery.Res.getResultArray()!=null)){
+    		if(j==1) {
+    			origSubtsk=act.getTask().getSubTask(j);
+    			origCubeQuery=act.getTask().cubeQuery.get(j);
+    		}
+    		SqlQuery currentSqlQuery=((SqlQuery)subtsk.getExtractionMethod());
+    		CubeQuery currentCubeQuery=act.getTask().cubeQuery.get(j);
+	        if((currentSqlQuery.Res.getResultArray()!=null)){
 	        	timesIN++;
 	        	PptxSlide newSlide=new PptxSlide();
 		        newSlide.setSubTask(subtsk);
-		        newSlide.Notes="SQL QUERY:\n"+subtsk.getExtractionMethod().toString()+"\n\nCUBE QUERY:\n"+act.getTask().cubeQuery.get(j).toString();
+		        newSlide.Notes="SQL QUERY:\n"+subtsk.getExtractionMethod().toString()+"\n\nCUBE QUERY:\n"+currentCubeQuery.toString();
 		        
 		        Tabular tbl=new Tabular();
 		        String[] extraPivot=new String[2];
 		        extraPivot[0]="";
 		        extraPivot[1]="";
+		        
 		        if(subtsk.getDifferencesFromOrigin().size()>0 && (subtsk.getDifferencesFromOrigin().get(0)==-2 || subtsk.getDifferencesFromOrigin().get(0)==-3)){
 		        	extraPivot[0]=String.valueOf(subtsk.getDifferencesFromOrigin().get(0));
 		        	extraPivot[1]=origSubtsk.getExtractionMethod().Res.getRowPivot().toArray()[subtsk.getDifferencesFromOrigin().get(1)].toString();
+		        }/*to delete if*/
+		        
+		        if(subtsk.getDifferencesFromOrigin().size()>0 && subtsk.getDifferencesFromOrigin().get(0)==-4){
+		        	extraPivot[0]=String.valueOf(subtsk.getDifferencesFromOrigin().get(0));
+		        	extraPivot[1]=origSubtsk.getExtractionMethod().Res.getRowPivot().toArray()[subtsk.getDifferencesFromOrigin().get(1)].toString();
 		        }
+		        if(subtsk.getDifferencesFromOrigin().size()>0 && subtsk.getDifferencesFromOrigin().get(0)==-5){
+		        	extraPivot[0]=String.valueOf(subtsk.getDifferencesFromOrigin().get(0));
+		        	extraPivot[1]=origSubtsk.getExtractionMethod().Res.getColPivot().toArray()[subtsk.getDifferencesFromOrigin().get(1)].toString();
+		        }
+		       
 		        tbl.CreatePivotTable(subtsk.getExtractionMethod().Res.getRowPivot(), subtsk.getExtractionMethod().Res.getColPivot(), 
 						subtsk.getExtractionMethod().Res.getResultArray(),extraPivot);
 		        if(j>0 && act.getTask().highlights.size()>0) tbl.setColorTable((HighlightTable) act.getTask().highlights.get(j-1));
-		        newSlide.createVisual(tbl);
 		        
-		        newSlide.setAudioFile("audio/"+AudioMgr.randomIdentifier());
-		        newSlide.createHighlight();
-		        newSlide.TitleColumn=new String(currentQuery.Res.TitleOfColumns);
-		        newSlide.TitleRow=new String(currentQuery.Res.TitleOfRows);
-		        if(subtsk.getDifferencesFromOrigin().size()==0){
-		        	newSlide.Title="Original";
+		        if(subtsk.getDifferencesFromOrigin().size()>0 && (subtsk.getDifferencesFromOrigin().get(0)==-4 || subtsk.getDifferencesFromOrigin().get(0)==-5)&& subtsk.getDifferencesFromOrigin().get(1)>0){
+		        	/*the code above to be function*/
+		        	PptxSlide tmpSlide=(PptxSlide)StorMgr.getStory().getLastAct().getEpisode(StorMgr.getStory().getLastAct().getNumEpisodes()-1);
+		        	String [][] SlideTable=tmpSlide.getVisual().getPivotTable();
+		        	Color [][] colorTable=((Tabular)tmpSlide.getVisual()).colortable;
+		        	String [][] currentTable=tbl.getPivotTable();
+		        	Color [][] currentColorTable=tbl.colortable;
+		        	String [][] newTable;
+		        	Color[][] newColorTable;
+		        	int col_width=SlideTable[0].length;
+		        	int rows_width=SlideTable.length+currentTable.length;
+		        	if(SlideTable[0].length<currentTable[0].length) col_width=currentTable[0].length;
+		        	
+		        	newTable=new String[rows_width+1][col_width];
+		        	newColorTable=new Color[rows_width+1][col_width];
+		        	
+		        	System.arraycopy(SlideTable, 0, newTable, 0, SlideTable.length);
+		        	System.arraycopy(colorTable, 0, newColorTable, 0, colorTable.length);
+		        	
+		        	for(int cols_index=0;cols_index<col_width;cols_index++) {
+		        		newTable[SlideTable.length][cols_index]="";
+		        		newColorTable[colorTable.length][cols_index]=Color.black;
+		        	}
+		        	
+		        	System.arraycopy(currentTable,0,newTable,SlideTable.length+1,currentTable.length);
+		        	System.arraycopy(currentColorTable,0,newColorTable,colorTable.length+1,currentColorTable.length);
+		        	tmpSlide.getVisual().setPivotTable(newTable);
+		        	((Tabular)tmpSlide.getVisual()).colortable=newColorTable;
 		        }
-		        else if(subtsk.getDifferencesFromOrigin().get(0)==-1){
-		        	newSlide.Title="Summarized Slide for field : ";
-		        	newSlide.Title+=act.getTask().cubeQuery.get(1).GammaExpressions.get(subtsk.getDifferenceFromOrigin(1))[0];
-		        }
-		        else if(subtsk.getDifferencesFromOrigin().get(0)==-2){
-		        	newSlide.Title="Drill In Slide For Row "+String.valueOf(j-1)+" of Original";
-		        }
-		        else if(subtsk.getDifferencesFromOrigin().get(0)==-3){
-		        	newSlide.Title="Drill In Slide For "+String.valueOf(j-1)+" of Original";
-		        }
-		        else {
-		        	newSlide.Title="The ~ which changed @ : ";
-		        	for(int i=0;i<subtsk.getDifferencesFromOrigin().size();i++){
-			        	if(i>0) newSlide.Title+=" AND ";
-			        	newSlide.Title+=act.getTask().cubeQuery.get(1).GammaExpressions.get(subtsk.getDifferenceFromOrigin(i))[0];
+		        else{
+			        newSlide.createVisual(tbl);
+			        
+			        newSlide.setAudioFile("audio/"+AudioMgr.randomIdentifier());
+			        newSlide.createHighlight();
+			        newSlide.TitleColumn=new String(currentSqlQuery.Res.TitleOfColumns);
+			        newSlide.TitleRow=new String(currentSqlQuery.Res.TitleOfRows);
+			        if(subtsk.getDifferencesFromOrigin().size()==0){
+			        	newSlide.Title="Original";
+			        	newSlide.Notes=((TextExtractionPPTX)this.TxtMgr).createTextForOriginal(currentCubeQuery.GammaExpressions, currentCubeQuery.SigmaExpressions, currentSqlQuery.Res.getResultArray(),(HighlightTable) act.getTask().highlights.get(j-1));
 			        }
-		        	String text_cond="Conditions";
-			        String text_are="are";
-			        if(subtsk.getDifferencesFromOrigin().size()==1){
-			        	text_cond="Condition";
-			        	text_are="is";
+			        else if(subtsk.getDifferencesFromOrigin().get(0)==-1){
+			        	newSlide.Title="Summarized Slide for field : ";
+			        	newSlide.Title+=act.getTask().cubeQuery.get(1).GammaExpressions.get(subtsk.getDifferenceFromOrigin(1))[0];
+			        	newSlide.getVisual().getPivotTable()[0][0]=" Summary for "+act.getTask().cubeQuery.get(1).GammaExpressions.get(subtsk.getDifferenceFromOrigin(1))[0].split("_")[0];
+			        	newSlide.Notes=((TextExtractionPPTX)this.TxtMgr).createTextForAct1(origCubeQuery.GammaExpressions,origCubeQuery.SigmaExpressions,currentCubeQuery.SigmaExpressions,currentSqlQuery.Res.getResultArray(),(HighlightTable) act.getTask().highlights.get(j-1),subtsk.getDifferenceFromOrigin(1),currentCubeQuery.AggregateFunction,currentCubeQuery.Msr.get(0).name);
 			        }
-		        	newSlide.Title=newSlide.Title.replace("~", text_cond).replace("@", text_are);
+			        else if(subtsk.getDifferencesFromOrigin().get(0)==-2){
+			        	newSlide.Title="Drill In Slide For Row "+String.valueOf(j-1)+" of Original";
+			        }
+			        else if(subtsk.getDifferencesFromOrigin().get(0)==-3){
+			        	newSlide.Title="Drill In Slide For Row "+String.valueOf(j-1)+" of Original";
+			        }
+			        else if(subtsk.getDifferencesFromOrigin().get(0)==-4){
+			        	newSlide.Title="Drill In Slide For Rows of Original";
+			        }
+			        else if(subtsk.getDifferencesFromOrigin().get(0)==-5){
+			        	newSlide.Title="Drill In Slide For Columns of Original";
+			        }
+			        else {
+			        	newSlide.Title="The ~ which changed @ : ";
+			        	for(int i=0;i<subtsk.getDifferencesFromOrigin().size();i++){
+				        	if(i>0) newSlide.Title+=" AND ";
+				        	newSlide.Title+=act.getTask().cubeQuery.get(1).GammaExpressions.get(subtsk.getDifferenceFromOrigin(i))[0];
+				        }
+			        	String text_cond="Conditions";
+				        String text_are="are";
+				        if(subtsk.getDifferencesFromOrigin().size()==1){
+				        	text_cond="Condition";
+				        	text_are="is";
+				        }
+			        	newSlide.Title=newSlide.Title.replace("~", text_cond).replace("@", text_are);
+			        }
+			       // newSlide.Title+="\n At columns are "+newSlide.TitleColumn+" and at rows are "+newSlide.TitleRow;
+			        AudioMgr.CreateSound("Text to Create", newSlide.getAudio().getFileName());
+			        StorMgr.getStory().getLastAct().addEpisode(newSlide);
 		        }
-		       // newSlide.Title+="\n At columns are "+newSlide.TitleColumn+" and at rows are "+newSlide.TitleRow;
-		        AudioMgr.CreateSound("Text to Create", newSlide.getAudio().getFileName());
-		        StorMgr.getStory().getLastAct().addEpisode(newSlide);
 	        }
-	        else if(currentQuery.Res.TitleOfColumns!=null && currentQuery.Res.TitleOfColumns.contains("Act")) {
+	        else if(currentSqlQuery.Res.TitleOfColumns!=null && currentSqlQuery.Res.TitleOfColumns.contains("Act")) {
 	        	PptxSlide newSlide=new PptxSlide();
 		        newSlide.setSubTask(subtsk);
-	        	newSlide.Title=currentQuery.Res.TitleOfColumns;
+	        	newSlide.Title=currentSqlQuery.Res.TitleOfColumns;
 	        	StorMgr.getStory().getLastAct().addEpisode(newSlide);	        	
 	        }
     	}

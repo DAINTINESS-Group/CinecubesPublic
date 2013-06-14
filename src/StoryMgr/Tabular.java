@@ -30,7 +30,7 @@ public class Tabular extends Visual {
         int col=0;
         
         if(extraPivot[0].equals("-2") || extraPivot[0].equals("-3")) col=1;
-        
+        if(extraPivot[0].equals("-4") || extraPivot[0].equals("-5")) col=1;
     	this.PivotTable=new String[RowPivot.size()+1][ColPivot.size()+1+col];
         this.PivotTable[0][0]="";
         if(col==1){
@@ -85,13 +85,15 @@ public class Tabular extends Visual {
     
     public void setColorTable(HighlightTable highlight){
     	colortable=new Color[this.PivotTable.length][this.PivotTable[0].length];
-    	Color other=new Color(127,127,127);
+    	Color other=Color.black;
     	for(int i=0;i<colortable.length;i++){
     		for(int j=0;j<colortable[i].length;j++){
-    			if(tryParseFloat(this.PivotTable[i][j])){
-    				if(highlight.minValues.contains(Float.parseFloat(this.PivotTable[i][j]))) colortable[i][j]=highlight.mincolor;
-    				else if(highlight.maxValues.contains(Float.parseFloat(this.PivotTable[i][j]))) colortable[i][j]=highlight.mincolor;
-    				else if(highlight.minValues.contains(Float.parseFloat(this.PivotTable[i][j]))) colortable[i][j]=highlight.middlecolor;
+    			String tmp_pivot_value=this.PivotTable[i][j].split(" ")[0];
+    			if(tryParseFloat(tmp_pivot_value)){
+    				if(highlight.minValues.contains(tmp_pivot_value)) colortable[i][j]=highlight.mincolor;
+    				else if(highlight.maxValues.contains(tmp_pivot_value)) colortable[i][j]=highlight.maxcolor;
+    				else if(highlight.middleValues.contains(tmp_pivot_value)) colortable[i][j]=highlight.middlecolor;
+    				else colortable[i][j]=other;
     			}
     			else colortable[i][j]=other;
     		}

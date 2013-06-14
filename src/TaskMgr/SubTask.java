@@ -38,7 +38,6 @@ public class SubTask {
 		extractionMethod = ExtractionMeth;
 	}
 	
-
 	/**
 	 * @return the differencesCondition
 	 */

@@ -109,7 +109,6 @@ public class PptxWrapUpMgr extends WrapUpMgr {
         for(Act actItem : story.getActs()){
 			for(int j=0;j<actItem.getEpisodes().size();j++){
 				PptxSlide slide=(PptxSlide)actItem.getEpisodes().get(j);
-				//System.out.println("Slide Num:"+(j+1)+"=>"+slide.Title);
 				if(slide.Title.contains("Act")) AddAudiotoPPTX(j+slide_so_far_created+2,null,null);
 				else AddAudiotoPPTX(j+slide_so_far_created+2,slide.getAudio().getFileName(),slide.Notes);
 			}
@@ -124,12 +123,12 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 	public void XSLFcreateSlide(String[][] table, Color[][] colorTable,String AudioFilename,String Title,int slideid, String titleColumn, String titleRow,PptxHighlight highlight){
 		XSLFSlideLayout titleLayout = defaultMaster.getLayout(SlideLayout.TITLE_ONLY); 
         XSLFSlide slide;
-       
         
         String NotesRelationShip="http://schemas.openxmlformats.org/officeDocument/2006/relationships/notesSlide";
         if(table!=null) {
         	slide=slideShowPPTX.createSlide(titleLayout);
-        	slide.setFollowMasterGraphics(false);
+        	slide.setFollowMasterGraphics(true);
+        	//slide.getBackground().setFillColor(Color.black);
         	
         	//XSLFBackground background = slide.getBackground();
         	//background.
@@ -166,17 +165,16 @@ public class PptxWrapUpMgr extends WrapUpMgr {
      */
      private XSLFTable CreateTableInSlide(XSLFSlide slide,java.awt.Dimension pgsize,String[][] table, Color[][] colorTable,String titleColumn, String titleRow,PptxHighlight highlight){
          
-       int pgx = pgsize.width; //slide width
+       int page_width = pgsize.width; //slide width
        int toColorDarkGray=0;
        XSLFTable tbl=slide.createTable();
-       
-       if(table[0][0].length()>0) toColorDarkGray=1;     
+       Color other=Color.black;
+       if(table[0][0].length()>0 && table[1][0].length()==0) toColorDarkGray=1;     
        for(int i=0;i<table.length;i++){
            XSLFTableRow addRow = tbl.addRow();
            
            for(int j=0;j<table[i].length;j++){
               XSLFTableCell cell = addRow.addCell();
-             
               XSLFTextParagraph p = cell.addNewTextParagraph();
               XSLFTextRun r = p.addNewTextRun();
               p.setTextAlign(TextAlign.CENTER);
@@ -188,37 +186,25 @@ public class PptxWrapUpMgr extends WrapUpMgr {
               catch (Exception e) {
             	  System.err.print("i: "); System.err.print(i);
             	  System.err.print(",j: "); System.err.print(j);
-            	System.err.println();
+            	  System.err.println();
               }
               r.setText(table[i][j]);
               
-              cell.setVerticalAlignment(VerticalAlignment.MIDDLE);
+              if(table[i][j].equals("")) cell.setVerticalAlignment(VerticalAlignment.MIDDLE);
               
-             /* if((i==0 || j==toColorDarkGray) && !(i==0 && j==toColorDarkGray)) {
-            	  r.setFontColor(new Color(127,127,127));
+              if((i==0 || j==toColorDarkGray) && !(i==0 && j==toColorDarkGray)) {
+            	  r.setFontColor(other);
              }
-             if(toColorDarkGray==1 && i==0 && j==0) {
+              if(toColorDarkGray==1 && j==0) {
             	 r.setItalic(true);
-            	 r.setFontColor(Color.DARK_GRAY);
+            	 r.setFontColor(Color.black);
              }
-            
-             if((j==0) && i!=0) {
-            	 p.setTextAlign(TextAlign.RIGHT);
-              }
-             if(i==0){
-            	 tbl.setColumnWidth(j, 90);
-             }*/
-             if(i!=0 && j!=0 && table[i][j]!="-" && !table[i][j].equals("measure")){
-            	/* if(highlight.max==Float.parseFloat(table[i][j])) r.setFontColor(Color.red);
-            	 if(highlight.min==Float.parseFloat(table[i][j])) r.setFontColor(Color.green);
-            	 if(highlight.mean[0]!=null && highlight.mean[0]==Float.parseFloat(table[i][j])) r.setFontColor(Color.gray);
-            	 if(highlight.mean[1]!=null && highlight.mean[1]==Float.parseFloat(table[i][j])) r.setFontColor(Color.gray);*/
-             }
+             if((j==0 && i>0 )|| (j==1 && toColorDarkGray==1)) p.setTextAlign(TextAlign.RIGHT); 
            }
        }
-       int width_table=(table[0].length)*90;
-              
-       tbl.setAnchor(new Rectangle2D.Double(((pgx-width_table)/2), 100,100,100));
+       double table_width=0;
+       for(int k=0;k<tbl.getNumberOfColumns();k++) table_width+=tbl.getColumnWidth(k);      
+       tbl.setAnchor(new Rectangle2D.Double(((page_width/2)-table_width/2), 100,100,100));
        return tbl;
      }
      
@@ -251,7 +237,9 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 	            
 	            
 	            String test="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"+xmlObject.toString().replace("main1","a").replace("<main", "<p").replace("</main", "</p").replace(":main=",":p=").replace("rel=","r=").replace("rel:","r:").replace("xml-fragment", "p:sld").replace("</p:spTree>",SoundNode+"</p:spTree>");
+	            test=test.replace("<p:cSld>","<p:cSld>"+setBackroundToSlide());
 	            SlideXml[slideid-2]=test.replace("</p:sld>", AutoSlideShow()+TimingNode()+"</p:sld>").replace("<p:sld ", "<p:sld xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" ");
+	            
     	   }
     	   else{
     		   String test="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"+xmlObject.toString().replace("main1","a").replace("<main", "<p").replace("</main", "</p").replace(":main=",":p=").replace("rel=","r=").replace("rel:","r:").replace("xml-fragment", "p:sld");
@@ -263,6 +251,19 @@ public class PptxWrapUpMgr extends WrapUpMgr {
         } catch (Exception ex) {
         	System.out.println(ex.getMessage());
         }
+     }
+     
+     String setBackroundToSlide(){
+    	 String color_in_hex="EBE9E9";
+    	 String backgroundNode="	<p:bg>" +
+    	 		"			<p:bgPr>" +
+    	 		"				<a:solidFill>" +
+    	 		"					<a:srgbClr val=\""+color_in_hex+"\"/>" +
+    	 		"				</a:solidFill>" +
+    	 		"				<a:effectLst/>" +
+    	 		"			</p:bgPr>" +
+    	 		"		</p:bg>";
+    	 return backgroundNode;
      }
      
      private String SoundNodeString(String rId1,String rId2,String rId4,String AudioFilename){

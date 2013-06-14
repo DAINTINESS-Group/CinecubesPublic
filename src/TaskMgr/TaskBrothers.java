@@ -63,7 +63,7 @@ public class TaskBrothers extends Task {
     	}
     	
     	for(int i=1;i<this.subTasks.size();i++){
-    		SubTask sbtk=this.subTasks.get(i);
+    		SubTask sbtk=this.getSubTask(i);
 	    	String[][] current=sbtk.getExtractionMethod().Res.getResultArray();
 	    	HighlightTable hltbl=new HighlightTable();
 	    	this.highlights.add(hltbl);
