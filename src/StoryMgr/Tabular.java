@@ -9,10 +9,13 @@ import HighlightMgr.HighlightTable;
 public class Tabular extends Visual {
 	
 	public Color[][] colortable;
-	
+	public int boldColumn;
+	public int boldRow;
 	public Tabular() {
 		super();
 		PivotTable=null;
+		boldColumn=-1;
+		boldRow=-1;
 	}
 
 	 /**
@@ -86,6 +89,8 @@ public class Tabular extends Visual {
     public void setColorTable(HighlightTable highlight){
     	colortable=new Color[this.PivotTable.length][this.PivotTable[0].length];
     	Color other=Color.black;
+    	this.boldColumn=highlight.boldColumn;
+    	this.boldRow=highlight.boldRow;
     	for(int i=0;i<colortable.length;i++){
     		for(int j=0;j<colortable[i].length;j++){
     			String tmp_pivot_value=this.PivotTable[i][j].split(" ")[0];

@@ -64,7 +64,7 @@ public class TaskDrillIn extends Task {
 	    		doDrillInRowVersion(cubeBase,todrillinValues);
 		        this.getLastSubTask().addDifferenceFromOrigin(i);
 	    	}
-    		this.recreateResultArray();
+    		this.recreateResultArray(1,0);
     		this.createHighlight();
     	}
     	
@@ -88,7 +88,7 @@ public class TaskDrillIn extends Task {
 	    		doDrillInColVersion(cubeBase,todrillinValues);
 		        this.getLastSubTask().addDifferenceFromOrigin(i);
 	    	}
-    		this.recreateResultArray();
+    		this.recreateResultArray(1,0);
     		this.createHighlight();
     	}
     }
@@ -123,11 +123,11 @@ public class TaskDrillIn extends Task {
 	        
 	       /* doDrillIn(cubeBase,valueOfMin,-2);/*MIN*/
 	       /* doDrillIn(cubeBase,valueOfMax,-3);/*MAX*/
-	        System.out.println("Row Min Drill In : "+String.valueOf(i+1));
+	       // System.out.println("Row Min Drill In : "+String.valueOf(i+1));
 	        doDrillInRowVersion(cubeBase,valueOfMin,-2);
 	        this.getLastSubTask().addDifferenceFromOrigin(i);
 	        
-	        System.out.println("Row Max Drill In : "+String.valueOf(i+1));
+	        //System.out.println("Row Max Drill In : "+String.valueOf(i+1));
 	        doDrillInRowVersion(cubeBase,valueOfMax,-3);
 	        this.getLastSubTask().addDifferenceFromOrigin(i);
 	        
@@ -315,7 +315,7 @@ public class TaskDrillIn extends Task {
 		this.cubeQuery.add(cubequery);
         SqlQuery newSqlQuery=new SqlQuery();
         newSqlQuery.produceExtractionMethod(cubequery);
-        System.out.println(cubequery.toString());
+        //System.out.println(cubequery.toString());
         printBorderLine();
         this.getLastSubTask().setExtractionMethod(newSqlQuery);
         this.getLastSubTask().addDifferenceFromOrigin(difference);
@@ -372,7 +372,7 @@ public class TaskDrillIn extends Task {
 	void printStringArrayList(ArrayList<String> toprint){
 		printBorderLine();
 		for(String x: toprint) {
-			System.out.println(x);
+			//System.out.println(x);
 		}
 		printBorderLine();
 	}
@@ -388,7 +388,7 @@ public class TaskDrillIn extends Task {
 	}
 	
 	void printBorderLine(){
-    	System.out.println("=====================================");
+    	//System.out.println("=====================================");
     }
 	
 	void copyListofArrayString(ArrayList<String[]> from,ArrayList<String[]> to){
@@ -460,12 +460,16 @@ public class TaskDrillIn extends Task {
 	void createHighlight(){
 		SubTask sbtk=this.getLastSubTask();
     	String[][] current=sbtk.getExtractionMethod().Res.getResultArray();
-    	sbtk.getExtractionMethod().Res.printStringArray(current);
     	HighlightTable hltbl=new HighlightTable();
     	this.highlights.add(hltbl);
     	hltbl.createMinHightlight(current);
     	hltbl.createMaxHightlight(current);
-    	hltbl.createMiddleHightlight(current);
+    	hltbl.createMiddleHightlight(current); 
+    	if(sbtk.getDifferencesFromOrigin().size()>0 && sbtk.getDifferenceFromOrigin(0)==-1){
+    		int tmp_it=this.getIndexOfSigmaToDelete(this.cubeQuery.get(1).SigmaExpressions,this.cubeQuery.get(1).GammaExpressions.get(sbtk.getDifferenceFromOrigin(1))[0]);
+    		if(tmp_it>-1 && sbtk.getDifferenceFromOrigin(1)==0) hltbl.setBoldColumn(sbtk.getExtractionMethod().Res.getColPivot(),this.cubeQuery.get(1).SigmaExpressions.get(tmp_it)[2]);
+    		else hltbl.setBoldRow(sbtk.getExtractionMethod().Res.getRowPivot(),this.cubeQuery.get(1).SigmaExpressions.get(tmp_it)[2]);
+    	}
 	}
 	
 	private void recreateResultArrayForMinMaxOfArray_v1(){
@@ -527,7 +531,7 @@ public class TaskDrillIn extends Task {
         for(SubTask dlt:substodelete) this.subTasks.remove(dlt);
 	}
 	
-	private void recreateResultArray(){
+	private void recreateResultArray(int col,int row){
 		/*ArrayList<Cu>*/
         for(int i=2;i<this.getNumSubTasks();i++){
         	for(int j=i+1;j<this.getNumSubTasks();j++){
@@ -550,8 +554,8 @@ public class TaskDrillIn extends Task {
 	        					new_array[new_array_iterator][3]=new String(tmp_i[l][3]);
 	        					
 	        					if(!tmp_i[l][2].equals("measure")) {
-	        						this.subTasks.get(i).getExtractionMethod().Res.getRowPivot().add(new String(tmp_i[l][0]));
-	        						this.subTasks.get(i).getExtractionMethod().Res.getColPivot().add(new String(tmp_i[l][1]));
+	        						this.subTasks.get(i).getExtractionMethod().Res.getRowPivot().add(new String(tmp_i[l][row]));
+	        						this.subTasks.get(i).getExtractionMethod().Res.getColPivot().add(new String(tmp_i[l][col]));
 	        					}
 	        					
 	        					new_array_iterator++;
@@ -562,10 +566,10 @@ public class TaskDrillIn extends Task {
 	        					if(!tmp_j[m][2].equals("measure")){
 		        					
 		        					new_array[new_array_iterator][0]=new String(tmp_j[m][0]);
-		        					this.subTasks.get(i).getExtractionMethod().Res.getColPivot().add(new String(tmp_j[m][1]));
+		        					this.subTasks.get(i).getExtractionMethod().Res.getColPivot().add(new String(tmp_j[m][col]));
 		        					
 		        					new_array[new_array_iterator][1]=new String(tmp_j[m][1]);
-		        					this.subTasks.get(i).getExtractionMethod().Res.getRowPivot().add(new String(tmp_j[m][0]));
+		        					this.subTasks.get(i).getExtractionMethod().Res.getRowPivot().add(new String(tmp_j[m][row]));
 		        					
 		        					new_array[new_array_iterator][2]=new String(tmp_j[m][2]);
 		        					new_array[new_array_iterator][3]=new String(tmp_j[m][3]);

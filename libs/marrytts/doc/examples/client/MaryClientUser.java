@@ -69,7 +69,7 @@ public class MaryClientUser {
         int serverPort = Integer.getInteger("server.port", 59125).intValue();
         MaryClient mary = MaryClient.getMaryClient(new Address(serverHost, serverPort));
         String text = "Willkommen in der Welt der Sprachsynthese!";
-        String locale = "de"; // or US English (en-US), Telugu (te), Turkish (tr), ...
+        String locale = "en-US"; // or US English (en-US), Telugu (te), Turkish (tr), ...
         String inputType = "TEXT";
         String outputType = "AUDIO";
         String audioType = "WAVE";

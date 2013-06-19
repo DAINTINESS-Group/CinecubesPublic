@@ -1,4 +1,6 @@
 package StoryMgr;
+import java.util.ArrayList;
+
 import AudioMgr.Audio;
 import HighlightMgr.PptxHighlight;
 import TaskMgr.SubTask;
@@ -7,11 +9,14 @@ public class PptxSlide extends Episode {
 	
 	public String Notes;
 	public String Title;
+	public String SubTitle;
 	public String TitleColumn;
 	public String TitleRow;
 	
 	public PptxSlide() {
 		super();
+		SubTitle="";
+		Notes="";
 	}
 	
 	public void setText(String txt){
@@ -26,17 +31,22 @@ public class PptxSlide extends Episode {
 	}
 	
 	@Override
-	public SubTask getSubTask() {
+	public ArrayList<SubTask> getSubTask() {
 		return subTask;
 	}
 
 	@Override
-	public void setSubTask(SubTask subtask) {
+	public void setSubTask(ArrayList<SubTask> subtask) {
 		subTask=subtask;
 	}
 
 	@Override
-	public void createVisual(Visual vis) {
+	public void addSubTask(SubTask subtask) {
+		subTask.add(subtask);
+	}
+	
+	@Override
+	public void setVisual(Visual vis) {
 		this.visual=vis;		
 	}
 	

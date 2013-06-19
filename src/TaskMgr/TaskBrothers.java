@@ -70,6 +70,11 @@ public class TaskBrothers extends Task {
 	    	hltbl.createMinHightlight(current);
 	    	hltbl.createMaxHightlight(current);
 	    	hltbl.createMiddleHightlight(current);
+	    	if(sbtk.getDifferencesFromOrigin().size()>0 && sbtk.getDifferenceFromOrigin(0)==-1){
+	    		int tmp_it=this.getIndexOfSigma(this.cubeQuery.get(1).SigmaExpressions,this.cubeQuery.get(1).GammaExpressions.get(sbtk.getDifferenceFromOrigin(1))[0]);
+	    		if(tmp_it>-1 && sbtk.getDifferenceFromOrigin(1)==0) hltbl.setBoldColumn(sbtk.getExtractionMethod().Res.getColPivot(),this.cubeQuery.get(1).SigmaExpressions.get(tmp_it)[2]);
+	    		else hltbl.setBoldRow(sbtk.getExtractionMethod().Res.getRowPivot(),this.cubeQuery.get(1).SigmaExpressions.get(tmp_it)[2]);
+	    	}
     	}
     	printBorderLine();
     	printBorderLine();
@@ -100,6 +105,16 @@ public class TaskBrothers extends Task {
 		}
 		
     }
+    
+    private int getIndexOfSigma(ArrayList<String[]> sigmaExpressions,String gamma_dim) {
+		int ret_value=-1;
+		int i=0;
+		for(String[] sigma : sigmaExpressions ){
+			if(sigma[0].split("\\.")[0].equals(gamma_dim)) ret_value=i;
+			i++;
+		}
+		return ret_value;
+	}
     
     /*	
      * This function return Parent Level Attribute name

@@ -19,6 +19,8 @@ public class HighlightTable extends Highlight {
 	public String mincolor_name;
 	public Color middlecolor;
 	public String middlecolor_name;
+	public int boldColumn;
+	public int boldRow;
 	
 	public HighlightTable(){
 		super();
@@ -30,11 +32,24 @@ public class HighlightTable extends Highlight {
     	min_index=new ArrayList<Integer>();
     	maxcolor=Color.RED;
     	maxcolor_name="red";
-    	mincolor=new Color(172,4,148);//chocolate1 purple
-    	mincolor_name="purple";
-    	middlecolor=Color.blue;
-    	middlecolor_name="blue";
-    	
+    	mincolor=Color.blue;
+    	mincolor_name="blue";
+    	middlecolor=Color.black;
+    	middlecolor_name="black";
+    	boldColumn=-1;
+    	boldRow=-1;    	
+	}
+	
+	public void setBoldColumn(TreeSet<String> Columns,String nameColumnToBold){
+		for(int j=0;j<Columns.size();j++){
+			if(("'"+Columns.toArray()[j].toString()+"'").equals(nameColumnToBold)) boldColumn=j+1;
+		}
+	}
+	
+	public void setBoldRow(TreeSet<String> Rows,String nameRowToBold){
+		for(int i=0;i<Rows.size();i++){
+			if(("'"+Rows.toArray()[i].toString()+"'").equals(nameRowToBold)) boldRow=i+1;
+		}
 	}
 	
 	public void createMinHightlight(String[][] table){
@@ -63,33 +78,6 @@ public class HighlightTable extends Highlight {
     		index_checked.add(tmp_indexValues[j]);
     		min_index.add(tmp_indexValues[j]);
     	}
-	}
-	
-	boolean isTableMaxValue(String[] table,String value){
-		
-		if(value==null) return true;
-		String max_value=table[0];
-		for(int i=1;i<table.length;i++){
-			if(table[i]==null) return false;
-			if(Float.parseFloat(table[i])>Float.parseFloat(max_value)) max_value=table[i];
-		}
-		return (value.equals(max_value));
-	}
-	
-	boolean isTableMinValue(String[] table,String value){
-		
-		if(value==null) return true;
-		String min_value=table[0];
-		for(int i=1;i<table.length;i++){
-			if(table[i]==null) return false;
-			if(Float.parseFloat(table[i])<Float.parseFloat(min_value)) min_value=table[i];
-		}
-		return (value.equals(min_value));
-	}
-	
-	boolean returnConditionForMaxMin(int index,String tmp_value,String table_value,int mode/* 0 min,1 max */){
-		if(mode==0) return (index==0 || Float.parseFloat(tmp_value)>Float.parseFloat(table_value));
-		return (index==0 || Float.parseFloat(tmp_value)<Float.parseFloat(table_value));
 	}
 	
 	public void createMaxHightlight(String[][] table){
@@ -129,14 +117,41 @@ public class HighlightTable extends Highlight {
     	}
 	}
 	
-	 boolean tryParseFloat(String value){
-	    	try{
-	    		Float.parseFloat(value);
-	    	}
-	    	catch(Exception ex){
-	    		return false;
-	    	}
-	    	return true;
-	  }
+	boolean tryParseFloat(String value){
+    	try{
+    		Float.parseFloat(value);
+    	}
+    	catch(Exception ex){
+    		return false;
+    	}
+    	return true;
+	}
 	
+	boolean isTableMaxValue(String[] table,String value){
+			
+		if(value==null) return true;
+		String max_value=table[0];
+		for(int i=1;i<table.length;i++){
+			if(table[i]==null) return false;
+			if(Float.parseFloat(table[i])>Float.parseFloat(max_value)) max_value=table[i];
+		}
+		return (value.equals(max_value));
+	}
+	
+	boolean isTableMinValue(String[] table,String value){
+		
+		if(value==null) return true;
+		String min_value=table[0];
+		for(int i=1;i<table.length;i++){
+			if(table[i]==null) return false;
+			if(Float.parseFloat(table[i])<Float.parseFloat(min_value)) min_value=table[i];
+		}
+		return (value.equals(min_value));
+	}
+	
+	boolean returnConditionForMaxMin(int index,String tmp_value,String table_value,int mode/* 0 min,1 max */){
+		if(mode==0) return (index==0 || Float.parseFloat(tmp_value)>Float.parseFloat(table_value));
+		return (index==0 || Float.parseFloat(tmp_value)<Float.parseFloat(table_value));
+	}
+		
 }

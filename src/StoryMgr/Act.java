@@ -21,7 +21,6 @@ public class Act {
 	}
 	
 	public void addEpisode(Episode episode){
-		episode.setSubTask(getTask().getLastSubTask());
 		Episodes.add(episode);
 	}
 	

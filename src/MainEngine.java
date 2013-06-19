@@ -183,7 +183,7 @@ public class MainEngine {
         if(cubequery==null) cubequery=DefaultCubeQuery();
         
         TskMgr.getLastTask().addNewSubTask();
-        TskMgr.getLastTask().getLastSubTask().setExtractionMethod(createCubeQueryStartOfActSlide(StorMgr.getStory().getLastAct(),1));
+        TskMgr.getLastTask().getLastSubTask().setExtractionMethod(createCubeQueryStartOfActSlide(StorMgr.getStory().getLastAct(),"I"));
         TskMgr.getLastTask().getLastSubTask().execute(CubeManager.CBase.DB);
         
         
@@ -199,7 +199,7 @@ public class MainEngine {
         AudioMgr=new FreeTTSAudioEngine();
         AudioMgr.InitializeVoiceEngine();
         
-        SetupSlideEpisodes(StorMgr.getStory().getLastAct());
+        SetupSlideEpisodes(StorMgr.getStory().getLastAct(),1);
         
         /* Setup Slide For ACT 2*/
         
@@ -218,7 +218,7 @@ public class MainEngine {
         
         
         TskMgr.getLastTask().addNewSubTask();
-        TskMgr.getLastTask().getLastSubTask().setExtractionMethod(createCubeQueryStartOfActSlide(StorMgr.getStory().getLastAct(),2));
+        TskMgr.getLastTask().getLastSubTask().setExtractionMethod(createCubeQueryStartOfActSlide(StorMgr.getStory().getLastAct(),"II"));
         TskMgr.getLastTask().getLastSubTask().execute(CubeManager.CBase.DB);
         
         TskMgr.getLastTask().addNewSubTask();
@@ -230,7 +230,7 @@ public class MainEngine {
         TskMgr.getLastTask().cubeQuery.get(1).sqlQuery=newSqlQuery;
         TskMgr.getLastTask().generateSubTasks(CubeManager.CBase);
         
-        SetupSlideEpisodes(StorMgr.getStory().getLastAct());
+        SetupSlideEpisodes(StorMgr.getStory().getLastAct(),2);
        
         StorMgr.getStory().setFinalResult(new PptxSlideshow());
         StorMgr.getStory().getFinalResult().setFilename("ppt/"+cubequery.name+".pptx");
@@ -269,7 +269,7 @@ public class MainEngine {
         AudioMgr=new FreeTTSAudioEngine();
         AudioMgr.InitializeVoiceEngine();
         
-        SetupSlideEpisodes(StorMgr.getStory().getLastAct());
+        SetupSlideEpisodes(StorMgr.getStory().getLastAct(),1);
         
         StorMgr.getStory().setFinalResult(new PptxSlideshow());
         /*StorMgr.getStory().getFinalResult().setFilename("ppt/q6.pptx");
@@ -284,7 +284,7 @@ public class MainEngine {
     	
     }
     
-    public SqlQuery createCubeQueryStartOfActSlide(Act act,int num_act){
+    public SqlQuery createCubeQueryStartOfActSlide(Act act,String num_act){
     	CubeQuery cubequery=new CubeQuery("Act "+String.valueOf(num_act));
     	cubequery.AggregateFunction="Act "+String.valueOf(num_act);
     	Measure msrToAdd=new Measure();
@@ -306,25 +306,22 @@ public class MainEngine {
      * Maybe this Function to add in each Task!!
      * 
      */
-    public void SetupSlideEpisodes(Act act){
+    public void SetupSlideEpisodes(Act act, int num_act){
     	//SqlQuery original=(SqlQuery)act.getTask().getSubTask(0).getExtractionMethod();
     	int timesIN=0;
+    	boolean swap_first=false;
+    	
     	System.out.println("Sum of subtasks:"+act.getTask().getNumSubTasks());
     	SubTask origSubtsk=new SubTask();   
-    	CubeQuery origCubeQuery = null;
     	for(int j=0;j<act.getTask().getNumSubTasks();j++){
     		SubTask subtsk=act.getTask().getSubTask(j);
     		if(j==1) {
     			origSubtsk=act.getTask().getSubTask(j);
-    			origCubeQuery=act.getTask().cubeQuery.get(j);
     		}
     		SqlQuery currentSqlQuery=((SqlQuery)subtsk.getExtractionMethod());
-    		CubeQuery currentCubeQuery=act.getTask().cubeQuery.get(j);
 	        if((currentSqlQuery.Res.getResultArray()!=null)){
 	        	timesIN++;
 	        	PptxSlide newSlide=new PptxSlide();
-		        newSlide.setSubTask(subtsk);
-		        newSlide.Notes="SQL QUERY:\n"+subtsk.getExtractionMethod().toString()+"\n\nCUBE QUERY:\n"+currentCubeQuery.toString();
 		        
 		        Tabular tbl=new Tabular();
 		        String[] extraPivot=new String[2];
@@ -347,7 +344,9 @@ public class MainEngine {
 		       
 		        tbl.CreatePivotTable(subtsk.getExtractionMethod().Res.getRowPivot(), subtsk.getExtractionMethod().Res.getColPivot(), 
 						subtsk.getExtractionMethod().Res.getResultArray(),extraPivot);
-		        if(j>0 && act.getTask().highlights.size()>0) tbl.setColorTable((HighlightTable) act.getTask().highlights.get(j-1));
+		        if(j>0 && act.getTask().highlights.size()>0) {
+		        	tbl.setColorTable((HighlightTable) act.getTask().highlights.get(j-1));		        	
+		        }
 		        
 		        if(subtsk.getDifferencesFromOrigin().size()>0 && (subtsk.getDifferencesFromOrigin().get(0)==-4 || subtsk.getDifferencesFromOrigin().get(0)==-5)&& subtsk.getDifferencesFromOrigin().get(1)>0){
 		        	/*the code above to be function*/
@@ -360,7 +359,9 @@ public class MainEngine {
 		        	Color[][] newColorTable;
 		        	int col_width=SlideTable[0].length;
 		        	int rows_width=SlideTable.length+currentTable.length;
-		        	if(SlideTable[0].length<currentTable[0].length) col_width=currentTable[0].length;
+		        	if(SlideTable[0].length<currentTable[0].length){
+		        		col_width=currentTable[0].length;		        	
+		        	}
 		        	
 		        	newTable=new String[rows_width+1][col_width];
 		        	newColorTable=new Color[rows_width+1][col_width];
@@ -376,64 +377,160 @@ public class MainEngine {
 		        	System.arraycopy(currentTable,0,newTable,SlideTable.length+1,currentTable.length);
 		        	System.arraycopy(currentColorTable,0,newColorTable,colorTable.length+1,currentColorTable.length);
 		        	tmpSlide.getVisual().setPivotTable(newTable);
+		        	tmpSlide.addSubTask(subtsk);
 		        	((Tabular)tmpSlide.getVisual()).colortable=newColorTable;
+		        	
+		        	
+		        	for(int k=0;k<newTable.length;k++){
+		        		for(int l=0;l<newTable[k].length;l++) {
+		        			if(newTable[k][l]==null) {
+		        				newTable[k][l]="";
+		        				newColorTable[k][l]=Color.black;
+		        			}
+		        		}
+		        	}
 		        }
 		        else{
-			        newSlide.createVisual(tbl);
-			        
+			        newSlide.setVisual(tbl);
+			        newSlide.addSubTask(subtsk);
 			        newSlide.setAudioFile("audio/"+AudioMgr.randomIdentifier());
-			        newSlide.createHighlight();
-			        newSlide.TitleColumn=new String(currentSqlQuery.Res.TitleOfColumns);
-			        newSlide.TitleRow=new String(currentSqlQuery.Res.TitleOfRows);
-			        if(subtsk.getDifferencesFromOrigin().size()==0){
-			        	newSlide.Title="Original";
-			        	newSlide.Notes=((TextExtractionPPTX)this.TxtMgr).createTextForOriginal(currentCubeQuery.GammaExpressions, currentCubeQuery.SigmaExpressions, currentSqlQuery.Res.getResultArray(),(HighlightTable) act.getTask().highlights.get(j-1));
-			        }
-			        else if(subtsk.getDifferencesFromOrigin().get(0)==-1){
-			        	newSlide.Title="Summarized Slide for field : ";
-			        	newSlide.Title+=act.getTask().cubeQuery.get(1).GammaExpressions.get(subtsk.getDifferenceFromOrigin(1))[0];
-			        	newSlide.getVisual().getPivotTable()[0][0]=" Summary for "+act.getTask().cubeQuery.get(1).GammaExpressions.get(subtsk.getDifferenceFromOrigin(1))[0].split("_")[0];
-			        	newSlide.Notes=((TextExtractionPPTX)this.TxtMgr).createTextForAct1(origCubeQuery.GammaExpressions,origCubeQuery.SigmaExpressions,currentCubeQuery.SigmaExpressions,currentSqlQuery.Res.getResultArray(),(HighlightTable) act.getTask().highlights.get(j-1),subtsk.getDifferenceFromOrigin(1),currentCubeQuery.AggregateFunction,currentCubeQuery.Msr.get(0).name);
-			        }
-			        else if(subtsk.getDifferencesFromOrigin().get(0)==-2){
-			        	newSlide.Title="Drill In Slide For Row "+String.valueOf(j-1)+" of Original";
-			        }
-			        else if(subtsk.getDifferencesFromOrigin().get(0)==-3){
-			        	newSlide.Title="Drill In Slide For Row "+String.valueOf(j-1)+" of Original";
-			        }
-			        else if(subtsk.getDifferencesFromOrigin().get(0)==-4){
-			        	newSlide.Title="Drill In Slide For Rows of Original";
-			        }
-			        else if(subtsk.getDifferencesFromOrigin().get(0)==-5){
-			        	newSlide.Title="Drill In Slide For Columns of Original";
-			        }
-			        else {
-			        	newSlide.Title="The ~ which changed @ : ";
-			        	for(int i=0;i<subtsk.getDifferencesFromOrigin().size();i++){
-				        	if(i>0) newSlide.Title+=" AND ";
-				        	newSlide.Title+=act.getTask().cubeQuery.get(1).GammaExpressions.get(subtsk.getDifferenceFromOrigin(i))[0];
-				        }
-			        	String text_cond="Conditions";
-				        String text_are="are";
-				        if(subtsk.getDifferencesFromOrigin().size()==1){
-				        	text_cond="Condition";
-				        	text_are="is";
-				        }
-			        	newSlide.Title=newSlide.Title.replace("~", text_cond).replace("@", text_are);
-			        }
-			       // newSlide.Title+="\n At columns are "+newSlide.TitleColumn+" and at rows are "+newSlide.TitleRow;
-			        AudioMgr.CreateSound("Text to Create", newSlide.getAudio().getFileName());
 			        StorMgr.getStory().getLastAct().addEpisode(newSlide);
 		        }
 	        }
 	        else if(currentSqlQuery.Res.TitleOfColumns!=null && currentSqlQuery.Res.TitleOfColumns.contains("Act")) {
 	        	PptxSlide newSlide=new PptxSlide();
-		        newSlide.setSubTask(subtsk);
+		        newSlide.addSubTask(subtsk);
 	        	newSlide.Title=currentSqlQuery.Res.TitleOfColumns;
+	        	if(num_act==1) {
+	        		swap_first=true;
+	        		newSlide.Title+=": Putting results in context";
+	        		newSlide.SubTitle="In this series of slides we will put the original result in context, by comparing the behavior of its defining values with the behavior of values that are similar to them.";
+	        		newSlide.Notes=newSlide.Title+"\n"+newSlide.SubTitle;
+	        	}
+	        	else if(num_act==2){
+	        		newSlide.Title+=": Explaining results";
+	        	}
 	        	StorMgr.getStory().getLastAct().addEpisode(newSlide);	        	
 	        }
     	}
+    	SetupTextOfEpisodes(act,num_act);
+    	if(swap_first){
+    		PptxSlide tmpslide=(PptxSlide) act.getEpisodes().get(0);
+    		act.getEpisodes().set(0, act.getEpisodes().get(1));
+    		act.getEpisodes().set(1, tmpslide);
+    	}
     	System.out.println("TimesIN:"+timesIN);
+    }
+
+    void SetupTextOfEpisodes(Act act, int num_act){
+    	SubTask origSubtsk=new SubTask();   
+    	CubeQuery origCubeQuery = null;
+    	int i_cubequery=1;
+    	
+    	ArrayList<Integer> numSlideToRemove=new ArrayList<Integer>();
+    	ArrayList<PptxSlide> slideToEnd=new ArrayList<PptxSlide>();
+    	for(int j=1;j<act.getNumEpisodes();j++){
+    		if(j==1) {
+    			origSubtsk=act.getTask().getSubTask(j);
+    			origCubeQuery=act.getTask().cubeQuery.get(j);
+    		}
+    		
+    		PptxSlide currentSlide=(PptxSlide) act.getEpisode(j);
+    		SubTask subtsk=currentSlide.getSubTask().get(0);
+    		CubeQuery currentCubeQuery=act.getTask().cubeQuery.get(i_cubequery);
+			SqlQuery currentSqlQuery=(SqlQuery) subtsk.getExtractionMethod();
+			Tabular tbl=(Tabular) currentSlide.getVisual();
+    		HighlightTable htable=(HighlightTable) act.getTask().highlights.get(i_cubequery-1);
+    		if(currentSlide.getSubTask().size()>1){
+    			
+    			currentSlide.Notes="";
+    			if(subtsk.getDifferencesFromOrigin().get(0)==-4){
+		        	currentSlide.Title="Drill In Slide For Rows of Original";
+		        	currentSlide.Notes=((TextExtractionPPTX)this.TxtMgr).createTextForAct2(origCubeQuery.GammaExpressions,
+							   origCubeQuery.SigmaExpressions,
+							   currentSlide.getVisual().getPivotTable(),
+							   (HighlightTable) act.getTask().highlights.get(i_cubequery-1),
+							   0,
+							   origCubeQuery.AggregateFunction,
+							   origCubeQuery.Msr.get(0).name,
+							   origSubtsk.getExtractionMethod().Res.getRowPivot().size(),
+							   ((SqlQuery)currentSlide.getSubTask().get(0).getExtractionMethod()).GroupByClause.get(0));
+		        	//currentSlide.Notes+="\n"+((TextExtractionPPTX)this.TxtMgr).createTxtComparingToSiblingColumn_v2(tbl.getPivotTable());
+		        	currentSlide.Notes+=((TextExtractionPPTX)this.TxtMgr).createTxtForDominatedRowsColumns(tbl.getPivotTable(),tbl.colortable,(HighlightTable) act.getTask().highlights.get(i_cubequery-1));
+		        }
+		        else if(subtsk.getDifferencesFromOrigin().get(0)==-5){
+		        	currentSlide.Title="Drill In Slide For Columns of Original";
+		        	currentSlide.Notes=((TextExtractionPPTX)this.TxtMgr).createTextForAct2(origCubeQuery.GammaExpressions,
+							   origCubeQuery.SigmaExpressions,
+							   currentSlide.getVisual().getPivotTable(),
+							   (HighlightTable) act.getTask().highlights.get(i_cubequery-1),
+							   1,
+							   origCubeQuery.AggregateFunction,
+							   origCubeQuery.Msr.get(0).name,
+							   origSubtsk.getExtractionMethod().Res.getColPivot().size(),
+							   ((SqlQuery)currentSlide.getSubTask().get(0).getExtractionMethod()).GroupByClause.get(0));
+		        	//currentSlide.Notes+="\n"+((TextExtractionPPTX)this.TxtMgr).createTxtComparingToSiblingColumn_v3(tbl.getPivotTable());
+		        	currentSlide.Notes+=((TextExtractionPPTX)this.TxtMgr).createTxtForDominatedRowsColumns(tbl.getPivotTable(),tbl.colortable,(HighlightTable) act.getTask().highlights.get(i_cubequery-1));
+		        }
+    			
+    			AudioMgr.CreateSound("Text to Create", currentSlide.getAudio().getFileName());
+    		}
+    		else{
+    			currentSlide.Notes="SQL QUERY:\n"+subtsk.getExtractionMethod().toString()+"\n\nCUBE QUERY:\n"+currentCubeQuery.toString();
+    			
+    			currentSlide.TitleColumn=new String(currentSqlQuery.Res.TitleOfColumns);
+    			currentSlide.TitleRow=new String(currentSqlQuery.Res.TitleOfRows);
+    			if(subtsk.getDifferencesFromOrigin().size()==0){
+		        	currentSlide.Title="Original";
+		        	if(num_act==1) currentSlide.Notes=((TextExtractionPPTX)this.TxtMgr).createTextForOriginalAct1(currentCubeQuery.GammaExpressions, currentCubeQuery.SigmaExpressions, currentSqlQuery.Res.getResultArray(),(HighlightTable) act.getTask().highlights.get(i_cubequery-1));
+		        	else currentSlide.Notes=((TextExtractionPPTX)this.TxtMgr).createTextForOriginalAct2(currentCubeQuery.GammaExpressions, currentCubeQuery.SigmaExpressions, currentSqlQuery.Res.getResultArray(),(HighlightTable) act.getTask().highlights.get(i_cubequery-1));
+		        }
+		        else if(subtsk.getDifferencesFromOrigin().get(0)==-1){
+		        	int gamma_index_change=subtsk.getDifferenceFromOrigin(1);
+		        	currentSlide.Title="Summarized Slide for field : ";
+		        	currentSlide.Title+=act.getTask().cubeQuery.get(1).GammaExpressions.get(gamma_index_change)[0];
+		        	currentSlide.getVisual().getPivotTable()[0][0]=" Summary for "+act.getTask().cubeQuery.get(1).GammaExpressions.get(gamma_index_change)[0].split("_")[0];
+		        	currentSlide.Notes=((TextExtractionPPTX)this.TxtMgr).createTextForAct1(origCubeQuery.GammaExpressions,origCubeQuery.SigmaExpressions,currentCubeQuery.SigmaExpressions,currentSqlQuery.Res.getResultArray(),(HighlightTable) act.getTask().highlights.get(i_cubequery-1),subtsk.getDifferenceFromOrigin(1),currentCubeQuery.AggregateFunction,currentCubeQuery.Msr.get(0).name);
+		        	
+		        	if(gamma_index_change==0) currentSlide.Notes+="\n"+((TextExtractionPPTX)this.TxtMgr).createTxtComparingToSiblingColumn_v1(tbl.getPivotTable(),htable.boldColumn);
+		        	else currentSlide.Notes+="\n"+((TextExtractionPPTX)this.TxtMgr).createTxtComparingToSiblingRow_v1(tbl.getPivotTable(),htable.boldRow);
+		        }
+		        else if(subtsk.getDifferencesFromOrigin().get(0)==-2){
+		        	currentSlide.Title="Drill In Slide For Row "+String.valueOf(i_cubequery-1)+" of Original";
+		        }
+		        else if(subtsk.getDifferencesFromOrigin().get(0)==-3){
+		        	currentSlide.Title="Drill In Slide For Row "+String.valueOf(i_cubequery-1)+" of Original";
+		        }
+		        else {
+		        	slideToEnd.add(currentSlide);
+		        	numSlideToRemove.add(j);
+		        	currentSlide.Title="The ~ which changed @ : ";
+		        	for(int i=0;i<subtsk.getDifferencesFromOrigin().size();i++){
+			        	if(i>0) currentSlide.Title+=" AND ";
+			        	currentSlide.Title+=act.getTask().cubeQuery.get(1).GammaExpressions.get(subtsk.getDifferenceFromOrigin(i))[0];
+			        }
+		        	String text_cond="Conditions";
+			        String text_are="are";
+			        if(subtsk.getDifferencesFromOrigin().size()==1){
+			        	text_cond="Condition";
+			        	text_are="is";
+			        }
+		        	currentSlide.Title=currentSlide.Title.replace("~", text_cond).replace("@", text_are);
+		        }
+    			currentSlide.Notes=currentSlide.Notes.replace("_dim.", " at ").replace("_dim", " ").replace("lvl", " level ").replace("  ", " ");
+    			AudioMgr.CreateSound(currentSlide.Notes, currentSlide.getAudio().getFileName());
+    			i_cubequery++;
+    		}
+    	}
+    	if(slideToEnd.size()>0){
+    		PptxSlide newSlide=new PptxSlide();
+        	newSlide.Title="Auxiliary slides for Act I";
+        	StorMgr.getStory().getLastAct().addEpisode(newSlide);
+        	for(int k=0;k<slideToEnd.size();k++) {
+        		act.getEpisodes().remove(slideToEnd.get(k));
+        		StorMgr.getStory().getLastAct().addEpisode(slideToEnd.get(k));
+        	}
+    	}
     }
     
     public File GetFileCmds(){
@@ -624,6 +721,7 @@ public class MainEngine {
 //        MainEng.newRequestCubeQuery(null);
         
         System.out.println("=======Finish======");
+        System.exit(0);
     }
     
     public String InsertFromKeyboardDBInfos(){

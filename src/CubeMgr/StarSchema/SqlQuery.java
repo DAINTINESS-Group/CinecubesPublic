@@ -19,7 +19,7 @@ public class SqlQuery extends ExtractionMethod {
     public ArrayList<String[]> FromClause; 	/* 0-->TABLE, 1-->customName */
     public ArrayList<String[]> WhereClause;	/* 0-->sqlfld1,1-->op,2-->sqlfld2 */
     public ArrayList<String[]> GroupByClause;
-        
+    
     public SqlQuery(){
     	init();
     }
