@@ -13,6 +13,27 @@ public class HighlightTable extends Highlight {
 	public ArrayList<Integer> index_checked;
 	public ArrayList<Integer> max_index;
 	public ArrayList<Integer> min_index;
+	
+	/* To compare Columns */
+	public int[] countHigherPerColumn;
+	public int[] countLowerPerColumn;
+	public int[] countEqualPerColumn;
+	public int[] nullValuesPerColumn;
+	public String[] columnValues;
+	
+	/*for Domination of Rows and Columns*/
+	public ArrayList<Integer> rowsDominateMax;
+	public ArrayList<Integer> rowsDominateMin;
+	public ArrayList<Integer> rowsDominateMiddle;
+	public ArrayList<Integer> colsDominateMax;
+	public ArrayList<Integer> colsDominateMin;
+	public ArrayList<Integer> colsDominateMiddle;
+	public Integer[] max_appearance_per_color;
+	public Integer[] valuePerColor;
+	public Integer[][] rowsDominationColor;
+	public Integer[][] colsDominationColor;
+	
+	/* For Colors*/
 	public Color maxcolor;
 	public String maxcolor_name;
 	public Color mincolor;
@@ -22,6 +43,7 @@ public class HighlightTable extends Highlight {
 	public int boldColumn;
 	public int boldRow;
 	
+	
 	public HighlightTable(){
 		super();
 		maxValues=new ArrayList<String>();
@@ -30,6 +52,7 @@ public class HighlightTable extends Highlight {
     	index_checked=new ArrayList<Integer>();
     	max_index=new ArrayList<Integer>();
     	min_index=new ArrayList<Integer>();
+    	
     	maxcolor=Color.RED;
     	maxcolor_name="red";
     	mincolor=Color.blue;
@@ -37,7 +60,17 @@ public class HighlightTable extends Highlight {
     	middlecolor=Color.black;
     	middlecolor_name="black";
     	boldColumn=-1;
-    	boldRow=-1;    	
+    	boldRow=-1;
+    	
+    	rowsDominateMax=new ArrayList<Integer>();
+    	rowsDominateMin=new ArrayList<Integer>();
+    	rowsDominateMiddle=new ArrayList<Integer>();
+    	colsDominateMax=new ArrayList<Integer>();
+    	colsDominateMin=new ArrayList<Integer>();
+    	colsDominateMiddle=new ArrayList<Integer>();
+    	max_appearance_per_color=new Integer[3];
+    	valuePerColor=new Integer[3];
+    	
 	}
 	
 	public void setBoldColumn(TreeSet<String> Columns,String nameColumnToBold){
@@ -116,6 +149,103 @@ public class HighlightTable extends Highlight {
     		}
     	}
 	}
+	
+	public void findDominatedRowsColumns(String[][] PivotTable,Color[][] ColorTbl){
+    	   	   	
+    	int max_index=0;
+    	int min_index=1;
+    	int middle_index=2;
+    	
+    	rowsDominationColor=new Integer[ColorTbl.length][3];
+    	colsDominationColor=new Integer[ColorTbl[0].length][3];
+    	valuePerColor[0]=valuePerColor[1]=valuePerColor[2]=0;
+    	for(int i=0;i<PivotTable.length;i++){
+    		for(int j=0;j<3;j++) rowsDominationColor[i][j]=0;
+    	}
+    	
+		for(int i=0;i<PivotTable[0].length;i++){
+    		for(int j=0;j<3;j++) colsDominationColor[i][j]=0;
+    	}
+    	
+    	for(int i=0;i<ColorTbl.length;i++){
+    		for(int j=0;j<ColorTbl[0].length;j++){
+    			if(ColorTbl[i][j].equals(this.maxcolor)) {
+    				rowsDominationColor[i][max_index]++;
+    				colsDominationColor[j][max_index]++;
+    				valuePerColor[max_index]++;
+    			}
+    			else if(ColorTbl[i][j].equals(this.mincolor)){
+    				rowsDominationColor[i][min_index]++;
+    				colsDominationColor[j][min_index]++;
+    				valuePerColor[min_index]++;
+    			}
+    			else if(ColorTbl[i][j].equals(this.middlecolor)){
+    				rowsDominationColor[i][middle_index]++;
+    				colsDominationColor[j][middle_index]++;
+    				valuePerColor[middle_index]++;
+    			}
+    		}
+    	}
+    	
+    	findDomination(colsDominationColor,max_index,min_index,middle_index,colsDominateMax,colsDominateMin,colsDominateMiddle,max_appearance_per_color);
+    	
+    }
+	
+	 public void ComparingToSiblingColumn_v1(String[][] PivotTable){
+	    	countHigherPerColumn=new int[PivotTable[0].length-1];
+	    	countLowerPerColumn=new int[PivotTable[0].length-1];
+	    	countEqualPerColumn=new int[PivotTable[0].length-1];
+	    	nullValuesPerColumn=new int[PivotTable[0].length-1];
+	    	columnValues=new String[PivotTable[0].length-1];
+	    	
+	    	for(int j=1;j<PivotTable[0].length;j++){
+	    		countHigherPerColumn[j-1]=0;
+	    		countLowerPerColumn[j-1]=0;
+	    		columnValues[j-1]=PivotTable[0][j];
+	    		if(j!=this.boldColumn){
+		    		for(int i=1;i<PivotTable.length;i++){
+		    			if(!PivotTable[i][j].equals("-")){	    				
+			    			if(Double.parseDouble(PivotTable[i][this.boldColumn])>Double.parseDouble(PivotTable[i][j])){
+			    				countHigherPerColumn[j-1]++;
+			    			}
+			    			else if(Double.parseDouble(PivotTable[i][this.boldColumn])<Double.parseDouble(PivotTable[i][j])){
+			    				countLowerPerColumn[j-1]++;
+			    			}
+			    			else countEqualPerColumn[j-1]++;
+		    			}
+		    			else nullValuesPerColumn[j-1]++;
+		    		}
+	    		}
+	    		else {
+	    			for(int i=1;i<PivotTable.length;i++) {
+	    				if(PivotTable[i][j].equals("-")){
+	    					nullValuesPerColumn[j-1]++;
+	    				}
+	    			}
+	    		}
+	    	}
+	    }
+	
+	
+	private void findDomination(Integer[][] DominationColor,int max_index,int min_index,int middle_index,ArrayList<Integer> DominateMax,ArrayList<Integer> DominateMin,ArrayList<Integer> DominateMiddle,Integer[] max_appearance_per_color){
+    	max_appearance_per_color[max_index]=maxValueInTableColumn(DominationColor,max_index);
+    	max_appearance_per_color[min_index]=maxValueInTableColumn(DominationColor,min_index);
+    	max_appearance_per_color[middle_index]=maxValueInTableColumn(DominationColor,middle_index);
+    	
+    	for(int i=0;i<DominationColor.length;i++){
+			if(DominationColor[i][max_index]==max_appearance_per_color[max_index] && max_appearance_per_color[max_index]!=1) DominateMax.add(i);
+			if(DominationColor[i][min_index]==max_appearance_per_color[min_index] && max_appearance_per_color[min_index]!=1) DominateMin.add(i);
+			if(DominationColor[i][middle_index]==max_appearance_per_color[middle_index] && max_appearance_per_color[middle_index]!=1) DominateMiddle.add(i);
+    	}
+    }
+	
+	private int maxValueInTableColumn(Integer[][] table,int column){
+    	int max_value=table[0][column];
+    	for(int i=1;i<table.length;i++){
+    		if(max_value<table[i][column]) max_value=table[i][column];
+    	}
+    	return max_value;
+    }
 	
 	boolean tryParseFloat(String value){
     	try{

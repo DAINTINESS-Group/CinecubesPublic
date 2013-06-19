@@ -40,7 +40,7 @@ public class MainEngine {
 	public WrapUpMgr WrapUp;
 	private ParserManager PrsMng;
 	public String dbname;
-  
+	
    
     MainEngine(){
     	StorMgr=new StoryMgr(); 
@@ -234,7 +234,9 @@ public class MainEngine {
        
         StorMgr.getStory().setFinalResult(new PptxSlideshow());
         StorMgr.getStory().getFinalResult().setFilename("ppt/"+cubequery.name+".pptx");
-                
+        
+        StorMgr.getStory().getActs().set(1, StorMgr.getStory().getActs().set(2,StorMgr.getStory().getAct(1) ));
+        
         WrapUp=new PptxWrapUpMgr();
         WrapUp.setFinalResult(StorMgr.getStory().getFinalResult());
         WrapUp.doWrapUp(StorMgr.getStory());
@@ -345,7 +347,7 @@ public class MainEngine {
 		        tbl.CreatePivotTable(subtsk.getExtractionMethod().Res.getRowPivot(), subtsk.getExtractionMethod().Res.getColPivot(), 
 						subtsk.getExtractionMethod().Res.getResultArray(),extraPivot);
 		        if(j>0 && act.getTask().highlights.size()>0) {
-		        	tbl.setColorTable((HighlightTable) act.getTask().highlights.get(j-1));		        	
+		        	tbl.setColorTable((HighlightTable) act.getTask().highlights.get(j-1));
 		        }
 		        
 		        if(subtsk.getDifferencesFromOrigin().size()>0 && (subtsk.getDifferencesFromOrigin().get(0)==-4 || subtsk.getDifferencesFromOrigin().get(0)==-5)&& subtsk.getDifferencesFromOrigin().get(1)>0){
@@ -441,11 +443,14 @@ public class MainEngine {
 			SqlQuery currentSqlQuery=(SqlQuery) subtsk.getExtractionMethod();
 			Tabular tbl=(Tabular) currentSlide.getVisual();
     		HighlightTable htable=(HighlightTable) act.getTask().highlights.get(i_cubequery-1);
+    		htable.findDominatedRowsColumns(tbl.getPivotTable(), tbl.colortable);
+    		
     		if(currentSlide.getSubTask().size()>1){
     			
     			currentSlide.Notes="";
     			if(subtsk.getDifferencesFromOrigin().get(0)==-4){
 		        	currentSlide.Title="Drill In Slide For Rows of Original";
+		        	
 		        	currentSlide.Notes=((TextExtractionPPTX)this.TxtMgr).createTextForAct2(origCubeQuery.GammaExpressions,
 							   origCubeQuery.SigmaExpressions,
 							   currentSlide.getVisual().getPivotTable(),
@@ -473,10 +478,10 @@ public class MainEngine {
 		        	currentSlide.Notes+=((TextExtractionPPTX)this.TxtMgr).createTxtForDominatedRowsColumns(tbl.getPivotTable(),tbl.colortable,(HighlightTable) act.getTask().highlights.get(i_cubequery-1));
 		        }
     			
-    			AudioMgr.CreateSound("Text to Create", currentSlide.getAudio().getFileName());
+    			AudioMgr.CreateSound(currentSlide.Notes, currentSlide.getAudio().getFileName());
     		}
     		else{
-    			currentSlide.Notes="SQL QUERY:\n"+subtsk.getExtractionMethod().toString()+"\n\nCUBE QUERY:\n"+currentCubeQuery.toString();
+    			currentSlide.Notes="query";
     			
     			currentSlide.TitleColumn=new String(currentSqlQuery.Res.TitleOfColumns);
     			currentSlide.TitleRow=new String(currentSqlQuery.Res.TitleOfRows);
@@ -487,12 +492,15 @@ public class MainEngine {
 		        }
 		        else if(subtsk.getDifferencesFromOrigin().get(0)==-1){
 		        	int gamma_index_change=subtsk.getDifferenceFromOrigin(1);
-		        	currentSlide.Title="Summarized Slide for field : ";
-		        	currentSlide.Title+=act.getTask().cubeQuery.get(1).GammaExpressions.get(gamma_index_change)[0];
+		        	currentSlide.Title="Assessing the behavior of ";
+		        	currentSlide.Title+=act.getTask().cubeQuery.get(1).GammaExpressions.get(gamma_index_change)[0].replace("_dim", "");
 		        	currentSlide.getVisual().getPivotTable()[0][0]=" Summary for "+act.getTask().cubeQuery.get(1).GammaExpressions.get(gamma_index_change)[0].split("_")[0];
 		        	currentSlide.Notes=((TextExtractionPPTX)this.TxtMgr).createTextForAct1(origCubeQuery.GammaExpressions,origCubeQuery.SigmaExpressions,currentCubeQuery.SigmaExpressions,currentSqlQuery.Res.getResultArray(),(HighlightTable) act.getTask().highlights.get(i_cubequery-1),subtsk.getDifferenceFromOrigin(1),currentCubeQuery.AggregateFunction,currentCubeQuery.Msr.get(0).name);
 		        	
-		        	if(gamma_index_change==0) currentSlide.Notes+="\n"+((TextExtractionPPTX)this.TxtMgr).createTxtComparingToSiblingColumn_v1(tbl.getPivotTable(),htable.boldColumn);
+		        	if(gamma_index_change==0) {
+		        		htable.ComparingToSiblingColumn_v1(tbl.getPivotTable());
+		        		currentSlide.Notes+="\n"+((TextExtractionPPTX)this.TxtMgr).createTxtComparingToSiblingColumn_v1(tbl.getPivotTable(),htable.boldColumn,htable);
+		        	}
 		        	else currentSlide.Notes+="\n"+((TextExtractionPPTX)this.TxtMgr).createTxtComparingToSiblingRow_v1(tbl.getPivotTable(),htable.boldRow);
 		        }
 		        else if(subtsk.getDifferencesFromOrigin().get(0)==-2){
@@ -523,6 +531,7 @@ public class MainEngine {
     		}
     	}
     	if(slideToEnd.size()>0){
+    		StorMgr.getStory().createNewAct();
     		PptxSlide newSlide=new PptxSlide();
         	newSlide.Title="Auxiliary slides for Act I";
         	StorMgr.getStory().getLastAct().addEpisode(newSlide);

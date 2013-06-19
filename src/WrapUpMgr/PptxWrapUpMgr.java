@@ -62,7 +62,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 	
 	@Override	
 	public void doWrapUp(Story story){
-        InputStream file = getClass().getClassLoader().getResourceAsStream("helpfiles/notes.pptx");
+        InputStream file = PptxWrapUpMgr.class.getClassLoader().getResourceAsStream("notes.pptx"+ ".SOURCE");
         try {
 			slideShowPPTX = new XMLSlideShow(file);			
 		} catch (IOException e) {
@@ -150,7 +150,9 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 	        } catch (URISyntaxException ex) {
 	        	System.out.println(ex.getMessage());
 	        }
-        	
+	        PackageRelationship addRelationship= slide.getPackagePart().addRelationship(uri, TargetMode.INTERNAL, NotesRelationShip);
+	        slide.addRelation(addRelationship.getId(), slide); 
+	        
         	XSLFTextShape title1 = slide.getPlaceholder(0);
         	title1.setText(Title);
         	
@@ -479,8 +481,18 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 	            
 	            /*Start Copy*/
 	            Files.copy(wavFrom.toPath(), wavTo.toPath(),StandardCopyOption.REPLACE_EXISTING );
+	            wavFrom.deleteOnExit();
 	            /*End of copy*/
-        	}  
+	            FileOutputStream slide=new FileOutputStream("ppt/unzip/ppt/slides/slide"+String.valueOf(slideId)+".xml");
+	            try {
+	            	slide.write(SlideXml[slideId-2].getBytes());
+	                this.AppendContentType(slideId);
+	                slide.close();
+	            } catch (IOException ex) {
+	                System.out.println(ex.getMessage());
+	            }            
+        	}
+        	
             /*Write Notes */
             String relsNotesFilename="ppt/unzip/ppt/notesSlides/_rels/notesSlide"+String.valueOf(slideId) +".xml.rels";
             String NotesFilename="ppt/unzip/ppt/notesSlides/notesSlide"+String.valueOf(slideId) +".xml";
@@ -501,14 +513,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
             
                      
             /* Write to Slide the audio */
-            FileOutputStream slide=new FileOutputStream("ppt/unzip/ppt/slides/slide"+String.valueOf(slideId)+".xml");
-            try {
-            	slide.write(SlideXml[slideId-2].getBytes());
-                this.AppendContentType(slideId);
-                slide.close();
-            } catch (IOException ex) {
-                System.out.println(ex.getMessage());
-            }            
+            
         } catch (IOException ex) {
         	System.out.println(ex.getMessage());
         }   
