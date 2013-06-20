@@ -61,8 +61,7 @@ public class TaskDrillIn extends Task {
 	    		todrillinValues[1]=Value;
 	    		todrillinValues[0]=col_per_row[i].toArray()[k].toString();
 	    		
-	    		doDrillInRowVersion(cubeBase,todrillinValues);
-		        this.getLastSubTask().addDifferenceFromOrigin(i);
+	    		if(doDrillInRowVersion(cubeBase,todrillinValues)) this.getLastSubTask().addDifferenceFromOrigin(i);
 	    	}
     		this.recreateResultArray(1,0);
     		this.createHighlight();
@@ -85,8 +84,7 @@ public class TaskDrillIn extends Task {
 	    		todrillinValues[1]=Value;
 	    		todrillinValues[0]=row_per_col[i].toArray()[k].toString();
 	    		
-	    		doDrillInColVersion(cubeBase,todrillinValues);
-		        this.getLastSubTask().addDifferenceFromOrigin(i);
+	    		if(doDrillInColVersion(cubeBase,todrillinValues)) this.getLastSubTask().addDifferenceFromOrigin(i);
 	    	}
     		this.recreateResultArray(1,0);
     		this.createHighlight();
@@ -176,7 +174,7 @@ public class TaskDrillIn extends Task {
 		this.getLastSubTask().execute(cubeBase.DB);
     }
     
-    void doDrillInRowVersion(CubeBase cubeBase,String[] valuesToChange){ /*valuesToChange[0]->Row Value,valuesToChange[1]->Column Value  */
+    boolean doDrillInRowVersion(CubeBase cubeBase,String[] valuesToChange){ /*valuesToChange[0]->Row Value,valuesToChange[1]->Column Value  */
     	
     	String[] gamma_tmp=this.cubeQuery.get(1).GammaExpressions.get(1); /*column dimension */
     	
@@ -200,21 +198,24 @@ public class TaskDrillIn extends Task {
 			newQuery.SigmaExpressions.get(index_sigma_todrillIn)[2]="'"+valuesToChange[0]+"'";
 		}
 		
-		
-		newQuery.GammaExpressions.get(1)[1]=child_level_of_gamma;
-		newQuery.GammaExpressions.remove(0);
-		String [] toadd=new String[2];
-		toadd[0]="";
-		toadd[1]="'"+valuesToChange[0]+"'";
-		
-		newQuery.GammaExpressions.add(toadd);
-		
-		addSubTask(newQuery,-4);
-		
-		this.getLastSubTask().execute(cubeBase.DB);
+		if(child_level_of_gamma!=null){
+			newQuery.GammaExpressions.get(1)[1]=child_level_of_gamma;
+			newQuery.GammaExpressions.remove(0);
+			String [] toadd=new String[2];
+			toadd[0]="";
+			toadd[1]="'"+valuesToChange[0]+"'";
+			
+			newQuery.GammaExpressions.add(toadd);
+			
+			addSubTask(newQuery,-4);
+			
+			this.getLastSubTask().execute(cubeBase.DB);
+		}
+		else return false;
+		return true;
     }
     
-    void doDrillInColVersion(CubeBase cubeBase,String[] valuesToChange){/*valuesToChange[0]->Row Value,valuesToChange[1]->Column Value  */
+    boolean doDrillInColVersion(CubeBase cubeBase,String[] valuesToChange){/*valuesToChange[0]->Row Value,valuesToChange[1]->Column Value  */
     	
     	String[] gamma_tmp=this.cubeQuery.get(1).GammaExpressions.get(0); /*Row Dimension*/
     	
@@ -238,18 +239,21 @@ public class TaskDrillIn extends Task {
 			newQuery.SigmaExpressions.get(index_sigma_todrillIn)[2]="'"+valuesToChange[0]+"'";
 		}
 		
-		
-		newQuery.GammaExpressions.get(0)[1]=child_level_of_gamma;
-		newQuery.GammaExpressions.remove(1);
-		String [] toadd=new String[2];
-		toadd[0]="";
-		toadd[1]="'"+valuesToChange[0]+"'";
-		
-		newQuery.GammaExpressions.add(toadd);
-		
-		addSubTask(newQuery,-5);
-		
-		this.getLastSubTask().execute(cubeBase.DB);
+		if(child_level_of_gamma!=null){
+			newQuery.GammaExpressions.get(0)[1]=child_level_of_gamma;
+			newQuery.GammaExpressions.remove(1);
+			String [] toadd=new String[2];
+			toadd[0]="";
+			toadd[1]="'"+valuesToChange[0]+"'";
+			
+			newQuery.GammaExpressions.add(toadd);
+			
+			addSubTask(newQuery,-5);
+			
+			this.getLastSubTask().execute(cubeBase.DB);
+		}
+		else return false;
+		return true;
     }
     
     @SuppressWarnings("unused")
@@ -461,14 +465,16 @@ public class TaskDrillIn extends Task {
 		SubTask sbtk=this.getLastSubTask();
     	String[][] current=sbtk.getExtractionMethod().Res.getResultArray();
     	HighlightTable hltbl=new HighlightTable();
-    	this.highlights.add(hltbl);
-    	hltbl.createMinHightlight(current);
-    	hltbl.createMaxHightlight(current);
-    	hltbl.createMiddleHightlight(current); 
-    	if(sbtk.getDifferencesFromOrigin().size()>0 && sbtk.getDifferenceFromOrigin(0)==-1){
-    		int tmp_it=this.getIndexOfSigmaToDelete(this.cubeQuery.get(1).SigmaExpressions,this.cubeQuery.get(1).GammaExpressions.get(sbtk.getDifferenceFromOrigin(1))[0]);
-    		if(tmp_it>-1 && sbtk.getDifferenceFromOrigin(1)==0) hltbl.setBoldColumn(sbtk.getExtractionMethod().Res.getColPivot(),this.cubeQuery.get(1).SigmaExpressions.get(tmp_it)[2]);
-    		else hltbl.setBoldRow(sbtk.getExtractionMethod().Res.getRowPivot(),this.cubeQuery.get(1).SigmaExpressions.get(tmp_it)[2]);
+    	if(current!=null){
+	    	this.highlights.add(hltbl);
+	    	hltbl.createMinHightlight(current);
+	    	hltbl.createMaxHightlight(current);
+	    	hltbl.createMiddleHightlight(current); 
+	    	if(sbtk.getDifferencesFromOrigin().size()>0 && sbtk.getDifferenceFromOrigin(0)==-1){
+	    		int tmp_it=this.getIndexOfSigmaToDelete(this.cubeQuery.get(1).SigmaExpressions,this.cubeQuery.get(1).GammaExpressions.get(sbtk.getDifferenceFromOrigin(1))[0]);
+	    		if(tmp_it>-1 && sbtk.getDifferenceFromOrigin(1)==0) hltbl.setBoldColumn(sbtk.getExtractionMethod().Res.getColPivot(),this.cubeQuery.get(1).SigmaExpressions.get(tmp_it)[2]);
+	    		else hltbl.setBoldRow(sbtk.getExtractionMethod().Res.getRowPivot(),this.cubeQuery.get(1).SigmaExpressions.get(tmp_it)[2]);
+	    	}
     	}
 	}
 	
@@ -479,51 +485,54 @@ public class TaskDrillIn extends Task {
         		if(this.cubeQuery.get(i).GammaExpressions.get(0)[0].equals(this.cubeQuery.get(j).GammaExpressions.get(0)[0])){
         			if(this.subTasks.get(i).getDifferenceFromOrigin(0)!=this.subTasks.get(j).getDifferenceFromOrigin(0) 
         					&& !substodelete.contains(this.subTasks.get(j)) && !subschecked.contains(this.subTasks.get(i))){
+        				
         				String[][] tmp_i=this.subTasks.get(i).getExtractionMethod().Res.getResultArray();
         				String[][] tmp_j=this.subTasks.get(j).getExtractionMethod().Res.getResultArray();
         				
-        				String[][] new_array=new String[tmp_i.length+tmp_j.length-2][tmp_i[0].length]; 
-        				int new_array_iterator=0;
-        				this.subTasks.get(i).getExtractionMethod().Res.getRowPivot().clear();
-        				this.subTasks.get(i).getExtractionMethod().Res.getColPivot().clear();
-        				try{
-	        				for(int l=0;l<tmp_i.length;l++) {
-	        					
-	        					new_array[new_array_iterator][0]=new String(tmp_i[l][0]);	        					
-	        					new_array[new_array_iterator][1]=new String(tmp_i[l][1]);
-	        					new_array[new_array_iterator][2]=new String(tmp_i[l][2]);
-	        					new_array[new_array_iterator][3]=new String(tmp_i[l][3]);
-	        					
-	        					if(!tmp_i[l][2].equals("measure")) {
-	        						this.subTasks.get(i).getExtractionMethod().Res.getRowPivot().add(new String(tmp_i[l][0]));
-	        						this.subTasks.get(i).getExtractionMethod().Res.getColPivot().add(new String(tmp_i[l][1]));
-	        					}
-	        					
-	        					new_array_iterator++;
-	        				}
-	        				
-	        				for(int m=0;m<tmp_j.length;m++) {
-	        					if(!tmp_j[m][2].equals("measure")){
+        				if(tmp_i!=null && tmp_j!=null){ 
+	        				String[][] new_array=new String[tmp_i.length+tmp_j.length-2][tmp_i[0].length]; 
+	        				int new_array_iterator=0;
+	        				this.subTasks.get(i).getExtractionMethod().Res.getRowPivot().clear();
+	        				this.subTasks.get(i).getExtractionMethod().Res.getColPivot().clear();
+	        				try{
+		        				for(int l=0;l<tmp_i.length;l++) {
 		        					
-		        					new_array[new_array_iterator][0]=new String(tmp_j[m][0]);
-		        					this.subTasks.get(i).getExtractionMethod().Res.getColPivot().add(new String(tmp_j[m][1]));
+		        					new_array[new_array_iterator][0]=new String(tmp_i[l][0]);	        					
+		        					new_array[new_array_iterator][1]=new String(tmp_i[l][1]);
+		        					new_array[new_array_iterator][2]=new String(tmp_i[l][2]);
+		        					new_array[new_array_iterator][3]=new String(tmp_i[l][3]);
 		        					
-		        					new_array[new_array_iterator][1]=new String(tmp_j[m][1]);
-		        					this.subTasks.get(i).getExtractionMethod().Res.getRowPivot().add(new String(tmp_j[m][0]));
-		        					
-		        					new_array[new_array_iterator][2]=new String(tmp_j[m][2]);
-		        					new_array[new_array_iterator][3]=new String(tmp_j[m][3]);
+		        					if(!tmp_i[l][2].equals("measure")) {
+		        						this.subTasks.get(i).getExtractionMethod().Res.getRowPivot().add(new String(tmp_i[l][0]));
+		        						this.subTasks.get(i).getExtractionMethod().Res.getColPivot().add(new String(tmp_i[l][1]));
+		        					}
 		        					
 		        					new_array_iterator++;
-	        					}
+		        				}
+		        				
+		        				for(int m=0;m<tmp_j.length;m++) {
+		        					if(!tmp_j[m][2].equals("measure")){
+			        					
+			        					new_array[new_array_iterator][0]=new String(tmp_j[m][0]);
+			        					this.subTasks.get(i).getExtractionMethod().Res.getColPivot().add(new String(tmp_j[m][1]));
+			        					
+			        					new_array[new_array_iterator][1]=new String(tmp_j[m][1]);
+			        					this.subTasks.get(i).getExtractionMethod().Res.getRowPivot().add(new String(tmp_j[m][0]));
+			        					
+			        					new_array[new_array_iterator][2]=new String(tmp_j[m][2]);
+			        					new_array[new_array_iterator][3]=new String(tmp_j[m][3]);
+			        					
+			        					new_array_iterator++;
+		        					}
+		        				}
 	        				}
-        				}
-        				catch(Exception ex){
-        					ex.printStackTrace();
-        				}
-        				this.subTasks.get(i).getExtractionMethod().Res.setResultArray(new_array);
-        				substodelete.add(this.subTasks.get(j));
-        				subschecked.add(this.subTasks.get(i));
+	        				catch(Exception ex){
+	        					ex.printStackTrace();
+	        				}
+	        				this.subTasks.get(i).getExtractionMethod().Res.setResultArray(new_array);
+	        				substodelete.add(this.subTasks.get(j));
+	        				subschecked.add(this.subTasks.get(i));
+	        			}
         			}
         		}
         	}

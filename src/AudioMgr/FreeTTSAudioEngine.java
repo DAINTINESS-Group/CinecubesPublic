@@ -1,29 +1,24 @@
-package AudioMgr;
+﻿package AudioMgr;
 
 import java.io.File;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-
-import marytts.LocalMaryInterface;
-import marytts.MaryInterface;
-import marytts.exceptions.MaryConfigurationException;
 
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 import com.sun.speech.freetts.audio.SingleFileAudioPlayer;
 
-public class FreeTTSAudioEngine extends AudioEngine  {
+
+public class FreeTTSAudioEngine extends AudioEngine {
 
     private String voiceName;
     private VoiceManager voiceManager;
     private Voice voice;
     private SingleFileAudioPlayer sfap;
+    
     final String lexicon = "ABCDEFGHIJKLMNOPQRSTUVWXYZ12345674890";
     final java.util.Random rand = new java.util.Random();
-    MaryInterface marytts;
     
-    public FreeTTSAudioEngine() {
+
+	public FreeTTSAudioEngine() {
 		super();
 	}
 
@@ -34,20 +29,15 @@ public class FreeTTSAudioEngine extends AudioEngine  {
 	public void InitializeVoiceEngine() {
         voiceName = "kevin16"; // the only usable general purpose voice
         
-        System.setProperty("com.sun.speech.freetts.voice.defaultAudioPlayer", "com.sun.speech.freetts.audio.SingleFileAudioPlayer");
-        try {
-			marytts = new LocalMaryInterface();
-			marytts.setVoice("cmu-slt-hsmm");
-        }catch ( MaryConfigurationException   e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
         
-        //voice.setRate(150);
-        //voice.setDurationStretch((float) 1.5);
-       
+        System.setProperty("com.sun.speech.freetts.voice.defaultAudioPlayer", "com.sun.speech.freetts.audio.SingleFileAudioPlayer");
+               
+        voiceManager= VoiceManager.getInstance();
+        
+        voice = voiceManager.getVoice(voiceName);
+        voice.allocate();        
 	}
-	
+
 	public static void listAllVoices() {  
         System.out.println();  
         System.out.println("All voices available:");  
@@ -58,7 +48,7 @@ public class FreeTTSAudioEngine extends AudioEngine  {
                                + " (" + voices[i].getDomain() + " domain)");  
         }  
     }  
-	
+
 	/* (non-Javadoc)
 	 * @see AudioMgr.AudioEngine#CreateSound(java.lang.String, java.lang.String)
 	 */
@@ -66,16 +56,32 @@ public class FreeTTSAudioEngine extends AudioEngine  {
 	public void CreateSound(String textTobeSound, String FileNameOfSound) {
 		try
         {
-			File output=new File(FileNameOfSound+".wav");
-	        marytts.setOutputType("AUDIO");
-	        marytts.setOutputTypeParams("WAVE");
-	        marytts.setStreamingAudio(true);
-	        AudioInputStream audio = marytts.generateAudio(textTobeSound);
-	        AudioSystem.write(audio, javax.sound.sampled.AudioFileFormat.Type.WAVE,output );
+          
+           //this.AudioFileName=AudioFN;
+           
+           sfap=new SingleFileAudioPlayer(FileNameOfSound,javax.sound.sampled.AudioFileFormat.Type.WAVE);
+           voice.setAudioPlayer(sfap);
+           voice.speak(textTobeSound);
+           //voice.deallocate();
+           sfap.close();
+			/*MaryInterface marytts = new LocalMaryInterface();
+			Set<String> voices = marytts.getAvailableVoices();
+			marytts.setVoice(voices.iterator().next());
+			AudioInputStream audio = marytts.generateAudio("Hello Mister are Sunday!");
+			AudioInputStream pcm = AudioSystem.getAudioInputStream(AudioFormat.Encoding.PCM_SIGNED, audio);
+			AudioInputStream ulaw = AudioSystem.getAudioInputStream(AudioFormat.Encoding.ULAW, pcm);
+			File tempFile = new File("tmp.wav");
+			AudioSystem.write(ulaw, AudioFileFormat.Type.WAVE, tempFile);
+			/*AudioPlayer player = new AudioPlayer(audio);
+			player.start();
+			player.join();*/
+
+			//System.exit(0);
+           
         }
         catch(Exception e)
         {   
-            //System.out.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
 	}
 
@@ -134,7 +140,7 @@ public class FreeTTSAudioEngine extends AudioEngine  {
 	public void setSfap(SingleFileAudioPlayer sfap) {
 		this.sfap = sfap;
 	}
-	
+
 	public String randomIdentifier() {
 	        StringBuilder builder = new StringBuilder();
 	        while(builder.toString().length() == 0) {
@@ -146,6 +152,6 @@ public class FreeTTSAudioEngine extends AudioEngine  {
 	        }
 	        return builder.toString();
 	    }
-	
+
 
 }

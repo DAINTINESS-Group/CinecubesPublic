@@ -361,8 +361,8 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="41" language="java" name="AudioMgr.FreeTTSAudioEngine" project="Master" 
-    file="/Master/src/AudioMgr/FreeTTSAudioEngine.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="41" language="java" name="AudioMgr.MaryTTSAudioEngine" project="Master" 
+    file="/Master/src/AudioMgr/MaryTTSAudioEngine.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="311" y="1878"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      

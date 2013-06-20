@@ -8,19 +8,19 @@ import HighlightMgr.HighlightTable;
 
 public class TextExtractionPPTX extends TextExtraction {
     
-    public String textForNotes;/*Maybe I delete this valuess*/
+   /* public String textForNotes;/*Maybe I delete this valuess* /
     public String textForTitle;
-    public String textToBeSound;
+    public String textToBeSound;*/
    
     public TextExtractionPPTX(){
     	super();
     	
-        textForNotes=null;
+        /*textForNotes=null;
         textForTitle=null;
-        textToBeSound=null;
+        textToBeSound=null;*/
     }
     
-    public String getTextForNotes(){
+   /* public String getTextForNotes(){
         return this.textForNotes;
     }
     
@@ -42,7 +42,7 @@ public class TextExtractionPPTX extends TextExtraction {
     
     public void getTextToBeSound(String value){
         this.textToBeSound=value;
-    }
+    }*/
     
     public String createTextForOriginalAct1(ArrayList<String[]> Gamma,ArrayList<String[]> Sigma,String[][] Result,HighlightTable htable){
     	String dimensionText="Here, you can see the answer of the original query. You have specified : ";
@@ -59,7 +59,7 @@ public class TextExtractionPPTX extends TextExtraction {
     	/*maxText+=createTextForMinOrMaxArraylist(htable.maxValues,htable.max_index,Gamma,Result);
     	maxText+=") " +*/
     	if(htable.maxValues.size()>1) maxText+="s";
-    	maxText+=" with color "+htable.maxcolor_name+". "; 
+    	maxText+=" with color "+htable.maxcolor_name+" color "+". "; 
     	
     	/*minText+=createTextForMinOrMaxArraylist(htable.minValues,htable.min_index,Gamma,Result);
     	minText+=") " +*/
@@ -83,7 +83,7 @@ public class TextExtractionPPTX extends TextExtraction {
     	dimensionText+="\n In the first of the following two slides we will drill-in dimension "+Gamma.get(0)[0]+"."+Gamma.get(0)[1]+". ";
     	dimensionText+="Then we will drill-in dimension "+Gamma.get(1)[0]+"."+Gamma.get(1)[1]+". ";
     	 
-		return dimensionText+" .\n";
+		return dimensionText+"\n";
     }
     
     public String createTextForAct1(ArrayList<String[]> GammaCompareTo,
@@ -100,7 +100,7 @@ public class TextExtractionPPTX extends TextExtraction {
     	String[] sigmaOriginal=SigmaCompareTo.get(this.getIndexOfSigma(SigmaCompareTo, gammaChange[0]));
     	
     	txtNotes+=" "+sigmaOriginal[2]+" for "+sigmaOriginal[0]+" with its sibling values. We highlight the reference cells with bold.\n" +
-    			"We calculate the "+Aggregate+" of "+Measure+"while fixing ";
+    			"We calculate the "+Aggregate+" of "+Measure.replace("\r", "")+" while fixing ";
     	int j=0;
     	for(String[] sigma:SigmaCurrent){
     		if(j>0) txtNotes+=", ";
@@ -128,11 +128,11 @@ public class TextExtractionPPTX extends TextExtraction {
     	/*txtNotes+="The values ​​in the left corner indicate the start of new table and the values in brackets the number of tuples for each result. Here you can see "+String.valueOf(num_values_drill_in)+" table";
     	if(num_values_drill_in > 1) txtNotes+="s";*/
     	
-    	txtNotes+="For each cell we show both the "+Aggregate+" of "+Measure+" and the number of tuples that corespond to it. ";
+    	txtNotes+="For each cell we show both the "+Aggregate+" of "+Measure.replace("\r", "")+" and the number of tuples that correspond to it. ";
     	txtNotes+="(The analysis of "+String.valueOf(num_values_drill_in)+" value";
     	if(num_values_drill_in > 1) txtNotes+="s";
     	if(diffGamma==0) txtNotes+=" for the rows ";
-    	else txtNotes+=" for the colunms ";
+    	else txtNotes+=" for the columns ";
     	txtNotes+="of the original table, to the dimension "+currentGamma[0].replace("_class.", " at ").replace(".", " at ").replace("lvl", "level ")+".)\n";
     	
 		return txtNotes.replace("  ", " ").replace("_dim.", " at ").replace("_dim", "").replace("lvl", "level ");
@@ -144,10 +144,11 @@ public class TextExtractionPPTX extends TextExtraction {
     	int min_index=1;
     	int middle_index=2;
     	
-    	String textToReturn="We highlight the "+htable.max_appearance_per_color[min_index]+" lowest values in "+htable.mincolor_name+" and the "+htable.max_appearance_per_color[max_index]+" in red.\n" +
+    	String textToReturn="We highlight the "+htable.valuePerColor[min_index]+" lowest values in "+htable.mincolor_name+" color and the "
+    						+htable.valuePerColor[max_index]+" in "+htable.maxcolor_name+" color.\n" +
     			"Some interesting findings include:\n";
     	for(Integer index :htable.colsDominateMax ){
-    		textToReturn+="Column "+PivotTable[0][index]+" has "+htable.colsDominationColor[index][max_index]+" of the"+htable.valuePerColor[max_index]+" highest values.\n";
+    		textToReturn+="Column "+PivotTable[0][index]+" has "+htable.colsDominationColor[index][max_index]+" of the "+htable.valuePerColor[max_index]+" highest values.\n";
     	}
     	
     	for(Integer index :htable.colsDominateMin ){
@@ -157,7 +158,6 @@ public class TextExtractionPPTX extends TextExtraction {
     	  	
     	
     }
-    
     
     public String createTxtComparingToSiblingColumn_version_for_sum(String[][] PivotTable,int ColumnOfOurValue){
     	double[] sumUp=new double[PivotTable[0].length-1];
@@ -205,44 +205,25 @@ public class TextExtractionPPTX extends TextExtraction {
     }
     
     
-    public String createTxtComparingToSiblingColumn_v1(String[][] PivotTable,int ColumnOfOurValue,HighlightTable htable){
-    	/*int[] counthigher=new int[PivotTable[0].length-1];
-    	int[] countlower=new int[PivotTable[0].length-1];
-    	int[] countequal=new int[PivotTable[0].length-1];
-    	int[] nullValues=new int[PivotTable[0].length-1];
-    	String[] columnValues=new String[PivotTable[0].length-1];
-    	
-    	
-    	
-    	
-    	
-    	for(int j=1;j<PivotTable[0].length;j++){
-    		counthigher[j-1]=0;
-    		countlower[j-1]=0;
-    		columnValues[j-1]=PivotTable[0][j];
-    		if(j!=ColumnOfOurValue){
-	    		for(int i=1;i<PivotTable.length;i++){
-	    			if(!PivotTable[i][j].equals("-")){	    				
-		    			if(Double.parseDouble(PivotTable[i][ColumnOfOurValue])>Double.parseDouble(PivotTable[i][j])){
-		    				counthigher[j-1]++;
-		    			}
-		    			else if(Double.parseDouble(PivotTable[i][ColumnOfOurValue])<Double.parseDouble(PivotTable[i][j])){
-		    				countlower[j-1]++;
-		    			}
-		    			else countequal[j-1]++;
-	    			}
-	    			else nullValues[j-1]++;
-	    		}
-    		}
-    		else {
-    			for(int i=1;i<PivotTable.length;i++) {
-    				if(PivotTable[i][j].equals("-")){
-    					nullValues[j-1]++;
-    				}
-    			}
-    		}
+    public String createTxtForIntroSlide(ArrayList<String[]> Gamma,ArrayList<String[]> Sigma,String Aggregate,String Measure){
+    	String ret_txt="Report for the query "+ Aggregate+" of "+Measure.replace("\r", "")+" by ";
+    	for(String [] gamma: Gamma){
+    		ret_txt+=gamma[0].replace("_dim"," at ")+gamma[1].replace("lvl", "level ")+" and ";
     	}
-    	*/
+    	int i=0;
+    	ret_txt+=" for ";
+    	for(String [] sigma: Sigma){
+    		if(i==Sigma.size()-1) ret_txt+=" and ";
+    		else if(i>0) ret_txt+=", ";
+    		ret_txt+=sigma[0].replace("_dim."," at ").replace("lvl", "level ")+" fixing to "+sigma[2];
+    		i++;
+    	}
+    	return ret_txt.replace("  ", " ").replace("\n", "").replace("\r", "");
+    }
+    
+    
+    public String createTxtComparingToSiblingColumn_v1(String[][] PivotTable,int ColumnOfOurValue,HighlightTable htable){
+    	
     	String numOfcases=String.valueOf(PivotTable.length-1);
     	String ret_value="";
     	if(htable.countHigherPerColumn.length==2){
@@ -250,22 +231,22 @@ public class TextExtractionPPTX extends TextExtraction {
     		for(int j=0;j<htable.countHigherPerColumn.length;j++){
     			if(j!=ColumnOfOurValue-1){
         			if(htable.countHigherPerColumn[j]>0) {
-            			ret_value+=String.valueOf(htable.countHigherPerColumn[j])+" out of "+numOfcases+" cases "+htable.columnValues[ColumnOfOurValue-1]+" has higher value than "+htable.columnValues[ColumnOfOurValue-1]+".\n";
+            			ret_value+=String.valueOf(htable.countHigherPerColumn[j])+" out of "+numOfcases+" cases "+htable.valuesOfColumn[ColumnOfOurValue-1]+" has higher value than "+htable.valuesOfColumn[ColumnOfOurValue-1]+".\n";
             			if(htable.countLowerPerColumn[j]>0 || htable.countEqualPerColumn[j]>0 || htable.nullValuesPerColumn[j]>0)  ret_value+="In ";
             		}
             		
             		if(htable.countLowerPerColumn[j]>0){
-            			ret_value+=String.valueOf(htable.countLowerPerColumn[j])+" out of "+numOfcases+" cases "+htable.columnValues[ColumnOfOurValue-1]+" has lower value than "+htable.columnValues[j]+".\n";
+            			ret_value+=String.valueOf(htable.countLowerPerColumn[j])+" out of "+numOfcases+" cases "+htable.valuesOfColumn[ColumnOfOurValue-1]+" has lower value than "+htable.valuesOfColumn[j]+".\n";
             			if(htable.countEqualPerColumn[j]>0 || htable.nullValuesPerColumn[j]>0) ret_value+="In ";;
             		}
             		
             		if(htable.countEqualPerColumn[j]>0){
-            			ret_value+=String.valueOf(htable.countLowerPerColumn[j])+" out of "+numOfcases+" cases "+htable.columnValues[ColumnOfOurValue-1]+" has equal value than "+htable.columnValues[j]+".\n";
+            			ret_value+=String.valueOf(htable.countLowerPerColumn[j])+" out of "+numOfcases+" cases "+htable.valuesOfColumn[ColumnOfOurValue-1]+" has equal value than "+htable.valuesOfColumn[j]+".\n";
             			if(htable.nullValuesPerColumn[j]>0) ret_value+="In ";
             		}
             		
             		if(htable.nullValuesPerColumn[j]>0){
-            			ret_value+=String.valueOf(htable.nullValuesPerColumn[j])+" out of "+numOfcases+" cases "+htable.columnValues[j]+" has null value.\n";
+            			ret_value+=String.valueOf(htable.nullValuesPerColumn[j])+" out of "+numOfcases+" cases "+htable.valuesOfColumn[j]+" has null value.\n";
             		}
     			}
     		}
@@ -275,22 +256,22 @@ public class TextExtractionPPTX extends TextExtraction {
     		for(int j=0;j<htable.countHigherPerColumn.length;j++){
     			if(j!=ColumnOfOurValue-1){
     				if(htable.countHigherPerColumn[j]>0) {
-            			ret_value+=String.valueOf(htable.countHigherPerColumn[j])+" out of "+numOfcases+" cases "+htable.columnValues[ColumnOfOurValue-1]+" has higher value than "+htable.columnValues[j]+".\n";
+            			ret_value+=String.valueOf(htable.countHigherPerColumn[j])+" out of "+numOfcases+" cases "+htable.valuesOfColumn[ColumnOfOurValue-1]+" has higher value than "+htable.valuesOfColumn[j]+".\n";
             			if(htable.countLowerPerColumn[j]>0 || htable.countEqualPerColumn[j]>0 || htable.nullValuesPerColumn[j]>0) ret_value+="In ";
             		}
             		
             		if(htable.countLowerPerColumn[j]>0){
-            			ret_value+=String.valueOf(htable.countLowerPerColumn[j])+" out of "+numOfcases+" cases "+htable.columnValues[ColumnOfOurValue-1]+" has lower value than "+htable.columnValues[j]+".\n";
+            			ret_value+=String.valueOf(htable.countLowerPerColumn[j])+" out of "+numOfcases+" cases "+htable.valuesOfColumn[ColumnOfOurValue-1]+" has lower value than "+htable.valuesOfColumn[j]+".\n";
             			if(htable.countEqualPerColumn[j]>0 || htable.nullValuesPerColumn[j]>0) ret_value+="In ";
             		}
             		
             		if(htable.countEqualPerColumn[j]>0){
-            			ret_value+=String.valueOf(htable.countEqualPerColumn[j])+" out of "+numOfcases+" cases "+htable.columnValues[ColumnOfOurValue-1]+" has equal value than "+htable.columnValues[j]+".\n";
+            			ret_value+=String.valueOf(htable.countEqualPerColumn[j])+" out of "+numOfcases+" cases "+htable.valuesOfColumn[ColumnOfOurValue-1]+" has equal value than "+htable.valuesOfColumn[j]+".\n";
             			if(htable.nullValuesPerColumn[j]>0) ret_value+="In ";
             		}
             		
             		if(htable.nullValuesPerColumn[j]>0){
-            			ret_value+=String.valueOf(htable.nullValuesPerColumn[j])+" out of "+numOfcases+" cases "+htable.columnValues[j]+" has null value.\n";
+            			ret_value+=String.valueOf(htable.nullValuesPerColumn[j])+" out of "+numOfcases+" cases "+htable.valuesOfColumn[j]+" has null value.\n";
             		}
     			}
     		}
@@ -342,7 +323,7 @@ public class TextExtractionPPTX extends TextExtraction {
     	return ret_value;
     }
     
-    public String createTxtComparingToSiblingColumn_v3(String[][] PivotTable){
+    /*public String createTxtComparingToSiblingColumn_v3(String[][] PivotTable){
     	String ret_value="";
     	ArrayList<Integer> rowsToSplit=new ArrayList<Integer>();
     	ArrayList<String[][]> PivotsTbl=new ArrayList<String[][]>();
@@ -382,7 +363,7 @@ public class TextExtractionPPTX extends TextExtraction {
     	}
     	ret_value+="==================================";
     	return ret_value;
-    }
+    }*/
     
     public String createTxtComparingToSiblingColumn_v4(String[][] PivotTable){
     	String ret_value="";
@@ -452,7 +433,7 @@ public class TextExtractionPPTX extends TextExtraction {
     	
     	return ret_value;
     }
-        
+    /*    
     public String createTxtComparingToSiblingRow_version_sum(String[][] PivotTable){
     	double[] sumUp=new double[PivotTable.length-1];
     	String[] rowValues=new String[PivotTable.length-1];
@@ -491,89 +472,56 @@ public class TextExtractionPPTX extends TextExtraction {
     	}
     	
     	return ret_value;
-    }
+    }*/
     
-    public String createTxtComparingToSiblingRow_v1(String[][] PivotTable,int RowOfOurValue){
-    	int[] counthigher=new int[PivotTable.length-1];
-    	int[] countlower=new int[PivotTable.length-1];
-    	int[] countequal=new int[PivotTable.length-1];
-    	int[] nullValues=new int[PivotTable.length-1];
-    	String[] columnValues=new String[PivotTable.length-1];
+    public String createTxtComparingToSiblingRow_v1(String[][] PivotTable,HighlightTable httable){
+    	
     	String numOfcases=String.valueOf(PivotTable[0].length-1);
     	String ret_value="";
     	
-    	for(int i=1;i<PivotTable.length;i++){
-    		counthigher[i-1]=0;
-    		countlower[i-1]=0;
-    		countequal[i-1]=0;
-    		columnValues[i-1]=PivotTable[i][0];
-    		if(i!=RowOfOurValue){
-	    		for(int j=1;j<PivotTable[0].length;j++){
-	    			if(!PivotTable[i][j].equals("-")){	    				
-		    			if(Double.parseDouble(PivotTable[RowOfOurValue][j])>Double.parseDouble(PivotTable[i][j])){
-		    				counthigher[i-1]++;
-		    			}
-		    			else if(Double.parseDouble(PivotTable[RowOfOurValue][j])<Double.parseDouble(PivotTable[i][j])){
-							countlower[i-1]++;
-		    			}
-		    			else countequal[i-1]++;
-	    			}
-	    			else nullValues[i-1]++;
-	    		}
-    		}
-    		else {
-    			for(int j=1;j<PivotTable[0].length;j++) {
-    				if(PivotTable[i][j].equals("-")){
-    					nullValues[i-1]++;
-    				}
-    			}
-    		}
-    	}
-    	
-    	
-    	if(counthigher.length==2){
+    	if(httable.countHigherPerRow.length==2){
     		ret_value="Compared to its sibling we observe that in ";
-    		for(int j=0;j<counthigher.length;j++){
-    			if(j!=RowOfOurValue-1){
-        			if(counthigher[j]>0) {
-            			ret_value+=String.valueOf(counthigher[j])+" out of "+numOfcases+" cases "+columnValues[RowOfOurValue-1]+" has higher value than "+columnValues[j]+".\n";
-            			if(countlower[j]>0 || countequal[j]>0) ret_value+="In ";
+    		for(int j=0;j<httable.countHigherPerRow.length;j++){
+    			if(j!=httable.boldRow-1){
+        			if(httable.countHigherPerRow[j]>0) {
+            			ret_value+=String.valueOf(httable.countHigherPerRow[j])+" out of "+numOfcases+" cases "+httable.valuesOfRow[httable.boldRow-1]+" has higher value than "+httable.valuesOfRow[j]+".\n";
+            			if(httable.countLowerPerRow[j]>0 || httable.countEqualPerRow[j]>0 || httable.nullValuesPerRow[j]>0) ret_value+="In ";
             		}
             		
-            		if(countlower[j]>0){
-            			ret_value+=String.valueOf(countlower[j])+" out of "+numOfcases+" cases "+columnValues[RowOfOurValue-1]+" has lower value than "+columnValues[j]+".\n";
-            			if(countequal[j]>0 || nullValues[j]>0) ret_value+="In ";
+            		if(httable.countLowerPerRow[j]>0){
+            			ret_value+=String.valueOf(httable.countLowerPerRow[j])+" out of "+numOfcases+" cases "+httable.valuesOfRow[httable.boldRow-1]+" has lower value than "+httable.valuesOfRow[j]+".\n";
+            			if(httable.countEqualPerRow[j]>0 || httable.nullValuesPerRow[j]>0) ret_value+="In ";
             		}
             		
-            		if(countequal[j]>0){
-            			ret_value+=String.valueOf(countequal[j])+" out of "+numOfcases+" cases "+columnValues[RowOfOurValue-1]+" has equal value than "+columnValues[j]+".\n";
-            			if(nullValues[j]>0) ret_value+="In ";
+            		if(httable.countEqualPerRow[j]>0){
+            			ret_value+=String.valueOf(httable.countEqualPerRow[j])+" out of "+numOfcases+" cases "+httable.valuesOfRow[httable.boldRow-1]+" has equal value than "+httable.valuesOfRow[j]+".\n";
+            			if(httable.nullValuesPerRow[j]>0) ret_value+="In ";
             		}
             		
-            		if(nullValues[j]>0){
-            			ret_value+=String.valueOf(nullValues[j])+" out of "+numOfcases+" cases "+columnValues[j]+" has null value.\n";
+            		if(httable.nullValuesPerRow[j]>0){
+            			ret_value+=String.valueOf(httable.nullValuesPerRow[j])+" out of "+numOfcases+" cases "+httable.valuesOfRow[j]+" has null value.\n";
             		}
     			}
     		}
     	}
     	else{
     		ret_value="Compared to its sibling we observe the following:\n ";
-    		for(int j=0;j<counthigher.length;j++){
-    			if(j!=RowOfOurValue-1){
-        			if(counthigher[j]>0) {
-            			ret_value+="In "+String.valueOf(counthigher[j])+" out of "+numOfcases+" cases "+columnValues[RowOfOurValue-1]+" has higher value than "+columnValues[j]+".\n";
+    		for(int j=0;j<httable.countHigherPerRow.length;j++){
+    			if(j!=httable.boldRow-1){
+        			if(httable.countHigherPerRow[j]>0) {
+            			ret_value+="In "+String.valueOf(httable.countHigherPerRow[j])+" out of "+numOfcases+" cases "+httable.valuesOfRow[httable.boldRow-1]+" has higher value than "+httable.valuesOfRow[j]+".\n";
             		}
             		
-            		if(PivotTable[0].length-1-counthigher[j]-nullValues[j]>0){
-            			ret_value+="In "+String.valueOf(PivotTable[0].length-1-counthigher[j]-nullValues[j])+" out of "+numOfcases+" cases "+columnValues[RowOfOurValue-1]+" has lower value than "+columnValues[j]+".\n";
+            		if(httable.countLowerPerRow[j]>0){
+            			ret_value+="In "+String.valueOf(httable.countLowerPerRow[j])+" out of "+numOfcases+" cases "+httable.valuesOfRow[httable.boldRow-1]+" has lower value than "+httable.valuesOfRow[j]+".\n";
             		}
             		
-            		if(PivotTable[0].length-1-counthigher[j]-nullValues[j]==0){
-            			ret_value+="In "+String.valueOf(PivotTable[0].length-1-counthigher[j]-nullValues[j])+" out of "+numOfcases+" cases "+columnValues[RowOfOurValue-1]+" has equal value than "+columnValues[j]+".\n";
+            		if(httable.countEqualPerRow[j]>0){
+            			ret_value+="In "+String.valueOf(httable.countEqualPerRow[j])+" out of "+numOfcases+" cases "+httable.valuesOfRow[httable.boldRow-1]+" has equal value than "+httable.valuesOfRow[j]+".\n";
             		}
             		
-            		if(nullValues[j]>0){
-            			ret_value+="In "+String.valueOf(nullValues[j])+" out of "+numOfcases+" cases "+columnValues[j]+" has null value.\n";
+            		if(httable.nullValuesPerRow[j]>0){
+            			ret_value+="In "+String.valueOf(httable.nullValuesPerRow[j])+" out of "+numOfcases+" cases "+httable.valuesOfColumn[j]+" has null value.\n";
             		}
     			}
     		}
@@ -659,19 +607,7 @@ public class TextExtractionPPTX extends TextExtraction {
     		
     	}
     }
-    
-    private void findDomination(Integer[][] DominationColor,int max_index,int min_index,int middle_index,ArrayList<Integer> DominateMax,ArrayList<Integer> DominateMin,ArrayList<Integer> DominateMiddle,Integer[] max_appearance_per_color){
-    	max_appearance_per_color[max_index]=maxValueInTableColumn(DominationColor,max_index);
-    	max_appearance_per_color[min_index]=maxValueInTableColumn(DominationColor,min_index);
-    	max_appearance_per_color[middle_index]=maxValueInTableColumn(DominationColor,middle_index);
-    	
-    	for(int i=0;i<DominationColor.length;i++){
-			if(DominationColor[i][max_index]==max_appearance_per_color[max_index] && max_appearance_per_color[max_index]!=1) DominateMax.add(i);
-			if(DominationColor[i][min_index]==max_appearance_per_color[min_index] && max_appearance_per_color[min_index]!=1) DominateMin.add(i);
-			if(DominationColor[i][middle_index]==max_appearance_per_color[middle_index] && max_appearance_per_color[middle_index]!=1) DominateMiddle.add(i);
-    	}
-    }
-    
+        
     private int maxValueInTableColumn(Integer[][] table,int column){
     	int max_value=table[0][column];
     	for(int i=1;i<table.length;i++){

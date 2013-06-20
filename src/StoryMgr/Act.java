@@ -7,9 +7,13 @@ import TaskMgr.Task;
 public class Act {
     private ArrayList<Episode> Episodes;
     private Task tsk;
+    public String IntroText;
+    public  String ActHighlights;
     
     public Act(){
     	Episodes=new ArrayList<Episode>();
+    	ActHighlights="";
+    	IntroText="";
     }
 
 	public ArrayList<Episode> getEpisodes() {

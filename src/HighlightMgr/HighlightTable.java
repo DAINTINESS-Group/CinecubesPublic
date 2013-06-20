@@ -12,15 +12,22 @@ public class HighlightTable extends Highlight {
 	public ArrayList<String> middleValues;
 	public ArrayList<Integer> index_checked;
 	public ArrayList<Integer> max_index;
-	public ArrayList<Integer> min_index;
+	public ArrayList<Integer> min_index;	
 	
 	/* To compare Columns */
 	public int[] countHigherPerColumn;
 	public int[] countLowerPerColumn;
 	public int[] countEqualPerColumn;
 	public int[] nullValuesPerColumn;
-	public String[] columnValues;
+	public String[] valuesOfColumn;
 	
+	/* To compare Rows */
+	public int[] countHigherPerRow;
+	public int[] countLowerPerRow;
+	public int[] countEqualPerRow;
+	public int[] nullValuesPerRow;
+	public String[] valuesOfRow;
+		
 	/*for Domination of Rows and Columns*/
 	public ArrayList<Integer> rowsDominateMax;
 	public ArrayList<Integer> rowsDominateMin;
@@ -70,7 +77,6 @@ public class HighlightTable extends Highlight {
     	colsDominateMiddle=new ArrayList<Integer>();
     	max_appearance_per_color=new Integer[3];
     	valuePerColor=new Integer[3];
-    	
 	}
 	
 	public void setBoldColumn(TreeSet<String> Columns,String nameColumnToBold){
@@ -86,6 +92,7 @@ public class HighlightTable extends Highlight {
 	}
 	
 	public void createMinHightlight(String[][] table){
+		if(table==null) return;
 		int num_of_msrs_in_table=table.length-2;    	
     	int minLenght=(int) Math.floor(num_of_msrs_in_table*0.25);
     	
@@ -114,6 +121,7 @@ public class HighlightTable extends Highlight {
 	}
 	
 	public void createMaxHightlight(String[][] table){
+		if(table==null) return;
 		int num_of_msrs_in_table=table.length-2;
     	int maxLenght=(int) Math.floor(num_of_msrs_in_table*0.25);
     	 	
@@ -140,6 +148,7 @@ public class HighlightTable extends Highlight {
 	}
 	
 	public void createMiddleHightlight(String[][] table){
+		if(table==null) return;
 		DecimalFormat df = new DecimalFormat("#.##");
         df.setMinimumFractionDigits(2);
     	for(int i=2;i<table.length;i++){
@@ -154,8 +163,7 @@ public class HighlightTable extends Highlight {
     	   	   	
     	int max_index=0;
     	int min_index=1;
-    	int middle_index=2;
-    	
+    	int middle_index=2;    
     	rowsDominationColor=new Integer[ColorTbl.length][3];
     	colsDominationColor=new Integer[ColorTbl[0].length][3];
     	valuePerColor[0]=valuePerColor[1]=valuePerColor[2]=0;
@@ -168,7 +176,7 @@ public class HighlightTable extends Highlight {
     	}
     	
     	for(int i=0;i<ColorTbl.length;i++){
-    		for(int j=0;j<ColorTbl[0].length;j++){
+    		for(int j=0;j<ColorTbl[i].length;j++){
     			if(ColorTbl[i][j].equals(this.maxcolor)) {
     				rowsDominationColor[i][max_index]++;
     				colsDominationColor[j][max_index]++;
@@ -192,46 +200,83 @@ public class HighlightTable extends Highlight {
     }
 	
 	 public void ComparingToSiblingColumn_v1(String[][] PivotTable){
-	    	countHigherPerColumn=new int[PivotTable[0].length-1];
-	    	countLowerPerColumn=new int[PivotTable[0].length-1];
-	    	countEqualPerColumn=new int[PivotTable[0].length-1];
-	    	nullValuesPerColumn=new int[PivotTable[0].length-1];
-	    	columnValues=new String[PivotTable[0].length-1];
-	    	
-	    	for(int j=1;j<PivotTable[0].length;j++){
-	    		countHigherPerColumn[j-1]=0;
-	    		countLowerPerColumn[j-1]=0;
-	    		columnValues[j-1]=PivotTable[0][j];
-	    		if(j!=this.boldColumn){
-		    		for(int i=1;i<PivotTable.length;i++){
-		    			if(!PivotTable[i][j].equals("-")){	    				
-			    			if(Double.parseDouble(PivotTable[i][this.boldColumn])>Double.parseDouble(PivotTable[i][j])){
-			    				countHigherPerColumn[j-1]++;
-			    			}
-			    			else if(Double.parseDouble(PivotTable[i][this.boldColumn])<Double.parseDouble(PivotTable[i][j])){
-			    				countLowerPerColumn[j-1]++;
-			    			}
-			    			else countEqualPerColumn[j-1]++;
+    	countHigherPerColumn=new int[PivotTable[0].length-1];
+    	countLowerPerColumn=new int[PivotTable[0].length-1];
+    	countEqualPerColumn=new int[PivotTable[0].length-1];
+    	nullValuesPerColumn=new int[PivotTable[0].length-1];
+    	valuesOfColumn=new String[PivotTable[0].length-1];
+    	
+    	for(int j=1;j<PivotTable[0].length;j++){
+    		countHigherPerColumn[j-1]=0;
+    		countLowerPerColumn[j-1]=0;
+    		valuesOfColumn[j-1]=PivotTable[0][j];
+    		if(j!=this.boldColumn){
+	    		for(int i=1;i<PivotTable.length;i++){
+	    			if(!PivotTable[i][j].equals("-")  && !PivotTable[i][this.boldColumn].equals("-")){	    				
+		    			if(Double.parseDouble(PivotTable[i][this.boldColumn])>Double.parseDouble(PivotTable[i][j])){
+		    				countHigherPerColumn[j-1]++;
 		    			}
-		    			else nullValuesPerColumn[j-1]++;
+		    			else if(Double.parseDouble(PivotTable[i][this.boldColumn])<Double.parseDouble(PivotTable[i][j])){
+		    				countLowerPerColumn[j-1]++;
+		    			}
+		    			else countEqualPerColumn[j-1]++;
+	    			}
+	    			else nullValuesPerColumn[j-1]++;
+	    		}
+    		}
+    		else {
+    			for(int i=1;i<PivotTable.length;i++) {
+    				if(PivotTable[i][j].equals("-")){
+    					nullValuesPerColumn[j-1]++;
+    				}
+    			}
+    		}
+    	}
+    }
+	
+	 public void ComparingToSiblingRow_v1(String[][] PivotTable){
+		 	countHigherPerRow=new int[PivotTable.length-1];
+		 	countLowerPerRow=new int[PivotTable.length-1];
+		 	countEqualPerRow=new int[PivotTable.length-1];
+	    	nullValuesPerRow=new int[PivotTable.length-1];
+	    	valuesOfRow=new String[PivotTable.length-1];
+	    		    	
+	    	for(int i=1;i<PivotTable.length;i++){
+	    		countHigherPerRow[i-1]=0;
+	    		countLowerPerRow[i-1]=0;
+	    		countEqualPerRow[i-1]=0;
+	    		valuesOfRow[i-1]=PivotTable[i][0];
+	    		if(i!=this.boldRow){
+		    		for(int j=1;j<PivotTable[0].length;j++){
+		    			if(!PivotTable[i][j].equals("-") && !PivotTable[this.boldRow][j].equals("-")){	    				
+			    			if(Double.parseDouble(PivotTable[this.boldRow][j])>Double.parseDouble(PivotTable[i][j])){
+			    				countHigherPerRow[i-1]++;
+			    			}
+			    			else if(Double.parseDouble(PivotTable[this.boldRow][j])<Double.parseDouble(PivotTable[i][j])){
+								countLowerPerRow[i-1]++;
+			    			}
+			    			else countEqualPerRow[i-1]++;
+		    			}
+		    			else nullValuesPerRow[i-1]++;
 		    		}
 	    		}
 	    		else {
-	    			for(int i=1;i<PivotTable.length;i++) {
+	    			for(int j=1;j<PivotTable[0].length;j++) {
 	    				if(PivotTable[i][j].equals("-")){
-	    					nullValuesPerColumn[j-1]++;
+	    					nullValuesPerRow[i-1]++;
 	    				}
 	    			}
 	    		}
 	    	}
 	    }
 	
-	
 	private void findDomination(Integer[][] DominationColor,int max_index,int min_index,int middle_index,ArrayList<Integer> DominateMax,ArrayList<Integer> DominateMin,ArrayList<Integer> DominateMiddle,Integer[] max_appearance_per_color){
     	max_appearance_per_color[max_index]=maxValueInTableColumn(DominationColor,max_index);
     	max_appearance_per_color[min_index]=maxValueInTableColumn(DominationColor,min_index);
     	max_appearance_per_color[middle_index]=maxValueInTableColumn(DominationColor,middle_index);
-    	
+    	DominateMax.clear();
+    	DominateMin.clear();
+    	DominateMiddle.clear();
     	for(int i=0;i<DominationColor.length;i++){
 			if(DominationColor[i][max_index]==max_appearance_per_color[max_index] && max_appearance_per_color[max_index]!=1) DominateMax.add(i);
 			if(DominationColor[i][min_index]==max_appearance_per_color[min_index] && max_appearance_per_color[min_index]!=1) DominateMin.add(i);

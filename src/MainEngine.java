@@ -7,7 +7,7 @@ import java.util.Scanner;
 import javax.swing.JFileChooser;
 
 import AudioMgr.AudioEngine;
-import AudioMgr.FreeTTSAudioEngine;
+import AudioMgr.MaryTTSAudioEngine;
 import CubeMgr.CubeMgr;
 import CubeMgr.CubeBase.BasicStoredCube;
 import CubeMgr.CubeBase.CubeQuery;
@@ -40,8 +40,7 @@ public class MainEngine {
 	public WrapUpMgr WrapUp;
 	private ParserManager PrsMng;
 	public String dbname;
-	
-   
+	   
     MainEngine(){
     	StorMgr=new StoryMgr(); 
     	TskMgr=new TaskMgr();
@@ -193,10 +192,13 @@ public class MainEngine {
         newSqlQuery.produceExtractionMethod(TskMgr.getLastTask().cubeQuery.get(1));
         TskMgr.getLastTask().getLastSubTask().setExtractionMethod(newSqlQuery);
         TskMgr.getLastTask().getLastSubTask().execute(CubeManager.CBase.DB);
-        
+        if(TskMgr.getLastTask().getLastSubTask().getExtractionMethod().Res.getResultArray()==null){
+        	System.err.println("Your query does not have result. Try again!");
+        	return;
+        }
         TskMgr.getLastTask().generateSubTasks(CubeManager.CBase);
         
-        AudioMgr=new FreeTTSAudioEngine();
+        AudioMgr=new MaryTTSAudioEngine();
         AudioMgr.InitializeVoiceEngine();
         
         SetupSlideEpisodes(StorMgr.getStory().getLastAct(),1);
@@ -268,7 +270,7 @@ public class MainEngine {
         TskMgr.getLastTask().getLastSubTask().execute(CubeManager.CBase.DB);
         //TskMgr.getLastTask().getLastSubTask().computeFinding();
         TskMgr.getLastTask().generateSubTasks(CubeManager.CBase);
-        AudioMgr=new FreeTTSAudioEngine();
+        AudioMgr=new MaryTTSAudioEngine();
         AudioMgr.InitializeVoiceEngine();
         
         SetupSlideEpisodes(StorMgr.getStory().getLastAct(),1);
@@ -351,7 +353,7 @@ public class MainEngine {
 		        }
 		        
 		        if(subtsk.getDifferencesFromOrigin().size()>0 && (subtsk.getDifferencesFromOrigin().get(0)==-4 || subtsk.getDifferencesFromOrigin().get(0)==-5)&& subtsk.getDifferencesFromOrigin().get(1)>0){
-		        	/*the code above to be function*/
+		        	/* the code above to be function */
 		        	PptxSlide tmpSlide=(PptxSlide)StorMgr.getStory().getLastAct().getEpisode(StorMgr.getStory().getLastAct().getNumEpisodes()-1);
 		        	String [][] SlideTable=tmpSlide.getVisual().getPivotTable();
 		        	Color [][] colorTable=((Tabular)tmpSlide.getVisual()).colortable;
@@ -411,16 +413,27 @@ public class MainEngine {
 	        	}
 	        	else if(num_act==2){
 	        		newSlide.Title+=": Explaining results";
+	        		newSlide.Notes=newSlide.Title;
+	        	}
+	        	if(newSlide.Notes.length()>0){
+		        	newSlide.setAudioFile("audio/"+AudioMgr.randomIdentifier());
+		        	AudioMgr.CreateSound(newSlide.Notes, newSlide.getAudio().getFileName());
 	        	}
 	        	StorMgr.getStory().getLastAct().addEpisode(newSlide);	        	
 	        }
     	}
     	SetupTextOfEpisodes(act,num_act);
-    	if(swap_first){
+    	if(swap_first && act.getEpisodes().size()>1){
     		PptxSlide tmpslide=(PptxSlide) act.getEpisodes().get(0);
     		act.getEpisodes().set(0, act.getEpisodes().get(1));
     		act.getEpisodes().set(1, tmpslide);
     	}
+    	if(num_act==1) {
+			act.IntroText=((TextExtractionPPTX)TxtMgr).createTxtForIntroSlide(act.getTask().cubeQuery.get(1).GammaExpressions,
+															    			  act.getTask().cubeQuery.get(1).SigmaExpressions, 
+		 													    			  act.getTask().cubeQuery.get(1).AggregateFunction, 
+		 													    			  act.getTask().cubeQuery.get(1).Msr.get(0).name);
+		}
     	System.out.println("TimesIN:"+timesIN);
     }
 
@@ -428,7 +441,6 @@ public class MainEngine {
     	SubTask origSubtsk=new SubTask();   
     	CubeQuery origCubeQuery = null;
     	int i_cubequery=1;
-    	
     	ArrayList<Integer> numSlideToRemove=new ArrayList<Integer>();
     	ArrayList<PptxSlide> slideToEnd=new ArrayList<PptxSlide>();
     	for(int j=1;j<act.getNumEpisodes();j++){
@@ -443,10 +455,10 @@ public class MainEngine {
 			SqlQuery currentSqlQuery=(SqlQuery) subtsk.getExtractionMethod();
 			Tabular tbl=(Tabular) currentSlide.getVisual();
     		HighlightTable htable=(HighlightTable) act.getTask().highlights.get(i_cubequery-1);
-    		htable.findDominatedRowsColumns(tbl.getPivotTable(), tbl.colortable);
     		
-    		if(currentSlide.getSubTask().size()>1){
-    			
+    		
+    		if(currentSlide.getSubTask().size()>1 && tbl.colortable!=null){
+    			htable.findDominatedRowsColumns(tbl.getPivotTable(), tbl.colortable);
     			currentSlide.Notes="";
     			if(subtsk.getDifferencesFromOrigin().get(0)==-4){
 		        	currentSlide.Title="Drill In Slide For Rows of Original";
@@ -461,7 +473,9 @@ public class MainEngine {
 							   origSubtsk.getExtractionMethod().Res.getRowPivot().size(),
 							   ((SqlQuery)currentSlide.getSubTask().get(0).getExtractionMethod()).GroupByClause.get(0));
 		        	//currentSlide.Notes+="\n"+((TextExtractionPPTX)this.TxtMgr).createTxtComparingToSiblingColumn_v2(tbl.getPivotTable());
-		        	currentSlide.Notes+=((TextExtractionPPTX)this.TxtMgr).createTxtForDominatedRowsColumns(tbl.getPivotTable(),tbl.colortable,(HighlightTable) act.getTask().highlights.get(i_cubequery-1));
+		        	String add_to_notes=((TextExtractionPPTX)this.TxtMgr).createTxtForDominatedRowsColumns(tbl.getPivotTable(),tbl.colortable,(HighlightTable) act.getTask().highlights.get(i_cubequery-1));
+		        	currentSlide.Notes+=add_to_notes;
+		        	act.ActHighlights+=add_to_notes.split(":")[1];
 		        }
 		        else if(subtsk.getDifferencesFromOrigin().get(0)==-5){
 		        	currentSlide.Title="Drill In Slide For Columns of Original";
@@ -475,13 +489,16 @@ public class MainEngine {
 							   origSubtsk.getExtractionMethod().Res.getColPivot().size(),
 							   ((SqlQuery)currentSlide.getSubTask().get(0).getExtractionMethod()).GroupByClause.get(0));
 		        	//currentSlide.Notes+="\n"+((TextExtractionPPTX)this.TxtMgr).createTxtComparingToSiblingColumn_v3(tbl.getPivotTable());
-		        	currentSlide.Notes+=((TextExtractionPPTX)this.TxtMgr).createTxtForDominatedRowsColumns(tbl.getPivotTable(),tbl.colortable,(HighlightTable) act.getTask().highlights.get(i_cubequery-1));
+		        	String add_to_notes=((TextExtractionPPTX)this.TxtMgr).createTxtForDominatedRowsColumns(tbl.getPivotTable(),tbl.colortable,(HighlightTable) act.getTask().highlights.get(i_cubequery-1));
+		        	currentSlide.Notes+=add_to_notes;
+		        	act.ActHighlights+=add_to_notes.split("include:")[1];
 		        }
     			
     			AudioMgr.CreateSound(currentSlide.Notes, currentSlide.getAudio().getFileName());
     		}
     		else{
-    			currentSlide.Notes="query";
+    			htable.findDominatedRowsColumns(tbl.getPivotTable(), tbl.colortable);
+    			currentSlide.Notes="";
     			
     			currentSlide.TitleColumn=new String(currentSqlQuery.Res.TitleOfColumns);
     			currentSlide.TitleRow=new String(currentSqlQuery.Res.TitleOfRows);
@@ -499,9 +516,16 @@ public class MainEngine {
 		        	
 		        	if(gamma_index_change==0) {
 		        		htable.ComparingToSiblingColumn_v1(tbl.getPivotTable());
-		        		currentSlide.Notes+="\n"+((TextExtractionPPTX)this.TxtMgr).createTxtComparingToSiblingColumn_v1(tbl.getPivotTable(),htable.boldColumn,htable);
+		        		String add_to_notes=((TextExtractionPPTX)this.TxtMgr).createTxtComparingToSiblingColumn_v1(tbl.getPivotTable(),htable.boldColumn,htable);
+		        		currentSlide.Notes+="\n"+add_to_notes;
+		        		act.ActHighlights+=add_to_notes;
 		        	}
-		        	else currentSlide.Notes+="\n"+((TextExtractionPPTX)this.TxtMgr).createTxtComparingToSiblingRow_v1(tbl.getPivotTable(),htable.boldRow);
+		        	else {
+		        		htable.ComparingToSiblingRow_v1(tbl.getPivotTable());
+		        		String add_to_notes=((TextExtractionPPTX)this.TxtMgr).createTxtComparingToSiblingRow_v1(tbl.getPivotTable(),htable);
+		        		currentSlide.Notes+="\n"+add_to_notes;
+		        		act.ActHighlights+=add_to_notes;
+		        	}
 		        }
 		        else if(subtsk.getDifferencesFromOrigin().get(0)==-2){
 		        	currentSlide.Title="Drill In Slide For Row "+String.valueOf(i_cubequery-1)+" of Original";
@@ -718,18 +742,32 @@ public class MainEngine {
     	CubeManager=new CubeMgr();
     }
     
+    void createDefaultFolders(){
+    	File audio=new File("audio");
+    	if(!audio.exists()){
+    		audio.mkdir();
+    	}
+    	audio.deleteOnExit();
+    	File ppt=new File("ppt");
+    	if(!ppt.exists()){
+    		ppt.mkdir();
+    	}
+    }
+    
     public static void main(String[] args) {
         MainEngine MainEng=new MainEngine();
         MainEng.InitializeCubeMgr();
+        MainEng.createDefaultFolders();
         MainEng.CubeManager.CreateCubeBase(MainEng.InsertFromKeyboardDBInfos());        
         //Me.ParseFile(Me.GetFileCmds());
         
         MainEng.ParseFile(new File("InputFiles/BETA/beta.txt"));/*Create Dimension,Cube*/
         //MainEng.NewRequestSqlQuery("");
         MainEng.getCubeQueriesFromFile(new File("InputFiles/cubeQueries2013_05_31.ini"));/*Create Stories*/
-//        MainEng.newRequestCubeQuery(null);
+//      MainEng.newRequestCubeQuery(null);
         
         System.out.println("=======Finish======");
+        //marytts.server.Mary.shutdown();
         System.exit(0);
     }
     
