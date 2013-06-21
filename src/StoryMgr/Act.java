@@ -5,15 +5,15 @@ import TaskMgr.Task;
 
 
 public class Act {
+	private int id;
     private ArrayList<Episode> Episodes;
     private Task tsk;
-    public String IntroText;
+
     public  String ActHighlights;
     
     public Act(){
     	Episodes=new ArrayList<Episode>();
     	ActHighlights="";
-    	IntroText="";
     }
 
 	public ArrayList<Episode> getEpisodes() {
@@ -42,6 +42,20 @@ public class Act {
 	
 	public Task getTask(){
 		return tsk;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
 	}
     
 }

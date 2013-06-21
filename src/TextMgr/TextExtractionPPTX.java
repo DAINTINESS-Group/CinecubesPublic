@@ -215,7 +215,7 @@ public class TextExtractionPPTX extends TextExtraction {
     	for(String [] sigma: Sigma){
     		if(i==Sigma.size()-1) ret_txt+=" and ";
     		else if(i>0) ret_txt+=", ";
-    		ret_txt+=sigma[0].replace("_dim."," at ").replace("lvl", "level ")+" fixing to "+sigma[2];
+    		ret_txt+=sigma[0].split("\\.")[0].replace("_dim."," at ").replace("lvl", "level ")+" fixing to "+sigma[2];
     		i++;
     	}
     	return ret_txt.replace("  ", " ").replace("\n", "").replace("\r", "");
@@ -231,7 +231,7 @@ public class TextExtractionPPTX extends TextExtraction {
     		for(int j=0;j<htable.countHigherPerColumn.length;j++){
     			if(j!=ColumnOfOurValue-1){
         			if(htable.countHigherPerColumn[j]>0) {
-            			ret_value+=String.valueOf(htable.countHigherPerColumn[j])+" out of "+numOfcases+" cases "+htable.valuesOfColumn[ColumnOfOurValue-1]+" has higher value than "+htable.valuesOfColumn[ColumnOfOurValue-1]+".\n";
+            			ret_value+=String.valueOf(htable.countHigherPerColumn[j])+" out of "+numOfcases+" cases "+htable.valuesOfColumn[ColumnOfOurValue-1]+" has higher value than "+htable.valuesOfColumn[j]+".\n";
             			if(htable.countLowerPerColumn[j]>0 || htable.countEqualPerColumn[j]>0 || htable.nullValuesPerColumn[j]>0)  ret_value+="In ";
             		}
             		

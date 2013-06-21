@@ -2,7 +2,6 @@ package WrapUpMgr;
 
 import java.awt.Color;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,7 +12,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
@@ -21,12 +19,9 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-import javax.imageio.ImageIO;
-
 import org.apache.poi.openxml4j.opc.PackagePart;
 import org.apache.poi.openxml4j.opc.PackageRelationship;
 import org.apache.poi.openxml4j.opc.TargetMode;
-import org.apache.poi.util.IOUtils;
 import org.apache.poi.xslf.usermodel.SlideLayout;
 import org.apache.poi.xslf.usermodel.TextAlign;
 import org.apache.poi.xslf.usermodel.VerticalAlignment;
@@ -47,8 +42,8 @@ import org.apache.xmlbeans.XmlObject;
 import HighlightMgr.PptxHighlight;
 import StoryMgr.Act;
 import StoryMgr.FinalResult;
-import StoryMgr.Story;
 import StoryMgr.PptxSlide;
+import StoryMgr.Story;
 import StoryMgr.Tabular;
 
 public class PptxWrapUpMgr extends WrapUpMgr {
@@ -80,35 +75,40 @@ public class PptxWrapUpMgr extends WrapUpMgr {
         
         int num_slide_create=0;
 		for(Act actItem : story.getActs()) {
-			if(actItem.getEpisodes().size()>2 || num_slide_create==0) num_slide_create+=actItem.getEpisodes().size();
-			if(actItem.IntroText.length()>0) num_slide_create++;
+			if(actItem.getEpisodes().size()>2 || num_slide_create==0 || actItem.getId()==-1) num_slide_create+=actItem.getEpisodes().size();
 		}
 		
         SlideXml=new String[num_slide_create];
-        int num_act=0;
+        
 		int slide_so_far_created=0;
 		for(Act actItem : story.getActs()){
-			if(actItem.getEpisodes().size()>2){
-				if(actItem.IntroText.length()>0){
-					XSLFcreateIntroSlide(actItem.IntroText);
-					slide_so_far_created++;
-				}
+			if(actItem.getId()==0){
+				SlideXml[slide_so_far_created]="";
+				PptxSlide slide=(PptxSlide)actItem.getEpisodes().get(0);
+				XSLFcreateIntroSlide(slide);
+				slide_so_far_created+=actItem.getEpisodes().size();
+			}
+			else if(actItem.getId()==-1){
+				PptxSlide slide=(PptxSlide)actItem.getEpisodes().get(0);
+				XSLFcreateSummarySlide(slide,slide_so_far_created+2);
+				slide_so_far_created+=actItem.getEpisodes().size();
+			}
+			else if(actItem.getEpisodes().size()>2){
 				for(int j=0;j<actItem.getEpisodes().size();j++){
 					SlideXml[j+slide_so_far_created]="";
 					PptxSlide slide=(PptxSlide)actItem.getEpisodes().get(j);
-					if(slide.Title.contains("Act")) XSLFcreateSlide(null,null,slide.getAudio().getFileName(),slide.Title,j+slide_so_far_created+2,null,null,null,slide.SubTitle,null,(num_act==2 ? 0 :1));
+					if(slide.Title.contains("Act")) XSLFcreateSlide(null,null,slide.getAudio().getFileName(),slide.Title,j+slide_so_far_created+2,null,null,null,slide.SubTitle,null,(actItem.getId()==3 ? 0 :1));
 					else if(slide.Notes.length()==0) {
 						Tabular tmp_tbl=((Tabular)slide.getVisual());
-						XSLFcreateSlide(slide.getVisual().getPivotTable(),tmp_tbl.colortable,null,slide.Title,j+slide_so_far_created+2,null,null,null,slide.SubTitle,(Tabular)slide.getVisual(),(num_act==2 ? 0 :1));
+						XSLFcreateSlide(slide.getVisual().getPivotTable(),tmp_tbl.colortable,null,slide.Title,j+slide_so_far_created+2,null,null,null,slide.SubTitle,(Tabular)slide.getVisual(),(actItem.getId()==3 ? 0 :1));
 					}
 					else {
 						Tabular tmp_tbl=((Tabular)slide.getVisual());
-						XSLFcreateSlide(slide.getVisual().getPivotTable(),tmp_tbl.colortable,slide.getAudio().getFileName(),slide.Title,j+slide_so_far_created+2,slide.TitleColumn,slide.TitleRow,(PptxHighlight)slide.highlight,slide.SubTitle,(Tabular)slide.getVisual(),(num_act==2 ? 0 :1));
+						XSLFcreateSlide(slide.getVisual().getPivotTable(),tmp_tbl.colortable,slide.getAudio().getFileName(),slide.Title,j+slide_so_far_created+2,slide.TitleColumn,slide.TitleRow,(PptxHighlight)slide.highlight,slide.SubTitle,(Tabular)slide.getVisual(),(actItem.getId()==3 ? 0 :1));
 					}
 				}
 				slide_so_far_created+=actItem.getEpisodes().size();
 			}
-			num_act++;
 		}
 		slideShowPPTX.removeSlide(0);
 		
@@ -129,11 +129,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
         slide_so_far_created=0;
         
         for(Act actItem : story.getActs()){
-        	if(actItem.getEpisodes().size()>2){
-        		if(actItem.IntroText.length()>0) {
-        			AppendContentType(slide_so_far_created+2);
-        			slide_so_far_created++;
-        		}
+        	if(actItem.getEpisodes().size()>2 || actItem.getId()==0 || actItem.getId()==-1){
 				for(int j=0;j<actItem.getEpisodes().size();j++){
 					PptxSlide slide=(PptxSlide)actItem.getEpisodes().get(j);
 					if(slide.Notes.length()==0) AddAudiotoPPTX(j+slide_so_far_created+2,null,slide.Notes);
@@ -146,59 +142,54 @@ public class PptxWrapUpMgr extends WrapUpMgr {
         GenerateFileList(new File("ppt/unzip"));
         ZipFiles();
         RenameZiptoPPTX();
+                
 	}
 	
-	public void XSLFcreateIntroSlide(String Intro){
+	public void XSLFcreateIntroSlide(PptxSlide episode){
 		XSLFSlide slide;
 		slide=slideShowPPTX.createSlide(defaultMaster.getLayout(SlideLayout.TITLE)); 
+		
 		XSLFTextShape title1 = slide.getPlaceholder(0);
 		title1.clearText();
     	XSLFTextParagraph p=title1.addNewTextParagraph();
     	XSLFTextRun tltTxtRun =p.addNewTextRun();
-    	tltTxtRun.setText("CineCube Report");
+    	tltTxtRun.setText(episode.Title);
     	p.setTextAlign(TextAlign.LEFT);
+    	
     	XSLFTextShape title2 = slide.getPlaceholder(1);
     	title2.clearText();
     	XSLFTextParagraph p2=title2.addNewTextParagraph();
-    	
-    	 XSLFTextRun tltTxtRun2 =p2.addNewTextRun();
-    	
+    	XSLFTextRun tltTxtRun2 =p2.addNewTextRun();
     	
         tltTxtRun2.setBold(false);	    	
-    	tltTxtRun2.setText(Intro);
+    	tltTxtRun2.setText(episode.SubTitle);
     	tltTxtRun2.setFontSize(20);
     	p2.setTextAlign(TextAlign.JUSTIFY);
     	
+    	setRelationshipForNotes(slide,2);
     	
-		try {
-			byte[] pictureData=new byte[getClass().getClassLoader().getResourceAsStream("resources/cube_dali.png").available()];
-			getClass().getClassLoader().getResourceAsStream("resources/cube_dali.png").read(pictureData);
-			int idx = slideShowPPTX.addPicture(pictureData, XSLFPictureData.PICTURE_TYPE_PNG);
-	        XSLFPictureShape pic = slide.createPicture(idx);
-	       
-	        pic.setAnchor(new Rectangle2D.Double(slideShowPPTX.getPageSize().getWidth()-300, 0,300,300));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+    	CreateSlideWithXMlAudio(slide,episode.getAudio().getFileName(),2,1);
+    	
 	}
 	
-	public void XSLFcreateSummarySlide(String summary){
+	public void XSLFcreateSummarySlide(PptxSlide episode,int slideId){
 		XSLFSlide slide;
-		slide=slideShowPPTX.createSlide(defaultMaster.getLayout(SlideLayout.TITLE)); 
+		slide=slideShowPPTX.createSlide(defaultMaster.getLayout(SlideLayout.TITLE_AND_CONTENT)); 
 		XSLFTextShape title1 = slide.getPlaceholder(0);
-    	title1.setText("Summary");
+    	title1.setText(episode.Title);
     	
     	XSLFTextShape title2 = slide.getPlaceholder(1);
     	title2.clearText();
     	XSLFTextParagraph p=title2.addNewTextParagraph();
     	
-    	 XSLFTextRun tltTxtRun =p.addNewTextRun();
-    	
-    	
+    	XSLFTextRun tltTxtRun =p.addNewTextRun();
+	 
         tltTxtRun.setBold(false);	    	
-    	tltTxtRun.setText(summary);
+    	tltTxtRun.setText(episode.Notes);
     	tltTxtRun.setFontSize(20);
     	p.setTextAlign(TextAlign.JUSTIFY);
+    	setRelationshipForNotes(slide,slideId);
+    	CreateSlideWithXMlAudio(slide,episode.getAudio().getFileName(),slideId,1);
 	}
 	
 	public void XSLFcreateSlide(String[][] table, 
@@ -215,35 +206,19 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 		XSLFSlideLayout titleLayout = defaultMaster.getLayout(SlideLayout.TITLE_ONLY); 
         XSLFSlide slide;
         
-        String NotesRelationShip="http://schemas.openxmlformats.org/officeDocument/2006/relationships/notesSlide";
+        
         if(table!=null) {
         	slide=slideShowPPTX.createSlide(titleLayout);
         	slide.setFollowMasterGraphics(true);
-        	
-	        URI uri = null;
-	        try {
-	            uri = new URI("../notesSlides/notesSlide"+slideid+".xml");
-	        } catch (URISyntaxException ex) {
-	        	System.out.println(ex.getMessage());
-	        }
-	           
-	        PackageRelationship addRelationship= slide.getPackagePart().addRelationship(uri, TargetMode.INTERNAL, NotesRelationShip);
-	        slide.addRelation(addRelationship.getId(), slide); 
+        		           
+	        setRelationshipForNotes(slide,slideid);
 	        
         	CreateTableInSlide(slide, slideShowPPTX.getPageSize(),table,colorTable,titleColumn,titleRow,highlight,tabular);
         	this.setTitle(slide, Title, new Rectangle2D.Double(100, 25,slideShowPPTX.getPageSize().width-200,20),16.0,true);
         }
         else {
         	slide=slideShowPPTX.createSlide(defaultMaster.getLayout(SlideLayout.TITLE)); 
-        	URI uri = null;
-	        try {
-	            uri = new URI("../notesSlides/notesSlide"+slideid+".xml");
-	        } catch (URISyntaxException ex) {
-	        	System.out.println(ex.getMessage());
-	        }
-	        PackageRelationship addRelationship= slide.getPackagePart().addRelationship(uri, TargetMode.INTERNAL, NotesRelationShip);
-	        slide.addRelation(addRelationship.getId(), slide); 
-	        
+        	setRelationshipForNotes(slide,slideid);
         	XSLFTextShape title1 = slide.getPlaceholder(0);
         	title1.setText(Title);
         	
@@ -264,7 +239,18 @@ public class PptxWrapUpMgr extends WrapUpMgr {
                 
      }
      
-     
+     void setRelationshipForNotes(XSLFSlide slide,int slideid){
+    	String NotesRelationShip="http://schemas.openxmlformats.org/officeDocument/2006/relationships/notesSlide";
+    	URI uri = null;
+        try {
+            uri = new URI("../notesSlides/notesSlide"+slideid+".xml");
+        } catch (URISyntaxException ex) {
+        	System.out.println(ex.getMessage());
+        }
+        PackageRelationship addRelationship= slide.getPackagePart().addRelationship(uri, TargetMode.INTERNAL, NotesRelationShip);
+        slide.addRelation(addRelationship.getId(), slide); 
+     }
+	
     /*  rId1 -->MEDIA relationship ID
      *  rId2 -->AUDIO relationship ID
      *  rId4 -->IMAGE relationship ID
@@ -350,31 +336,48 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 	            slide.addRelation(addRelationship3.getId(), slide);
 	            slide.addRelation(addRelationship2.getId(), slide);
 	            slide.addRelation(addRelationship1.getId(), slide);
-	            
-	            String SoundNode = this.SoundNodeString(addRelationship2.getId(), addRelationship1.getId(), addRelationship3.getId(),AudioFilename);
-	            
-	            
-	            String test="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"+xmlObject.toString().replace("main1","a").replace("<main", "<p").replace("</main", "</p").replace(":main=",":p=").replace("rel=","r=").replace("rel:","r:").replace("xml-fragment", "p:sld").replace("</p:spTree>",SoundNode+"</p:spTree>");
-	            test=test.replace("<p:cSld>","<p:cSld>"+setBackroundToSlide());
-	            SlideXml[slideid-2]=test.replace("</p:sld>", AutoSlideShow()+TimingNode()+"</p:sld>").replace("<p:sld ", "<p:sld xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" show=\""+String.valueOf(hide_slide)+"\" ");
-	            
+	            	            
+	            int id=4;
+	            if(slideid-2==0){
+	            	String SoundNode = this.SoundNodeString(addRelationship2.getId(), addRelationship1.getId(), addRelationship3.getId(),AudioFilename,id++);
+	            	try {
+	            		byte[] pictureData=new byte[getClass().getClassLoader().getResourceAsStream("resources/cube_dali.jpg").available()];
+	            		getClass().getClassLoader().getResourceAsStream("resources/cube_dali.jpg").read(pictureData);
+	            		int idx = slideShowPPTX.addPicture(pictureData, XSLFPictureData.PICTURE_TYPE_JPEG);
+	                    XSLFPictureShape pic = slide.createPicture(idx);
+	                    pic.setAnchor(new Rectangle2D.Double(slideShowPPTX.getPageSize().getWidth()-300, 0,300,300));
+	                    xmlObject = slide.getXmlObject();
+	        		} catch (IOException e) {
+	        			System.err.print("In add picture:");
+	        			e.printStackTrace();
+	        		}
+	            	String test="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"+xmlObject.toString().replace("main1","a").replace("<main", "<p").replace("</main", "</p").replace(":main=",":p=").replace("rel=","r=").replace("rel:","r:").replace("xml-fragment", "p:sld").replace("</p:spTree>",SoundNode+"</p:spTree>");
+	 	            test=test.replace("<p:cSld>","<p:cSld>"+setBackroundToSlide());
+	 	            SlideXml[slideid-2]=test.replace("</p:sld>", AutoSlideShow()+TimingNode(id++)+"</p:sld>");
+	            }
+	            else{
+	            	String SoundNode = this.SoundNodeString(addRelationship2.getId(), addRelationship1.getId(), addRelationship3.getId(),AudioFilename,id);
+	            	String test="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"+xmlObject.toString().replace("main1","a").replace("<main", "<p").replace("</main", "</p").replace(":main=",":p=").replace("rel=","r=").replace("rel:","r:").replace("xml-fragment", "p:sld").replace("</p:spTree>",SoundNode+"</p:spTree>");
+	            	test=test.replace("<p:cSld>","<p:cSld>"+setBackroundToSlide());
+	            	SlideXml[slideid-2]=test.replace("</p:sld>", AutoSlideShow()+TimingNode(id)+"</p:sld>").replace("<p:sld ", "<p:sld xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" show=\""+String.valueOf(hide_slide)+"\" ");
+	           }
     	   }
     	   else{
     		   String test="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"+xmlObject.toString().replace("main1","a").replace("<main", "<p").replace("</main", "</p").replace(":main=",":p=").replace("rel=","r=").replace("rel:","r:").replace("xml-fragment", "p:sld");
 	           SlideXml[slideid-2]=test.replace("</p:sld>", AutoSlideShow()+"</p:sld>").replace("<p:sld ", "<p:sld show=\""+String.valueOf(hide_slide)+"\" ");;
-    		  
     	   }
             
             
         } catch (Exception ex) {
-        	System.out.println(ex.getMessage());
+        	System.err.print("In add audio:");
+        	System.err.println(ex.getMessage());
         }
      }
      
      String setBackroundToSlide(){
     	 String color_in_hex="EBE9E9";
     	 String backgroundNode="	<p:bg>" +
-    	 		"			<p:bgPr>" +
+    	 		"			<p:bgPr>\n" +
     	 		"				<a:solidFill>" +
     	 		"					<a:srgbClr val=\""+color_in_hex+"\"/>" +
     	 		"				</a:solidFill>" +
@@ -384,10 +387,11 @@ public class PptxWrapUpMgr extends WrapUpMgr {
     	 return backgroundNode;
      }
      
-     private String SoundNodeString(String rId1,String rId2,String rId4,String AudioFilename){
+     private String SoundNodeString(String rId1,String rId2,String rId4,String AudioFilename,int id){
+    	 
          String ret_value= "<p:pic>"
                  + "<p:nvPicPr>"
-                 + "<p:cNvPr id=\"4\" name=\""+AudioFilename.replace("audio/", "").concat(".wav") +"\">"
+                 + "<p:cNvPr id=\""+String.valueOf(id)+"\" name=\""+AudioFilename.replace("audio/", "").concat(".wav") +"\">"
                  + "<a:hlinkClick r:id=\"\" action=\"ppaction://media\"/>"
                  + "</p:cNvPr>"
                  + "<p:cNvPicPr>"
@@ -421,7 +425,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
          return ret_value;
      }
      
-     private String TimingNode(){
+     private String TimingNode(int id){
          String ret_value="<p:timing>"
                     +"<p:tnLst>"
                     +"<p:par>"
@@ -455,7 +459,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
                             +"<p:cBhvr>"
                     +"<p:cTn id=\"6\" dur=\"4169\" fill=\"hold\"/>"
                     +"<p:tgtEl>"
-                            +"<p:spTgt spid=\"4\"/>"
+                            +"<p:spTgt spid=\""+String.valueOf(id)+"\"/>"
                     +"</p:tgtEl>"
                             +"</p:cBhvr>"
                     +"</p:cmd>"
@@ -500,7 +504,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
                             +"</p:endCondLst>"
                     +"</p:cTn>"
                     +"<p:tgtEl>"
-                            +"<p:spTgt spid=\"4\"/>"
+                            +"<p:spTgt spid=\""+String.valueOf(id)+"\"/>"
                     +"</p:tgtEl>"
                             +"</p:cMediaNode>"
                     +"</p:audio>"

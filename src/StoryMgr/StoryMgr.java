@@ -14,9 +14,9 @@ public class StoryMgr {
     	story=new Story();
     }
         
-    public void createStoryOriginalRequest(){
+   /* public void createStoryOriginalRequest(){
     	story.createOriginalAct();
-    }
+    }*/
     
     public void createTasks(TaskMgr tskMgr){
     	tskMgr.createTasks();

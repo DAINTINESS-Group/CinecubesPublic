@@ -3,7 +3,6 @@ package StoryMgr;
 import java.util.ArrayList;
 
 import AudioMgr.AudioEngine;
-import TaskMgr.FactCompilation;
 import TextMgr.TextExtraction;
 
 public class Story {
@@ -12,8 +11,8 @@ public class Story {
     private AudioEngine Sounds;
     private FinalResult FinRes;
     private ArrayList<Act> Acts;
-    private FactCompilation FactComp;
-    public Act OriginalAct;
+    /*private FactCompilation FactComp;
+    public Act OriginalAct;*/
        
     Story(){
     	setActs(new ArrayList<Act>());
@@ -28,10 +27,10 @@ public class Story {
 	}
 
 
-	public void createOriginalAct(){
+/*	public void createOriginalAct(){
 		OriginalAct=new Act();
 		addAct(OriginalAct);
-    }
+    }*/
 	
 	public Act getAct(int i){
 		return Acts.get(i);
