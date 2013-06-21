@@ -3,7 +3,7 @@
   realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
   <class id="1" language="java" name="WrapUpMgr.WrapUpMgr" project="Master" file="/Master/src/WrapUpMgr/WrapUpMgr.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="135" width="186" x="1094" y="428"/>    
+    <position height="119" width="186" x="1432" y="610"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -12,7 +12,7 @@
   </class>  
   <class id="2" language="java" name="WrapUpMgr.PptxWrapUpMgr" project="Master" 
     file="/Master/src/WrapUpMgr/PptxWrapUpMgr.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="585" width="289" x="915" y="693"/>    
+    <position height="641" width="524" x="887" y="841"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -21,7 +21,7 @@
   </class>  
   <class id="3" language="java" name="TextMgr.Text" project="Master" file="/Master/src/TextMgr/Text.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="613" y="2170"/>    
+    <position height="137" width="120" x="1833" y="2560"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -30,7 +30,7 @@
   </class>  
   <class id="4" language="java" name="TextMgr.TextExtractionPPTX" project="Master" 
     file="/Master/src/TextMgr/TextExtractionPPTX.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="243" width="175" x="-2" y="1889"/>    
+    <position height="443" width="689" x="2089" y="2077"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -39,7 +39,7 @@
   </class>  
   <class id="5" language="java" name="TextMgr.TextExtraction" project="Master" 
     file="/Master/src/TextMgr/TextExtraction.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="81" width="106" x="67" y="1318"/>    
+    <position height="65" width="106" x="2092" y="1522"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -48,7 +48,7 @@
   </class>  
   <class id="6" language="java" name="TaskMgr.FactCompilation" project="Master" 
     file="/Master/src/TaskMgr/FactCompilation.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="117" width="168" x="686" y="1318"/>    
+    <position height="101" width="168" x="2818" y="1522"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -57,7 +57,7 @@
   </class>  
   <class id="7" language="java" name="TaskMgr.Task" project="Master" file="/Master/src/TaskMgr/Task.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="207" width="217" x="771" y="1889"/>    
+    <position height="227" width="222" x="2818" y="2077"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -66,7 +66,7 @@
   </class>  
   <class id="8" language="java" name="TaskMgr.Result" project="Master" file="/Master/src/TaskMgr/Result.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1163" y="2986"/>    
+    <position height="479" width="302" x="2225" y="3380"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -75,7 +75,7 @@
   </class>  
   <class id="9" language="java" name="TaskMgr.KeyFinding" project="Master" file="/Master/src/TaskMgr/KeyFinding.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="424" y="2622"/>    
+    <position height="65" width="87" x="2340" y="3131"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -84,7 +84,7 @@
   </class>  
   <class id="10" language="java" name="TaskMgr.TaskMgr" project="Master" file="/Master/src/TaskMgr/TaskMgr.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="207" width="179" x="875" y="428"/>    
+    <position height="191" width="179" x="2778" y="610"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -93,7 +93,7 @@
   </class>  
   <class id="11" language="java" name="TaskMgr.SubTask" project="Master" file="/Master/src/TaskMgr/SubTask.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1053" y="2316"/>    
+    <position height="263" width="271" x="2176" y="2560"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -102,7 +102,7 @@
   </class>  
   <class id="12" language="java" name="TaskMgr.ExtractionMethod" project="Master" 
     file="/Master/src/TaskMgr/ExtractionMethod.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="135" width="152" x="1081" y="2563"/>    
+    <position height="155" width="292" x="2008" y="3131"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -111,7 +111,7 @@
   </class>  
   <class id="13" language="java" name="StoryMgr.Tabular" project="Master" file="/Master/src/StoryMgr/Tabular.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="135" width="345" x="-2" y="2563"/>    
+    <position height="209" width="376" x="1157" y="3131"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -120,7 +120,7 @@
   </class>  
   <class id="14" language="java" name="StoryMgr.FinalResult" project="Master" 
     file="/Master/src/StoryMgr/FinalResult.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="135" width="147" x="1028" y="1318"/>    
+    <position height="119" width="147" x="1432" y="1522"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -129,7 +129,7 @@
   </class>  
   <class id="15" language="java" name="StoryMgr.Story" project="Master" file="/Master/src/StoryMgr/Story.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="333" width="176" x="435" y="693"/>    
+    <position height="299" width="176" x="1679" y="841"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -138,7 +138,7 @@
   </class>  
   <class id="16" language="java" name="StoryMgr.Visual" project="Master" file="/Master/src/StoryMgr/Visual.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="153" width="355" x="-2" y="2316"/>    
+    <position height="137" width="385" x="1157" y="2560"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -147,7 +147,7 @@
   </class>  
   <class id="17" language="java" name="StoryMgr.Act" project="Master" file="/Master/src/StoryMgr/Act.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="207" width="211" x="435" y="1318"/>    
+    <position height="263" width="211" x="1841" y="1522"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -156,7 +156,7 @@
   </class>  
   <class id="18" language="java" name="StoryMgr.StoryMgr" project="Master" file="/Master/src/StoryMgr/StoryMgr.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="225" width="190" x="654" y="428"/>    
+    <position height="191" width="179" x="1679" y="610"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -165,7 +165,7 @@
   </class>  
   <class id="19" language="java" name="StoryMgr.PptxSlideshow" project="Master" 
     file="/Master/src/StoryMgr/PptxSlideshow.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="117" width="142" x="1028" y="1889"/>    
+    <position height="101" width="142" x="1432" y="2077"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -174,7 +174,7 @@
   </class>  
   <class id="20" language="java" name="StoryMgr.PptxSlide" project="Master" file="/Master/src/StoryMgr/PptxSlide.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="504" y="2389"/>    
+    <position height="317" width="211" x="1582" y="2560"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -183,7 +183,7 @@
   </class>  
   <class id="21" language="java" name="StoryMgr.Episode" project="Master" file="/Master/src/StoryMgr/Episode.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="135" width="160" x="463" y="1889"/>    
+    <position height="155" width="216" x="1833" y="2077"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -192,7 +192,7 @@
   </class>  
   <class id="22" language="java" name="CubeMgr.StarSchema.Table" project="Master" 
     file="/Master/src/CubeMgr/StarSchema/Table.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="153" width="167" x="1598" y="1889"/>    
+    <position height="137" width="167" x="41" y="2077"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -201,7 +201,7 @@
   </class>  
   <class id="23" language="java" name="CubeMgr.StarSchema.Database" project="Master" 
     file="/Master/src/CubeMgr/StarSchema/Database.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1810" y="1372"/>    
+    <position height="515" width="226" x="149" y="1522"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -210,7 +210,7 @@
   </class>  
   <class id="24" language="java" name="CubeMgr.StarSchema.SqlQuery" project="Master" 
     file="/Master/src/CubeMgr/StarSchema/SqlQuery.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1605" y="2899"/>    
+    <position height="425" width="395" x="1790" y="3380"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -219,7 +219,7 @@
   </class>  
   <class id="25" language="java" name="CubeMgr.StarSchema.Attribute" project="Master" 
     file="/Master/src/CubeMgr/StarSchema/Attribute.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="135" width="134" x="1821" y="2316"/>    
+    <position height="119" width="134" x="878" y="2560"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -228,7 +228,7 @@
   </class>  
   <class id="26" language="java" name="CubeMgr.StarSchema.DimensionTable" project="Master" 
     file="/Master/src/CubeMgr/StarSchema/DimensionTable.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="81" width="136" x="1777" y="2563"/>    
+    <position height="65" width="136" x="153" y="3131"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -237,7 +237,7 @@
   </class>  
   <class id="27" language="java" name="CubeMgr.StarSchema.FactTable" project="Master" 
     file="/Master/src/CubeMgr/StarSchema/FactTable.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="117" width="217" x="1539" y="2316"/>    
+    <position height="101" width="217" x="153" y="2560"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -246,7 +246,7 @@
   </class>  
   <class id="28" language="java" name="CubeMgr.CubeBase.LevelAttribute" project="Master" 
     file="/Master/src/CubeMgr/CubeBase/LevelAttribute.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="261" width="160" x="1939" y="1318"/>    
+    <position height="245" width="160" x="1232" y="1522"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -255,7 +255,7 @@
   </class>  
   <class id="29" language="java" name="CubeMgr.CubeBase.Level" project="Master" 
     file="/Master/src/CubeMgr/CubeBase/Level.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="2068" y="2068"/>    
+    <position height="227" width="263" x="1108" y="2077"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -264,7 +264,7 @@
   </class>  
   <class id="30" language="java" name="CubeMgr.CubeBase.LinearHierarchy" project="Master" 
     file="/Master/src/CubeMgr/CubeBase/LinearHierarchy.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="135" width="170" x="2139" y="1318"/>    
+    <position height="83" width="170" x="2997" y="610"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -273,7 +273,7 @@
   </class>  
   <class id="31" language="java" name="CubeMgr.CubeBase.CubeBase" project="Master" 
     file="/Master/src/CubeMgr/CubeBase/CubeBase.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="297" width="399" x="1677" y="693"/>    
+    <position height="317" width="399" x="448" y="841"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -282,7 +282,7 @@
   </class>  
   <class id="32" language="java" name="CubeMgr.CubeBase.CubeQuery" project="Master" 
     file="/Master/src/CubeMgr/CubeBase/CubeQuery.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="99" width="117" x="1210" y="1889"/>    
+    <position height="209" width="248" x="820" y="2077"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -291,7 +291,7 @@
   </class>  
   <class id="33" language="java" name="CubeMgr.CubeBase.Dimension" project="Master" 
     file="/Master/src/CubeMgr/CubeBase/Dimension.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="2287" y="2079"/>    
+    <position height="173" width="195" x="452" y="2077"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -300,7 +300,7 @@
   </class>  
   <class id="34" language="java" name="CubeMgr.CubeBase.Measure" project="Master" 
     file="/Master/src/CubeMgr/CubeBase/Measure.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="153" width="113" x="1805" y="1889"/>    
+    <position height="101" width="93" x="687" y="2077"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -309,7 +309,7 @@
   </class>  
   <class id="35" language="java" name="CubeMgr.CubeBase.BasicStoredCube" project="Master" 
     file="/Master/src/CubeMgr/CubeBase/BasicStoredCube.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="153" width="191" x="1367" y="1889"/>    
+    <position height="101" width="164" x="248" y="2077"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -318,7 +318,7 @@
   </class>  
   <class id="36" language="java" name="CubeMgr.CubeBase.Cube" project="Master" 
     file="/Master/src/CubeMgr/CubeBase/Cube.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1350" y="1405"/>    
+    <position height="281" width="291" x="687" y="1522"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -327,7 +327,7 @@
   </class>  
   <class id="37" language="java" name="CubeMgr.CubeBase.Hierarchy" project="Master" 
     file="/Master/src/CubeMgr/CubeBase/Hierarchy.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="2321" y="727"/>    
+    <position height="101" width="129" x="2997" y="37"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -336,7 +336,7 @@
   </class>  
   <class id="38" language="java" name="CubeMgr.CubeMgr" project="Master" file="/Master/src/CubeMgr/CubeMgr.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="135" width="484" x="1320" y="428"/>    
+    <position height="119" width="534" x="858" y="610"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -345,7 +345,7 @@
   </class>  
   <class id="39" language="java" name="AudioMgr.AudioEngine" project="Master" 
     file="/Master/src/AudioMgr/AudioEngine.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="135" width="182" x="213" y="1318"/>    
+    <position height="119" width="182" x="1619" y="1522"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -354,7 +354,7 @@
   </class>  
   <class id="40" language="java" name="AudioMgr.Audio" project="Master" file="/Master/src/AudioMgr/Audio.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="759" y="2410"/>    
+    <position height="119" width="143" x="1993" y="2560"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -363,7 +363,7 @@
   </class>  
   <class id="41" language="java" name="AudioMgr.MaryTTSAudioEngine" project="Master" 
     file="/Master/src/AudioMgr/MaryTTSAudioEngine.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="311" y="1878"/>    
+    <position height="173" width="179" x="1614" y="2077"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -372,7 +372,7 @@
   </class>  
   <class id="42" language="java" name="MainEngine" project="Master" file="/Master/src/MainEngine.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="351" width="201" x="654" y="37"/>    
+    <position height="533" width="291" x="1679" y="37"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -381,7 +381,7 @@
   </class>  
   <class id="43" language="java" name="TaskMgr.TaskBrothers" project="Master" 
     file="/Master/src/TaskMgr/TaskBrothers.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="375" y="2964"/>    
+    <position height="531" width="395" x="2487" y="2560"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -390,482 +390,397 @@
   </class>  
   <class id="44" language="java" name="TaskMgr.TaskFathers" project="Master" file="/Master/src/TaskMgr/TaskFathers.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="779" y="2937"/>    
+    <position height="333" width="332" x="2922" y="2560"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <generalization id="45">    
-    <bendpoint x="853" y="2507"/>    
-    <end type="SOURCE" refId="44"/>    
-    <end type="TARGET" refId="7"/>  
-  </generalization>  
-  <association id="46">    
-    <bendpoint x="1516" y="1328"/>    
-    <end type="SOURCE" refId="31" navigable="false">      
-      <attribute id="47" name="BasicCubes"/>      
-      <multiplicity id="48" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="35" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="49">    
-    <end type="SOURCE" refId="42" navigable="false">      
-      <attribute id="50" name="TskMgr"/>      
-      <multiplicity id="51" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="10" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="52">    
+  <association id="45">    
     <end type="SOURCE" refId="15" navigable="false">      
-      <attribute id="53" name="FinRes"/>      
-      <multiplicity id="54" minimum="0" maximum="1"/>    
+      <attribute id="46" name="FinRes"/>      
+      <multiplicity id="47" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="14" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="55">    
-    <bendpoint x="1786" y="2316"/>    
-    <end type="SOURCE" refId="26"/>    
-    <end type="TARGET" refId="22"/>  
+  <generalization id="48">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="12"/>  
   </generalization>  
-  <association id="56">    
-    <end type="SOURCE" refId="22" navigable="false">      
-      <attribute id="57" name="LstAttr"/>      
-      <multiplicity id="58" minimum="0" maximum="2147483647"/>    
+  <association id="49">    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="50" name="Sounds"/>      
+      <multiplicity id="51" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="25" navigable="true"/>    
+    <end type="TARGET" refId="39" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="59">    
-    <bendpoint x="2389" y="1940"/>    
-    <bendpoint x="2360" y="1318"/>    
-    <end type="SOURCE" refId="33" navigable="false">      
-      <attribute id="60" name="Hier"/>      
-      <multiplicity id="61" minimum="0" maximum="2147483647"/>    
+  <association id="52">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="53" name="keyfinding"/>      
+      <multiplicity id="54" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="37" navigable="true"/>    
+    <end type="TARGET" refId="9" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="62">    
-    <end type="SOURCE" refId="30"/>    
-    <end type="TARGET" refId="37"/>  
-  </generalization>  
-  <association id="63">    
+  <association id="55">    
     <end type="SOURCE" refId="27" navigable="false">      
-      <attribute id="64" name="DimTable"/>      
-      <multiplicity id="65" minimum="0" maximum="2147483647"/>    
+      <attribute id="56" name="DimTable"/>      
+      <multiplicity id="57" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="26" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="66">    
+  <association id="58">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="59" name="subTasks"/>      
+      <multiplicity id="60" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="61">    
+    <end type="SOURCE" refId="43"/>    
+    <end type="TARGET" refId="7"/>  
+  </generalization>  
+  <generalization id="62">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <generalization id="63">    
+    <bendpoint x="106" y="2560"/>    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="22"/>  
+  </generalization>  
+  <association id="64">    
+    <bendpoint x="2787" y="841"/>    
+    <bendpoint x="2787" y="1522"/>    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="65" name="Tasks"/>      
+      <multiplicity id="66" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="67">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="68" name="LstAttr"/>      
+      <multiplicity id="69" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="25" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="70">    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="71" name="CBase"/>      
+      <multiplicity id="72" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="31" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="73">    
+    <end type="SOURCE" refId="28" navigable="false">      
+      <attribute id="74" name="level"/>      
+      <multiplicity id="75" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="29" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="76">    
+    <bendpoint x="1648" y="610"/>    
+    <bendpoint x="1648" y="841"/>    
+    <end type="SOURCE" refId="42" navigable="false">      
+      <attribute id="77" name="AudioMgr"/>      
+      <multiplicity id="78" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="39" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="79">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <association id="80">    
+    <end type="SOURCE" refId="42" navigable="false">      
+      <attribute id="81" name="StorMgr"/>      
+      <multiplicity id="82" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="83">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="84" name="ListTasks"/>      
+      <multiplicity id="85" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="86">    
+    <end type="SOURCE" refId="42" navigable="false">      
+      <attribute id="87" name="TskMgr"/>      
+      <multiplicity id="88" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="89">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="21"/>  
+  </generalization>  
+  <generalization id="90">    
+    <end type="SOURCE" refId="32"/>    
+    <end type="TARGET" refId="36"/>  
+  </generalization>  
+  <association id="91">    
+    <bendpoint x="1401" y="2077"/>    
+    <end type="SOURCE" refId="28" navigable="false">      
+      <attribute id="92" name="attribute"/>      
+      <multiplicity id="93" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="25" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="94">    
+    <bendpoint x="1895" y="610"/>    
+    <bendpoint x="1895" y="841"/>    
+    <end type="SOURCE" refId="42" navigable="false">      
+      <attribute id="95" name="TxtMgr"/>      
+      <multiplicity id="96" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="97">    
     <end type="SOURCE" refId="17" navigable="false">      
-      <attribute id="67" name="Episodes"/>      
-      <multiplicity id="68" minimum="0" maximum="2147483647"/>    
+      <attribute id="98" name="Episodes"/>      
+      <multiplicity id="99" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="21" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="69">    
+  <association id="100">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="101" name="audio"/>      
+      <multiplicity id="102" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="40" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="103">    
+    <end type="SOURCE" refId="42" navigable="false">      
+      <attribute id="104" name="WrapUp"/>      
+      <multiplicity id="105" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="106">    
+    <end type="SOURCE" refId="36" navigable="false">      
+      <attribute id="107" name="lvl"/>      
+      <multiplicity id="108" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="29" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="109">    
+    <end type="SOURCE" refId="36" navigable="false">      
+      <attribute id="110" name="Dim"/>      
+      <multiplicity id="111" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="33" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="112">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="113" name="Res"/>      
+      <multiplicity id="114" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="115">    
+    <end type="SOURCE" refId="31" navigable="false">      
+      <attribute id="116" name="DB"/>      
+      <multiplicity id="117" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="118">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="16"/>  
+  </generalization>  
+  <generalization id="119">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <association id="120">    
     <end type="SOURCE" refId="15" navigable="false">      
-      <attribute id="70" name="Acts"/>      
-      <multiplicity id="71" minimum="0" maximum="2147483647"/>    
+      <attribute id="121" name="Acts"/>      
+      <multiplicity id="122" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="17" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="72">    
+  <association id="123">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="124" name="txt"/>      
+      <multiplicity id="125" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="126">    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="127" name="Tbl"/>      
+      <multiplicity id="128" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="129">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="130" name="Attr"/>      
+      <multiplicity id="131" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="25" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="132">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="133" name="story"/>      
+      <multiplicity id="134" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="135">    
+    <bendpoint x="405" y="1522"/>    
+    <end type="SOURCE" refId="31" navigable="false">      
+      <attribute id="136" name="BasicCubes"/>      
+      <multiplicity id="137" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="35" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="138">    
+    <end type="SOURCE" refId="41"/>    
+    <end type="TARGET" refId="39"/>  
+  </generalization>  
+  <generalization id="139">    
     <end type="SOURCE" refId="27"/>    
     <end type="TARGET" refId="22"/>  
   </generalization>  
-  <association id="73">    
-    <end type="SOURCE" refId="15" navigable="false">      
-      <attribute id="74" name="OriginalAct"/>      
-      <multiplicity id="75" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="17" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="76">    
-    <end type="SOURCE" refId="15" navigable="false">      
-      <attribute id="77" name="FactComp"/>      
-      <multiplicity id="78" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="79">    
-    <bendpoint x="2320" y="1261"/>    
-    <bendpoint x="2377" y="1902"/>    
+  <association id="140">    
+    <bendpoint x="459" y="1522"/>    
     <end type="SOURCE" refId="31" navigable="false">      
-      <attribute id="80" name="dimensions">        
+      <attribute id="141" name="dimensions">        
         <position height="18" width="64" x="2259" y="1709"/>      
       </attribute>      
-      <multiplicity id="81" minimum="0" maximum="2147483647">        
+      <multiplicity id="142" minimum="0" maximum="2147483647">        
         <position height="16" width="21" x="2312" y="1949"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="33" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="82">    
-    <end type="SOURCE" refId="17" navigable="false">      
-      <attribute id="83" name="tsk"/>      
-      <multiplicity id="84" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="85">    
-    <end type="SOURCE" refId="21" navigable="false">      
-      <attribute id="86" name="txt"/>      
-      <multiplicity id="87" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="88">    
-    <end type="SOURCE" refId="36" navigable="false">      
-      <attribute id="89" name="lvl"/>      
-      <multiplicity id="90" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="29" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="91">    
-    <end type="SOURCE" refId="21" navigable="false">      
-      <attribute id="92" name="visual"/>      
-      <multiplicity id="93" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="16" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="94">    
-    <end type="SOURCE" refId="41"/>    
-    <end type="TARGET" refId="39"/>  
-  </generalization>  
-  <association id="95">    
-    <bendpoint x="404" y="428"/>    
-    <bendpoint x="404" y="693"/>    
-    <end type="SOURCE" refId="42" navigable="false">      
-      <attribute id="96" name="AudioMgr"/>      
-      <multiplicity id="97" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="39" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="98">    
-    <bendpoint x="2109" y="2470"/>    
-    <end type="SOURCE" refId="33" navigable="false">      
-      <attribute id="99" name="DimTbl"/>      
-      <multiplicity id="100" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="26" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="101">    
-    <bendpoint x="2071" y="1771"/>    
-    <end type="SOURCE" refId="28" navigable="false">      
-      <attribute id="102" name="level"/>      
-      <multiplicity id="103" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="29" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="104">    
-    <end type="SOURCE" refId="19"/>    
-    <end type="TARGET" refId="14"/>  
-  </generalization>  
-  <association id="105">    
-    <end type="SOURCE" refId="21" navigable="false">      
-      <attribute id="106" name="subTask"/>      
-      <multiplicity id="107" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="108">    
-    <bendpoint x="2257" y="1741"/>    
-    <end type="SOURCE" refId="30" navigable="false">      
-      <attribute id="109" name="lvls"/>      
-      <multiplicity id="110" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="29" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="111">    
-    <bendpoint x="682" y="2273"/>    
-    <end type="SOURCE" refId="43"/>    
-    <end type="TARGET" refId="7"/>  
-  </generalization>  
-  <association id="112">    
-    <bendpoint x="2173" y="1705"/>    
-    <end type="SOURCE" refId="29" navigable="false">      
-      <attribute id="113" name="LinHier"/>      
-      <multiplicity id="114" minimum="0" maximum="1">        
-        <position height="16" width="23" x="2185" y="1458"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="30" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="115">    
-    <end type="SOURCE" refId="24"/>    
-    <end type="TARGET" refId="12"/>  
-  </generalization>  
-  <association id="116">    
-    <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="117" name="Res"/>      
-      <multiplicity id="118" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="8" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="119">    
-    <bendpoint x="2323" y="1843"/>    
-    <end type="SOURCE" refId="30" navigable="false">      
-      <attribute id="120" name="dimension">        
-        <position height="18" width="58" x="2230" y="1864"/>      
-      </attribute>      
-      <multiplicity id="121" minimum="0" maximum="1">        
-        <position height="16" width="23" x="2293" y="1861"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="33" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="122">    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="123" name="extractionMethod"/>      
-      <multiplicity id="124" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="12" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="125">    
-    <end type="SOURCE" refId="42" navigable="false">      
-      <attribute id="126" name="CubeManager"/>      
-      <multiplicity id="127" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="38" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="128">    
-    <end type="SOURCE" refId="35"/>    
-    <end type="TARGET" refId="36"/>  
-  </generalization>  
-  <association id="129">    
-    <bendpoint x="740" y="2559"/>    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="130" name="keyfinding"/>      
-      <multiplicity id="131" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="132">    
-    <end type="SOURCE" refId="42" navigable="false">      
-      <attribute id="133" name="StorMgr"/>      
-      <multiplicity id="134" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="18" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="135">    
-    <end type="SOURCE" refId="18" navigable="false">      
-      <attribute id="136" name="story"/>      
-      <multiplicity id="137" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="15" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="138">    
-    <end type="SOURCE" refId="15" navigable="false">      
-      <attribute id="139" name="Sounds"/>      
-      <multiplicity id="140" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="39" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="141">    
-    <end type="SOURCE" refId="29" navigable="false">      
-      <attribute id="142" name="lvlAttribute"/>      
-      <multiplicity id="143" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="28" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="144">    
-    <end type="SOURCE" refId="13"/>    
-    <end type="TARGET" refId="16"/>  
-  </generalization>  
-  <generalization id="145">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="5"/>  
-  </generalization>  
-  <association id="146">    
-    <bendpoint x="369" y="428"/>    
-    <bendpoint x="369" y="693"/>    
-    <end type="SOURCE" refId="42" navigable="false">      
-      <attribute id="147" name="TxtMgr"/>      
-      <multiplicity id="148" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="149">    
-    <end type="SOURCE" refId="38" navigable="false">      
-      <attribute id="150" name="CBase"/>      
-      <multiplicity id="151" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="31" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="152">    
-    <end type="SOURCE" refId="23" navigable="false">      
-      <attribute id="153" name="Tbl"/>      
-      <multiplicity id="154" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="22" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="155">    
-    <end type="SOURCE" refId="35" navigable="false">      
-      <attribute id="156" name="FCtbl"/>      
-      <multiplicity id="157" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="27" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="158">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="1"/>  
-  </generalization>  
-  <association id="159">    
-    <bendpoint x="1838" y="1741"/>    
-    <bendpoint x="2203" y="1840"/>    
-    <end type="SOURCE" refId="36" navigable="false">      
-      <attribute id="160" name="Dim"/>      
-      <multiplicity id="161" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="33" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="162">    
-    <bendpoint x="1219" y="2316"/>    
-    <bendpoint x="1405" y="2571"/>    
-    <end type="SOURCE" refId="32" navigable="false">      
-      <attribute id="163" name="sqlQ"/>      
-      <multiplicity id="164" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="24" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="165">    
-    <bendpoint x="1366" y="1139"/>    
+  <association id="143">    
+    <bendpoint x="1441" y="841"/>    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="166" name="finalResult"/>      
-      <multiplicity id="167" minimum="0" maximum="1"/>    
+      <attribute id="144" name="finalResult"/>      
+      <multiplicity id="145" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="14" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="168">    
-    <end type="SOURCE" refId="34" navigable="false">      
-      <attribute id="169" name="Attr"/>      
-      <multiplicity id="170" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="25" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="171">    
-    <bendpoint x="884" y="693"/>    
-    <bendpoint x="884" y="1318"/>    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="172" name="Tasks"/>      
-      <multiplicity id="173" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="174">    
-    <bendpoint x="1923" y="1887"/>    
-    <end type="SOURCE" refId="28" navigable="false">      
-      <attribute id="175" name="attribute"/>      
-      <multiplicity id="176" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="25" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="177">    
-    <bendpoint x="715" y="2142"/>    
+  <association id="146">    
     <end type="SOURCE" refId="21" navigable="false">      
-      <attribute id="178" name="audio"/>      
-      <multiplicity id="179" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="40" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="180">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="181" name="subTasks"/>      
-      <multiplicity id="182" minimum="0" maximum="2147483647"/>    
+      <attribute id="147" name="subTask"/>      
+      <multiplicity id="148" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="11" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="183">    
-    <end type="SOURCE" refId="20"/>    
-    <end type="TARGET" refId="21"/>  
-  </generalization>  
-  <association id="184">    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="185" name="ListTasks"/>      
-      <multiplicity id="186" minimum="0" maximum="2147483647"/>    
+  <association id="149">    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="150" name="tsk"/>      
+      <multiplicity id="151" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="7" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="187">    
-    <end type="SOURCE" refId="32"/>    
+  <association id="152">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="153" name="extractionMethod"/>      
+      <multiplicity id="154" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="155">    
+    <bendpoint x="400" y="2560"/>    
+    <end type="SOURCE" refId="33" navigable="false">      
+      <attribute id="156" name="DimTbl"/>      
+      <multiplicity id="157" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="158">    
+    <end type="SOURCE" refId="35"/>    
     <end type="TARGET" refId="36"/>  
   </generalization>  
-  <association id="188">    
+  <association id="159">    
+    <end type="SOURCE" refId="35" navigable="false">      
+      <attribute id="160" name="FCtbl"/>      
+      <multiplicity id="161" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="27" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="162">    
     <end type="SOURCE" refId="36" navigable="false">      
-      <attribute id="189" name="Msr"/>      
-      <multiplicity id="190" minimum="0" maximum="2147483647"/>    
+      <attribute id="163" name="Msr"/>      
+      <multiplicity id="164" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="34" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="191">    
-    <end type="SOURCE" refId="31" navigable="false">      
-      <attribute id="192" name="DB"/>      
-      <multiplicity id="193" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="23" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="194">    
+  <association id="165">    
     <end type="SOURCE" refId="15" navigable="false">      
-      <attribute id="195" name="Texts"/>      
-      <multiplicity id="196" minimum="0" maximum="1"/>    
+      <attribute id="166" name="Texts"/>      
+      <multiplicity id="167" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="197">    
+  <generalization id="168">    
+    <end type="SOURCE" refId="44"/>    
+    <end type="TARGET" refId="7"/>  
+  </generalization>  
+  <association id="169">    
     <end type="SOURCE" refId="42" navigable="false">      
-      <attribute id="198" name="WrapUp"/>      
-      <multiplicity id="199" minimum="0" maximum="1"/>    
+      <attribute id="170" name="CubeManager"/>      
+      <multiplicity id="171" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="1" navigable="true"/>    
+    <end type="TARGET" refId="38" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <association id="172">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="173" name="visual"/>      
+      <multiplicity id="174" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="175">    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="37"/>  
+  </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true"/>    
