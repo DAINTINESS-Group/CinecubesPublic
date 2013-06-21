@@ -64,10 +64,10 @@ public class FreeTTSAudioEngine extends AudioEngine {
            voice.speak(textTobeSound);
            //voice.deallocate();
            sfap.close();
-			/*MaryInterface marytts = new LocalMaryInterface();
-			Set<String> voices = marytts.getAvailableVoices();
-			marytts.setVoice(voices.iterator().next());
-			AudioInputStream audio = marytts.generateAudio("Hello Mister are Sunday!");
+			/*MaryInterface MTTS = new LocalMaryInterface();
+			Set<String> voices = MTTS.getAvailableVoices();
+			MTTS.setVoice(voices.iterator().next());
+			AudioInputStream audio = MTTS.generateAudio("Hello Mister are Sunday!");
 			AudioInputStream pcm = AudioSystem.getAudioInputStream(AudioFormat.Encoding.PCM_SIGNED, audio);
 			AudioInputStream ulaw = AudioSystem.getAudioInputStream(AudioFormat.Encoding.ULAW, pcm);
 			File tempFile = new File("tmp.wav");

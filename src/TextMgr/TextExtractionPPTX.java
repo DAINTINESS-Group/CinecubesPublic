@@ -44,44 +44,51 @@ public class TextExtractionPPTX extends TextExtraction {
         this.textToBeSound=value;
     }*/
     
-    public String createTextForOriginalAct1(ArrayList<String[]> Gamma,ArrayList<String[]> Sigma,String[][] Result,HighlightTable htable){
-    	String dimensionText="Here, you can see the answer of the original query. You have specified : ";
+    public String createTextForOriginalAct1(ArrayList<String[]> Gamma,ArrayList<String[]> Sigma,String Aggregate,String Measure,HighlightTable htable){
+    	String dimensionText="Here, you can see the answer of the original query. You have specified ";
     	String maxText="You can observe the results in this table. We highlight the largest value";
-    	String minText="We also highlight the lower value";
+    	String minText="and the lowest value";
     	int j=0;
     	for(String[] sigma:Sigma){
     		if(j>0) dimensionText+=", ";
     		if(j==Sigma.size()-1) dimensionText+=" and ";
-    		dimensionText+=sigma[0]+" to be equal to "+sigma[2]+"";
+    		dimensionText+=sigma[0].split("\\.")[0]+" to be equal to "+sigma[2].replace("*", "ALL")+"";
     		j++;
     	}
-    	
+    	dimensionText+=". We report on "+Aggregate+" of "+Measure.replace("\r", "")+" grouped by ";
+    	j=0;
+    	for(String[] gamma:Gamma){
+    		if(j>0) dimensionText+=", ";
+    		if(j==Gamma.size()-1) dimensionText+=" and ";
+    		dimensionText+=gamma[0]+" at "+gamma[1].replace("lvl", "level ");
+    		j++;
+    	}
     	/*maxText+=createTextForMinOrMaxArraylist(htable.maxValues,htable.max_index,Gamma,Result);
     	maxText+=") " +*/
     	if(htable.maxValues.size()>1) maxText+="s";
-    	maxText+=" with color "+htable.maxcolor_name+" color "+". "; 
+    	maxText+=" with "+htable.maxcolor_name+" "; 
     	
     	/*minText+=createTextForMinOrMaxArraylist(htable.minValues,htable.min_index,Gamma,Result);
     	minText+=") " +*/
     	if(htable.minValues.size()>1) minText+="s";
-    	minText+=" with color "+htable.mincolor_name+". "; 
-		return dimensionText+" .\n"+maxText+"\n"+minText;
+    	minText+=" with "+htable.mincolor_name+". "; 
+		return dimensionText+" .\n"+maxText+minText;
     }
     
     public String createTextForOriginalAct2(ArrayList<String[]> Gamma,ArrayList<String[]> Sigma,String[][] Result,HighlightTable htable){
-    	String dimensionText="In this slide we remind to you the result of the original query. \nNow we are going to explain the internal breakdown of the defining values " +
-    			"of the original query";
-    	dimensionText+="by drilling down in two dimensions : ";
+    	String dimensionText="In this slide we remind you the result of the original query. \nNow we are going to explain the internal breakdown of " +
+    			"this result ";
+    	dimensionText+="by drilling down its grouper dimensions. ";
     	
-    	int j=0;
+    	/*int j=0;
     	for(String[] gamma:Gamma){
     		if(j>0) dimensionText+=", ";
-    		if(j==Sigma.size()-1) dimensionText+=" and ";    		
+    		if(j==Gamma.size()-1) dimensionText+=" and ";    		
     		dimensionText+=gamma[0]+"."+gamma[1];
     		j++;
-    	}
-    	dimensionText+="\n In the first of the following two slides we will drill-in dimension "+Gamma.get(0)[0]+"."+Gamma.get(0)[1]+". ";
-    	dimensionText+="Then we will drill-in dimension "+Gamma.get(1)[0]+"."+Gamma.get(1)[1]+". ";
+    	}*/
+    	dimensionText+="\n In the first of the following two slides we will drill-in dimension "+Gamma.get(1)[0]+"."+Gamma.get(1)[1]+". ";
+    	dimensionText+="Then we will drill-in dimension "+Gamma.get(0)[0]+"."+Gamma.get(0)[1]+". ";
     	 
 		return dimensionText+"\n";
     }
@@ -99,13 +106,17 @@ public class TextExtractionPPTX extends TextExtraction {
     	String[] gammaChange=GammaCompareTo.get(diffGamma);
     	String[] sigmaOriginal=SigmaCompareTo.get(this.getIndexOfSigma(SigmaCompareTo, gammaChange[0]));
     	
-    	txtNotes+=" "+sigmaOriginal[2]+" for "+sigmaOriginal[0]+" with its sibling values. We highlight the reference cells with bold.\n" +
-    			"We calculate the "+Aggregate+" of "+Measure.replace("\r", "")+" while fixing ";
+    	txtNotes+=" "+sigmaOriginal[2].replace("*", "ALL")+" for "+sigmaOriginal[0]+" with its sibling values. We highlight the reference cells with bold, the highest value";
+    	if(htable.maxValues.size()>1) txtNotes+="s ";
+    	txtNotes+=" with "+htable.maxcolor_name+" and the lowest value";
+    	if(htable.minValues.size()>1) txtNotes+="s ";
+    	txtNotes+=" with "+htable.mincolor_name;
+    	txtNotes+=". We calculate the "+Aggregate+" of "+Measure.replace("\r", "")+" while fixing ";
     	int j=0;
     	for(String[] sigma:SigmaCurrent){
     		if(j>0) txtNotes+=", ";
     		if(j==SigmaCurrent.size()-1) txtNotes+=" and ";
-    		txtNotes+=sigma[0]+" to be equal to '"+sigma[2]+"'";
+    		txtNotes+=sigma[0]+" to be equal to '"+sigma[2].replace("*", "ALL")+"'";
     		j++;
     	}
 		return txtNotes.replace("  ", " ");
@@ -122,41 +133,68 @@ public class TextExtractionPPTX extends TextExtraction {
     								int num_values_drill_in, 
     								String[] currentGamma){
     	
-    	String txtNotes="In this graphic, we put the original request in context by drilling-down one level for all values of dimension "+GammaCompareTo.get(diffGamma)[0]+"."+GammaCompareTo.get(diffGamma)[1];
-    	if(diffGamma==0) txtNotes+="(present in the rows of result). ";
-    	else txtNotes+="(present in the columns of result). ";
+    	String txtNotes="In this slide, we detail quest in context by drilling-down one level for all values of dimension "+currentGamma[0]+"."+currentGamma[1];
+    	if(diffGamma==0) txtNotes+="(present at the rows of result). ";
+    	else txtNotes+="(present at the columns of result). ";
     	/*txtNotes+="The values ​​in the left corner indicate the start of new table and the values in brackets the number of tuples for each result. Here you can see "+String.valueOf(num_values_drill_in)+" table";
     	if(num_values_drill_in > 1) txtNotes+="s";*/
     	
-    	txtNotes+="For each cell we show both the "+Aggregate+" of "+Measure.replace("\r", "")+" and the number of tuples that correspond to it. ";
-    	txtNotes+="(The analysis of "+String.valueOf(num_values_drill_in)+" value";
+    	txtNotes+="For each cell we show both the "+Aggregate+" of "+Measure.replace("\r", "")+" and the number of tuples that correspond to it in parentheses. ";
+    	/*txtNotes+="(The analysis of "+String.valueOf(num_values_drill_in)+" value";
     	if(num_values_drill_in > 1) txtNotes+="s";
     	if(diffGamma==0) txtNotes+=" for the rows ";
     	else txtNotes+=" for the columns ";
-    	txtNotes+="of the original table, to the dimension "+currentGamma[0].replace("_class.", " at ").replace(".", " at ").replace("lvl", "level ")+".)\n";
+    	txtNotes+="of the original table, to the dimension "+currentGamma[0].replace("_class.", " at ").replace(".", " at ").replace("lvl", "level ")+".)\n";*/
     	
 		return txtNotes.replace("  ", " ").replace("_dim.", " at ").replace("_dim", "").replace("lvl", "level ");
     }
     
-    public String createTxtForDominatedRowsColumns(String[][] PivotTable,Color[][] ColorTbl,HighlightTable htable){
+    public String createTxtForDominatedRowColumns(String[][] PivotTable,Color[][] ColorTbl,HighlightTable htable,boolean showRows,boolean showColumns){
     	
     	int max_index=0;
     	int min_index=1;
     	int middle_index=2;
     	
-    	String textToReturn="We highlight the "+htable.valuePerColor[min_index]+" lowest values in "+htable.mincolor_name+" color and the "
-    						+htable.valuePerColor[max_index]+" in "+htable.maxcolor_name+" color.\n" +
+    	String textToReturn="We highlight the "+htable.valuePerColor[min_index]+" lowest values in "+htable.mincolor_name+" and the "
+    						+htable.valuePerColor[max_index]+" in "+htable.maxcolor_name+".\n" +
     			"Some interesting findings include:\n";
+    	if(showColumns){
+    		textToReturn+=createTxtForColumnsDominate(PivotTable,htable);
+    	}
+    	if(showRows){
+    		textToReturn+=createTxtForRowsDominate(PivotTable,htable);
+    	}
+    	return textToReturn;
+    }
+    
+    public String createTxtForColumnsDominate(String[][] PivotTable,HighlightTable htable){
+    	int max_index=0;
+    	int min_index=1;
+    	int middle_index=2;
+    	String txt="";
     	for(Integer index :htable.colsDominateMax ){
-    		textToReturn+="Column "+PivotTable[0][index]+" has "+htable.colsDominationColor[index][max_index]+" of the "+htable.valuePerColor[max_index]+" highest values.\n";
+    		txt+="Column "+PivotTable[0][index]+" has "+htable.colsDominationColor[index][max_index]+" of the "+htable.valuePerColor[max_index]+" highest values.\n";
     	}
     	
     	for(Integer index :htable.colsDominateMin ){
-    		textToReturn+="Column "+PivotTable[0][index]+" has "+htable.colsDominationColor[index][min_index]+" of the "+htable.valuePerColor[min_index]+" lowest values.\n";
+    		txt+="Column "+PivotTable[0][index]+" has "+htable.colsDominationColor[index][min_index]+" of the "+htable.valuePerColor[min_index]+" lowest values.\n";
     	}
-    	return textToReturn;
-    	  	
+    	return txt;
+    }
+    
+    public String createTxtForRowsDominate(String[][] PivotTable,HighlightTable htable){
+    	int max_index=0;
+    	int min_index=1;
+    	int middle_index=2;
+    	String txt="";
+    	for(Integer index :htable.rowsDominateMax ){
+    		txt+="Row "+PivotTable[index][0]+" has "+htable.rowsDominationColor[index][max_index]+" of the "+htable.valuePerColor[max_index]+" highest values.\n";
+    	}
     	
+    	for(Integer index :htable.rowsDominateMin ){
+    		txt+="Row "+PivotTable[index][0]+" has "+htable.rowsDominationColor[index][min_index]+" of the "+htable.valuePerColor[min_index]+" lowest values.\n";
+    	}
+    	return txt;
     }
     
     public String createTxtComparingToSiblingColumn_version_for_sum(String[][] PivotTable,int ColumnOfOurValue){
@@ -206,18 +244,19 @@ public class TextExtractionPPTX extends TextExtraction {
     
     
     public String createTxtForIntroSlide(ArrayList<String[]> Gamma,ArrayList<String[]> Sigma,String Aggregate,String Measure){
-    	String ret_txt="Report for the query "+ Aggregate+" of "+Measure.replace("\r", "")+" by ";
-    	for(String [] gamma: Gamma){
+    	String ret_txt="This is a report on the "+ Aggregate+" of "+Measure.replace("\r", "")+" when ";
+    	/*for(String [] gamma: Gamma){
     		ret_txt+=gamma[0].replace("_dim"," at ")+gamma[1].replace("lvl", "level ")+" and ";
-    	}
+    	}*/
     	int i=0;
     	ret_txt+=" for ";
     	for(String [] sigma: Sigma){
     		if(i==Sigma.size()-1) ret_txt+=" and ";
     		else if(i>0) ret_txt+=", ";
-    		ret_txt+=sigma[0].split("\\.")[0].replace("_dim."," at ").replace("lvl", "level ")+" fixing to "+sigma[2];
+    		ret_txt+=sigma[0].split("\\.")[0].replace("_dim"," at ").replace("lvl", "level ")+" fixing to "+sigma[2].replace("*", "ALL");
     		i++;
     	}
+    	ret_txt+=". We will start by answering the original query and we complement the result with contextualization and detailed analyses.";
     	return ret_txt.replace("  ", " ").replace("\n", "").replace("\r", "");
     }
     
@@ -484,17 +523,17 @@ public class TextExtractionPPTX extends TextExtraction {
     		for(int j=0;j<httable.countHigherPerRow.length;j++){
     			if(j!=httable.boldRow-1){
         			if(httable.countHigherPerRow[j]>0) {
-            			ret_value+=String.valueOf(httable.countHigherPerRow[j])+" out of "+numOfcases+" cases "+httable.valuesOfRow[httable.boldRow-1]+" has higher value than "+httable.valuesOfRow[j]+".\n";
+            			ret_value+=String.valueOf(httable.countHigherPerRow[j])+" out of "+numOfcases+" cases "+httable.valuesOfRow[httable.boldRow-1]+" has a higher value than "+httable.valuesOfRow[j]+".\n";
             			if(httable.countLowerPerRow[j]>0 || httable.countEqualPerRow[j]>0 || httable.nullValuesPerRow[j]>0) ret_value+="In ";
             		}
             		
             		if(httable.countLowerPerRow[j]>0){
-            			ret_value+=String.valueOf(httable.countLowerPerRow[j])+" out of "+numOfcases+" cases "+httable.valuesOfRow[httable.boldRow-1]+" has lower value than "+httable.valuesOfRow[j]+".\n";
+            			ret_value+=String.valueOf(httable.countLowerPerRow[j])+" out of "+numOfcases+" cases "+httable.valuesOfRow[httable.boldRow-1]+" has a lower value than "+httable.valuesOfRow[j]+".\n";
             			if(httable.countEqualPerRow[j]>0 || httable.nullValuesPerRow[j]>0) ret_value+="In ";
             		}
             		
             		if(httable.countEqualPerRow[j]>0){
-            			ret_value+=String.valueOf(httable.countEqualPerRow[j])+" out of "+numOfcases+" cases "+httable.valuesOfRow[httable.boldRow-1]+" has equal value than "+httable.valuesOfRow[j]+".\n";
+            			ret_value+=String.valueOf(httable.countEqualPerRow[j])+" out of "+numOfcases+" cases "+httable.valuesOfRow[httable.boldRow-1]+" has an equal value to "+httable.valuesOfRow[j]+".\n";
             			if(httable.nullValuesPerRow[j]>0) ret_value+="In ";
             		}
             		
@@ -509,15 +548,15 @@ public class TextExtractionPPTX extends TextExtraction {
     		for(int j=0;j<httable.countHigherPerRow.length;j++){
     			if(j!=httable.boldRow-1){
         			if(httable.countHigherPerRow[j]>0) {
-            			ret_value+="In "+String.valueOf(httable.countHigherPerRow[j])+" out of "+numOfcases+" cases "+httable.valuesOfRow[httable.boldRow-1]+" has higher value than "+httable.valuesOfRow[j]+".\n";
+            			ret_value+="In "+String.valueOf(httable.countHigherPerRow[j])+" out of "+numOfcases+" cases "+httable.valuesOfRow[httable.boldRow-1]+" has a higher value than "+httable.valuesOfRow[j]+".\n";
             		}
             		
             		if(httable.countLowerPerRow[j]>0){
-            			ret_value+="In "+String.valueOf(httable.countLowerPerRow[j])+" out of "+numOfcases+" cases "+httable.valuesOfRow[httable.boldRow-1]+" has lower value than "+httable.valuesOfRow[j]+".\n";
+            			ret_value+="In "+String.valueOf(httable.countLowerPerRow[j])+" out of "+numOfcases+" cases "+httable.valuesOfRow[httable.boldRow-1]+" has a lower value than "+httable.valuesOfRow[j]+".\n";
             		}
             		
             		if(httable.countEqualPerRow[j]>0){
-            			ret_value+="In "+String.valueOf(httable.countEqualPerRow[j])+" out of "+numOfcases+" cases "+httable.valuesOfRow[httable.boldRow-1]+" has equal value than "+httable.valuesOfRow[j]+".\n";
+            			ret_value+="In "+String.valueOf(httable.countEqualPerRow[j])+" out of "+numOfcases+" cases "+httable.valuesOfRow[httable.boldRow-1]+" has an equal value to "+httable.valuesOfRow[j]+".\n";
             		}
             		
             		if(httable.nullValuesPerRow[j]>0){

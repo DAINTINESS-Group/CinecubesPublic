@@ -195,7 +195,8 @@ public class HighlightTable extends Highlight {
     		}
     	}
     	
-    	findDomination(colsDominationColor,max_index,min_index,middle_index,colsDominateMax,colsDominateMin,colsDominateMiddle,max_appearance_per_color);
+    	findDomination(colsDominationColor,max_index,min_index,middle_index,colsDominateMax,colsDominateMin,colsDominateMiddle);
+    	findDomination(rowsDominationColor,max_index,min_index,middle_index,rowsDominateMax,rowsDominateMin,rowsDominateMiddle);
     	
     }
 	
@@ -270,7 +271,7 @@ public class HighlightTable extends Highlight {
 	    	}
 	    }
 	
-	private void findDomination(Integer[][] DominationColor,int max_index,int min_index,int middle_index,ArrayList<Integer> DominateMax,ArrayList<Integer> DominateMin,ArrayList<Integer> DominateMiddle,Integer[] max_appearance_per_color){
+	private void findDomination(Integer[][] DominationColor,int max_index,int min_index,int middle_index,ArrayList<Integer> DominateMax,ArrayList<Integer> DominateMin,ArrayList<Integer> DominateMiddle){
     	max_appearance_per_color[max_index]=maxValueInTableColumn(DominationColor,max_index);
     	max_appearance_per_color[min_index]=maxValueInTableColumn(DominationColor,min_index);
     	max_appearance_per_color[middle_index]=maxValueInTableColumn(DominationColor,middle_index);

@@ -6,17 +6,14 @@ import javax.sound.sampled.AudioSystem;
 
 import marytts.LocalMaryInterface;
 import marytts.MaryInterface;
-import marytts.client.MaryClient.Voice;
 import marytts.exceptions.MaryConfigurationException;
-import marytts.signalproc.effects.BaseAudioEffect;
 import marytts.signalproc.effects.HMMF0ScaleEffect;
-import marytts.signalproc.effects.VolumeEffect;
 
 public class MaryTTSAudioEngine extends AudioEngine  {
 
     final String lexicon = "ABCDEFGHIJKLMNOPQRSTUVWXYZ12345674890";
     final java.util.Random rand = new java.util.Random();
-    MaryInterface marytts;
+    MaryInterface MTTS;
     
     public MaryTTSAudioEngine() {
 		super();
@@ -26,8 +23,8 @@ public class MaryTTSAudioEngine extends AudioEngine  {
 	public void InitializeVoiceEngine() {       
         try {
         	
-			marytts = new LocalMaryInterface();
-			marytts.setVoice("cmu-slt-hsmm");
+			MTTS = new LocalMaryInterface();
+			MTTS.setVoice("cmu-slt-hsmm");
         }catch ( MaryConfigurationException   e) {
 			e.printStackTrace();
 		}
@@ -42,13 +39,13 @@ public class MaryTTSAudioEngine extends AudioEngine  {
         {
 			
 			File output=new File(FileNameOfSound+".wav");
-	        marytts.setOutputType("AUDIO");
-	        marytts.setOutputTypeParams("WAVE");
-	        marytts.setStreamingAudio(true);
+	        MTTS.setOutputType("AUDIO");
+	        MTTS.setOutputTypeParams("WAVE");
+	        MTTS.setStreamingAudio(true);
 	       // System.out.println(HMMF0ScaleEffect.chEffectParamStart+"f0Scale"+HMMF0ScaleEffect.chParamEquals+String.valueOf(HMMF0ScaleEffect.MAX_F0_SCALE)+HMMF0ScaleEffect.chEffectParamEnd);
-	       	marytts.setAudioEffects(HMMF0ScaleEffect.chEffectParamStart+HMMF0ScaleEffect.chParamEquals+String.valueOf(HMMF0ScaleEffect.MAX_F0_SCALE)+HMMF0ScaleEffect.chEffectParamEnd);
+	       	MTTS.setAudioEffects(HMMF0ScaleEffect.chEffectParamStart+HMMF0ScaleEffect.chParamEquals+String.valueOf(HMMF0ScaleEffect.MAX_F0_SCALE)+HMMF0ScaleEffect.chEffectParamEnd);
 	        
-	        AudioInputStream audio = marytts.generateAudio("To change to Notes. Tomorrow I will play basketball.");
+	        AudioInputStream audio = MTTS.generateAudio(textTobeSound);
 	        AudioSystem.write(audio, javax.sound.sampled.AudioFileFormat.Type.WAVE,output );
         }
         catch(Exception e)

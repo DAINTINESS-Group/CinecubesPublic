@@ -15,12 +15,14 @@ import HighlightMgr.HighlightTable;
 public class TaskDrillIn extends Task {
 
 	ArrayList<SubTask> substodelete;
+	ArrayList<CubeQuery> cubequerytodelete;
 	ArrayList<SubTask> subschecked;
 	
 	public TaskDrillIn() {
 		super();
 		substodelete=new ArrayList<SubTask>();
 		subschecked=new ArrayList<SubTask>();
+		cubequerytodelete=new ArrayList<CubeQuery>();
 	}
 
 	public void addNewSubTask(){
@@ -531,6 +533,7 @@ public class TaskDrillIn extends Task {
 	        				}
 	        				this.subTasks.get(i).getExtractionMethod().Res.setResultArray(new_array);
 	        				substodelete.add(this.subTasks.get(j));
+	        				cubequerytodelete.add(this.cubeQuery.get(j));
 	        				subschecked.add(this.subTasks.get(i));
 	        			}
         			}
@@ -538,6 +541,7 @@ public class TaskDrillIn extends Task {
         	}
         }
         for(SubTask dlt:substodelete) this.subTasks.remove(dlt);
+        for(CubeQuery cbq:cubequerytodelete) this.cubeQuery.remove(cbq);
 	}
 	
 	private void recreateResultArray(int col,int row){
@@ -592,12 +596,14 @@ public class TaskDrillIn extends Task {
         				}
         				this.subTasks.get(i).getExtractionMethod().Res.setResultArray(new_array);
         				substodelete.add(this.getSubTask(j));
+        				cubequerytodelete.add(this.cubeQuery.get(j));
         			}
         		}
         	}
         	subschecked.add(this.subTasks.get(i));
         }
         for(SubTask dlt:substodelete) this.subTasks.remove(dlt);
+        for(CubeQuery cbq:cubequerytodelete) this.cubeQuery.remove(cbq);
         
 	}
 }

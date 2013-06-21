@@ -180,14 +180,40 @@ public class PptxWrapUpMgr extends WrapUpMgr {
     	
     	XSLFTextShape title2 = slide.getPlaceholder(1);
     	title2.clearText();
-    	XSLFTextParagraph p=title2.addNewTextParagraph();
     	
-    	XSLFTextRun tltTxtRun =p.addNewTextRun();
+    	String[] findings=episode.Notes.split("@");
+    	for(String finding:findings){
+    		String[] lines=finding.split("\n");
+    		if(lines.length==1) continue;
+    		for(int i=0;i<lines.length;i++){
+    			XSLFTextParagraph p=title2.addNewTextParagraph();
+    			
+    	       // p.setLeftMargin(60);
+    	        // the bullet is set 40 pt before the text
+    	        //p.setIndent(-40);
+    	        p.setBullet(true);
+    	        // customize bullets
+    	        /*p.setBulletFontColor(Color.red);
+    	        p.setBulletFont("Wingdings");
+    	        p.setBulletCharacter("\u0075");*/
+    	        if(i==0) p.setLevel(0);
+    	        else p.setLevel(1);
+    	        XSLFTextRun tltTxtRun =p.addNewTextRun();
+    	        tltTxtRun.setBold(false);
+    	        tltTxtRun.setText(lines[i]);
+    	        tltTxtRun.setFontSize(14);
+    	        
+    		}
+    	}
+    	episode.Notes=episode.Notes.replace("@","\n");
+    	//XSLFTextParagraph p=title2.addNewTextParagraph();
+    	
+    	//XSLFTextRun tltTxtRun =p.addNewTextRun();
 	 
-        tltTxtRun.setBold(false);	    	
-    	tltTxtRun.setText(episode.Notes);
-    	tltTxtRun.setFontSize(20);
-    	p.setTextAlign(TextAlign.JUSTIFY);
+       // tltTxtRun.setBold(false);	    	
+    //	tltTxtRun.setText(episode.Notes);
+    	//tltTxtRun.setFontSize(14);
+    	//p.setTextAlign(TextAlign.JUSTIFY);
     	setRelationshipForNotes(slide,slideId);
     	CreateSlideWithXMlAudio(slide,episode.getAudio().getFileName(),slideId,1);
 	}
