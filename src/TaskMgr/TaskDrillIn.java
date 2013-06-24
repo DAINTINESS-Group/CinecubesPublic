@@ -177,7 +177,7 @@ public class TaskDrillIn extends Task {
     }
     
     boolean doDrillInRowVersion(CubeBase cubeBase,String[] valuesToChange){ /*valuesToChange[0]->Row Value,valuesToChange[1]->Column Value  */
-    	
+    	long strTime=System.nanoTime();
     	String[] gamma_tmp=this.cubeQuery.get(1).GammaExpressions.get(1); /*column dimension */
     	
     	int index_sigma_change_bygamma=this.getIndexOfSigmaToDelete(this.cubeQuery.get(1).SigmaExpressions,gamma_tmp[0]);
@@ -208,17 +208,20 @@ public class TaskDrillIn extends Task {
 			toadd[1]="'"+valuesToChange[0]+"'";
 			
 			newQuery.GammaExpressions.add(toadd);
+			long endTime=System.nanoTime();
 			
 			addSubTask(newQuery,-4);
-			
 			this.getLastSubTask().execute(cubeBase.DB);
+			
+			this.getLastSubTask().timeCreationOfSbTsk=System.nanoTime()-strTime;
+			this.getLastSubTask().timeProduceOfCubeQuery=endTime-strTime;
 		}
 		else return false;
 		return true;
     }
     
     boolean doDrillInColVersion(CubeBase cubeBase,String[] valuesToChange){/*valuesToChange[0]->Row Value,valuesToChange[1]->Column Value  */
-    	
+    	long strTime=System.nanoTime();
     	String[] gamma_tmp=this.cubeQuery.get(1).GammaExpressions.get(0); /*Row Dimension*/
     	
     	int index_sigma_change_bygamma=this.getIndexOfSigmaToDelete(this.cubeQuery.get(1).SigmaExpressions,gamma_tmp[0]);/*getRow Sigma*/
@@ -249,10 +252,14 @@ public class TaskDrillIn extends Task {
 			toadd[1]="'"+valuesToChange[0]+"'";
 			
 			newQuery.GammaExpressions.add(toadd);
+			long endTime=System.nanoTime();
 			
 			addSubTask(newQuery,-5);
 			
 			this.getLastSubTask().execute(cubeBase.DB);
+			
+			this.getLastSubTask().timeCreationOfSbTsk=System.nanoTime()-strTime;
+			this.getLastSubTask().timeProduceOfCubeQuery=endTime-strTime;
 		}
 		else return false;
 		return true;
@@ -320,7 +327,9 @@ public class TaskDrillIn extends Task {
     	this.addNewSubTask();
 		this.cubeQuery.add(cubequery);
         SqlQuery newSqlQuery=new SqlQuery();
+        long strTime=System.nanoTime();
         newSqlQuery.produceExtractionMethod(cubequery);
+        this.getLastSubTask().timeProduceOfExtractionMethod=System.nanoTime()-strTime;
         //System.out.println(cubequery.toString());
         printBorderLine();
         this.getLastSubTask().setExtractionMethod(newSqlQuery);
@@ -595,6 +604,10 @@ public class TaskDrillIn extends Task {
         					ex.printStackTrace();
         				}
         				this.subTasks.get(i).getExtractionMethod().Res.setResultArray(new_array);
+        				this.subTasks.get(i).timeCreationOfSbTsk+=this.subTasks.get(j).timeCreationOfSbTsk;
+        				this.subTasks.get(i).timeExecutionQuery+=this.subTasks.get(j).timeExecutionQuery;
+        				this.subTasks.get(i).timeProduceOfCubeQuery+=this.subTasks.get(j).timeProduceOfCubeQuery;
+        				this.subTasks.get(i).timeProduceOfExtractionMethod+=this.subTasks.get(j).timeProduceOfExtractionMethod;
         				substodelete.add(this.getSubTask(j));
         				cubequerytodelete.add(this.cubeQuery.get(j));
         			}

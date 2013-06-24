@@ -22,7 +22,7 @@ public class Database {
     private String Password;
     
     public Database(){
-       setConnectionString("jdbc:mysql://localhost/adult_no_dublic");
+       setConnectionString("jdbc:mysql://localhost:3306/adult_no_dublic");
        DBMS="com.mysql.jdbc.Driver";
        Tbl=new ArrayList<>();
     }
@@ -35,10 +35,20 @@ public class Database {
     
     public void registerDatabase(){
         try{
-            Class.forName(DBMS);
+            Class.forName(DBMS).newInstance();
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+    		System.out.println("Where is your MySQL JDBC Driver?");
+    		e.printStackTrace();
+    		return;
+    	}
+        try{
             setConnection(DriverManager.getConnection(ConnectionString,Username,Password));
-        } catch (SQLException | ClassNotFoundException ex) {
-        	(new ErrorClass()).printErrorMessage(ex.getMessage());
+        } catch (SQLException ex) {
+        	System.out.println("Connection Failed! Check output console");
+        	//(new ErrorClass()).printErrorMessage(ex.getMessage());
+        	System.out.println("SQLState: " + ex.getSQLState());
+        	System.out.println("LocalState: " + ex.getLocalizedMessage());
+            System.out.println("VendorError: " + ex.getErrorCode());
         }
     }
     
@@ -53,6 +63,7 @@ public class Database {
                 
             }
         } catch (SQLException ex) {
+        	ex.printStackTrace();
             (new ErrorClass()).printErrorMessage(ex.getMessage());
         }
     }

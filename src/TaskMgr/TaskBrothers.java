@@ -58,8 +58,13 @@ public class TaskBrothers extends Task {
      */
     public void generateSubTasks(CubeBase cubeBase){
     	for(int i=0;i<this.cubeQuery.get(1).SigmaExpressions.size();i++){
+    		//long strTime=System.nanoTime();
     		createSummarizeSubTask(i,cubeBase,this.cubeQuery.get(1));
+    		//this.getLastSubTask().timeCreationOfSbTsk=System.nanoTime()-strTime;
+    		
+    		//strTime=System.nanoTime();
     		createBrothers(i,cubeBase,this.cubeQuery.get(1));
+    		//this.getLastSubTask().timeCreationOfSbTsk=System.nanoTime()-strTime;
     	}
     	
     	for(int i=1;i<this.subTasks.size();i++){
@@ -169,26 +174,7 @@ public class TaskBrothers extends Task {
     }
             
     private void createSubTask(CubeQuery startQuery,String value,int toChange,int toReplace,String changevalue){
-    	CubeQuery newQuery=new CubeQuery("");
-		copyListofArrayString(startQuery.GammaExpressions, newQuery.GammaExpressions);
-		copyListofArrayString(startQuery.SigmaExpressions, newQuery.SigmaExpressions);
-		newQuery.AggregateFunction=startQuery.AggregateFunction;
-		newQuery.referCube=startQuery.referCube;
-		newQuery.setMsr(startQuery.getMsr());		
-		
-		newQuery.SigmaExpressions.get(toChange)[2]=value;
-		
-		if(toReplace==1){			
-			String[] tobeGamma=newQuery.SigmaExpressions.get(toChange)[0].split("\\.");
-			for(int i=0;i<newQuery.GammaExpressions.size();i++){
-				if(newQuery.GammaExpressions.get(i)[0].equals(tobeGamma[0])){
-					newQuery.GammaExpressions.get(i)[1]=tobeGamma[1];
-				}
-			}
-			newQuery.SigmaExpressions.get(toChange)[0]=tobeGamma[0]+"."+changevalue;
-		}
-		
-			
+    				
 		/* This peace of code to see again */
 		
 		/* That check if a sigma expression is in gamma then add sigma to gamma
@@ -198,7 +184,7 @@ public class TaskBrothers extends Task {
 		 */
 		if(checkIfSigmaExprIsInGamma(toChange,startQuery)==false){
 			for(int i=0;i<startQuery.GammaExpressions.size();i++){
-				
+				long strTime=System.nanoTime();
 				CubeQuery newQuery1=new CubeQuery("");
 				copyListofArrayString(startQuery.GammaExpressions, newQuery1.GammaExpressions);
 				copyListofArrayString(startQuery.SigmaExpressions, newQuery1.SigmaExpressions);
@@ -209,12 +195,37 @@ public class TaskBrothers extends Task {
 				newQuery1.GammaExpressions.get(i)[0]=tmp[0];
 				newQuery1.GammaExpressions.get(i)[1]=tmp[1];
 				/*System.out.println(newQuery1.toString());*/
+				long endTime=System.nanoTime();
 				addSubTask(newQuery1,i,0);
+				this.getLastSubTask().timeCreationOfSbTsk=System.nanoTime()-strTime;
+				this.getLastSubTask().timeProduceOfCubeQuery=endTime-strTime;
 		        
 			}
         }
 		else {
+			long strTime=System.nanoTime();
+			CubeQuery newQuery=new CubeQuery("");
+			copyListofArrayString(startQuery.GammaExpressions, newQuery.GammaExpressions);
+			copyListofArrayString(startQuery.SigmaExpressions, newQuery.SigmaExpressions);
+			newQuery.AggregateFunction=startQuery.AggregateFunction;
+			newQuery.referCube=startQuery.referCube;
+			newQuery.setMsr(startQuery.getMsr());		
+			
+			newQuery.SigmaExpressions.get(toChange)[2]=value;
+			
+			if(toReplace==1){			
+				String[] tobeGamma=newQuery.SigmaExpressions.get(toChange)[0].split("\\.");
+				for(int i=0;i<newQuery.GammaExpressions.size();i++){
+					if(newQuery.GammaExpressions.get(i)[0].equals(tobeGamma[0])){
+						newQuery.GammaExpressions.get(i)[1]=tobeGamma[1];
+					}
+				}
+				newQuery.SigmaExpressions.get(toChange)[0]=tobeGamma[0]+"."+changevalue;
+			}
+			long endTime=System.nanoTime();
 			addSubTask(newQuery,toChange,toReplace);
+			this.getLastSubTask().timeProduceOfCubeQuery=endTime-strTime;
+			this.getLastSubTask().timeCreationOfSbTsk=System.nanoTime()-strTime;
 		}
     }
     
@@ -222,7 +233,9 @@ public class TaskBrothers extends Task {
     	this.addNewSubTask();
 		this.cubeQuery.add(cubequery);
         SqlQuery newSqlQuery=new SqlQuery();
+        long strTime=System.nanoTime();
         newSqlQuery.produceExtractionMethod(cubequery);
+        this.getLastSubTask().timeProduceOfExtractionMethod=System.nanoTime()-strTime;
         this.getLastSubTask().setExtractionMethod(newSqlQuery);
         if(replace==1) this.getLastSubTask().addDifferenceFromOrigin(-1);
         this.getLastSubTask().addDifferenceFromOrigin(difference);

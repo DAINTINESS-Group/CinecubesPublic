@@ -1,5 +1,6 @@
 package TaskMgr;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import CubeMgr.StarSchema.Database;
@@ -8,14 +9,21 @@ public class SubTask {
     private KeyFinding keyfinding;
     private ExtractionMethod extractionMethod;  
     private ArrayList<Integer> differencesFromOrigin;
-        
+    public long timeExecutionQuery;
+    public long timeProduceOfCubeQuery;
+    public long timeProduceOfExtractionMethod;
+    public long timeCreationOfSbTsk;
+    
     public SubTask(){
     	differencesFromOrigin=new ArrayList<Integer>();
     	setKeyFinding(new KeyFinding());
     }
         
     public boolean execute(Database dB){
-    	return extractionMethod.setResult(dB.executeSql(extractionMethod.toString()));
+    	timeExecutionQuery=System.nanoTime();
+    	ResultSet rset=dB.executeSql(extractionMethod.toString());
+    	timeExecutionQuery=System.nanoTime()-timeExecutionQuery;
+    	return extractionMethod.setResult(rset);
     };
     
     public void computeFinding(Database dB){

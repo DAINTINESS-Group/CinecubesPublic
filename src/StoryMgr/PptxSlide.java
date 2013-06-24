@@ -12,11 +12,26 @@ public class PptxSlide extends Episode {
 	public String SubTitle;
 	public String TitleColumn;
 	public String TitleRow;
+	public long timeCreation;
+	public long timeCreationAudio;
+	public long timeCreationText;
+	public long timeCreationTabular;
+	public long timeCreationColorTable;
+	public long timeCreationPutInPPTX;
+	public long timeCombineSlide;
 	
 	public PptxSlide() {
 		super();
 		SubTitle="";
 		Notes="";
+		timeCreation=0;
+		timeCreationAudio=0;
+		timeCreationPutInPPTX=0;
+		timeCreationTabular=0;
+		timeCreationColorTable=0;
+		timeCreationText=0;
+		timeCreationPutInPPTX=0;
+		timeCombineSlide=0;
 	}
 	
 	public void setText(String txt){

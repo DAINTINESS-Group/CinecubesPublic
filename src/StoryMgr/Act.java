@@ -8,6 +8,7 @@ public class Act {
 	private int id;
     private ArrayList<Episode> Episodes;
     private Task tsk;
+    public long creationTime;
 
     public  String ActHighlights;
     

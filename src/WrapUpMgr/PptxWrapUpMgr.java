@@ -97,6 +97,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 				for(int j=0;j<actItem.getEpisodes().size();j++){
 					SlideXml[j+slide_so_far_created]="";
 					PptxSlide slide=(PptxSlide)actItem.getEpisodes().get(j);
+					slide.timeCreationPutInPPTX=System.nanoTime();
 					if(slide.Title.contains("Act")) XSLFcreateSlide(null,null,slide.getAudio().getFileName(),slide.Title,j+slide_so_far_created+2,null,null,null,slide.SubTitle,null,(actItem.getId()==3 ? 0 :1));
 					else if(slide.Notes.length()==0) {
 						Tabular tmp_tbl=((Tabular)slide.getVisual());
@@ -106,6 +107,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 						Tabular tmp_tbl=((Tabular)slide.getVisual());
 						XSLFcreateSlide(slide.getVisual().getPivotTable(),tmp_tbl.colortable,slide.getAudio().getFileName(),slide.Title,j+slide_so_far_created+2,slide.TitleColumn,slide.TitleRow,(PptxHighlight)slide.highlight,slide.SubTitle,(Tabular)slide.getVisual(),(actItem.getId()==3 ? 0 :1));
 					}
+					slide.timeCreationPutInPPTX=System.nanoTime()-slide.timeCreationPutInPPTX;
 				}
 				slide_so_far_created+=actItem.getEpisodes().size();
 			}
@@ -123,6 +125,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
         } 
         
         System.out.println(SlideXml.length);
+        
         RenamePPTXtoZip();
         UnZipFiles();
         InitializeContentType();
@@ -132,8 +135,10 @@ public class PptxWrapUpMgr extends WrapUpMgr {
         	if(actItem.getEpisodes().size()>2 || actItem.getId()==0 || actItem.getId()==-1){
 				for(int j=0;j<actItem.getEpisodes().size();j++){
 					PptxSlide slide=(PptxSlide)actItem.getEpisodes().get(j);
+					long strTime=System.nanoTime();
 					if(slide.Notes.length()==0) AddAudiotoPPTX(j+slide_so_far_created+2,null,slide.Notes);
 					else AddAudiotoPPTX(j+slide_so_far_created+2,slide.getAudio().getFileName(),slide.Notes);
+					slide.timeCreationPutInPPTX+=System.nanoTime()-strTime;
 				}
 				slide_so_far_created+=actItem.getEpisodes().size();
         	}
@@ -760,7 +765,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
                     
             		if(file.equals("slide1")==false && file.equals("Slide1")==false){
             			//System.out.println("File Added : " + file);
-	                    ZipEntry ze= new ZipEntry(file.replace("ppt\\unzip\\", ""));
+	                    ZipEntry ze= new ZipEntry(file.replace("ppt\\unzip\\", "").replace("ppt/unzip/", ""));
 	                    zos.putNextEntry(ze);
 	                    FileInputStream in = new FileInputStream(file);
 	
