@@ -3,7 +3,7 @@ package StoryMgr;
 import java.util.TreeSet;
 
 public abstract class  Visual {
-    
+	
 	protected String[][] PivotTable;
 	
 	public Visual(){

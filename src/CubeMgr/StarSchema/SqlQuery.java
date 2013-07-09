@@ -15,9 +15,24 @@ import TaskMgr.Result;
 
 public class SqlQuery extends ExtractionMethod {
     
+    /**
+	 * @uml.property  name="selectClauseMeasure" multiplicity="(0 -1)" dimension="1"
+	 */
     public String[] SelectClauseMeasure;  	/* 0-->AggregateFuncName, 1--> field */  
+    /**
+	 * @uml.property  name="fromClause"
+	 * @uml.associationEnd  multiplicity="(0 -1)" elementType="java.lang.String"
+	 */
     public ArrayList<String[]> FromClause; 	/* 0-->TABLE, 1-->customName */
+    /**
+	 * @uml.property  name="whereClause"
+	 * @uml.associationEnd  multiplicity="(0 -1)" elementType="[Ljava.lang.String;"
+	 */
     public ArrayList<String[]> WhereClause;	/* 0-->sqlfld1,1-->op,2-->sqlfld2 */
+    /**
+	 * @uml.property  name="groupByClause"
+	 * @uml.associationEnd  multiplicity="(0 -1)" elementType="java.lang.String"
+	 */
     public ArrayList<String[]> GroupByClause;
     
     public SqlQuery(){
@@ -25,9 +40,9 @@ public class SqlQuery extends ExtractionMethod {
     }
     
     private void init(){
-    	FromClause=new ArrayList<>();
-    	WhereClause=new ArrayList<>();
-    	GroupByClause=new ArrayList<>();
+    	FromClause=new ArrayList<String[]>();
+    	WhereClause=new ArrayList<String[]>();
+    	GroupByClause=new ArrayList<String[]>();
     	SelectClauseMeasure=new String[2];
     }
     

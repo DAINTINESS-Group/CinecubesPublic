@@ -21,7 +21,7 @@
   </class>  
   <class id="3" language="java" name="StoryMgr.Story" project="Master" file="/Master/src/StoryMgr/Story.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="647" y="565"/>    
+    <position height="-1" width="-1" x="477" y="529"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -82,8 +82,8 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="TaskMgr.TaskBrothers" project="Master" 
-    file="/Master/src/TaskMgr/TaskBrothers.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="10" language="java" name="TaskMgr.TaskActI" project="Master" file="/Master/src/TaskMgr/TaskActI.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2450" y="982"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -118,7 +118,7 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="14" language="java" name="TaskMgr.TaskDrillIn" project="Master" file="/Master/src/TaskMgr/TaskDrillIn.java" 
+  <class id="14" language="java" name="TaskMgr.TaskActII" project="Master" file="/Master/src/TaskMgr/TaskActII.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="3580" y="806"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
@@ -218,185 +218,169 @@
     </display>  
   </class>  
   <association id="25">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="26" name="tsk"/>      
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="26" name="audio"/>      
       <multiplicity id="27" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <generalization id="28">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="2"/>  
-  </generalization>  
-  <association id="29">    
-    <bendpoint x="1156" y="696"/>    
-    <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="30" name="highlight"/>      
-      <multiplicity id="31" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="17" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="32">    
-    <bendpoint x="2896" y="796"/>    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="33" name="subTasks"/>      
-      <multiplicity id="34" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="15" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <generalization id="35">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="9"/>  
-  </generalization>  
-  <generalization id="36">    
-    <end type="SOURCE" refId="18"/>    
-    <end type="TARGET" refId="17"/>  
-  </generalization>  
-  <generalization id="37">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="4"/>  
-  </generalization>  
-  <association id="38">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="39" name="Acts"/>      
-      <multiplicity id="40" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="41">    
-    <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="42" name="visual"/>      
-      <multiplicity id="43" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <generalization id="44">    
-    <end type="SOURCE" refId="21"/>    
-    <end type="TARGET" refId="19"/>  
-  </generalization>  
-  <association id="45">    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="46" name="highlights"/>      
-      <multiplicity id="47" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="17" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="48">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="49" name="Episodes"/>      
-      <multiplicity id="50" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="51">    
-    <end type="SOURCE" refId="14" navigable="false">      
-      <attribute id="52" name="substodelete"/>      
-      <multiplicity id="53" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="15" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="54">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="55" name="Sounds"/>      
-      <multiplicity id="56" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="19" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="57">    
-    <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="58" name="audio"/>      
-      <multiplicity id="59" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="20" navigable="true"/>    
     <display labels="false" multiplicity="true"/>  
   </association>  
-  <association id="60">    
-    <end type="SOURCE" refId="13" navigable="false">      
-      <attribute id="61" name="Tasks"/>      
-      <multiplicity id="62" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <generalization id="63">    
-    <end type="SOURCE" refId="22"/>    
-    <end type="TARGET" refId="19"/>  
-  </generalization>  
-  <association id="64">    
-    <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="65" name="subTask"/>      
-      <multiplicity id="66" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="15" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="67">    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="68" name="story"/>      
-      <multiplicity id="69" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="70">    
-    <end type="SOURCE" refId="14" navigable="false">      
-      <attribute id="71" name="subschecked"/>      
-      <multiplicity id="72" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="15" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <generalization id="73">    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="11"/>  
-  </generalization>  
-  <association id="74">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="75" name="FinRes"/>      
-      <multiplicity id="76" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <generalization id="77">    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="11"/>  
-  </generalization>  
-  <generalization id="78">    
+  <generalization id="28">    
     <end type="SOURCE" refId="23"/>    
     <end type="TARGET" refId="24"/>  
   </generalization>  
-  <association id="79">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="80" name="Texts"/>      
-      <multiplicity id="81" minimum="0" maximum="1"/>    
+  <generalization id="29">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="17"/>  
+  </generalization>  
+  <generalization id="30">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <association id="31">    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="32" name="subschecked"/>      
+      <multiplicity id="33" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="24" navigable="true"/>    
+    <end type="TARGET" refId="15" navigable="true"/>    
     <display labels="false" multiplicity="true"/>  
   </association>  
-  <association id="82">    
+  <generalization id="34">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="19"/>  
+  </generalization>  
+  <association id="35">    
     <end type="SOURCE" refId="15" navigable="false">      
-      <attribute id="83" name="extractionMethod"/>      
-      <multiplicity id="84" minimum="0" maximum="1"/>    
+      <attribute id="36" name="extractionMethod"/>      
+      <multiplicity id="37" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="16" navigable="true"/>    
     <display labels="false" multiplicity="true"/>  
   </association>  
-  <association id="85">    
+  <association id="38">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="39" name="story"/>      
+      <multiplicity id="40" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <generalization id="41">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
+  <generalization id="42">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="11"/>  
+  </generalization>  
+  <generalization id="43">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="9"/>  
+  </generalization>  
+  <association id="44">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="45" name="tsk"/>      
+      <multiplicity id="46" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="47">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="48" name="Tasks"/>      
+      <multiplicity id="49" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="50">    
     <end type="SOURCE" refId="16" navigable="false">      
-      <attribute id="86" name="Res"/>      
-      <multiplicity id="87" minimum="0" maximum="1"/>    
+      <attribute id="51" name="Res"/>      
+      <multiplicity id="52" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="53">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="54" name="Episodes"/>      
+      <multiplicity id="55" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="56">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="57" name="FinRes"/>      
+      <multiplicity id="58" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="59">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="60" name="visual"/>      
+      <multiplicity id="61" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="62">    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="63" name="substodelete"/>      
+      <multiplicity id="64" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="65">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="66" name="subTask"/>      
+      <multiplicity id="67" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <generalization id="68">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="19"/>  
+  </generalization>  
+  <association id="69">    
+    <bendpoint x="2896" y="796"/>    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="70" name="subTasks"/>      
+      <multiplicity id="71" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <generalization id="72">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="11"/>  
+  </generalization>  
+  <association id="73">    
+    <bendpoint x="1156" y="696"/>    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="74" name="highlight"/>      
+      <multiplicity id="75" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="76">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="77" name="Sounds"/>      
+      <multiplicity id="78" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="79">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="80" name="Acts"/>      
+      <multiplicity id="81" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="false" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

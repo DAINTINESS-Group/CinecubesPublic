@@ -12,31 +12,59 @@ import java.util.List;
 import ErrorsEngine.ErrorClass;
 
 public class Database {
+	/**
+	 * @uml.property  name="dBName"
+	 */
 	private String DBName;
+    /**
+	 * @uml.property  name="tbl"
+	 * @uml.associationEnd  multiplicity="(0 -1)" elementType="CubeMgr.StarSchema.Table"
+	 */
     public List<Table> Tbl;
     
+    /**
+	 * @uml.property  name="connectionString"
+	 */
     private String ConnectionString;
+    /**
+	 * @uml.property  name="dBMS"
+	 */
     private String DBMS;
+    /**
+	 * @uml.property  name="connect"
+	 */
     private Connection connect;
+    /**
+	 * @uml.property  name="username"
+	 */
     private String Username;
+    /**
+	 * @uml.property  name="password"
+	 */
     private String Password;
     
     public Database(){
        setConnectionString("jdbc:mysql://localhost:3306/adult_no_dublic");
        DBMS="com.mysql.jdbc.Driver";
-       Tbl=new ArrayList<>();
+       Tbl=new ArrayList<Table>();
     }
     
    	public Database(String ConnStr,String dbtype){
         setConnectionString(ConnStr);
         DBMS=dbtype;
-        Tbl=new ArrayList<>();
+        Tbl=new ArrayList<Table>();
     }
     
     public void registerDatabase(){
         try{
-            Class.forName(DBMS).newInstance();
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            try {
+				Class.forName(DBMS).newInstance();
+			} catch (InstantiationException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
+        } catch (ClassNotFoundException e) {
     		System.out.println("Where is your MySQL JDBC Driver?");
     		e.printStackTrace();
     		return;
@@ -75,10 +103,18 @@ public class Database {
     	}
     }
     
+	/**
+	 * @return
+	 * @uml.property  name="connectionString"
+	 */
 	public String getConnectionString() {
 		return ConnectionString;
 	}
 
+	/**
+	 * @param connectionString
+	 * @uml.property  name="connectionString"
+	 */
 	public void setConnectionString(String connectionString) {
 		ConnectionString = connectionString;
 	}
@@ -91,34 +127,66 @@ public class Database {
 		this.connect = connect;
 	}
 
+	/**
+	 * @return
+	 * @uml.property  name="username"
+	 */
 	public String getUsername() {
 		return Username;
 	}
 
+	/**
+	 * @param username
+	 * @uml.property  name="username"
+	 */
 	public void setUsername(String username) {
 		Username = username;
 	}
 
+	/**
+	 * @return
+	 * @uml.property  name="password"
+	 */
 	public String getPassword() {
 		return Password;
 	}
 
+	/**
+	 * @param password
+	 * @uml.property  name="password"
+	 */
 	public void setPassword(String password) {
 		Password = password;
 	}
 
+	/**
+	 * @return
+	 * @uml.property  name="dBName"
+	 */
 	public String getDBName() {
 		return DBName;
 	}
 
+	/**
+	 * @param dBName
+	 * @uml.property  name="dBName"
+	 */
 	public void setDBName(String dBName) {
 		DBName = dBName;
 	}
 	
+	/**
+	 * @return
+	 * @uml.property  name="dBMS"
+	 */
 	public String getDBMS() {
 		return DBMS;
 	}
 
+	/**
+	 * @param dbms
+	 * @uml.property  name="dBMS"
+	 */
 	public void setDBMS(String dbms) {
 		DBMS = dbms;
 	}

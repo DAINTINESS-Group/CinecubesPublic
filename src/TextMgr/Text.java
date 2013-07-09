@@ -1,6 +1,9 @@
 package TextMgr;
 
 public class Text {
+    /**
+	 * @uml.property  name="txt"
+	 */
     private String txt;
 
     public Text(){

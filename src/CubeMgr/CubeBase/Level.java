@@ -3,9 +3,23 @@ package CubeMgr.CubeBase;
 import java.util.ArrayList;
 
 public class Level {
+    /**
+	 * @uml.property  name="hierarchy"
+	 * @uml.associationEnd  inverse="lvls:CubeMgr.CubeBase.Hierarchy"
+	 */
     private Hierarchy hierarchy;
+    /**
+	 * @uml.property  name="lvlAttributes"
+	 * @uml.associationEnd  multiplicity="(0 -1)" inverse="level:CubeMgr.CubeBase.LevelAttribute"
+	 */
     public ArrayList<LevelAttribute> lvlAttributes;
+    /**
+	 * @uml.property  name="id"
+	 */
     public Integer id;
+    /**
+	 * @uml.property  name="name"
+	 */
     public String name;
     
     public Level(Integer position,String nm,Hierarchy Hier){
@@ -29,6 +43,10 @@ public class Level {
 		return hierarchy;
 	}
 
+	/**
+	 * @param hier
+	 * @uml.property  name="hierarchy"
+	 */
 	public void setHierarchy(Hierarchy hier) {
 		hierarchy = hier;
 	}

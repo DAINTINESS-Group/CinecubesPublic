@@ -2,15 +2,19 @@ package StoryMgr;
 
 import java.awt.Color;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.TreeSet;
 
+import HighlightMgr.Highlight;
 import HighlightMgr.HighlightTable;
 
 public class Tabular extends Visual {
 	
+	
 	public Color[][] colortable;
 	public int boldColumn;
 	public int boldRow;
+	
 	public Tabular() {
 		super();
 		PivotTable=null;
@@ -98,6 +102,24 @@ public class Tabular extends Visual {
     				if(highlight.minValues.contains(tmp_pivot_value)) colortable[i][j]=highlight.mincolor;
     				else if(highlight.maxValues.contains(tmp_pivot_value)) colortable[i][j]=highlight.maxcolor;
     				else if(highlight.middleValues.contains(tmp_pivot_value)) colortable[i][j]=highlight.middlecolor;
+    				else colortable[i][j]=other;
+    			}
+    			else colortable[i][j]=other;
+    		}
+    	}
+    }
+    
+    public void setColorTable(ArrayList<Highlight> highlight){
+    	colortable=new Color[this.PivotTable.length][this.PivotTable[0].length];
+    	Color other=Color.black;
+    	
+    	for(int i=0;i<colortable.length;i++){
+    		for(int j=0;j<colortable[i].length;j++){
+    			String tmp_pivot_value=this.PivotTable[i][j].split(" ")[0];
+    			if(tryParseFloat(tmp_pivot_value)){
+    				if(highlight.get(0).semanticValue.contains(tmp_pivot_value)) colortable[i][j]=highlight.get(0).mincolor;
+    				else if(highlight.get(1).semanticValue.contains(tmp_pivot_value)) colortable[i][j]=highlight.get(1).maxcolor;
+    				/*else if(highlight.middleValues.contains(tmp_pivot_value)) colortable[i][j]=highlight.middlecolor;*/
     				else colortable[i][j]=other;
     			}
     			else colortable[i][j]=other;

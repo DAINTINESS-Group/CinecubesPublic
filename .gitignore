@@ -15,7 +15,7 @@ local.properties
 .classpath
 .settings/
 .loadpath
-
+log/
 # External tool builders
 .externalToolBuilders/
 
@@ -166,3 +166,4 @@ pip-log.txt
 /helpfiles/
 /nbproject/
 /icon/
+/log

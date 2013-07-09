@@ -3,11 +3,11 @@ package StoryMgr;
 import java.util.ArrayList;
 
 import AudioMgr.AudioEngine;
-import TextMgr.TextExtraction;
 
 public class Story {
     
-    private TextExtraction Texts;
+   
+   /* private TextExtraction Texts;*/
     private AudioEngine Sounds;
     private FinalResult FinRes;
     private ArrayList<Act> Acts;
@@ -45,13 +45,13 @@ public class Story {
 		
 	}
 	
-	public TextExtraction getTexts() {
+	/*public TextExtraction getTexts() {
 		return Texts;
 	}
 
 	public void setTexts(TextExtraction texts) {
 		Texts = texts;
-	}
+	}*/
 
 	public AudioEngine getSounds() {
 		return Sounds;

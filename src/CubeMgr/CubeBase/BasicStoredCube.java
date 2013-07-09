@@ -4,6 +4,10 @@ import CubeMgr.StarSchema.FactTable;
 
 public class BasicStoredCube extends Cube {
     
+	/**
+	 * @uml.property  name="fCtbl"
+	 * @uml.associationEnd  
+	 */
 	private FactTable FCtbl;
         
 	public BasicStoredCube(String NAME) {

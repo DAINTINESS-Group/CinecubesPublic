@@ -1,4 +1,4 @@
-// $ANTLR 3.4 D:\\workspace\\Master\\src\\CubeSql.g 2013-05-27 19:48:37
+// $ANTLR 3.4 D:\\workspace\\Master\\src\\CubeSql.g 2013-07-10 02:29:31
 
   package ParserMgr;
   
@@ -644,7 +644,7 @@ public class CubeSqlParser extends Parser {
 
                     NAME2=(Token)match(input,NAME,FOLLOW_NAME_in_create_statement288); 
 
-                    name_creation=(NAME2!=null?NAME2.getText():null);
+                    name_creation=(NAME2!=null?NAME2.getText():null).replace("~"," ");
 
                     }
                     break;
@@ -914,7 +914,7 @@ public class CubeSqlParser extends Parser {
             {
             NAME4=(Token)match(input,NAME,FOLLOW_NAME_in_dimension380); 
 
-            dimensionlst.add((NAME4!=null?NAME4.getText():null));
+            dimensionlst.add((NAME4!=null?NAME4.getText():null).replace("~"," "));
 
             match(input,AT,FOLLOW_AT_in_dimension384); 
 

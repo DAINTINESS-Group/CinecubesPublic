@@ -9,12 +9,33 @@ import com.sun.speech.freetts.audio.SingleFileAudioPlayer;
 
 public class FreeTTSAudioEngine extends AudioEngine {
 
+    /**
+	 * @uml.property  name="voiceName"
+	 */
     private String voiceName;
+    /**
+	 * @uml.property  name="voiceManager"
+	 * @uml.associationEnd  
+	 */
     private VoiceManager voiceManager;
+    /**
+	 * @uml.property  name="voice"
+	 * @uml.associationEnd  
+	 */
     private Voice voice;
+    /**
+	 * @uml.property  name="sfap"
+	 * @uml.associationEnd  
+	 */
     private SingleFileAudioPlayer sfap;
     
+    /**
+	 * @uml.property  name="lexicon"
+	 */
     final String lexicon = "ABCDEFGHIJKLMNOPQRSTUVWXYZ12345674890";
+    /**
+	 * @uml.property  name="rand"
+	 */
     final java.util.Random rand = new java.util.Random();
     
 
@@ -53,30 +74,13 @@ public class FreeTTSAudioEngine extends AudioEngine {
 	 * @see AudioMgr.AudioEngine#CreateSound(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public void CreateSound(String textTobeSound, String FileNameOfSound) {
+	public void CreateAudio(String textTobeSound, String FileNameOfSound) {
 		try
         {
-          
-           //this.AudioFileName=AudioFN;
-           
            sfap=new SingleFileAudioPlayer(FileNameOfSound,javax.sound.sampled.AudioFileFormat.Type.WAVE);
            voice.setAudioPlayer(sfap);
            voice.speak(textTobeSound);
-           //voice.deallocate();
            sfap.close();
-			/*MaryInterface MTTS = new LocalMaryInterface();
-			Set<String> voices = MTTS.getAvailableVoices();
-			MTTS.setVoice(voices.iterator().next());
-			AudioInputStream audio = MTTS.generateAudio("Hello Mister are Sunday!");
-			AudioInputStream pcm = AudioSystem.getAudioInputStream(AudioFormat.Encoding.PCM_SIGNED, audio);
-			AudioInputStream ulaw = AudioSystem.getAudioInputStream(AudioFormat.Encoding.ULAW, pcm);
-			File tempFile = new File("tmp.wav");
-			AudioSystem.write(ulaw, AudioFileFormat.Type.WAVE, tempFile);
-			/*AudioPlayer player = new AudioPlayer(audio);
-			player.start();
-			player.join();*/
-
-			//System.exit(0);
            
         }
         catch(Exception e)
@@ -86,56 +90,64 @@ public class FreeTTSAudioEngine extends AudioEngine {
 	}
 
 	/**
-	 * @return the voiceName
+	 * @return  the voiceName
+	 * @uml.property  name="voiceName"
 	 */
 	public String getVoiceName() {
 		return voiceName;
 	}
 
 	/**
-	 * @param voiceName the voiceName to set
+	 * @param voiceName  the voiceName to set
+	 * @uml.property  name="voiceName"
 	 */
 	public void setVoiceName(String voiceName) {
 		this.voiceName = voiceName;
 	}
 
 	/**
-	 * @return the voiceManager
+	 * @return  the voiceManager
+	 * @uml.property  name="voiceManager"
 	 */
 	public VoiceManager getVoiceManager() {
 		return voiceManager;
 	}
 
 	/**
-	 * @param voiceManager the voiceManager to set
+	 * @param voiceManager  the voiceManager to set
+	 * @uml.property  name="voiceManager"
 	 */
 	public void setVoiceManager(VoiceManager voiceManager) {
 		this.voiceManager = voiceManager;
 	}
 
 	/**
-	 * @return the voice
+	 * @return  the voice
+	 * @uml.property  name="voice"
 	 */
 	public Voice getVoice() {
 		return voice;
 	}
 
 	/**
-	 * @param voice the voice to set
+	 * @param voice  the voice to set
+	 * @uml.property  name="voice"
 	 */
 	public void setVoice(Voice voice) {
 		this.voice = voice;
 	}
 
 	/**
-	 * @return the sfap
+	 * @return  the sfap
+	 * @uml.property  name="sfap"
 	 */
 	public SingleFileAudioPlayer getSfap() {
 		return sfap;
 	}
 
 	/**
-	 * @param sfap the sfap to set
+	 * @param sfap  the sfap to set
+	 * @uml.property  name="sfap"
 	 */
 	public void setSfap(SingleFileAudioPlayer sfap) {
 		this.sfap = sfap;

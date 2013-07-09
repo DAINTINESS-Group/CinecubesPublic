@@ -4,6 +4,9 @@ import java.util.List;
 
 public class FactTable extends Table {
     
+	/**
+	 * @uml.property  name="dimTable"
+	 */
 	private List<DimensionTable> DimTable;
 	//public SqlField fld;
     

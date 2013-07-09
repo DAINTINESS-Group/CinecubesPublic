@@ -11,18 +11,57 @@ import org.antlr.runtime.TokenStream;
 
 public class ParserManager {
 	
+	/**
+	 * @uml.property  name="mode"
+	 */
 	public Integer mode;
+	/**
+	 * @uml.property  name="name_creation"
+	 */
 	public String name_creation;
+	/**
+	 * @uml.property  name="sqltable"
+	 */
 	public String sqltable;
+	/**
+	 * @uml.property  name="dimensionlst"
+	 */
 	public ArrayList<String> dimensionlst;
+	/**
+	 * @uml.property  name="hierachylst"
+	 */
 	public ArrayList<String> hierachylst;
+	/**
+	 * @uml.property  name="originallvllst"
+	 */
 	public ArrayList<String> originallvllst;
+	/**
+	 * @uml.property  name="customlvllst"
+	 */
 	public ArrayList<String> customlvllst;
+	/**
+	 * @uml.property  name="conditionlst"
+	 */
 	public ArrayList<String> conditionlst;
+	/**
+	 * @uml.property  name="tablelst"
+	 */
 	public ArrayList<String> tablelst;
+	/**
+	 * @uml.property  name="groupperlst"
+	 */
 	public ArrayList<String> groupperlst;
+	/**
+	 * @uml.property  name="measurelst"
+	 */
 	public ArrayList<String> measurelst;
+	/**
+	 * @uml.property  name="measurefields"
+	 */
 	public ArrayList<String> measurefields;
+	/**
+	 * @uml.property  name="aggregatefunc"
+	 */
 	public String aggregatefunc;
 	
 	public ParserManager() {
@@ -72,7 +111,6 @@ public class ParserManager {
 			groupperlst.addAll(parser.groupperlst);
 			//System.out.println("ok");
 		} catch (RecognitionException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

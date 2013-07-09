@@ -76,7 +76,7 @@ creation_dimension : create_statement related_statement level_statement hierarch
 
 create_statement: CREATE CUBE {mode=1;} NAME {name_creation=$NAME.text;}
                   | 
-                  CREATE DIMENSION {mode=2;} NAME {name_creation=$NAME.text;};
+                  CREATE DIMENSION {mode=2;} NAME {name_creation=$NAME.text.replace("~"," ");};
 
 related_statement : RELATED SQL_TABLE NAME {sql_table=$NAME.text;} ;
 
@@ -90,7 +90,7 @@ hierarchy_statement : HIERARCHY hierarchy;
 
 dimensions : dimension  (comma_statement dimension)* ;
 
-dimension : NAME {dimensionlst.add($NAME.text);} AT sqlfield;
+dimension : NAME {dimensionlst.add($NAME.text.replace("~"," "));} AT sqlfield;
 
 measures : measure (comma_statement measure)*;
 
@@ -210,7 +210,7 @@ BY: B Y;
 
 MEASURES : M E A S U R E S;
 
-NAME: Letter (Letter | Digit | '_'  | '-' )*;
+NAME: Letter (Letter | Digit | '_'  | '-' | '~' )*;
 
 LBRACE:'{';
 RBRACE:'}';

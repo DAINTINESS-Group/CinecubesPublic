@@ -4,9 +4,11 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import CubeMgr.StarSchema.Database;
+import HighlightMgr.Highlight;
 
 public class SubTask {
-    private KeyFinding keyfinding;
+    
+    private Highlight highlight;
     private ExtractionMethod extractionMethod;  
     private ArrayList<Integer> differencesFromOrigin;
     public long timeExecutionQuery;
@@ -16,7 +18,6 @@ public class SubTask {
     
     public SubTask(){
     	differencesFromOrigin=new ArrayList<Integer>();
-    	setKeyFinding(new KeyFinding());
     }
         
     public boolean execute(Database dB){
@@ -30,12 +31,13 @@ public class SubTask {
     	
     }
 
-	public KeyFinding getKeyFinding() {
-		return keyfinding;
+	public Highlight getHighlight() {
+		return highlight;
 	}
 
-	public void setKeyFinding(KeyFinding keyFinding) {
-		keyfinding = keyFinding;
+	
+	public void setHighlight(Highlight Hghlght) {
+		highlight = Hghlght;
 	}
 
 	public ExtractionMethod getExtractionMethod() {
@@ -46,23 +48,14 @@ public class SubTask {
 		extractionMethod = ExtractionMeth;
 	}
 	
-	/**
-	 * @return the differencesCondition
-	 */
 	public ArrayList<Integer> getDifferencesFromOrigin() {
 		return differencesFromOrigin;
 	}
 
-	/**
-	 * @return the i differencesFromOrigin
-	 */
 	public int getDifferenceFromOrigin(int i) {
 		return differencesFromOrigin.get(i);
 	}
 
-	/**
-	 * @param differencesfromorigin the differencesFromOrigin to set
-	 */
 	public void setDifferencesFromOrigin(ArrayList<Integer> differencesfromorigin) {
 		this.differencesFromOrigin = differencesfromorigin;
 	}

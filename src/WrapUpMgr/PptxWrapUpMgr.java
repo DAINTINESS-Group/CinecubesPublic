@@ -39,7 +39,6 @@ import org.apache.poi.xslf.usermodel.XSLFTextRun;
 import org.apache.poi.xslf.usermodel.XSLFTextShape;
 import org.apache.xmlbeans.XmlObject;
 
-import HighlightMgr.PptxHighlight;
 import StoryMgr.Act;
 import StoryMgr.FinalResult;
 import StoryMgr.PptxSlide;
@@ -50,16 +49,16 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 
 	XMLSlideShow slideShowPPTX;
 	XSLFSlideMaster defaultMaster;
-	private String[] SlideXml;
+	private String[] SlideXml;	
 	private ArrayList<String> fileList;
 	private String Contenttype;
 	private String ContenttypeNotesDef;
-	/**
-	 * 
-	 */
+	public String UnZipZipTime;
+	
 	public PptxWrapUpMgr() {
-		fileList=new ArrayList<String>();
+		fileList=new ArrayList<>();
 		ContenttypeNotesDef="";
+		UnZipZipTime="";
 	}
 	
 	@Override	
@@ -75,7 +74,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
         
         int num_slide_create=0;
 		for(Act actItem : story.getActs()) {
-			if(actItem.getEpisodes().size()>2 || num_slide_create==0 || actItem.getId()==-1) num_slide_create+=actItem.getEpisodes().size();
+			if(actItem.getEpisodes().size()>1 || num_slide_create==0 || actItem.getId()==-1 || actItem.getId()==20 ) num_slide_create+=actItem.getEpisodes().size();
 		}
 		
         SlideXml=new String[num_slide_create];
@@ -85,28 +84,35 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 			if(actItem.getId()==0){
 				SlideXml[slide_so_far_created]="";
 				PptxSlide slide=(PptxSlide)actItem.getEpisodes().get(0);
+				slide.timeCreationPutInPPTX=System.nanoTime()-slide.timeCreationPutInPPTX;
 				XSLFcreateIntroSlide(slide);
+				slide.timeCreationPutInPPTX=System.nanoTime()-slide.timeCreationPutInPPTX;
 				slide_so_far_created+=actItem.getEpisodes().size();
 			}
 			else if(actItem.getId()==-1){
 				PptxSlide slide=(PptxSlide)actItem.getEpisodes().get(0);
+				slide.timeCreationPutInPPTX=System.nanoTime();
 				XSLFcreateSummarySlide(slide,slide_so_far_created+2);
-				slide_so_far_created+=actItem.getEpisodes().size();
+				slide.timeCreationPutInPPTX=System.nanoTime()-slide.timeCreationPutInPPTX;
+				slide_so_far_created+=actItem.getEpisodes().size();	
 			}
-			else if(actItem.getEpisodes().size()>2){
+			else if(actItem.getEpisodes().size()>1 || actItem.getId()==20){
 				for(int j=0;j<actItem.getEpisodes().size();j++){
 					SlideXml[j+slide_so_far_created]="";
 					PptxSlide slide=(PptxSlide)actItem.getEpisodes().get(j);
+					
 					slide.timeCreationPutInPPTX=System.nanoTime();
-					if(slide.Title.contains("Act")) XSLFcreateSlide(null,null,slide.getAudio().getFileName(),slide.Title,j+slide_so_far_created+2,null,null,null,slide.SubTitle,null,(actItem.getId()==3 ? 0 :1));
+					
+					if(slide.Title.contains("Act")) XSLFcreateSlide(null,null,slide.getAudio().getFileName(),slide.Title,j+slide_so_far_created+2,null,null,slide.SubTitle,null,(actItem.getId()==3 ? 0 :1));
 					else if(slide.Notes.length()==0) {
 						Tabular tmp_tbl=((Tabular)slide.getVisual());
-						XSLFcreateSlide(slide.getVisual().getPivotTable(),tmp_tbl.colortable,null,slide.Title,j+slide_so_far_created+2,null,null,null,slide.SubTitle,(Tabular)slide.getVisual(),(actItem.getId()==3 ? 0 :1));
+						XSLFcreateSlide(slide.getVisual().getPivotTable(),tmp_tbl.colortable,null,slide.Title,j+slide_so_far_created+2,null,null,slide.SubTitle,(Tabular)slide.getVisual(),(actItem.getId()==3 ? 0 :1));
 					}
 					else {
 						Tabular tmp_tbl=((Tabular)slide.getVisual());
-						XSLFcreateSlide(slide.getVisual().getPivotTable(),tmp_tbl.colortable,slide.getAudio().getFileName(),slide.Title,j+slide_so_far_created+2,slide.TitleColumn,slide.TitleRow,(PptxHighlight)slide.highlight,slide.SubTitle,(Tabular)slide.getVisual(),(actItem.getId()==3 ? 0 :1));
+						XSLFcreateSlide(slide.getVisual().getPivotTable(),tmp_tbl.colortable,slide.getAudio().getFileName(),slide.Title,j+slide_so_far_created+2,slide.TitleColumn,slide.TitleRow,slide.SubTitle,(Tabular)slide.getVisual(),(actItem.getId()==3 ? 0 :1));
 					}
+					
 					slide.timeCreationPutInPPTX=System.nanoTime()-slide.timeCreationPutInPPTX;
 				}
 				slide_so_far_created+=actItem.getEpisodes().size();
@@ -124,29 +130,36 @@ public class PptxWrapUpMgr extends WrapUpMgr {
             System.out.println(ex.getMessage());
         } 
         
-        System.out.println(SlideXml.length);
-        
+       // System.out.println(SlideXml.length);
+        long StartUnzip=System.nanoTime();
         RenamePPTXtoZip();
         UnZipFiles();
         InitializeContentType();
         slide_so_far_created=0;
-        
+        //System.out.println("Unzip Time\t"+(System.nanoTime()-StartUnzip));
+        UnZipZipTime="Unzip Time\t"+(System.nanoTime()-StartUnzip)+"\n";
         for(Act actItem : story.getActs()){
-        	if(actItem.getEpisodes().size()>2 || actItem.getId()==0 || actItem.getId()==-1){
+        	if(actItem.getEpisodes().size()>1 || actItem.getId()==0 || actItem.getId()==-1 || actItem.getId()==20){
 				for(int j=0;j<actItem.getEpisodes().size();j++){
 					PptxSlide slide=(PptxSlide)actItem.getEpisodes().get(j);
+					
 					long strTime=System.nanoTime();
+					
 					if(slide.Notes.length()==0) AddAudiotoPPTX(j+slide_so_far_created+2,null,slide.Notes);
 					else AddAudiotoPPTX(j+slide_so_far_created+2,slide.getAudio().getFileName(),slide.Notes);
+					
 					slide.timeCreationPutInPPTX+=System.nanoTime()-strTime;
 				}
 				slide_so_far_created+=actItem.getEpisodes().size();
         	}
         }
+        long StartZip=System.nanoTime();
         writeContentType();
         GenerateFileList(new File("ppt/unzip"));
         ZipFiles();
         RenameZiptoPPTX();
+        //System.out.println("Zip Time\t"+(System.nanoTime()-StartZip));
+        UnZipZipTime="Zip Time\t"+(System.nanoTime()-StartZip)+"\n";
                 
 	}
 	
@@ -187,22 +200,26 @@ public class PptxWrapUpMgr extends WrapUpMgr {
     	title2.clearText();
     	
     	String[] findings=episode.Notes.split("@");
-    	for(String finding:findings){
-    		String[] lines=finding.split("\n");
+    	for(String finding:findings){    		
+    		String[] lines=finding.replace("~~\n", "~~").split("\n");
+    		
+    		int lvl1=1;
     		if(lines.length==1) continue;
     		for(int i=0;i<lines.length;i++){
     			XSLFTextParagraph p=title2.addNewTextParagraph();
-    			
-    	       // p.setLeftMargin(60);
-    	        // the bullet is set 40 pt before the text
-    	        //p.setIndent(-40);
+    			//if(twolevel) lvl1=2;
+    			if(lines[i].contains("~~")) {
+    				lvl1=2;
+    				lines[i]=lines[i].replace("~~","");
+    			}
+    			else if(lines[i].contains("##")) {
+    				lvl1=1;
+    				lines[i]=lines[i].replace("##","");
+    			}
     	        p.setBullet(true);
-    	        // customize bullets
-    	        /*p.setBulletFontColor(Color.red);
-    	        p.setBulletFont("Wingdings");
-    	        p.setBulletCharacter("\u0075");*/
     	        if(i==0) p.setLevel(0);
-    	        else p.setLevel(1);
+    	        else p.setLevel(lvl1);
+    	        
     	        XSLFTextRun tltTxtRun =p.addNewTextRun();
     	        tltTxtRun.setBold(false);
     	        tltTxtRun.setText(lines[i]);
@@ -210,15 +227,8 @@ public class PptxWrapUpMgr extends WrapUpMgr {
     	        
     		}
     	}
-    	episode.Notes=episode.Notes.replace("@","\n");
-    	//XSLFTextParagraph p=title2.addNewTextParagraph();
+    	episode.Notes=episode.Notes.replace("@","\n").replace("~~", "").replace("##", "");
     	
-    	//XSLFTextRun tltTxtRun =p.addNewTextRun();
-	 
-       // tltTxtRun.setBold(false);	    	
-    //	tltTxtRun.setText(episode.Notes);
-    	//tltTxtRun.setFontSize(14);
-    	//p.setTextAlign(TextAlign.JUSTIFY);
     	setRelationshipForNotes(slide,slideId);
     	CreateSlideWithXMlAudio(slide,episode.getAudio().getFileName(),slideId,1);
 	}
@@ -229,8 +239,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 								String Title,
 								int slideid,
 								String titleColumn, 
-								String titleRow,
-								PptxHighlight highlight, 
+								String titleRow,							
 								String subtitle, 
 								Tabular tabular,
 								int hide_slide){
@@ -244,11 +253,12 @@ public class PptxWrapUpMgr extends WrapUpMgr {
         		           
 	        setRelationshipForNotes(slide,slideid);
 	        
-        	CreateTableInSlide(slide, slideShowPPTX.getPageSize(),table,colorTable,titleColumn,titleRow,highlight,tabular);
+        	CreateTableInSlide(slide, slideShowPPTX.getPageSize(),table,colorTable,titleColumn,titleRow,tabular);
         	this.setTitle(slide, Title, new Rectangle2D.Double(100, 25,slideShowPPTX.getPageSize().width-200,20),16.0,true);
         }
         else {
         	slide=slideShowPPTX.createSlide(defaultMaster.getLayout(SlideLayout.TITLE)); 
+        	
         	setRelationshipForNotes(slide,slideid);
         	XSLFTextShape title1 = slide.getPlaceholder(0);
         	title1.setText(Title);
@@ -287,7 +297,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
      *  rId4 -->IMAGE relationship ID
      *
      */
-     private XSLFTable CreateTableInSlide(XSLFSlide slide,java.awt.Dimension pgsize,String[][] table, Color[][] colorTable,String titleColumn, String titleRow,PptxHighlight highlight, Tabular tabular){
+     private XSLFTable CreateTableInSlide(XSLFSlide slide,java.awt.Dimension pgsize,String[][] table, Color[][] colorTable,String titleColumn, String titleRow, Tabular tabular){
          
        int page_width = pgsize.width; //slide width
        int toColorDarkGray=0;
@@ -297,39 +307,44 @@ public class PptxWrapUpMgr extends WrapUpMgr {
        
        for(int i=0;i<table.length;i++){
            XSLFTableRow addRow = tbl.addRow();
-           for(int j=0;j<table[i].length;j++){
+           for(int j=0;j<table[0].length;j++){
               XSLFTableCell cell = addRow.addCell();
               XSLFTextParagraph p = cell.addNewTextParagraph();
               XSLFTextRun r = p.addNewTextRun();
               p.setTextAlign(TextAlign.CENTER);
-              r.setFontFamily("Calibri");             
+              //r.setFontFamily("Calibri");  
+              //cell.set
+              cell.setTopInset(0);
+              cell.setLeftInset(0);
+              cell.setRightInset(0);
+              cell.setBottomInset(0);
               r.setFontSize(12);
               if(j==tabular.boldColumn) r.setBold(true);
               if(i==tabular.boldRow) r.setBold(true);
               try{
-            	  if(colorTable!=null && colorTable.length>0) r.setFontColor(colorTable[i][j]);
+            	  r.setFontColor(colorTable[i][j]);
+            	  r.setText(table[i][j]);
+            	  if(table[i][j].equals("")) cell.setVerticalAlignment(VerticalAlignment.MIDDLE);
+                  
+                  if((i==0 || j==toColorDarkGray) && !(i==0 && j==toColorDarkGray)) {
+                	  r.setFontColor(other);
+                  }
+                  if(toColorDarkGray==1 && j==0) {
+                	 r.setItalic(true);
+                	 r.setFontColor(Color.black);
+                  }
+                  if((j==0 && i>0 ) || ((j==0 || j==1) && toColorDarkGray==1)) p.setTextAlign(TextAlign.RIGHT);
+                  if(j==0 || ((j==0 || j==1) && toColorDarkGray==1)) cell.setLeftInset(0.5);
               }
               catch (Exception e) {
-            	  System.err.print("i: "); System.err.print(i);
-            	  System.err.print(",j: "); System.err.print(j);
-            	  System.err.println();
+            	  r.setText("");
               }
-              r.setText(table[i][j]);
-              
-              if(table[i][j].equals("")) cell.setVerticalAlignment(VerticalAlignment.MIDDLE);
-              
-              if((i==0 || j==toColorDarkGray) && !(i==0 && j==toColorDarkGray)) {
-            	  r.setFontColor(other);
-             }
-              if(toColorDarkGray==1 && j==0) {
-            	 r.setItalic(true);
-            	 r.setFontColor(Color.black);
-             }
-             if((j==0 && i>0 )|| ((j==0 || j==1) && toColorDarkGray==1)) p.setTextAlign(TextAlign.RIGHT); 
            }
        }
        double table_width=0;
-       for(int k=0;k<tbl.getNumberOfColumns();k++) table_width+=tbl.getColumnWidth(k);      
+       for(int k=0;k<tbl.getNumberOfColumns();k++){
+    	   table_width+=tbl.getColumnWidth(k);
+       }
        tbl.setAnchor(new Rectangle2D.Double(((page_width/2)-table_width/2), 100,100,100));
        
        /*for(int i=0;i<tbl.getNumberOfRows();i++){
@@ -372,7 +387,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 	            if(slideid-2==0){
 	            	String SoundNode = this.SoundNodeString(addRelationship2.getId(), addRelationship1.getId(), addRelationship3.getId(),AudioFilename,id++);
 	            	try {
-	            		byte[] pictureData=new byte[getClass().getClassLoader().getResourceAsStream("resources/cube_dali.jpg").available()];
+	            		byte[] pictureData=new byte[getClass().getClassLoader().getResourceAsStream("resources/cube_dali.png").available()];
 	            		getClass().getClassLoader().getResourceAsStream("resources/cube_dali.jpg").read(pictureData);
 	            		int idx = slideShowPPTX.addPicture(pictureData, XSLFPictureData.PICTURE_TYPE_JPEG);
 	                    XSLFPictureShape pic = slide.createPicture(idx);
@@ -581,10 +596,15 @@ public class PptxWrapUpMgr extends WrapUpMgr {
     }
     
     private void RenameZiptoPPTX(){
-        File oldFile=new File(this.finalResult.getFilename()+".zip");
-        File delFile=new File(this.finalResult.getFilename());
-        if(delFile.exists()) delFile.delete();
-        oldFile.renameTo(new File(this.finalResult.getFilename()));
+    	try{
+	        File oldFile=new File(this.finalResult.getFilename()+".zip");
+	        File delFile=new File(this.finalResult.getFilename());
+	        if(delFile.exists()) delFile.delete();	     
+	        oldFile.renameTo(new File(this.finalResult.getFilename()));
+    	}
+    	catch(Exception ex){
+    		System.out.println(ex.getMessage());
+    	}
     }
     
     private void AddAudiotoPPTX(int slideId,String AudioFilename,String NotesTxt){  
@@ -653,48 +673,6 @@ public class PptxWrapUpMgr extends WrapUpMgr {
         
     }
        
-    private void UnZipFiles(){
-        
-        byte[] buffer = new byte[1024];
-        try{
-        //create output directory is not exists
-            File folder = new File("ppt/unzip");
-            if(folder.exists()) DeleteFolder(folder);
-            
-            folder.mkdir();
-            
-
-            try (ZipInputStream zis = new ZipInputStream(new FileInputStream(this.finalResult.getFilename()+".zip"))) {
-                ZipEntry ze = zis.getNextEntry();
-
-                while(ze!=null){
-
-                    String fileName = ze.getName();
-                    File newFile = new File("ppt/unzip" + File.separator + fileName);
-
-                    //System.out.println("file unzip : "+ newFile.getAbsoluteFile());
-
-                    //create all non exists folders
-                    //else you will hit FileNotFoundException for compressed folder
-                    new File(newFile.getParent()).mkdirs();
-                    FileOutputStream fos = new FileOutputStream(newFile);
-                    int len;
-                    //buffer=new byte[1024];
-                    while ((len = zis.read(buffer)) > 0) {
-                            fos.write(buffer, 0, len);
-                    }
-                    fos.close();
-                    ze=zis.getNextEntry();
-                }
-                zis.closeEntry();
-            }
-            
-            //System.out.println("Done");
-        }catch(IOException ex){
-            System.out.println(ex.getMessage()); 
-        }
-    }
-   
     private void InitializeContentType(){
         this.Contenttype="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
         +"<Types xmlns=\"http://schemas.openxmlformats.org/package/2006/content-types\">"
@@ -716,35 +694,71 @@ public class PptxWrapUpMgr extends WrapUpMgr {
     }
             
     private void writeContentType(){
-        this.Contenttype=this.Contenttype +"<Override PartName=\"/ppt/notesMasters/notesMaster1.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.presentationml.notesMaster+xml\"/>"
+        this.Contenttype=this.Contenttype 
+        		+"<Override PartName=\"/ppt/notesMasters/notesMaster1.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.presentationml.notesMaster+xml\"/>"
                 + "<Override PartName=\"/ppt/presProps.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.presentationml.presProps+xml\"/>"
-	+"<Override PartName=\"/ppt/viewProps.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.presentationml.viewProps+xml\"/>"
-	+"<Override PartName=\"/ppt/theme/theme1.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.theme+xml\"/>"
-	+"<Override PartName=\"/ppt/tableStyles.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.presentationml.tableStyles+xml\"/>"
-	+"<Override PartName=\"/ppt/slideLayouts/slideLayout1.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml\"/>"
-	+"<Override PartName=\"/ppt/slideLayouts/slideLayout2.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml\"/>"
-	+"<Override PartName=\"/ppt/slideLayouts/slideLayout3.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml\"/>"
-	+"<Override PartName=\"/ppt/slideLayouts/slideLayout4.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml\"/>"
-	+"<Override PartName=\"/ppt/slideLayouts/slideLayout5.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml\"/>"
-	+"<Override PartName=\"/ppt/slideLayouts/slideLayout6.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml\"/>"
-	+"<Override PartName=\"/ppt/slideLayouts/slideLayout7.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml\"/>"
-	+"<Override PartName=\"/ppt/slideLayouts/slideLayout8.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml\"/>"
-	+"<Override PartName=\"/ppt/slideLayouts/slideLayout9.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml\"/>"
-	+"<Override PartName=\"/ppt/slideLayouts/slideLayout10.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml\"/>"
-	+"<Override PartName=\"/ppt/slideLayouts/slideLayout11.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml\"/>"
-        +"<Override PartName=\"/ppt/theme/theme2.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.theme+xml\"/>"
-        + this.ContenttypeNotesDef
-        +"<Override PartName=\"/docProps/core.xml\" ContentType=\"application/vnd.openxmlformats-package.core-properties+xml\"/>"
-	+"<Override PartName=\"/docProps/app.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.extended-properties+xml\"/>"
-        +"</Types>";
-        
-        
+				+"<Override PartName=\"/ppt/viewProps.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.presentationml.viewProps+xml\"/>"
+				+"<Override PartName=\"/ppt/theme/theme1.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.theme+xml\"/>"
+				+"<Override PartName=\"/ppt/tableStyles.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.presentationml.tableStyles+xml\"/>"
+				+"<Override PartName=\"/ppt/slideLayouts/slideLayout1.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml\"/>"
+				+"<Override PartName=\"/ppt/slideLayouts/slideLayout2.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml\"/>"
+				+"<Override PartName=\"/ppt/slideLayouts/slideLayout3.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml\"/>"
+				+"<Override PartName=\"/ppt/slideLayouts/slideLayout4.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml\"/>"
+				+"<Override PartName=\"/ppt/slideLayouts/slideLayout5.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml\"/>"
+				+"<Override PartName=\"/ppt/slideLayouts/slideLayout6.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml\"/>"
+				+"<Override PartName=\"/ppt/slideLayouts/slideLayout7.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml\"/>"
+				+"<Override PartName=\"/ppt/slideLayouts/slideLayout8.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml\"/>"
+				+"<Override PartName=\"/ppt/slideLayouts/slideLayout9.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml\"/>"
+				+"<Override PartName=\"/ppt/slideLayouts/slideLayout10.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml\"/>"
+				+"<Override PartName=\"/ppt/slideLayouts/slideLayout11.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml\"/>"
+		        +"<Override PartName=\"/ppt/theme/theme2.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.theme+xml\"/>"
+		        + this.ContenttypeNotesDef
+		        +"<Override PartName=\"/docProps/core.xml\" ContentType=\"application/vnd.openxmlformats-package.core-properties+xml\"/>"
+		        +"<Override PartName=\"/docProps/app.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.extended-properties+xml\"/>"
+		        +"</Types>";
         try {
             FileOutputStream ConType=new FileOutputStream("ppt/unzip/[Content_Types].xml");
             ConType.write(this.Contenttype.getBytes());
             ConType.close();
         } catch (IOException ex) {
         	System.out.println(ex.getMessage());
+        }
+    }
+    
+    private void UnZipFiles(){
+        
+        byte[] buffer = new byte[1024];
+        try{
+        //create output directory is not exists
+        	File folder = new File("ppt/unzip");
+            if(folder.exists()) DeleteFolder(folder);
+            folder.mkdir();
+        	ZipInputStream zis = new ZipInputStream(new FileInputStream(this.finalResult.getFilename()+".zip"));
+            ZipEntry ze = zis.getNextEntry();
+
+            while(ze!=null){
+
+                String fileName = ze.getName();
+                File newFile = new File("ppt/unzip" + File.separator + fileName);
+
+                //System.out.println("file unzip : "+ newFile.getAbsoluteFile());
+
+                //create all non exists folders
+                //else you will hit FileNotFoundException for compressed folder
+                new File(newFile.getParent()).mkdirs();
+                FileOutputStream fos = new FileOutputStream(newFile);
+                int len;
+                //buffer=new byte[1024];
+                while ((len = zis.read(buffer)) > 0) {
+                        fos.write(buffer, 0, len);
+                }
+                fos.close();
+                ze=zis.getNextEntry();
+            }
+            zis.closeEntry();
+            zis.close();
+        }catch(IOException ex){
+            System.out.println(ex.getMessage()); 
         }
     }
     
@@ -761,27 +775,24 @@ public class PptxWrapUpMgr extends WrapUpMgr {
            // System.out.println("Output to Zip : " + this.finalResult.getFilename()+".zip");
 
             for(String file : this.fileList){
+        		if(file.equals("slide1")==false && file.equals("Slide1")==false){
+        			//System.out.println("File Added : " + file);
+                    ZipEntry ze= new ZipEntry(file.replace("ppt\\unzip\\", "").replace("ppt/unzip/", ""));
+                    zos.putNextEntry(ze);
+                    FileInputStream in = new FileInputStream(file);
 
-                    
-            		if(file.equals("slide1")==false && file.equals("Slide1")==false){
-            			//System.out.println("File Added : " + file);
-	                    ZipEntry ze= new ZipEntry(file.replace("ppt\\unzip\\", "").replace("ppt/unzip/", ""));
-	                    zos.putNextEntry(ze);
-	                    FileInputStream in = new FileInputStream(file);
-	
-	                    int len;
-	                    while ((len = in.read(buffer)) > 0) {
-	                            zos.write(buffer, 0, len);
-	                    }
-	                    in.close();
+                    int len;
+                    while ((len = in.read(buffer)) > 0) {
+                            zos.write(buffer, 0, len);
                     }
+                    in.close();
+                }
             }
 
             zos.closeEntry();
             //remember close it
             zos.close();
-
-            //System.out.println("Done");
+            fos.close();
         }catch(IOException ex){
             System.out.println(ex.getMessage());  
         }
@@ -839,7 +850,6 @@ public class PptxWrapUpMgr extends WrapUpMgr {
         }
     }
     
-    
     private void Replace_papaki(String nameFile,String toReplace){
         try
              {
@@ -851,22 +861,19 @@ public class PptxWrapUpMgr extends WrapUpMgr {
                  oldtext += line + "\r\n";
              }
              reader.close();
-             // replace a word in a file
-             //String newtext = oldtext.replaceAll("drink", "Love");
-            
+             
              //To replace a line in a file
              String newtext = oldtext.replaceAll( "@",toReplace);
             
              FileWriter writer = new FileWriter(nameFile);
-             writer.write(newtext);writer.close();
+             writer.write(newtext);
+             writer.close();
          }
          catch (IOException ex)
          {
              System.out.println(ex.getMessage());
          }
     }
-    
-    
     
     /* Set Title In Slide */
     void setTitle(XSLFSlide slide,String Title,Rectangle2D.Double Anchor,double fontSize,boolean bold){

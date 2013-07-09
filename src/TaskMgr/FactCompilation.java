@@ -4,6 +4,9 @@ import java.util.List;
 
 public class FactCompilation {
    
+    /**
+	 * @uml.property  name="listTasks"
+	 */
     private List<Task> ListTasks;
 
 	/**

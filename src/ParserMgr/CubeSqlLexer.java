@@ -1,4 +1,4 @@
-// $ANTLR 3.4 D:\\workspace\\Master\\src\\CubeSql.g 2013-05-27 19:48:38
+// $ANTLR 3.4 D:\\workspace\\Master\\src\\CubeSql.g 2013-07-10 02:29:31
 
   package ParserMgr;
 
@@ -1201,19 +1201,19 @@ public class CubeSqlLexer extends Lexer {
         try {
             int _type = NAME;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace\\Master\\src\\CubeSql.g:213:5: ( Letter ( Letter | Digit | '_' | '-' )* )
-            // D:\\workspace\\Master\\src\\CubeSql.g:213:7: Letter ( Letter | Digit | '_' | '-' )*
+            // D:\\workspace\\Master\\src\\CubeSql.g:213:5: ( Letter ( Letter | Digit | '_' | '-' | '~' )* )
+            // D:\\workspace\\Master\\src\\CubeSql.g:213:7: Letter ( Letter | Digit | '_' | '-' | '~' )*
             {
             mLetter(); 
 
 
-            // D:\\workspace\\Master\\src\\CubeSql.g:213:14: ( Letter | Digit | '_' | '-' )*
+            // D:\\workspace\\Master\\src\\CubeSql.g:213:14: ( Letter | Digit | '_' | '-' | '~' )*
             loop1:
             do {
                 int alt1=2;
                 int LA1_0 = input.LA(1);
 
-                if ( (LA1_0=='-'||(LA1_0 >= '0' && LA1_0 <= '9')||(LA1_0 >= 'A' && LA1_0 <= 'Z')||LA1_0=='_'||(LA1_0 >= 'a' && LA1_0 <= 'z')) ) {
+                if ( (LA1_0=='-'||(LA1_0 >= '0' && LA1_0 <= '9')||(LA1_0 >= 'A' && LA1_0 <= 'Z')||LA1_0=='_'||(LA1_0 >= 'a' && LA1_0 <= 'z')||LA1_0=='~') ) {
                     alt1=1;
                 }
 
@@ -1222,7 +1222,7 @@ public class CubeSqlLexer extends Lexer {
             	case 1 :
             	    // D:\\workspace\\Master\\src\\CubeSql.g:
             	    {
-            	    if ( input.LA(1)=='-'||(input.LA(1) >= '0' && input.LA(1) <= '9')||(input.LA(1) >= 'A' && input.LA(1) <= 'Z')||input.LA(1)=='_'||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
+            	    if ( input.LA(1)=='-'||(input.LA(1) >= '0' && input.LA(1) <= '9')||(input.LA(1) >= 'A' && input.LA(1) <= 'Z')||input.LA(1)=='_'||(input.LA(1) >= 'a' && input.LA(1) <= 'z')||input.LA(1)=='~' ) {
             	        input.consume();
             	    }
             	    else {
@@ -2662,18 +2662,18 @@ public class CubeSqlLexer extends Lexer {
         "\1\114\1\105\1\55\1\uffff";
     static final String DFA5_maxS =
         "\1\175\3\uffff\1\75\1\uffff\1\75\1\151\1\uffff\1\162\1\166\1\165"+
-        "\1\145\1\165\4\151\1\150\2\162\1\171\14\uffff\2\163\1\166\2\172"+
-        "\1\144\2\172\1\147\1\145\1\142\1\165\3\154\2\155\1\145\1\170\1\156"+
-        "\1\141\1\145\2\157\1\172\1\105\1\164\1\145\2\uffff\1\172\2\uffff"+
-        "\1\172\1\141\1\145\1\156\1\141\1\145\1\137\1\145\1\172\1\145\1\162"+
-        "\2\172\1\163\1\162\1\155\1\165\1\uffff\2\172\1\154\2\uffff\1\164"+
-        "\1\172\2\164\1\162\1\164\1\143\1\uffff\1\156\1\141\2\uffff\1\165"+
-        "\1\145\1\172\1\160\2\uffff\1\172\1\145\1\uffff\1\172\2\145\1\141"+
-        "\1\164\1\163\2\162\1\172\1\uffff\1\172\1\uffff\1\172\1\uffff\1\144"+
-        "\1\156\1\142\1\172\1\151\1\143\1\145\3\uffff\1\172\1\143\1\154\1"+
-        "\uffff\1\157\1\150\1\163\1\uffff\2\145\1\156\1\171\1\172\1\163\3"+
-        "\172\1\uffff\1\172\2\uffff\1\164\2\uffff\1\141\1\142\1\154\1\145"+
-        "\1\172\1\uffff";
+        "\1\145\1\165\4\151\1\150\2\162\1\171\14\uffff\2\163\1\166\2\176"+
+        "\1\144\2\176\1\147\1\145\1\142\1\165\3\154\2\155\1\145\1\170\1\156"+
+        "\1\141\1\145\2\157\1\176\1\105\1\164\1\145\2\uffff\1\176\2\uffff"+
+        "\1\176\1\141\1\145\1\156\1\141\1\145\1\137\1\145\1\176\1\145\1\162"+
+        "\2\176\1\163\1\162\1\155\1\165\1\uffff\2\176\1\154\2\uffff\1\164"+
+        "\1\176\2\164\1\162\1\164\1\143\1\uffff\1\156\1\141\2\uffff\1\165"+
+        "\1\145\1\176\1\160\2\uffff\1\176\1\145\1\uffff\1\176\2\145\1\141"+
+        "\1\164\1\163\2\162\1\176\1\uffff\1\176\1\uffff\1\176\1\uffff\1\144"+
+        "\1\156\1\142\1\176\1\151\1\143\1\145\3\uffff\1\176\1\143\1\154\1"+
+        "\uffff\1\157\1\150\1\163\1\uffff\2\145\1\156\1\171\1\176\1\163\3"+
+        "\176\1\uffff\1\176\2\uffff\1\164\2\uffff\1\141\1\142\1\154\1\145"+
+        "\1\176\1\uffff";
     static final String DFA5_acceptS =
         "\1\uffff\1\1\1\2\1\3\1\uffff\1\6\2\uffff\1\11\15\uffff\1\44\1\45"+
         "\1\46\1\47\1\50\1\52\1\53\1\54\1\5\1\4\1\7\1\51\34\uffff\1\12\1"+
@@ -2731,11 +2731,15 @@ public class CubeSqlLexer extends Lexer {
             "\1\73\7\uffff\1\74\37\uffff\1\74",
             "\1\74\37\uffff\1\74",
             "\1\75\37\uffff\1\75",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26"+
+            "\3\uffff\1\26",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26"+
+            "\3\uffff\1\26",
             "\1\100\37\uffff\1\100",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26"+
+            "\3\uffff\1\26",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26"+
+            "\3\uffff\1\26",
             "\1\103\37\uffff\1\103",
             "\1\104\37\uffff\1\104",
             "\1\105\37\uffff\1\105",
@@ -2752,16 +2756,19 @@ public class CubeSqlLexer extends Lexer {
             "\1\121\37\uffff\1\121",
             "\1\122\37\uffff\1\122",
             "\1\123\37\uffff\1\123",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26"+
+            "\3\uffff\1\26",
             "\1\125",
             "\1\126\37\uffff\1\126",
             "\1\127\37\uffff\1\127",
             "",
             "",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26"+
+            "\3\uffff\1\26",
             "",
             "",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26"+
+            "\3\uffff\1\26",
             "\1\132\37\uffff\1\132",
             "\1\133\37\uffff\1\133",
             "\1\134\37\uffff\1\134",
@@ -2769,23 +2776,29 @@ public class CubeSqlLexer extends Lexer {
             "\1\136\37\uffff\1\136",
             "\1\137",
             "\1\140\37\uffff\1\140",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26"+
+            "\3\uffff\1\26",
             "\1\142\37\uffff\1\142",
             "\1\143\37\uffff\1\143",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26"+
+            "\3\uffff\1\26",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26"+
+            "\3\uffff\1\26",
             "\1\146\37\uffff\1\146",
             "\1\147\37\uffff\1\147",
             "\1\150\37\uffff\1\150",
             "\1\151\37\uffff\1\151",
             "",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26"+
+            "\3\uffff\1\26",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26"+
+            "\3\uffff\1\26",
             "\1\154\37\uffff\1\154",
             "",
             "",
             "\1\155\37\uffff\1\155",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26"+
+            "\3\uffff\1\26",
             "\1\157\37\uffff\1\157",
             "\1\160\37\uffff\1\160",
             "\1\161\37\uffff\1\161",
@@ -2798,14 +2811,17 @@ public class CubeSqlLexer extends Lexer {
             "",
             "\1\166\37\uffff\1\166",
             "\1\167\37\uffff\1\167",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26"+
+            "\3\uffff\1\26",
             "\1\171\37\uffff\1\171",
             "",
             "",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26"+
+            "\3\uffff\1\26",
             "\1\173\37\uffff\1\173",
             "",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26"+
+            "\3\uffff\1\26",
             "\1\175\37\uffff\1\175",
             "\1\176\37\uffff\1\176",
             "\1\177\37\uffff\1\177",
@@ -2813,23 +2829,28 @@ public class CubeSqlLexer extends Lexer {
             "\1\u0081\37\uffff\1\u0081",
             "\1\u0082\37\uffff\1\u0082",
             "\1\u0083\37\uffff\1\u0083",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26"+
+            "\3\uffff\1\26",
             "",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26"+
+            "\3\uffff\1\26",
             "",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26"+
+            "\3\uffff\1\26",
             "",
             "\1\u0087\37\uffff\1\u0087",
             "\1\u0088\37\uffff\1\u0088",
             "\1\u0089\37\uffff\1\u0089",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26"+
+            "\3\uffff\1\26",
             "\1\u008b\37\uffff\1\u008b",
             "\1\u008c\37\uffff\1\u008c",
             "\1\u008d\37\uffff\1\u008d",
             "",
             "",
             "",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26"+
+            "\3\uffff\1\26",
             "\1\u008f\37\uffff\1\u008f",
             "\1\u0090\37\uffff\1\u0090",
             "",
@@ -2841,14 +2862,18 @@ public class CubeSqlLexer extends Lexer {
             "\1\u0095\37\uffff\1\u0095",
             "\1\u0096\37\uffff\1\u0096",
             "\1\u0097\37\uffff\1\u0097",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26"+
+            "\3\uffff\1\26",
             "\1\u0099\37\uffff\1\u0099",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26"+
+            "\3\uffff\1\26",
             "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\u009c\1\uffff\32"+
-            "\26",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\26\3\uffff\1\26",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26"+
+            "\3\uffff\1\26",
             "",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26"+
+            "\3\uffff\1\26",
             "",
             "",
             "\1\u009f\37\uffff\1\u009f",
@@ -2858,7 +2883,8 @@ public class CubeSqlLexer extends Lexer {
             "\1\u00a1\37\uffff\1\u00a1",
             "\1\u00a2\37\uffff\1\u00a2",
             "\1\u00a3\37\uffff\1\u00a3",
-            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\1\26\2\uffff\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26"+
+            "\3\uffff\1\26",
             ""
     };
 

@@ -6,17 +6,41 @@ import java.util.TreeSet;
 
 public class Result {
     
+	/**
+	 * @uml.property  name="resultArray"
+	 */
 	private String [][] resultArray; /* 1st row has Column Name, 
 										2nd row has Column Labels, 
 										the following rows are data. 
 										MIN: resultArray[2][columns-1]
 										MAX: resultArray[resultArray.length-1][columns-1]
 										*/ 	
+    /**
+	 * @uml.property  name="colPivot"
+	 * @uml.associationEnd  multiplicity="(0 -1)" elementType="java.lang.String"
+	 */
     private TreeSet<String> ColPivot; /* In all option Colpivot has the values of 1st Column of resultArray exept when merge two tables like max,min comparison*/
+    /**
+	 * @uml.property  name="rowPivot"
+	 * @uml.associationEnd  multiplicity="(0 -1)" elementType="java.lang.String"
+	 */
     private TreeSet<String> RowPivot; /* In all option RowPivot has the values of 2nd Column of resultArray exept when merge two tables like max,min comparison*/
+    /**
+	 * @uml.property  name="titleOfColumns"
+	 */
     public String TitleOfColumns;
+    /**
+	 * @uml.property  name="titleOfRows"
+	 */
     public String TitleOfRows;
-    public Float max,min;
+    /**
+	 * @uml.property  name="max"
+	 */
+    public Float max;
+	/**
+	 * @uml.property  name="min"
+	 */
+	public Float min;
     
 	public Result(){
 		setRowPivot(new TreeSet<String>());
@@ -29,10 +53,18 @@ public class Result {
 		resultArray=new String[rows][columns];
 	}
 	
+	/**
+	 * @return
+	 * @uml.property  name="resultArray"
+	 */
 	public String [][] getResultArray() {
 		return resultArray;
 	}
 
+	/**
+	 * @param resultarray
+	 * @uml.property  name="resultArray"
+	 */
 	public void setResultArray(String [][] resultarray) {
 		this.resultArray = new String [resultarray.length][resultarray[0].length]; 
 		for(int i=0;i<resultarray.length;i++){
@@ -79,6 +111,7 @@ public class Result {
 			        TitleOfColumns=resultSet.getMetaData().getColumnName(1);
 					TitleOfRows=resultSet.getMetaData().getColumnName(2);
 					//System.out.println("74:"+TitleOfColumns+" "+TitleOfRows);
+					
 			        while(resultSet.next()){
 			           for(int i=0;i<columns;i++){
 			        	   resultArray[resultSet.getRow()+1][i]=resultSet.getString(i+1);

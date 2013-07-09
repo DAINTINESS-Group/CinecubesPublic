@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import StoryMgr.Act;
+
 import CubeMgr.CubeBase.CubeBase;
 import CubeMgr.StarSchema.Database;
 import CubeMgr.StarSchema.SqlQuery;
@@ -89,7 +91,7 @@ public class TaskFathers extends Task {
     	printBorderLine();
 		System.out.println("Generated Queries");
 		printBorderLine();
-		ArrayList<String[]> finds=new ArrayList<>();
+		ArrayList<String[]> finds=new ArrayList<String[]>();
 		for( int i=0;i<Original.WhereClause.size();i++){
 			String[] condition=Original.WhereClause.get(i);
 			if(condition[2].contains("'") || tryParseInt(condition[2])){
@@ -178,5 +180,11 @@ public class TaskFathers extends Task {
 			}
 			to.add(toadd);
 		}
+	}
+
+	@Override
+	public void constructActEpidoses(Act currentAct, Act OriginalAct) {
+		// TODO Auto-generated method stub
+		
 	}
 }

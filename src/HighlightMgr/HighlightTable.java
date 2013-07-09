@@ -7,6 +7,7 @@ import java.util.TreeSet;
 
 public class HighlightTable extends Highlight {
 	
+	
 	public ArrayList<String> maxValues;
 	public ArrayList<String> minValues;
 	public ArrayList<String> middleValues;
@@ -41,12 +42,12 @@ public class HighlightTable extends Highlight {
 	public Integer[][] colsDominationColor;
 	
 	/* For Colors*/
-	public Color maxcolor;
+	/*public Color maxcolor;
 	public String maxcolor_name;
 	public Color mincolor;
 	public String mincolor_name;
 	public Color middlecolor;
-	public String middlecolor_name;
+	public String middlecolor_name;*/
 	public int boldColumn;
 	public int boldRow;
 	
@@ -77,6 +78,10 @@ public class HighlightTable extends Highlight {
     	colsDominateMiddle=new ArrayList<Integer>();
     	max_appearance_per_color=new Integer[3];
     	valuePerColor=new Integer[3];
+	}
+	
+	public void execute(String[][] table){
+		
 	}
 	
 	public void setBoldColumn(TreeSet<String> Columns,String nameColumnToBold){
@@ -200,7 +205,7 @@ public class HighlightTable extends Highlight {
     	
     }
 	
-	 public void ComparingToSiblingColumn_v1(String[][] PivotTable){
+	public void ComparingToSiblingColumn_v1(String[][] PivotTable){
     	countHigherPerColumn=new int[PivotTable[0].length-1];
     	countLowerPerColumn=new int[PivotTable[0].length-1];
     	countEqualPerColumn=new int[PivotTable[0].length-1];
@@ -235,7 +240,7 @@ public class HighlightTable extends Highlight {
     	}
     }
 	
-	 public void ComparingToSiblingRow_v1(String[][] PivotTable){
+	public void ComparingToSiblingRow_v1(String[][] PivotTable){
 		 	countHigherPerRow=new int[PivotTable.length-1];
 		 	countLowerPerRow=new int[PivotTable.length-1];
 		 	countEqualPerRow=new int[PivotTable.length-1];
@@ -304,7 +309,6 @@ public class HighlightTable extends Highlight {
 	}
 	
 	boolean isTableMaxValue(String[] table,String value){
-			
 		if(value==null) return true;
 		String max_value=table[0];
 		for(int i=1;i<table.length;i++){
@@ -315,7 +319,6 @@ public class HighlightTable extends Highlight {
 	}
 	
 	boolean isTableMinValue(String[] table,String value){
-		
 		if(value==null) return true;
 		String min_value=table[0];
 		for(int i=1;i<table.length;i++){

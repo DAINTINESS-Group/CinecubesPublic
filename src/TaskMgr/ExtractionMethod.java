@@ -3,7 +3,11 @@ package TaskMgr;
 import java.sql.ResultSet;
 import CubeMgr.CubeBase.CubeQuery;
 
+/**
+ * @author  Asterix
+ */
 public abstract class ExtractionMethod {
+   
     public Result Res;
     
     public ExtractionMethod(){

@@ -7,6 +7,10 @@ import CubeMgr.CubeBase.CubeBase;
 
 public class CubeMgr {
     
+    /**
+	 * @uml.property  name="cBase"
+	 * @uml.associationEnd  multiplicity="(1 1)"
+	 */
     public CubeBase CBase;
     //public MetaData MD;
     public CubeMgr(){
@@ -14,7 +18,7 @@ public class CubeMgr {
     }
     
     public void CreateCubeBase(String filename){
-    	CBase.registerCubeBase(filename);
+    	CBase.registerCubeBase(filename);    	
     }
     
 	public void InsertionDimensionLvl(String dimensionName,

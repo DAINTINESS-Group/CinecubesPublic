@@ -4,6 +4,7 @@ import TaskMgr.Task;
 import TaskMgr.TaskMgr;
 
 public class StoryMgr {
+    
     private Story story;
     
     public StoryMgr(){
@@ -26,9 +27,11 @@ public class StoryMgr {
     	story.getLastAct().setTask(task);
     }
     
+   
     public void setStory(Story stor){
     	story=stor;
     }
+    
     
     public Story getStory(){
     	return story;

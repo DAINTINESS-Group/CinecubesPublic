@@ -1,18 +1,29 @@
 package AudioMgr;
 
 import java.io.File;
+
+import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 
 import marytts.LocalMaryInterface;
 import marytts.MaryInterface;
 import marytts.exceptions.MaryConfigurationException;
-import marytts.signalproc.effects.HMMF0ScaleEffect;
 
 public class MaryTTSAudioEngine extends AudioEngine  {
 
+    /**
+	 * @uml.property  name="lexicon"
+	 */
     final String lexicon = "ABCDEFGHIJKLMNOPQRSTUVWXYZ12345674890";
+    /**
+	 * @uml.property  name="rand"
+	 */
     final java.util.Random rand = new java.util.Random();
+    /**
+	 * @uml.property  name="mTTS"
+	 * @uml.associationEnd  
+	 */
     MaryInterface MTTS;
     
     public MaryTTSAudioEngine() {
@@ -22,7 +33,6 @@ public class MaryTTSAudioEngine extends AudioEngine  {
 	@Override
 	public void InitializeVoiceEngine() {       
         try {
-        	
 			MTTS = new LocalMaryInterface();
 			MTTS.setVoice("cmu-slt-hsmm");
         }catch ( MaryConfigurationException   e) {
@@ -34,7 +44,7 @@ public class MaryTTSAudioEngine extends AudioEngine  {
 	 * @see AudioMgr.AudioEngine#CreateSound(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public void CreateSound(String textTobeSound, String FileNameOfSound) {
+	public void CreateAudio(String textTobeSound, String FileNameOfSound) {
 		try
         {
 			
@@ -43,10 +53,10 @@ public class MaryTTSAudioEngine extends AudioEngine  {
 	        MTTS.setOutputTypeParams("WAVE");
 	        MTTS.setStreamingAudio(true);
 	       // System.out.println(HMMF0ScaleEffect.chEffectParamStart+"f0Scale"+HMMF0ScaleEffect.chParamEquals+String.valueOf(HMMF0ScaleEffect.MAX_F0_SCALE)+HMMF0ScaleEffect.chEffectParamEnd);
-	       	MTTS.setAudioEffects(HMMF0ScaleEffect.chEffectParamStart+HMMF0ScaleEffect.chParamEquals+String.valueOf(HMMF0ScaleEffect.MAX_F0_SCALE)+HMMF0ScaleEffect.chEffectParamEnd);
+	       	//MTTS.setAudioEffects(HMMF0ScaleEffect.chEffectParamStart+HMMF0ScaleEffect.chParamEquals+String.valueOf(HMMF0ScaleEffect.MAX_F0_SCALE)+HMMF0ScaleEffect.chEffectParamEnd);
 	        
-	        AudioInputStream audio = MTTS.generateAudio(textTobeSound);
-	        AudioSystem.write(audio, javax.sound.sampled.AudioFileFormat.Type.WAVE,output );
+	        AudioInputStream audio = MTTS.generateAudio(FileNameOfSound);
+	        AudioSystem.write(audio, AudioFileFormat.Type.WAVE,output );
         }
         catch(Exception e)
         {   

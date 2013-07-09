@@ -7,18 +7,19 @@ public class Cube {
    // public ArrayList<FactTable> SqlTbl;
    //public MetaData MtDt;
 	//private Dimension CubDim;
+    
     public String name;
-    public List<Level> lvl;
+    public List<Level> lvl;    
     public List<Measure> Msr;
-    public List<Dimension> Dim;
+    public List<Dimension> Dim;    
     protected ArrayList<String> DimensionRefField; /* Name of field where the Dimension is connected */
     
     public Cube(String NAME){
     	name=NAME;
-    	lvl=new ArrayList<>();
-    	Msr=new ArrayList<>();
-    	Dim=new ArrayList<>();
-    	DimensionRefField=new ArrayList<>();
+    	lvl=new ArrayList<Level>();
+    	Msr=new ArrayList<Measure>();
+    	Dim=new ArrayList<Dimension>();
+    	DimensionRefField=new ArrayList<String>();
     }
     
     public void getDimensions(){
@@ -67,7 +68,7 @@ public class Cube {
 					for(int l=0;l<current_lvls.size();l++){
 						if(current_lvls.get(l).name.equals(level)){
 							if(l<current_lvls.size()-1) return current_lvls.get(l+1);
-							else return current_lvls.get(l+1);
+							else if(l+1<current_lvls.size()) return current_lvls.get(l+1);
 						}
 					}
 				}

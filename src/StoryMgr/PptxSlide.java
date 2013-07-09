@@ -2,16 +2,18 @@ package StoryMgr;
 import java.util.ArrayList;
 
 import AudioMgr.Audio;
-import HighlightMgr.PptxHighlight;
+import CubeMgr.CubeBase.CubeQuery;
 import TaskMgr.SubTask;
 
 public class PptxSlide extends Episode {
+	
 	
 	public String Notes;
 	public String Title;
 	public String SubTitle;
 	public String TitleColumn;
 	public String TitleRow;
+	public ArrayList<CubeQuery> CbQOfSlide;
 	public long timeCreation;
 	public long timeCreationAudio;
 	public long timeCreationText;
@@ -19,6 +21,7 @@ public class PptxSlide extends Episode {
 	public long timeCreationColorTable;
 	public long timeCreationPutInPPTX;
 	public long timeCombineSlide;
+	public long timeComputeHighlights;
 	
 	public PptxSlide() {
 		super();
@@ -32,26 +35,21 @@ public class PptxSlide extends Episode {
 		timeCreationText=0;
 		timeCreationPutInPPTX=0;
 		timeCombineSlide=0;
+		timeComputeHighlights=0;
+		CbQOfSlide=new ArrayList<CubeQuery>();
 	}
 	
-	public void setText(String txt){
+	/*public void setText(String txt){
 		this.txt.setText(txt);
-	}
-	
-	public void createHighlight(){
-		this.highlight=new PptxHighlight();
-		/*((PptxHighlight)highlight).findMax(this.visual.PivotTable);
-		((PptxHighlight)highlight).findMin(this.visual.PivotTable);
-		((PptxHighlight)highlight).findMedian(this.visual.PivotTable);*/
-	}
+	}*/
 	
 	@Override
-	public ArrayList<SubTask> getSubTask() {
+	public ArrayList<SubTask> getSubTasks() {
 		return subTask;
 	}
 
 	@Override
-	public void setSubTask(ArrayList<SubTask> subtask) {
+	public void setSubTasks(ArrayList<SubTask> subtask) {
 		subTask=subtask;
 	}
 

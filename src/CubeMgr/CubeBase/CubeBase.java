@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CubeBase {
+   
     public String name;
     public Database DB;
     public List<Dimension> dimensions;
@@ -17,8 +18,8 @@ public class CubeBase {
     
     public CubeBase (){
     	DB=new Database();
-    	dimensions=new ArrayList<>();
-    	BasicCubes=new ArrayList<>();
+    	dimensions=new ArrayList<Dimension>();
+    	BasicCubes=new ArrayList<BasicStoredCube>();
     }
     
     /*public CubeBase(String User,String Pass){
