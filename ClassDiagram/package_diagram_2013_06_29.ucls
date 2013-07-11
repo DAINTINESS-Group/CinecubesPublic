@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.1" icons="true" automaticImage="PNG" always-add-relationships="true" generalizations="true" 
+  realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
+  <package id="1" language="java" name="CubeMgr" project="Master" file="/Master/src/CubeMgr" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="170" y="152"/>    
+    <display autosize="true" stereotype="false" accessors="true"/>  
+  </package>  
+  <package id="2" language="java" name="CubeMgr.StarSchema" project="Master" file="/Master/src/CubeMgr/StarSchema" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="165" y="336"/>    
+    <display autosize="true" stereotype="false" accessors="true"/>  
+  </package>  
+  <package id="3" language="java" name="CubeMgr.CubeBase" project="Master" file="/Master/src/CubeMgr/CubeBase" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="155" y="254"/>    
+    <display autosize="true" stereotype="false" accessors="true"/>  
+  </package>  
+  <package id="4" language="java" name="TaskMgr" project="Master" file="/Master/src/TaskMgr" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="34" width="144" x="260" y="136"/>    
+    <display autosize="false" stereotype="false" accessors="true"/>  
+  </package>  
+  <package id="5" language="java" name="TextMgr" project="Master" file="/Master/src/TextMgr" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="741" y="153"/>    
+    <display autosize="true" stereotype="false" accessors="true"/>  
+  </package>  
+  <package id="6" language="java" name="StoryMgr" project="Master" file="/Master/src/StoryMgr" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="495" y="151"/>    
+    <display autosize="true" stereotype="false" accessors="true"/>  
+  </package>  
+  <package id="7" language="java" name="WrapUpMgr" project="Master" file="/Master/src/WrapUpMgr" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="949" y="156"/>    
+    <display autosize="true" stereotype="false" accessors="true"/>  
+  </package>  
+  <package id="8" language="java" name="HighlightMgr" project="Master" file="/Master/src/HighlightMgr" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="620" y="152"/>    
+    <display autosize="true" stereotype="false" accessors="true"/>  
+  </package>  
+  <package id="9" language="java" name="" project="Master" file="/Master/src" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="50" width="101" x="452" y="37"/>    
+    <display autosize="true" stereotype="false" accessors="true"/>  
+  </package>  
+  <package id="10" language="java" name="AudioMgr" project="Master" file="/Master/src/AudioMgr" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="844" y="157"/>    
+    <display autosize="true" stereotype="false" accessors="true"/>  
+  </package>  
+  <dependency id="11">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <dependency id="12">    
+    <bendpoint x="489" y="260"/>    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <dependency id="13">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="14">    
+    <bendpoint x="917" y="98"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="15">    
+    <bendpoint x="131" y="203"/>    
+    <bendpoint x="147" y="235"/>    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="16">    
+    <bendpoint x="183" y="294"/>    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="17">    
+    <bendpoint x="138" y="299"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="18">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="19">    
+    <bendpoint x="582" y="321"/>    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="20">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="21">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="22">    
+    <bendpoint x="326" y="95"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="23">    
+    <bendpoint x="608" y="118"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <dependency id="24">    
+    <bendpoint x="824" y="105"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="25">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="26">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <dependency id="27">    
+    <bendpoint x="721" y="107"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="28">    
+    <bendpoint x="652" y="254"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+    accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="false"/>
+</class-diagram>

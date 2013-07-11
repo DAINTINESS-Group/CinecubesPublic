@@ -16,54 +16,6 @@ public class TaskFathers extends Task {
 		super();
 	}
 
-	/* (non-Javadoc)
-	 * @see TaskMgr.Task#addNewSubTask()
-	 */
-	@Override
-	public void addNewSubTask() {
-		subTasks.add(new SubTask());
-	}
-
-	/* (non-Javadoc)
-	 * @see TaskMgr.Task#getNumSubTasks()
-	 */
-	@Override
-	public int getNumSubTasks() {
-		return subTasks.size();
-	}
-
-	/* (non-Javadoc)
-	 * @see TaskMgr.Task#getSubTask(int)
-	 */
-	@Override
-	public SubTask getSubTask(int i) {
-		return subTasks.get(i);
-	}
-
-	/* (non-Javadoc)
-	 * @see TaskMgr.Task#getLastSubTask()
-	 */
-	@Override
-	public SubTask getLastSubTask() {
-		return subTasks.get(getNumSubTasks()-1);
-	}
-
-	/* (non-Javadoc)
-	 * @see TaskMgr.Task#getSubTasks()
-	 */
-	@Override
-	public ArrayList<SubTask> getSubTasks() {
-		return subTasks;
-	}
-
-	/* (non-Javadoc)
-	 * @see TaskMgr.Task#setSubTasks(java.util.ArrayList)
-	 */
-	@Override
-	public void setSubTasks(ArrayList<SubTask> arrayList) {
-		subTasks.addAll(arrayList);
-	}
-	
 	
 	/* (non-Javadoc)
 	 * @see TaskMgr.Task#generateSubTasks(CubeMgr.CubeBase.CubeBase)
@@ -183,7 +135,7 @@ public class TaskFathers extends Task {
 	}
 
 	@Override
-	public void constructActEpidoses(Act currentAct, Act OriginalAct) {
+	public void constructActEpidoses(Act currentAct) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -8,14 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Table {
-    /**
-	 * @uml.property  name="lstAttr"
-	 * @uml.associationEnd  multiplicity="(0 -1)" elementType="CubeMgr.StarSchema.Attribute"
-	 */
+   
     public List<Attribute> LstAttr;
-    /**
-	 * @uml.property  name="tblName"
-	 */
     public String TblName;
     
     public Table(String name){

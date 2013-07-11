@@ -24,29 +24,7 @@ public class TaskActI extends Task {
 		super();
 	}
 
-	public void addNewSubTask(){
-    	subTasks.add(new SubTask());
-    };
 	
-	public int getNumSubTasks(){
-    	return subTasks.size();
-    }
-    
-    public SubTask getSubTask(int i){
-    	return subTasks.get(i);
-    }
-    
-    public SubTask getLastSubTask(){
-    	return getSubTask(getNumSubTasks()-1);
-    }
-    
-    public ArrayList<SubTask> getSubTasks() {
-		return subTasks;
-	}
-	
-	public void setSubTasks(ArrayList<SubTask> arrayList) {
-		this.subTasks = arrayList;
-	};
         
     /* Cubequery Version to Generate Subtasks
      * 
@@ -81,11 +59,11 @@ public class TaskActI extends Task {
     }
     
     @Override
-	public void constructActEpidoses(Act currentAct,Act OriginalAct) {
-		CubeQuery origCubeQuery=((PptxSlide)OriginalAct.getEpisode(0)).CbQOfSlide.get(0);
+	public void constructActEpidoses(Act currentAct) {
+		CubeQuery origCubeQuery=this.cubeQuery.get(1);
 		//boolean ActHasWriteHiglights=false;
 		for(int j=0;j<currentAct.getTask().getNumSubTasks();j++){
-    		
+    		if(j==1) continue;
 			SubTask subtsk=currentAct.getTask().getSubTask(j);
     		SqlQuery currentSqlQuery=((SqlQuery)subtsk.getExtractionMethod());
     		CubeQuery currentCubeQuery=currentAct.getTask().cubeQuery.get(j);

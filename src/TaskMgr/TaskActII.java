@@ -30,29 +30,6 @@ public class TaskActII extends Task {
 		subschecked=new ArrayList<SubTask>();
 		cubequerytodelete=new ArrayList<CubeQuery>();
 	}
-
-	public void addNewSubTask(){
-    	subTasks.add(new SubTask());
-    };
-	
-	public int getNumSubTasks(){
-    	return subTasks.size();
-    }
-    
-    public SubTask getSubTask(int i){
-    	return subTasks.get(i);
-    }
-    
-    public SubTask getLastSubTask(){
-    	return getSubTask(getNumSubTasks()-1);
-    }
-    
-    public ArrayList<SubTask> getSubTasks() {
-		return subTasks;
-	}
-	public void setSubTasks(ArrayList<SubTask> arrayList) {
-		this.subTasks = arrayList;
-	};
    
     public void generateSubTasks(CubeBase cubeBase){
     	//createHighlight();/* highlight for Original*/
@@ -61,10 +38,11 @@ public class TaskActII extends Task {
     }
     
     @Override
-	public void constructActEpidoses(Act currentAct,Act OriginalAct) {
-		SubTask origSubtsk=OriginalAct.getTask().getSubTask(0);
+	public void constructActEpidoses(Act currentAct) {
+		SubTask origSubtsk=currentAct.getTask().getSubTask(1);
+		CubeQuery origCubeQuery=currentAct.getTask().cubeQuery.get(1);
 		for(int j=0;j<currentAct.getTask().getNumSubTasks();j++){
-    		
+			if(j==1) continue;
 			SubTask subtsk=currentAct.getTask().getSubTask(j);
     		SqlQuery currentSqlQuery=((SqlQuery)subtsk.getExtractionMethod());
     		CubeQuery currentCubeQuery=currentAct.getTask().cubeQuery.get(j);
@@ -86,7 +64,7 @@ public class TaskActII extends Task {
 		        }
 		        if(subtsk.getDifferencesFromOrigin().size()>0 && subtsk.getDifferencesFromOrigin().get(0)==-5){
 		        	extraPivot[0]=String.valueOf(subtsk.getDifferencesFromOrigin().get(0));
-		        	extraPivot[1]=origSubtsk.getExtractionMethod().Res.getColPivot().toArray()[subtsk.getDifferencesFromOrigin().get(1)].toString();
+		        	extraPivot[1]=origCubeQuery.sqlQuery.Res.getColPivot().toArray()[subtsk.getDifferencesFromOrigin().get(1)].toString();
 		        }
 		    	newSlide.timeCreationTabular=System.nanoTime();
 			    tbl.CreatePivotTable(subtsk.getExtractionMethod().Res.getRowPivot(),

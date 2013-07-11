@@ -20,19 +20,31 @@ public abstract class Task {
     	cubeQuery=new ArrayList<CubeQuery>();
     }
    
-    public abstract void addNewSubTask();
+    public void addNewSubTask(){
+    	subTasks.add(new SubTask());
+    };
+	
+	public int getNumSubTasks(){
+    	return subTasks.size();
+    }
     
-    public abstract int getNumSubTasks();    
+    public SubTask getSubTask(int i){
+    	return subTasks.get(i);
+    }
     
-    public abstract SubTask getSubTask(int i);
+    public SubTask getLastSubTask(){
+    	return getSubTask(getNumSubTasks()-1);
+    }
     
-    public abstract SubTask getLastSubTask();
-    
-    public abstract ArrayList<SubTask> getSubTasks() ;
-    
-	public abstract void setSubTasks(ArrayList<SubTask> arrayList);
+    public ArrayList<SubTask> getSubTasks() {
+		return subTasks;
+	}
+	
+	public void setSubTasks(ArrayList<SubTask> arrayList) {
+		this.subTasks = arrayList;
+	};
     
     public abstract void generateSubTasks(CubeBase cubeBase);
 	
-	public abstract void constructActEpidoses(Act currentAct,Act OriginalAct);
+	public abstract void constructActEpidoses(Act currentAct);
 }

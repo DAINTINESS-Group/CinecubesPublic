@@ -26,6 +26,7 @@ public class HighlightMax extends Highlight {
 		 for(int j=0;j<maxLenght;j++) tmp_indexValues[j]=0;
 		 for(int j=2 ; j<num_of_msrs_in_table+2;j++ ){
 			for(int k=0;k<maxLenght;k++) {
+				if(table[j][2]==null || table[j][2].equals("-") || table[j][2].length()==0) continue;
 				if(returnConditionForMaxMin(tmp_indexValues[k],tmp_Values[k],table[j][2],1)  && isTableMinValue(tmp_Values,tmp_Values[k])){
 					tmp_Values[k]=df.format(Float.parseFloat(table[j][2]));
 					tmp_indexValues[k]=j;

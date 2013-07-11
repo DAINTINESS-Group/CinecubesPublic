@@ -319,7 +319,7 @@ public class MainEngine {
     	StorMgr.addNewTaskToStory(TskMgr.getLastTask());
     	TskMgr.getLastTask().cubeQuery.add(cubequery);
     	TskMgr.getLastTask().generateSubTasks(CubeManager.CBase);
-    	TskMgr.getLastTask().constructActEpidoses(StorMgr.getStory().getLastAct(), null);
+    	TskMgr.getLastTask().constructActEpidoses(StorMgr.getStory().getLastAct());
     	//SetupSlideEpisodes(StorMgr.getStory().getLastAct(),null,cubequery);
     	constructTxtIntroAct(StorMgr.getStory().getLastAct());
     	StorMgr.getStory().getLastAct().creationTime=System.nanoTime()-StorMgr.getStory().getLastAct().creationTime;
@@ -336,7 +336,7 @@ public class MainEngine {
     	
         TskMgr.getLastTask().cubeQuery.add(cubequery);
         TskMgr.getLastTask().generateSubTasks(CubeManager.CBase);
-        TskMgr.getLastTask().constructActEpidoses(StorMgr.getStory().getLastAct(), null);
+        TskMgr.getLastTask().constructActEpidoses(StorMgr.getStory().getLastAct());
         SubTask OriginSbTsk=TskMgr.getLastTask().getLastSubTask();
     	//OriginSbTsk.setHighlight(new HighlightTable());
         
@@ -366,7 +366,7 @@ public class MainEngine {
         TskMgr.getLastTask().getLastSubTask().execute(CubeManager.CBase.DB);
         TskMgr.getLastTask().getLastSubTask().timeCreationOfSbTsk=System.nanoTime()-timeSbts;
         
-       // TskMgr.getLastTask().getSubTasks().add(OriginSbTsk);
+        TskMgr.getLastTask().getSubTasks().add(OriginSbTsk);
         TskMgr.getLastTask().cubeQuery.add(cubequery);
         /*TskMgr.getLastTask().addNewSubTask();
         TskMgr.getLastTask().cubeQuery.add(cubequery);
@@ -376,9 +376,9 @@ public class MainEngine {
         //TskMgr.getLastTask().getLastSubTask().execute(CubeManager.CBase.DB);*/
        
         TskMgr.getLastTask().generateSubTasks(CubeManager.CBase);
-        StorMgr.getStory().getLastAct().getTask().cubeQuery.remove(1);
+       // StorMgr.getStory().getLastAct().getTask().cubeQuery.remove(1);
         //SetupSlideEpisodes(StorMgr.getStory().getLastAct(),OriginSbTsk,cubequery);
-        StorMgr.getStory().getLastAct().getTask().constructActEpidoses(StorMgr.getStory().getLastAct(),StorMgr.getStory().getActs().get(1));
+        StorMgr.getStory().getLastAct().getTask().constructActEpidoses(StorMgr.getStory().getLastAct());
         setupTextAct1(StorMgr.getStory().getLastAct(),cubequery);
         //StorMgr.getStory().getActs().get(StorMgr.getStory().getActs().size()-2).creationTime=System.nanoTime()-StorMgr.getStory().getActs().get(StorMgr.getStory().getActs().size()-2).creationTime;
        
@@ -417,7 +417,7 @@ public class MainEngine {
         TskMgr.getLastTask().generateSubTasks(CubeManager.CBase);
         if(TskMgr.getLastTask().getNumSubTasks()>2){
         	//SetupSlideEpisodes(StorMgr.getStory().getLastAct(),OriginSbTsk,cubequery);
-        	TskMgr.getLastTask().constructActEpidoses(StorMgr.getStory().getLastAct(), StorMgr.getStory().getActs().get(1));
+        	TskMgr.getLastTask().constructActEpidoses(StorMgr.getStory().getLastAct());
         	this.setupTextAct2(StorMgr.getStory().getLastAct(),cubequery,OriginSbTsk);
         }
         StorMgr.getStory().getLastAct().creationTime=System.nanoTime()-StorMgr.getStory().getLastAct().creationTime;
@@ -432,7 +432,7 @@ public class MainEngine {
     	TskMgr.createNewTask(new TaskSummary());
     	StorMgr.addNewTaskToStory(TskMgr.getLastTask());
     	TskMgr.getLastTask().generateSubTasks(CubeManager.CBase);
-    	TskMgr.getLastTask().constructActEpidoses(StorMgr.getStory().getLastAct(), StorMgr.getStory().getActs().get(1));
+    	TskMgr.getLastTask().constructActEpidoses(StorMgr.getStory().getLastAct());
    		
     	constructTxtEndAct(StorMgr.getStory().getActs(),StorMgr.getStory().getLastAct());
    		
@@ -1561,8 +1561,8 @@ public class MainEngine {
         //Me.ParseFile(Me.GetFileCmds());
         MainEng.constructDimension();
         //MainEng.NewRequestSqlQuery("");
-        //MainEng.getCubeQueriesFromFile(new File("InputFiles/cubeQueries2013_05_31.ini"));/*Create Stories*/
-        MainEng.getCubeQueriesFromFile(new File(args[0]));
+        MainEng.getCubeQueriesFromFile(new File("InputFiles/test.ini"));/*Create Stories*/
+        //MainEng.getCubeQueriesFromFile(new File(args[0]));
         //MainEng.getCubeQueriesFromFile(new File("InputFiles/NativeAge.ini"));
 //      MainEng.newRequestCubeQuery(null);
         

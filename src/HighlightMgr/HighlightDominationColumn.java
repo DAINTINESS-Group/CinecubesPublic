@@ -29,6 +29,7 @@ public class HighlightDominationColumn extends Highlight {
     		for(int j=0;j<PivotTable[i].length;j++){
     			Float currentValue;
     			boolean in_middle=true;
+    			if(PivotTable[i][j].equals("-")) continue;
     			try{
     				String[] x=PivotTable[i][j].split("\\(");
     				currentValue=Float.parseFloat(x[0].trim());  

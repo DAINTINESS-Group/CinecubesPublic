@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.1" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
+  <package id="1" language="java" name="CubeMgr" project="Master" file="/Master/src/CubeMgr" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="171" width="220" x="85" y="17"/>    
+    <display autosize="false" stereotype="false" accessors="true"/>  
+  </package>  
+  <class id="2" language="java" name="CubeMgr.CubeMgr" project="Master" file="/Master/src/CubeMgr/CubeMgr.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="208" y="116"/>    
+    <display autosize="false" stereotype="false" package="false" initial-value="false" signature="false" 
+      accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <package id="3" language="java" name="CubeMgr.CubeBase" project="Master" file="/Master/src/CubeMgr/CubeBase" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="503" width="1181" x="55" y="252"/>    
+    <display autosize="false" stereotype="false" accessors="true"/>  
+  </package>  
+  <class id="4" language="java" name="CubeMgr.CubeBase.Cube" project="Master" 
+    file="/Master/src/CubeMgr/CubeBase/Cube.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="163" y="394"/>    
+    <display autosize="false" stereotype="false" package="false" initial-value="false" signature="false" 
+      accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="CubeMgr.CubeBase.BasicStoredCube" project="Master" 
+    file="/Master/src/CubeMgr/CubeBase/BasicStoredCube.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="129" y="651"/>    
+    <display autosize="false" stereotype="false" package="false" initial-value="false" signature="false" 
+      accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="CubeMgr.CubeBase.CubeBase" project="Master" 
+    file="/Master/src/CubeMgr/CubeBase/CubeBase.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="511" y="439"/>    
+    <display autosize="false" stereotype="false" package="false" initial-value="false" signature="false" 
+      accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="CubeMgr.CubeBase.CubeQuery" project="Master" 
+    file="/Master/src/CubeMgr/CubeBase/CubeQuery.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="329" y="697"/>    
+    <display autosize="false" stereotype="false" package="false" initial-value="false" signature="false" 
+      accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="CubeMgr.CubeBase.Dimension" project="Master" 
+    file="/Master/src/CubeMgr/CubeBase/Dimension.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="624" y="666"/>    
+    <display autosize="false" stereotype="false" package="false" initial-value="false" signature="false" 
+      accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="CubeMgr.CubeBase.Hierarchy" project="Master" 
+    file="/Master/src/CubeMgr/CubeBase/Hierarchy.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="806" y="312"/>    
+    <display autosize="false" stereotype="false" package="false" initial-value="false" signature="false" 
+      accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="CubeMgr.CubeBase.Level" project="Master" 
+    file="/Master/src/CubeMgr/CubeBase/Level.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="888" y="556"/>    
+    <display autosize="false" stereotype="false" package="false" initial-value="false" signature="false" 
+      accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="CubeMgr.CubeBase.LevelAttribute" project="Master" 
+    file="/Master/src/CubeMgr/CubeBase/LevelAttribute.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1109" y="415"/>    
+    <display autosize="false" stereotype="false" package="false" initial-value="false" signature="false" 
+      accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="CubeMgr.CubeBase.LinearHierarchy" project="Master" 
+    file="/Master/src/CubeMgr/CubeBase/LinearHierarchy.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="949" y="315"/>    
+    <display autosize="false" stereotype="false" package="false" initial-value="false" signature="false" 
+      accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="CubeMgr.CubeBase.Measure" project="Master" 
+    file="/Master/src/CubeMgr/CubeBase/Measure.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="348" y="388"/>    
+    <display autosize="false" stereotype="false" package="false" initial-value="false" signature="false" 
+      accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <package id="14" language="java" name="CubeMgr.StarSchema" project="Master" file="/Master/src/CubeMgr/StarSchema" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="424" width="1176" x="63" y="934"/>    
+    <display autosize="false" stereotype="false" accessors="true"/>  
+  </package>  
+  <class id="15" language="java" name="CubeMgr.StarSchema.Attribute" project="Master" 
+    file="/Master/src/CubeMgr/StarSchema/Attribute.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="996" y="1012"/>    
+    <display autosize="false" stereotype="false" package="false" initial-value="false" signature="false" 
+      accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="CubeMgr.StarSchema.Database" project="Master" 
+    file="/Master/src/CubeMgr/StarSchema/Database.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="161" y="1145"/>    
+    <display autosize="false" stereotype="false" package="false" initial-value="false" signature="false" 
+      accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="CubeMgr.StarSchema.DimensionTable" project="Master" 
+    file="/Master/src/CubeMgr/StarSchema/DimensionTable.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="369" y="1077"/>    
+    <display autosize="false" stereotype="false" package="false" initial-value="false" signature="false" 
+      accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="CubeMgr.StarSchema.FactTable" project="Master" 
+    file="/Master/src/CubeMgr/StarSchema/FactTable.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="560" y="1083"/>    
+    <display autosize="false" stereotype="false" package="false" initial-value="false" signature="false" 
+      accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="CubeMgr.StarSchema.SqlQuery" project="Master" 
+    file="/Master/src/CubeMgr/StarSchema/SqlQuery.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="816" y="1152"/>    
+    <display autosize="false" stereotype="false" package="false" initial-value="false" signature="false" 
+      accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" name="CubeMgr.StarSchema.Table" project="Master" 
+    file="/Master/src/CubeMgr/StarSchema/Table.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="424" y="1256"/>    
+    <display autosize="false" stereotype="false" package="false" initial-value="false" signature="false" 
+      accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="21" language="java" name="TaskMgr.ExtractionMethod" project="Master" 
+    file="/Master/src/TaskMgr/ExtractionMethod.java" binary="false" corner="BOTTOM_LEFT">    
+    <position height="-1" width="-1" x="1153" y="842"/>    
+    <display autosize="false" stereotype="false" package="true" initial-value="false" signature="false" accessors="true" 
+      visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <association id="22">    
+    <bendpoint x="428" y="654"/>    
+    <bendpoint x="502" y="734"/>    
+    <bendpoint x="636" y="738"/>    
+    <bendpoint x="737" y="726"/>    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="23" name="lvl"/>      
+      <multiplicity id="24" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="25">    
+    <bendpoint x="449" y="774"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="26" name="DB"/>      
+      <multiplicity id="27" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="28">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="29" name="referCube"/>      
+      <multiplicity id="30" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="31">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="32" name="hierarchy"/>      
+      <multiplicity id="33" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="34">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="35" name="lvlAttributes"/>      
+      <multiplicity id="36" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="37">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="9"/>  
+  </generalization>  
+  <generalization id="38">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <association id="39">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="40" name="dimensions"/>      
+      <multiplicity id="41" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="42">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="43" name="DimTable"/>      
+      <multiplicity id="44" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="45">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="46" name="CBase"/>      
+      <multiplicity id="47" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="48">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="49" name="FCtbl"/>      
+      <multiplicity id="50" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="51">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="52" name="Msr"/>      
+      <multiplicity id="53" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="54">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <association id="55">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="56" name="attribute"/>      
+      <multiplicity id="57" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="58">    
+    <bendpoint x="610" y="1328"/>    
+    <bendpoint x="1034" y="1328"/>    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="59" name="LstAttr"/>      
+      <multiplicity id="60" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="61">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="20"/>  
+  </generalization>  
+  <association id="62">    
+    <bendpoint x="430" y="736"/>    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="63" name="Attr"/>      
+      <multiplicity id="64" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="65">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="66" name="DimTbl"/>      
+      <multiplicity id="67" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="68">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="69" name="BasicCubes"/>      
+      <multiplicity id="70" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="71">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="72" name="dimension"/>      
+      <multiplicity id="73" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="74">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="75" name="lvls"/>      
+      <multiplicity id="76" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="77">    
+    <null/>    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="78" name="sqlQuery"/>      
+      <multiplicity id="79" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="80">    
+    <bendpoint x="401" y="609"/>    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="81" name="Dim"/>      
+      <multiplicity id="82" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="83">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="20"/>  
+  </generalization>  
+  <association id="84">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="85" name="level"/>      
+      <multiplicity id="86" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="87">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="88" name="Tbl"/>      
+      <multiplicity id="89" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="20" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="90">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="91" name="hierachy"/>      
+      <multiplicity id="92" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="93">    
+    <bendpoint x="1066" y="1123"/>    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="21"/>  
+  </generalization>  
+  <classifier-display autosize="false" stereotype="false" package="false" initial-value="false" signature="false" 
+    accessors="true" visibility="true">    
+    <attributes public="false" package="false" protected="false" private="false"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

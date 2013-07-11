@@ -12,44 +12,13 @@ public class TaskIntro extends Task {
 		super();
 	}
 
-	
-	@Override
-	public void addNewSubTask() {
-		subTasks.add(new SubTask());
-	}
-
-	@Override
-	public int getNumSubTasks() {
-		return subTasks.size();
-	}
-
-	@Override
-	public SubTask getSubTask(int i) {
-		return subTasks.get(i);
-	}
-
-	@Override
-	public SubTask getLastSubTask() {
-		return getSubTask(getNumSubTasks()-1);
-	}
-
 	@Override
 	public void generateSubTasks(CubeBase DB) {
 		this.addNewSubTask();
 	}
-
+	
 	@Override
-	public ArrayList<SubTask> getSubTasks() {
-		return this.subTasks;
-	}
-
-	@Override
-	public void setSubTasks(ArrayList<SubTask> arrayList) {
-		this.subTasks=arrayList;
-	}
-
-	@Override
-	public void constructActEpidoses(Act currentAct, Act OriginalAct) {
+	public void constructActEpidoses(Act currentAct) {
 		PptxSlide tmpslide=new PptxSlide();
 		currentAct.addEpisode(tmpslide);
 	}

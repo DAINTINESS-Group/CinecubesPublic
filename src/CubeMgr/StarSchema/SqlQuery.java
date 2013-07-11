@@ -15,24 +15,9 @@ import TaskMgr.Result;
 
 public class SqlQuery extends ExtractionMethod {
     
-    /**
-	 * @uml.property  name="selectClauseMeasure" multiplicity="(0 -1)" dimension="1"
-	 */
     public String[] SelectClauseMeasure;  	/* 0-->AggregateFuncName, 1--> field */  
-    /**
-	 * @uml.property  name="fromClause"
-	 * @uml.associationEnd  multiplicity="(0 -1)" elementType="java.lang.String"
-	 */
     public ArrayList<String[]> FromClause; 	/* 0-->TABLE, 1-->customName */
-    /**
-	 * @uml.property  name="whereClause"
-	 * @uml.associationEnd  multiplicity="(0 -1)" elementType="[Ljava.lang.String;"
-	 */
     public ArrayList<String[]> WhereClause;	/* 0-->sqlfld1,1-->op,2-->sqlfld2 */
-    /**
-	 * @uml.property  name="groupByClause"
-	 * @uml.associationEnd  multiplicity="(0 -1)" elementType="java.lang.String"
-	 */
     public ArrayList<String[]> GroupByClause;
     
     public SqlQuery(){
@@ -253,6 +238,16 @@ public class SqlQuery extends ExtractionMethod {
 							List<Level> current_lvls=current_hierachy.get(k).lvls;
 							for(int l=0;l<current_lvls.size();l++){
 								if(current_lvls.get(l).name.equals(gammaExpr[1])){
+									/* FOR JOIN WITH Basic CUBE*/
+									 String toaddJoin[]=new String[3];
+									 toaddJoin[0]=cubeQuery.referCube.getDimensionRefField().get(i);
+									 toaddJoin[1]="=";
+									 toaddJoin[2]=dimension.getDimTbl().TblName+"."+((LinearHierarchy)dimension.getHier().get(0)).lvls.get(0).lvlAttributes.get(0).getAttribute().name;
+									 this.WhereClause.add(toaddJoin);
+									 String[] toAddfrom=new String[1];
+									 toAddfrom[0]=dimension.getDimTbl().TblName;
+									 if(FromTables.contains(dimension.getDimTbl().TblName)==false) this.FromClause.add(toAddfrom);
+									
 									toadd[0]+=current_lvls.get(l).lvlAttributes.get(0).getAttribute().name;
 								}
 							}

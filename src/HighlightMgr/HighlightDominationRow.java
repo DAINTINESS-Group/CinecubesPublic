@@ -74,9 +74,9 @@ public class HighlightDominationRow extends Highlight {
     	DominateMin.clear();
     	DominateMiddle.clear();
     	for(int i=0;i<DominationColor.length;i++){
-			if(DominationColor[i][max_index]>=max_appearance_per_color[max_index]/4 && max_appearance_per_color[max_index]!=1) DominateMax.add(i);
-			if(DominationColor[i][min_index]>=max_appearance_per_color[min_index]/4 && max_appearance_per_color[min_index]!=1) DominateMin.add(i);
-			if(DominationColor[i][middle_index]>=max_appearance_per_color[middle_index]/4 && max_appearance_per_color[middle_index]!=1) DominateMiddle.add(i);
+			if(DominationColor[i][max_index]>=max_appearance_per_color[max_index]/4 && max_appearance_per_color[max_index]!=1 && DominationColor[i][max_index]!=0) DominateMax.add(i);
+			if(DominationColor[i][min_index]>=max_appearance_per_color[min_index]/4 && max_appearance_per_color[min_index]!=1 && DominationColor[i][min_index]!=0) DominateMin.add(i);
+			if(DominationColor[i][middle_index]>=max_appearance_per_color[middle_index]/4 && max_appearance_per_color[middle_index]!=1 && DominationColor[i][middle_index]!=0) DominateMiddle.add(i);
     	}
     }
 	
