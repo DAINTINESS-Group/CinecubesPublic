@@ -1,4 +1,6 @@
 import java.awt.Color;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -6,6 +8,9 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+
+
 import AudioMgr.AudioEngine;
 import AudioMgr.MaryTTSAudioEngine;
 import CubeMgr.CubeMgr;
@@ -32,7 +37,8 @@ import TextMgr.TextExtractionPPTX;
 import WrapUpMgr.PptxWrapUpMgr;
 import WrapUpMgr.WrapUpMgr;
 
-public class MainEngine {
+public class MainEngine extends UnicastRemoteObject implements
+MainEngi {
     
 	
 	public CubeMgr CubeManager;
@@ -50,7 +56,9 @@ public class MainEngine {
 	int slideToPrint=0;
    
 
-	MainEngine(){
+	
+	MainEngine() throws RemoteException{
+		super();
     	StorMgr=new StoryMgr(); 
     	TskMgr=new TaskMgr();
     	
@@ -1553,7 +1561,7 @@ public class MainEngine {
         this.ParseFile(getClass().getClassLoader().getResourceAsStream("resources/beta.txt"));/*Create Dimension,Cube*/
     }
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws RemoteException {
         MainEngine MainEng=new MainEngine();
         MainEng.InitializeCubeMgr();
         MainEng.createDefaultFolders();
