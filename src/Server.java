@@ -8,6 +8,10 @@ import java.rmi.registry.Registry;
 public class Server {
 	   private static final int PORT = 2020;
 	   private static Registry registry;
+	   private String name;
+	   
+	   
+	   
 	 
 	   public static void startRegistry() throws RemoteException {
 	       // Create server registry

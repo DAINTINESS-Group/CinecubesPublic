@@ -1,8 +1,11 @@
 import java.awt.Color;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -54,6 +57,8 @@ MainEngi {
 	PrintWriter cubeQueryWriter;
 	String act_story_time;
 	int slideToPrint=0;
+	
+	File name;
    
 
 	
@@ -113,7 +118,7 @@ MainEngi {
     	return cubequery;
     }
     
-    public void getCubeQueriesFromFile(File file){
+    public void getCubeQueriesFromFile(File file) throws RemoteException{
     	Scanner sc;
     	TxtMgr=new TextExtractionPPTX();
 		//long initial_audio_time=System.nanoTime();
@@ -1540,11 +1545,11 @@ MainEngi {
 		//else this.CubeManager.InsertionDimensionLvl(DimensionName,DimensionTbl,Fld_Name,CustomFld_Name,Hierachy);
 	}
 	*/
-    public void InitializeCubeMgr() {
+    public void InitializeCubeMgr()throws RemoteException {
     	CubeManager=new CubeMgr();
     }
     
-    void createDefaultFolders(){
+    public void createDefaultFolders() throws RemoteException{
     	File audio=new File("audio");
     	if(!audio.exists()){
     		audio.mkdir();
@@ -1556,20 +1561,20 @@ MainEngi {
     	}
     }
     
-    void constructDimension(){
+   public void constructDimension()throws RemoteException{
     	/*/var/www/html/components/com_sqlform/assets/pptx/*/
         this.ParseFile(getClass().getClassLoader().getResourceAsStream("resources/beta.txt"));/*Create Dimension,Cube*/
     }
     
-    public static void main(String[] args) throws RemoteException {
+    public void run(String dbname,File f,String username,String password) throws RemoteException {
         MainEngine MainEng=new MainEngine();
         MainEng.InitializeCubeMgr();
         MainEng.createDefaultFolders();
-        MainEng.CubeManager.CreateCubeBase(MainEng.InsertFromKeyboardDBInfos());        
+        MainEng.CubeManager.CreateCubeBase(dbname,username,password);  
         //Me.ParseFile(Me.GetFileCmds());
         MainEng.constructDimension();
         //MainEng.NewRequestSqlQuery("");
-        MainEng.getCubeQueriesFromFile(new File("InputFiles/test.ini"));/*Create Stories*/
+        MainEng.getCubeQueriesFromFile(new File("InputFiles/cubeQueries.ini"));/*Create Stories*/
         //MainEng.getCubeQueriesFromFile(new File(args[0]));
         //MainEng.getCubeQueriesFromFile(new File("InputFiles/NativeAge.ini"));
 //      MainEng.newRequestCubeQuery(null);
@@ -1583,4 +1588,26 @@ MainEngi {
     	dbname="adult_no_dublic";
     	return dbname;
     }
+
+	@Override
+	public void SetM(File s) throws RemoteException {
+		name = s;
+
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(name));
+			String line = null;
+			try {
+				while((line = br.readLine())!= null){
+					System.out.println(line);
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 }

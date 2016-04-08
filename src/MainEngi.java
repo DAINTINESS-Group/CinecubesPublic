@@ -2,12 +2,15 @@ import java.io.File;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
+import CubeMgr.CubeMgr;
+
 
 
 
 public interface MainEngi extends Remote {
 	
-	 // Method to retrieve queries from file example for RMI.
-	public  void getCubeQueriesFromFile(File file)
-	          throws RemoteException;
+	
+	public void run(String dbname,File f,String username,String password) throws RemoteException;
+	
+	public  void SetM(File s) throws RemoteException;
 }

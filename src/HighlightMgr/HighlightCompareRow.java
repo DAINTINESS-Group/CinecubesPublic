@@ -12,6 +12,12 @@ public class HighlightCompareRow extends Highlight {
 	 	countEqual=new int[PivotTable.length-1];
     	nullValues=new int[PivotTable.length-1];
     	helpValues=new String[PivotTable.length-1];
+    	
+     	for(int i=0; i<PivotTable.length; i++){
+    		for(int j=0; j<PivotTable[i].length; j++){
+    			PivotTable[i][j] = PivotTable[i][j].replace(",", ".");
+    		}
+    	}
     		    	
     	for(int i=1;i<PivotTable.length;i++){
     		countHigher[i-1]=0;

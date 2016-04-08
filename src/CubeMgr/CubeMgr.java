@@ -17,8 +17,8 @@ public class CubeMgr {
     	CBase=new CubeBase();
     }
     
-    public void CreateCubeBase(String filename){
-    	CBase.registerCubeBase(filename);    	
+    public void CreateCubeBase(String filename,String username,String password){
+    	CBase.registerCubeBase(filename,username,password);    	
     }
     
 	public void InsertionDimensionLvl(String dimensionName,

@@ -11,6 +11,9 @@ import java.util.List;
 
 public class CubeBase {
    
+	
+	public String username;
+	public String password;
     public String name;
     public Database DB;
     public List<Dimension> dimensions;
@@ -30,12 +33,15 @@ public class CubeBase {
     	DB.setPassword(Pass);
     }*/
     
-    public void registerCubeBase(String filename){
+    public void registerCubeBase(String filename,String username,String password){
         name=filename;
+        this.username = username;
+        this.password = password;
         
         DB.setDBName(name);
+        DB.setUsername(username);DB.setPassword(password);
        // DB.setUsername("okeanos20130623");DB.setPassword("HcR6M3qbh7Gxjszw");
-        DB.setUsername("root");DB.setPassword("panatha");
+       // DB.setUsername("root");DB.setPassword("gate13");
         DB.registerDatabase();
         DB.GenerateTableList();
         //DB.PrintTableList();

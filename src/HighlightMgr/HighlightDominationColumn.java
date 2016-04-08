@@ -14,6 +14,13 @@ public class HighlightDominationColumn extends Highlight {
 	}
 	
 	public void execute(String[][] PivotTable){
+		
+		
+	 	for(int i=0; i<PivotTable.length; i++){
+    		for(int j=0; j<PivotTable[i].length; j++){
+    			PivotTable[i][j] = PivotTable[i][j].replace(",", ".");
+    		}
+    	}
    	   	
 		int max_index=0;
     	int min_index=1;
