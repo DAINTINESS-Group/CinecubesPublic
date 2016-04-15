@@ -32,7 +32,7 @@ public class Server {
 	   public static void main(String[] args) throws Exception {
 	       System.out.println("Server starting...");
 	       startRegistry();
-	       registerObject(MainEngi.class.getSimpleName(), new MainEngine());
+	       registerObject(IMainEngine.class.getSimpleName(), new MainEngine());
 	 
 	       // Server was the start, and was listening to the request from the client.
 	       System.out.println("Server started!");

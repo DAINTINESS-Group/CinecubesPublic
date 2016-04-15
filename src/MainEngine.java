@@ -41,7 +41,7 @@ import WrapUpMgr.PptxWrapUpMgr;
 import WrapUpMgr.WrapUpMgr;
 
 public class MainEngine extends UnicastRemoteObject implements
-MainEngi {
+IMainEngine {
     
 	
 	public CubeMgr CubeManager;
@@ -51,14 +51,19 @@ MainEngi {
 	public TextExtraction TxtMgr;
 	public WrapUpMgr WrapUp;
 	private ParserManager PrsMng;
-	public String dbname;
 	ArrayList<Integer> numSlideToRemove=new ArrayList<Integer>();
 	ArrayList<PptxSlide> slideToEnd=new ArrayList<PptxSlide>();
 	PrintWriter cubeQueryWriter;
 	String act_story_time;
 	int slideToPrint=0;
 	
-	File name;
+	
+	
+	File queryFile; //File with one or more queries
+	static String dbname; //Database Name
+    static String username;//Database username
+    static String password ;//Database password
+    ArrayList<String> pptlist = new ArrayList<String>();
    
 
 	
@@ -459,6 +464,9 @@ MainEngi {
         /*======== Set The Filename For PPTX ==========================*/
         StorMgr.getStory().setFinalResult(new PptxSlideshow());
         StorMgr.getStory().getFinalResult().setFilename("ppt/"+cubequery.name+".pptx");
+        
+        String pptpath = "ppt/"+cubequery.name+".pptx"; //PowerPoint path for query
+        pptlist.add(pptpath);
         
         /*======== Stat The Wrap UP ==========================*/
         WrapUp=new PptxWrapUpMgr();
@@ -1566,31 +1574,56 @@ MainEngi {
         this.ParseFile(getClass().getClassLoader().getResourceAsStream("resources/beta.txt"));/*Create Dimension,Cube*/
     }
     
-    public void run(String dbname,File f,String username,String password) throws RemoteException {
-        MainEngine MainEng=new MainEngine();
-        MainEng.InitializeCubeMgr();
-        MainEng.createDefaultFolders();
-        MainEng.CubeManager.CreateCubeBase(dbname,username,password);  
+    public  ArrayList<String> execute() throws RemoteException {
+        //MainEngine MainEng=new MainEngine();
+        InitializeCubeMgr();
+        createDefaultFolders();
+        CubeManager.CreateCubeBase(dbname,username,password);  
         //Me.ParseFile(Me.GetFileCmds());
-        MainEng.constructDimension();
+        constructDimension();
         //MainEng.NewRequestSqlQuery("");
-        MainEng.getCubeQueriesFromFile(new File("InputFiles/cubeQueries.ini"));/*Create Stories*/
+        getCubeQueriesFromFile(queryFile);
+        //MainEng.getCubeQueriesFromFile(new File("InputFiles/cubeQueries.ini"));/*Create Stories*/
+       
         //MainEng.getCubeQueriesFromFile(new File(args[0]));
         //MainEng.getCubeQueriesFromFile(new File("InputFiles/NativeAge.ini"));
 //      MainEng.newRequestCubeQuery(null);
         
         System.out.println("=======Finish======");
+        return pptlist;
+       // System.out.println(pptpath);
+      //  return pptpath;
         //MTTS.server.Mary.shutdown();
-        System.exit(0);
+        //System.exit(0);
     }
     
-    public String InsertFromKeyboardDBInfos(){
+    public void SetUsername(String uname)throws RemoteException{
+    	username = uname;
+    }
+    
+    public void SetPassword(String pw)throws RemoteException{
+    	password = pw;
+    }
+    
+    
+    public void SetName(String name)throws RemoteException{
+    	dbname = name;
+    }
+    
+    
+    public  void SetQueryFile(File qFile) throws RemoteException{
+    	queryFile = qFile;
+    }
+    
+    
+    /*public String InsertFromKeyboardDBInfos(){
     	dbname="adult_no_dublic";
     	return dbname;
-    }
+    }*/
+    
+    
 
-	@Override
-	public void SetM(File s) throws RemoteException {
+	/*public void SetM(File s) throws RemoteException {
 		name = s;
 
 		try {
@@ -1608,6 +1641,6 @@ MainEngi {
 			e.printStackTrace();
 		}
 		
-	}
+	}*/
 	
 }
