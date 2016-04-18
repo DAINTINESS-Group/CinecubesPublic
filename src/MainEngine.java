@@ -1573,46 +1573,41 @@ IMainEngine {
     	/*/var/www/html/components/com_sqlform/assets/pptx/*/
         this.ParseFile(getClass().getClassLoader().getResourceAsStream("resources/beta.txt"));/*Create Dimension,Cube*/
     }
+   
+  
     
-    public  ArrayList<String> execute() throws RemoteException {
-        //MainEngine MainEng=new MainEngine();
-        InitializeCubeMgr();
-        createDefaultFolders();
-        CubeManager.CreateCubeBase(dbname,username,password);  
-        //Me.ParseFile(Me.GetFileCmds());
-        constructDimension();
-        //MainEng.NewRequestSqlQuery("");
-        getCubeQueriesFromFile(queryFile);
-        //MainEng.getCubeQueriesFromFile(new File("InputFiles/cubeQueries.ini"));/*Create Stories*/
-       
-        //MainEng.getCubeQueriesFromFile(new File(args[0]));
-        //MainEng.getCubeQueriesFromFile(new File("InputFiles/NativeAge.ini"));
-//      MainEng.newRequestCubeQuery(null);
-        
-        System.out.println("=======Finish======");
-        return pptlist;
-       // System.out.println(pptpath);
-      //  return pptpath;
-        //MTTS.server.Mary.shutdown();
-        //System.exit(0);
-    }
-    
-    public void SetUsername(String uname)throws RemoteException{
-    	username = uname;
-    }
-    
-    public void SetPassword(String pw)throws RemoteException{
-    	password = pw;
-    }
-    
-    
-    public void SetName(String name)throws RemoteException{
-    	dbname = name;
-    }
-    
+   public static void main(String[] args) throws RemoteException { 
+	            MainEngine MainEng=new MainEngine(); 
+	            MainEng.InitializeCubeMgr(); 
+	            MainEng.createDefaultFolders(); 
+	           // MainEng.CubeManager.CreateCubeBase(MainEng.InsertFromKeyboardDBInfos());         
+	            //Me.ParseFile(Me.GetFileCmds()); 
+	            MainEng.constructDimension(); 
+	            //MainEng.NewRequestSqlQuery(""); 
+	            MainEng.getCubeQueriesFromFile(new File("InputFiles/test.ini"));/*Create Stories*/ 
+	            //MainEng.getCubeQueriesFromFile(new File(args[0])); 
+	            //MainEng.getCubeQueriesFromFile(new File("InputFiles/NativeAge.ini")); 
+	    //      MainEng.newRequestCubeQuery(null); 
+	             
+	            System.out.println("=======Finish======"); 
+	            //MTTS.server.Mary.shutdown(); 
+	              System.exit(0); 
+	        } 
+
     
     public  void SetQueryFile(File qFile) throws RemoteException{
     	queryFile = qFile;
+        createDefaultFolders();
+        constructDimension();
+    	getCubeQueriesFromFile(queryFile);
+    }
+    
+    public void initialize_connection(String database_name,String login,String passwd) throws RemoteException{
+    	dbname = database_name;
+    	username = login;
+    	password = passwd;
+    	InitializeCubeMgr();
+    	CubeManager.CreateCubeBase(dbname,username,password);
     }
     
     
@@ -1622,25 +1617,4 @@ IMainEngine {
     }*/
     
     
-
-	/*public void SetM(File s) throws RemoteException {
-		name = s;
-
-		try {
-			BufferedReader br = new BufferedReader(new FileReader(name));
-			String line = null;
-			try {
-				while((line = br.readLine())!= null){
-					System.out.println(line);
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		
-	}*/
-	
 }

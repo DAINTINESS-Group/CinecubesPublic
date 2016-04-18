@@ -30,29 +30,19 @@ public class Client {
             }
          }
          
-
-   	
-    	String dbname,username,password;
+         
     	File f = new File("InputFiles/cubeQueries.ini"); 
-    	Scanner in = new Scanner(System.in);
         // Search the registry in the specific Host, Port.
         registry = LocateRegistry.getRegistry(HOST, PORT);
         //LookUp for MainEngine on the registry
        IMainEngine service = (IMainEngine) registry.lookup(IMainEngine.class.getSimpleName());
+       
+       service.initialize_connection("adult_no_dublic","root","gate13");
        service.SetQueryFile(f);
-       System.out.println("Give me your database name");
-       dbname = in.nextLine();
-       service.SetName(dbname);
-       System.out.println("Give me your database username");
-       username = in.nextLine();
-       service.SetUsername(username);
-       System.out.println("Give me your database password");
-       password = in.nextLine();
-       service.SetPassword(password);
-       pptlist = service.execute();
-       for(String x: pptlist){
+       
+       /*for(String x: pptlist){
     	   System.out.println(x);
-       }
+       }*/
     }
 
 }
