@@ -350,10 +350,8 @@ IMainEngine {
     	
         /*======== Set The Filename For PPTX ==========================*/
         StorMgr.getStory().setFinalResult(new PptxSlideshow());
-        StorMgr.getStory().getFinalResult().setFilename("ppt/"+cubequery.name+".pptx");
+        StorMgr.getStory().getFinalResult().setFilename("OutputFiles/"+cubequery.name+".pptx");
         
-        String pptpath = "ppt/"+cubequery.name+".pptx"; //PowerPoint path for query
-        pptlist.add(pptpath);
         
         /*======== Stat The Wrap UP ==========================*/
         WrapUp=new PptxWrapUpMgr();
