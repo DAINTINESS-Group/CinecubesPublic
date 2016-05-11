@@ -40,9 +40,6 @@ public class Client {
        service.initialize_connection("adult_no_dublic","root","gate13");
        service.AnswerCubeQueriesFromFile(f);
        
-       /*for(String x: pptlist){
-    	   System.out.println(x);
-       }*/
     }
 
 }

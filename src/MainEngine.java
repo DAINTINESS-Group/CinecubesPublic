@@ -63,8 +63,6 @@ IMainEngine {
 	static String dbname; //Database Name
     static String username;//Database username
     static String password ;//Database password
-    ArrayList<String> pptlist = new ArrayList<String>();
-   
 
 	
 	MainEngine() throws RemoteException{
