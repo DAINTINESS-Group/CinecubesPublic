@@ -38,7 +38,7 @@ public class Client {
        IMainEngine service = (IMainEngine) registry.lookup(IMainEngine.class.getSimpleName());
        
        service.initialize_connection("adult_no_dublic","root","gate13");
-       service.SetQueryFile(f);
+       service.AnswerCubeQueriesFromFile(f);
        
        /*for(String x: pptlist){
     	   System.out.println(x);
