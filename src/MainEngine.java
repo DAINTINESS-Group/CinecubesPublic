@@ -768,6 +768,7 @@ IMainEngine {
         //this.ParseFile(getClass().getClassLoader().getResourceAsStream("resources/beta.txt"));/*Create Dimension,Cube*/
         try {
 			this.ParseFile2(new File("InputFiles/adult/adult.txt"));
+			//this.ParseFile2(new File("InputFiles/pkdd99/pkdd99.txt"));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

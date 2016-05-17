@@ -1,0 +1,24 @@
+CREATE DIMENSION	account_dim
+RELATED SQL_TABLE	account
+LIST OF LEVEL { account.account_id AS lvl0 ,
+				account.district_id AS lvl1 ,
+				account.frequency AS lvl2 ,
+				account.date AS lvl3 ,
+				account.district_name AS lvl4,
+				account.region AS lvl5,
+				account.Inhabitants AS lvl6
+			}
+HIERARCHY lvl0>lvl1>lvl2>lvl3>lvl4>lvl5>lvl6;
+
+
+CREATE DIMENSION	status_dim
+RELATED SQL_TABLE	status
+LIST OF LEVEL { status.status AS lvl0  
+			}
+HIERARCHY lvl0;
+
+CREATE CUBE loan_cube 
+RELATED SQL_TABLE loan
+MEASURES amt AT loan.amount
+REFERENCES DIMENSION account_dim AT account.account_id,
+					 status_dim AT status.status

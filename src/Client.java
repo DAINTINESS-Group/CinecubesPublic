@@ -16,7 +16,6 @@ public class Client {
 
     
     public static void main(String[] args) throws Exception {
-    	ArrayList<String> pptlist = new ArrayList<String>();
     	//Search InputFiles directory
     	 File dir = new File("InputFiles");
          String[] children = dir.list();
@@ -32,12 +31,14 @@ public class Client {
          
          
     	File f = new File("InputFiles/cubeQueries.ini"); 
+    	//File f2 = new File("InputFiles/cubeQueriesloan.ini"); 
         // Search the registry in the specific Host, Port.
         registry = LocateRegistry.getRegistry(HOST, PORT);
         //LookUp for MainEngine on the registry
        IMainEngine service = (IMainEngine) registry.lookup(IMainEngine.class.getSimpleName());
        
        service.initialize_connection("adult_no_dublic","root","gate13");
+       //service.initialize_connection("test","root","gate13");
        service.AnswerCubeQueriesFromFile(f);
        
     }
