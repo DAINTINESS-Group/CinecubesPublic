@@ -49,7 +49,7 @@ public class TextExtractionPPTX extends TextExtraction {
     		dimensionText+=sigma[0].split("\\.")[0].replace("_dim", "")+" to be equal to "+sigma[2].replace("*", "ALL")+"";
     		j++;
     	}
-    	dimensionText+=". We report on "+Aggregate+" of "+getMeasureText(Measure)+" grouped by ";
+    	dimensionText+=". We report on "+Aggregate+" of "+Measure+" grouped by ";
     	j=0;
     	for(String[] gamma:Gamma){
     		if(j>0) dimensionText+=", ";
@@ -105,7 +105,7 @@ public class TextExtractionPPTX extends TextExtraction {
     	txtNotes+=" with "+htable.get(0).maxcolor_name+" and the lowest value";
     	if(htable.get(1).semanticValue.size()>1) txtNotes+="s ";
     	txtNotes+=" with "+htable.get(1).mincolor_name;
-    	txtNotes+=" color. We calculate the "+Aggregate+" of "+getMeasureText(Measure)+" while fixing ";
+    	txtNotes+=" color. We calculate the "+Aggregate+" of "+Measure+" while fixing ";
     	int j=0;
     	for(String[] sigma:SigmaCurrent){
     		if(j>0) txtNotes+=", ";
@@ -126,7 +126,6 @@ public class TextExtractionPPTX extends TextExtraction {
     								String Measure,
     								int num_values_drill_in, 
     								String[] currentGamma){
-    	
     	int current_lvl=Integer.parseInt(currentGamma[1].split("lvl")[1]);
     	String txtNotes="In this slide, we expand dimension "+currentGamma[0]+" by drilling down from level "+(current_lvl+1)+" to level "+current_lvl+". ";
     	//txtNotes+=".";
@@ -135,7 +134,7 @@ public class TextExtractionPPTX extends TextExtraction {
     	/*txtNotes+="The values ​​in the left corner indicate the start of new table and the values in brackets the number of tuples for each result. Here you can see "+String.valueOf(num_values_drill_in)+" table";
     	if(num_values_drill_in > 1) txtNotes+="s";*/
     	
-    	txtNotes+="For each cell we show both the "+Aggregate+" of "+getMeasureText(Measure)+" and the number of tuples that correspond to it in parentheses. ";
+    	txtNotes+="For each cell we show both the "+Aggregate+" of "+Measure+" and the number of tuples that correspond to it in parentheses. ";
     	/*txtNotes+="(The analysis of "+String.valueOf(num_values_drill_in)+" value";
     	if(num_values_drill_in > 1) txtNotes+="s";
     	if(diffGamma==0) txtNotes+=" for the rows ";
@@ -243,7 +242,7 @@ public class TextExtractionPPTX extends TextExtraction {
     }*/
     
     public String createTxtForIntroSlide(ArrayList<String[]> Gamma,ArrayList<String[]> Sigma,String Aggregate,String Measure){
-    	String ret_txt="This is a report on the "+ Aggregate+" of "+getMeasureText(Measure)+" when ";
+    	String ret_txt="This is a report on the "+ Aggregate+" of "+Measure+" when ";
     	/*for(String [] gamma: Gamma){
     		ret_txt+=gamma[0].replace("_dim"," at ")+gamma[1].replace("lvl", "level ")+" and ";
     	}*/

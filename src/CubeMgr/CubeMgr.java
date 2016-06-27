@@ -13,8 +13,8 @@ public class CubeMgr {
 	 */
     public CubeBase CBase;
     //public MetaData MD;
-    public CubeMgr(){
-    	CBase=new CubeBase();
+    public CubeMgr(String lookup){
+    	CBase=new CubeBase(lookup);
     }
     
     public void CreateCubeBase(String filename,String username,String password){

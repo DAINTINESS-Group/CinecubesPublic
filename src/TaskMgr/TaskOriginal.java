@@ -50,10 +50,10 @@ public class TaskOriginal extends Task {
 	  //  HighlightTable hltbl=(HighlightTable) subtsk.getHighlight();
 	    
 	    newSlide.addSubTask(subtsk);
-	    newSlide.highlight.add(hlmin);
-	    newSlide.highlight.add(hlmax);
-	    newSlide.highlight.add(hldomcol);
-	    newSlide.highlight.add(hldomrow);
+	    newSlide.getHighlight().add(hlmin);
+	    newSlide.getHighlight().add(hlmax);
+	    newSlide.getHighlight().add(hldomcol);
+	    newSlide.getHighlight().add(hldomrow);
     	newSlide.CbQOfSlide.add(currentCubeQuery);
     	currentAct.addEpisode(newSlide);
         newSlide.setVisual(tbl);
@@ -89,7 +89,7 @@ public class TaskOriginal extends Task {
     	
     	/*====== Compute Color Table =======*/
     	newSlide.timeCreationColorTable=System.nanoTime();
-    	tbl.setColorTable(newSlide.highlight);
+    	tbl.setColorTable(newSlide.getHighlight());
     	newSlide.timeCreationColorTable=System.nanoTime()-newSlide.timeCreationColorTable;
     	
     	/*====== Calculate domination Highlioghts =======*/

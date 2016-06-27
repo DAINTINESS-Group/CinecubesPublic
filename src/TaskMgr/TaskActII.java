@@ -132,7 +132,7 @@ public class TaskActII extends Task {
 	        else if(currentSqlQuery.Res.TitleOfColumns!=null && currentSqlQuery.Res.TitleOfColumns.contains("Act")){
 	        	newSlide.timeCreationText=0;
         		newSlide.timeCreationText=System.nanoTime();
-        		newSlide.Title=currentSqlQuery.Res.TitleOfColumns;
+        		newSlide.setTitle(currentSqlQuery.Res.TitleOfColumns);
         		newSlide.timeCreationText=System.nanoTime()-newSlide.timeCreationText;
         		
         		newSlide.addSubTask(subtsk);
@@ -143,15 +143,15 @@ public class TaskActII extends Task {
 		for(int i=1;i<currentAct.getNumEpisodes();i++){
 			PptxSlide currentSlide=(PptxSlide) currentAct.getEpisode(i);
 			Tabular tbl=(Tabular) currentSlide.getVisual();
-			currentSlide.highlight.clear();
+			currentSlide.getHighlight().clear();
 			if(currentSlide.getSubTasks().get(0).getDifferencesFromOrigin().size()>1){
 				//if(currentSlide.getSubTasks().get(0).getDifferencesFromOrigin().get(0)==-4){
 					HighlightMin hlmin=new HighlightMin();
 			    	HighlightMax hlmax=new HighlightMax();
 			    	HighlightDominationColumn hldomcol=new HighlightDominationColumn();
-			    	currentSlide.highlight.add(hlmin);
-			    	currentSlide.highlight.add(hlmax);
-			    	currentSlide.highlight.add(hldomcol);
+			    	currentSlide.getHighlight().add(hlmin);
+			    	currentSlide.getHighlight().add(hlmax);
+			    	currentSlide.getHighlight().add(hldomcol);
 			    	String [][] allResult = null;
 			    	int data_length=0;
 			    	for(int k=0;k<currentSlide.getSubTasks().size();k++) {
@@ -188,8 +188,8 @@ public class TaskActII extends Task {
 			else {
 				HighlightMin hlmin=new HighlightMin();
 		    	HighlightMax hlmax=new HighlightMax();
-		    	currentSlide.highlight.add(hlmin);
-		    	currentSlide.highlight.add(hlmax);
+		    	currentSlide.getHighlight().add(hlmin);
+		    	currentSlide.getHighlight().add(hlmax);
 		    	currentSlide.timeComputeHighlights=System.nanoTime();
 		    	hlmin.execute(currentSlide.getSubTasks().get(0).getExtractionMethod().Res.getResultArray());
 		    	hlmax.execute(currentSlide.getSubTasks().get(0).getExtractionMethod().Res.getResultArray());
@@ -197,7 +197,7 @@ public class TaskActII extends Task {
 		    	
 			}
 			currentSlide.timeCreationColorTable=System.nanoTime();
-			tbl.setColorTable(currentSlide.highlight);
+			tbl.setColorTable(currentSlide.getHighlight());
 			currentSlide.timeCreationColorTable=System.nanoTime()-currentSlide.timeCreationColorTable;
 		}
 	}

@@ -45,6 +45,7 @@ public class Database {
     
     public Database(){
        setConnectionString("jdbc:mysql://localhost:3306/adult_no_dublic");
+      // setConnectionString("jdbc:mysql://localhost:3306/test");
        DBMS="com.mysql.jdbc.Driver";
        Tbl=new ArrayList<Table>();
     }

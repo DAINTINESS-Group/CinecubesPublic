@@ -56,7 +56,6 @@ public class SqlQuery extends ExtractionMethod {
     }
     public String getSelectClause(){
     	String ret_value="";
-    	
     	ret_value+=getGroupClause()+",";
     	ret_value+= SelectClauseMeasure[0]+"("+SelectClauseMeasure[1]+") as measure,COUNT(*) as cnt";
     	return ret_value;

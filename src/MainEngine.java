@@ -12,7 +12,10 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFRun;
+import java.io.FileOutputStream;
 
 import AudioMgr.AudioEngine;
 import AudioMgr.MaryTTSAudioEngine;
@@ -24,7 +27,7 @@ import CubeMgr.StarSchema.SqlQuery;
 import HighlightMgr.HighlightTable;
 import ParserMgr.ParserManager;
 import StoryMgr.Act;
-import StoryMgr.PptxSlideshow;
+import StoryMgr.FinResult;
 import StoryMgr.StoryMgr;
 import StoryMgr.Tabular;
 import StoryMgr.PptxSlide;
@@ -38,6 +41,8 @@ import TaskMgr.TaskSummary;
 import TextMgr.TextExtraction;
 import TextMgr.TextExtractionPPTX;
 import WrapUpMgr.PptxWrapUpMgr;
+import WrapUpMgr.WordMgr;
+import WrapUpMgr.WordWrapUp2Mgr;
 import WrapUpMgr.WrapUpMgr;
 
 public class MainEngine extends UnicastRemoteObject implements
@@ -60,10 +65,13 @@ IMainEngine {
 	
 	
 	File queryFile; //File with one or more queries
-	static String dbname; //Database Name
-    static String username;//Database username
-    static String password ;//Database password
-
+	public static String dbname; //Database Name
+    public static String username;//Database username
+    public static String password ;//Database password
+    public static String inputlookup;
+    public static String msrname;
+    
+    private XWPFDocument document = new XWPFDocument();
 	
 	MainEngine() throws RemoteException{
 		super();
@@ -140,13 +148,16 @@ IMainEngine {
     }
     
   
-	public CubeQuery createCubeQueryFromString(String cubeQstring)throws RemoteException{
+	public CubeQuery createCubeQueryFromString(String cubeQstring)throws RemoteException{	
     	String[] rows=cubeQstring.trim().split("\n");
-    	String nameCQ = null, aggregateFunction = null, measureName = null;
+    	String Cbname = null,nameCQ = null, aggregateFunction = null, measureName = null;
     	String[][] sigma = null;
     	String[][] gamma = null;
     	for(int i=0;i<rows.length;i++){
     		String[] temp=rows[i].split(":");
+    		if(temp[0].equals("CubeName")){
+    			Cbname=temp[1].trim();
+    		}
     		if(temp[0].equals("Name")){
     			nameCQ=temp[1].trim();
     		}
@@ -154,7 +165,7 @@ IMainEngine {
     			aggregateFunction=temp[1].trim();
     		}
     		else if(temp[0].equals("Measure")){
-    			measureName=temp[1];
+    			measureName=temp[1].trim();
     		}
     		else if(temp[0].equals("Gamma")){
     			String[] tmp_gamma=temp[1].split(",");
@@ -183,8 +194,10 @@ IMainEngine {
     	Measure msrToAdd=new Measure();
     	msrToAdd.id=1;
     	msrToAdd.name=measureName;
-    	msrToAdd.Attr=CubeManager.CBase.DB.getFieldOfSqlTable("adult", "hours_per_week");
+    	msrToAdd.Attr=CubeManager.CBase.DB.getFieldOfSqlTable(Cbname,measureName);
+    	//msrToAdd.Attr=CubeManager.CBase.DB.getFieldOfSqlTable("loan", "amount");
     	cubequery.Msr.add(msrToAdd);
+    	msrname=measureName;
     	/*Need work to done up here */
     	
     	for(int i=0;i<gamma.length;i++){
@@ -195,11 +208,10 @@ IMainEngine {
     		cubequery.addSigmaExpression(sigma[i][0],sigma[i][1], sigma[i][2]);
     	}
     	for(BasicStoredCube bsc: CubeManager.CBase.BasicCubes){
-    		if(bsc.name.equals("adult_cube")){
+    		if(bsc.name.equals(Cbname+"_cube")){
     			cubequery.referCube=bsc;
     		}
     	}
-    	
     	return cubequery;
     }
     
@@ -347,11 +359,17 @@ IMainEngine {
        // StorMgr.getStory().getActs().set(4, StorMgr.getStory().getActs().set(5,StorMgr.getStory().getAct(4) ));
     	
         /*======== Set The Filename For PPTX ==========================*/
-        StorMgr.getStory().setFinalResult(new PptxSlideshow());
+      //Word Wrap Up
+        StorMgr.getStory().setFinalResult(new FinResult());
+        StorMgr.getStory().getFinalResult().setFilename("OutputFiles/"+cubequery.name+".docx");
+        WrapUp = new WordMgr();
+        WrapUp.setFinalResult(StorMgr.getStory().getFinalResult());
+    	WrapUp.doWrapUp(StorMgr.getStory());
+    	//PPTX Wrap up
+    	StorMgr.getStory().setFinalResult(new FinResult());
         StorMgr.getStory().getFinalResult().setFilename("OutputFiles/"+cubequery.name+".pptx");
-        
-        
         /*======== Stat The Wrap UP ==========================*/
+       // WrapUp=new PptxWrapUpMgr();
         WrapUp=new PptxWrapUpMgr();
         WrapUp.setFinalResult(StorMgr.getStory().getFinalResult());
         long strWraUpTime=System.nanoTime();
@@ -359,8 +377,10 @@ IMainEngine {
        // System.out.print("WrapUp Time\t");
         //System.out.println(TimeUnit.SECONDS.convert(System.nanoTime()-strWraUpTime,TimeUnit.NANOSECONDS)+" sec");
         //System.out.println((System.nanoTime()-strWraUpTime));
-        act_story_time+=((PptxWrapUpMgr)WrapUp).UnZipZipTime;
-        act_story_time+="WrapUp Time\t"+(System.nanoTime()-strWraUpTime)+"\n";
+        
+        
+       act_story_time+=((PptxWrapUpMgr)WrapUp).UnZipZipTime;
+       act_story_time+="WrapUp Time\t"+(System.nanoTime()-strWraUpTime)+"\n";
     }
 
 	
@@ -371,7 +391,7 @@ IMainEngine {
     	cubequery.AggregateFunction="Act "+String.valueOf(num_act);
     	Measure msrToAdd=new Measure();
     	msrToAdd.id=1;
-    	msrToAdd.name="Hrs";
+    	msrToAdd.name=msrname;
     	msrToAdd.Attr=null;
     	cubequery.Msr.add(msrToAdd);
     	cubequery.referCube=null;
@@ -388,23 +408,35 @@ IMainEngine {
     }
     
     private void constructTxtIntroAct(Act currentAct) {
+    	XWPFParagraph paragraph = document.createParagraph();
+    	XWPFRun run = paragraph.createRun();
+    	XWPFRun run2 = paragraph.createRun();
+    	run.setBold(true);
+    	run.setFontSize(24);
+    	run.setText("CineCube Report");
+    	run.addBreak();
+    	run2.setText(((TextExtractionPPTX)TxtMgr).createTxtForIntroSlide(currentAct.getTask().cubeQuery.get(0).GammaExpressions,
+																				currentAct.getTask().cubeQuery.get(0).SigmaExpressions, 
+																				currentAct.getTask().cubeQuery.get(0).AggregateFunction, 
+																				currentAct.getTask().cubeQuery.get(0).Msr.get(0).name));
+    	run2.addBreak();
     	
 		PptxSlide tmpslide=(PptxSlide) currentAct.getEpisode(0);
 		long strTime=System.nanoTime();
-		tmpslide.Title="CineCube Report";
+		tmpslide.setTitle("CineCube Report");
 		
 		tmpslide.timeCreationText=System.nanoTime();
-		tmpslide.SubTitle=((TextExtractionPPTX)TxtMgr).createTxtForIntroSlide(currentAct.getTask().cubeQuery.get(0).GammaExpressions,
+		tmpslide.setSubTitle(((TextExtractionPPTX)TxtMgr).createTxtForIntroSlide(currentAct.getTask().cubeQuery.get(0).GammaExpressions,
 																				currentAct.getTask().cubeQuery.get(0).SigmaExpressions, 
 																				currentAct.getTask().cubeQuery.get(0).AggregateFunction, 
-																				currentAct.getTask().cubeQuery.get(0).Msr.get(0).name);
+																				currentAct.getTask().cubeQuery.get(0).Msr.get(0).name));
 		tmpslide.timeCreationText=System.nanoTime()-tmpslide.timeCreationText;
 		
-		tmpslide.Notes=tmpslide.SubTitle;
+		tmpslide.setNotes(tmpslide.getSubTitle());
 		tmpslide.setAudioFile("audio/"+AudioMgr.randomIdentifier());
 		
 		tmpslide.timeCreationAudio=System.nanoTime();
-		AudioMgr.CreateAudio(tmpslide.Notes, tmpslide.getAudio().getFileName());
+		AudioMgr.CreateAudio(tmpslide.getNotes(), tmpslide.getAudio().getFileName());
 		tmpslide.timeCreationAudio=System.nanoTime()-tmpslide.timeCreationAudio;
 		
 		tmpslide.timeCreation=System.nanoTime()-strTime;
@@ -416,20 +448,38 @@ IMainEngine {
 		CubeQuery currentCubeQuery=currentAct.getTask().cubeQuery.get(0);
     	PptxSlide newSlide=(PptxSlide) currentAct.getEpisode(0);
     	Tabular tbl=(Tabular) newSlide.getVisual();
+    	
+    	XWPFParagraph paragraph = document.createParagraph();
+    	XWPFRun run = paragraph.createRun();
+    	XWPFRun run2 = paragraph.createRun();
+    	run.setBold(true);
+    	run.setFontSize(24);
+    	run.setText("Answer to the original question");
+    	run.addBreak();
+    	run2.setText(((TextExtractionPPTX)this.TxtMgr).createTextForOriginalAct1( currentCubeQuery.GammaExpressions, 
+				currentCubeQuery.SigmaExpressions, 
+				currentCubeQuery.AggregateFunction,
+				currentCubeQuery.Msr.get(0).name,
+				newSlide.getHighlight()).replace("  ", " "));
+    	run2.addBreak();
+    	run2.setText(((TextExtractionPPTX)this.TxtMgr).createTxtForColumnsDominate(tbl.getPivotTable(),newSlide.getHighlight().get(2)));
+    	run2.addBreak();
+    	run2.setText(((TextExtractionPPTX)this.TxtMgr).createTxtForRowsDominate(tbl.getPivotTable(),newSlide.getHighlight().get(3)));
+    	
 	   // HighlightTable hltbl=(HighlightTable) subtsk.getHighlight();
 	    
     	/*====== Create Txt For Original =======*/
     	newSlide.timeCreationText=System.nanoTime();
-		newSlide.Title="Answer to the original question";
-		newSlide.Notes=((TextExtractionPPTX)this.TxtMgr).createTextForOriginalAct1( currentCubeQuery.GammaExpressions, 
+		newSlide.setTitle("Answer to the original question");
+		newSlide.setNotes(((TextExtractionPPTX)this.TxtMgr).createTextForOriginalAct1( currentCubeQuery.GammaExpressions, 
 																					currentCubeQuery.SigmaExpressions, 
 																					currentCubeQuery.AggregateFunction,
 																					currentCubeQuery.Msr.get(0).name,
-																					newSlide.highlight).replace("  ", " ");
+																					newSlide.getHighlight()).replace("  ", " "));
 		
-		String add_to_notes=((TextExtractionPPTX)this.TxtMgr).createTxtForColumnsDominate(tbl.getPivotTable(),newSlide.highlight.get(2));
-		add_to_notes+=((TextExtractionPPTX)this.TxtMgr).createTxtForRowsDominate(tbl.getPivotTable(),newSlide.highlight.get(3));
-		newSlide.Notes+="\n"+add_to_notes;
+		String add_to_notes=((TextExtractionPPTX)this.TxtMgr).createTxtForColumnsDominate(tbl.getPivotTable(),newSlide.getHighlight().get(2));
+		add_to_notes+=((TextExtractionPPTX)this.TxtMgr).createTxtForRowsDominate(tbl.getPivotTable(),newSlide.getHighlight().get(3));
+		newSlide.setNotes(newSlide.getNotes() + "\n"+add_to_notes);
 		newSlide.timeCreationText=System.nanoTime()-newSlide.timeCreationText;
 		
 		if(add_to_notes.length()>0) currentAct.ActHighlights="Concerning the original query, some interesting findings include:\n\t";
@@ -438,7 +488,7 @@ IMainEngine {
 		/*====== Add Audio To Episode  =======*/
 		newSlide.setAudioFile("audio/"+AudioMgr.randomIdentifier());
     	newSlide.timeCreationAudio=System.nanoTime();
-    	AudioMgr.CreateAudio(newSlide.Notes, newSlide.getAudio().getFileName());
+    	AudioMgr.CreateAudio(newSlide.getNotes(), newSlide.getAudio().getFileName());
     	newSlide.timeCreationAudio=System.nanoTime()-newSlide.timeCreationAudio;
     	
     }
@@ -446,22 +496,22 @@ IMainEngine {
     private void constructTxtEndAct(ArrayList<Act> acts,Act currentAct) {
     	PptxSlide newSlide=(PptxSlide) currentAct.getEpisode(0);
     	newSlide.timeCreationText=System.nanoTime();
-    	newSlide.Notes="In this slide we summarize our findings.";
-    	newSlide.Title="Summary";    	
+    	newSlide.setNotes("In this slide we summarize our findings.");
+    	newSlide.setTitle("Summary");    	
     	for(Act actItem: acts){
     		if(actItem.ActHighlights.length()>0){
-    			if(newSlide.Notes.length()>0) newSlide.Notes+="@";
-    			newSlide.Notes+=actItem.ActHighlights;
+    			if(newSlide.getNotes().length()>0) newSlide.setNotes(newSlide.getNotes() + "@");
+    			newSlide.setNotes(newSlide.getNotes() + actItem.ActHighlights);
     		}
-    		newSlide.Notes=newSlide.Notes.replace("\n\n\n", "\n").replace("\n\n", "\n").replace("\n\t\n", "\n\t");
+    		newSlide.setNotes(newSlide.getNotes().replace("\n\n\n", "\n").replace("\n\n", "\n").replace("\n\t\n", "\n\t"));
     	}
-    	newSlide.Notes=newSlide.Notes.replace("\n\n\n", "\n").replace("\n\n", "\n").replace("\t", "").replace("\r", "");
+    	newSlide.setNotes(newSlide.getNotes().replace("\n\n\n", "\n").replace("\n\n", "\n").replace("\t", "").replace("\r", ""));
     	newSlide.timeCreationText=System.nanoTime()-newSlide.timeCreationText;
     	
     	/*====== Add Audio To Episode  =======*/
     	newSlide.setAudioFile("audio/"+AudioMgr.randomIdentifier());
     	newSlide.timeCreationAudio=System.nanoTime();
-    	AudioMgr.CreateAudio(newSlide.Notes, newSlide.getAudio().getFileName());
+    	AudioMgr.CreateAudio(newSlide.getNotes(), newSlide.getAudio().getFileName());
     	newSlide.timeCreationAudio=System.nanoTime()-newSlide.timeCreationAudio;
     	
 	}
@@ -481,15 +531,15 @@ IMainEngine {
     		PptxSlide currentSlide=(PptxSlide) act.getEpisode(j);
     		if(j==0) {
     			currentSlide.timeCreationText=System.nanoTime();
-    			currentSlide.Title+=": Putting results in context";
-    			currentSlide.SubTitle="In this series of slides we put the original result in context, by comparing the behavior of its defining values with the behavior of values that are similar to them.";
-    			currentSlide.Notes=currentSlide.Title+"\n"+currentSlide.SubTitle;
+    			currentSlide.setTitle(currentSlide.getTitle() + ": Putting results in context");
+    			currentSlide.setSubTitle("In this series of slides we put the original result in context, by comparing the behavior of its defining values with the behavior of values that are similar to them.");
+    			currentSlide.setNotes(currentSlide.getTitle()+"\n"+currentSlide.getSubTitle());
     			currentSlide.timeCreationText=System.nanoTime()-currentSlide.timeCreationText;
     			
     			currentSlide.setAudioFile("audio/"+AudioMgr.randomIdentifier());
     			
     			currentSlide.timeCreationAudio=System.nanoTime();
-    			AudioMgr.CreateAudio(currentSlide.Notes, currentSlide.getAudio().getFileName());
+    			AudioMgr.CreateAudio(currentSlide.getNotes(), currentSlide.getAudio().getFileName());
     			currentSlide.timeCreationAudio=System.nanoTime()-currentSlide.timeCreationAudio;
     		}
     		else{
@@ -501,30 +551,30 @@ IMainEngine {
     			if(subtsk.getDifferenceFromOrigin(0)==-1){
 	    			int gamma_index_change=subtsk.getDifferenceFromOrigin(1);
 		        	currentSlide.timeCreationText=System.nanoTime();
-		        	currentSlide.Title="Assessing the behavior of ";
-		        	currentSlide.Title+=currentCubeQuery.GammaExpressions.get(gamma_index_change)[0].replace("_dim", "");
+		        	currentSlide.setTitle("Assessing the behavior of ");
+		        	currentSlide.setTitle(currentSlide.getTitle() + currentCubeQuery.GammaExpressions.get(gamma_index_change)[0].replace("_dim", ""));
 		        	currentSlide.getVisual().getPivotTable()[0][0]=" Summary for "+currentCubeQuery.GammaExpressions.get(gamma_index_change)[0].split("_")[0];		        	
-		        	currentSlide.Notes=((TextExtractionPPTX)this.TxtMgr).createTextForAct1(currentCubeQuery.GammaExpressions,
+		        	currentSlide.setNotes(((TextExtractionPPTX)this.TxtMgr).createTextForAct1(currentCubeQuery.GammaExpressions,
 																	        			origCubeQuery.SigmaExpressions,
 																	        			currentCubeQuery.SigmaExpressions,
 																	        			currentSqlQuery.Res.getResultArray(),
-																	        			currentSlide.highlight,
+																	        			currentSlide.getHighlight(),
 																	        			subtsk.getDifferenceFromOrigin(1),
 																	        			currentCubeQuery.AggregateFunction,
-																	        			currentCubeQuery.Msr.get(0).name);
+																	        			currentCubeQuery.Msr.get(0).name));
 		        	currentSlide.timeCreationText=System.nanoTime()-currentSlide.timeCreationText;
 		        	String add_to_notes="";
 		        	if(gamma_index_change==0) {
 		        		long strTimeTxt=System.nanoTime();
-		        		add_to_notes=((TextExtractionPPTX)this.TxtMgr).createTxtComparingToSiblingColumn(tbl.getPivotTable(),currentSlide.highlight.get(2));
+		        		add_to_notes=((TextExtractionPPTX)this.TxtMgr).createTxtComparingToSiblingColumn(tbl.getPivotTable(),currentSlide.getHighlight().get(2));
 		        		currentSlide.timeCreationText+=System.nanoTime()-strTimeTxt;
 		        	}
 		        	else {
 		        		long strTimeTxt=System.nanoTime();
-		        		add_to_notes=((TextExtractionPPTX)this.TxtMgr).createTxtComparingToSiblingRow(tbl.getPivotTable(),currentSlide.highlight.get(3));
+		        		add_to_notes=((TextExtractionPPTX)this.TxtMgr).createTxtComparingToSiblingRow(tbl.getPivotTable(),currentSlide.getHighlight().get(3));
 		        		currentSlide.timeCreationText+=System.nanoTime()-strTimeTxt;
 		        	}
-		        	currentSlide.Notes+="\n"+add_to_notes;
+		        	currentSlide.setNotes(currentSlide.getNotes() + "\n"+add_to_notes);
 	        		
 		        	if(ActHasWriteHiglights==false && add_to_notes.length()>0) {
 	        			ActHasWriteHiglights=true;
@@ -546,17 +596,17 @@ IMainEngine {
 	        		/*====== Add Audio To Episode  =======*/
 	        		currentSlide.setAudioFile("audio/"+AudioMgr.randomIdentifier());
 	    			currentSlide.timeCreationAudio=System.nanoTime();
-	    			AudioMgr.CreateAudio(currentSlide.Notes, currentSlide.getAudio().getFileName());
+	    			AudioMgr.CreateAudio(currentSlide.getNotes(), currentSlide.getAudio().getFileName());
 	    			currentSlide.timeCreationAudio=System.nanoTime()-currentSlide.timeCreationAudio;
     			}
     			else{
     				slideToEnd.add(currentSlide);
 		        	numSlideToRemove.add(j);
 		        	currentSlide.timeCreationText=System.nanoTime();
-		        	currentSlide.Title="The ~ which changed @ : ";
+		        	currentSlide.setTitle("The ~ which changed @ : ");
 		        	for(int i=0;i<subtsk.getDifferencesFromOrigin().size();i++){
-			        	if(i>0) currentSlide.Title+=" AND ";
-			        	currentSlide.Title+=act.getTask().cubeQuery.get(1).GammaExpressions.get(subtsk.getDifferenceFromOrigin(i))[0];
+			        	if(i>0) currentSlide.setTitle(currentSlide.getTitle() + " AND ");
+			        	currentSlide.setTitle(currentSlide.getTitle() + act.getTask().cubeQuery.get(1).GammaExpressions.get(subtsk.getDifferenceFromOrigin(i))[0]);
 			        }
 		        	String text_cond="Conditions";
 			        String text_are="are";
@@ -564,7 +614,7 @@ IMainEngine {
 			        	text_cond="Condition";
 			        	text_are="is";
 			        }
-		        	currentSlide.Title=currentSlide.Title.replace("~", text_cond).replace("@", text_are);
+		        	currentSlide.setTitle(currentSlide.getTitle().replace("~", text_cond).replace("@", text_are));
 		        	currentSlide.timeCreationText=System.nanoTime()-currentSlide.timeCreationText;
     			}
     		}
@@ -575,7 +625,7 @@ IMainEngine {
     		StorMgr.getStory().createNewAct();
     		StorMgr.getStory().getLastAct().setId(3);
     		PptxSlide newSlide=new PptxSlide();
-        	newSlide.Title="Auxiliary slides for Act I";
+        	newSlide.setTitle("Auxiliary slides for Act I");
         	StorMgr.getStory().getLastAct().addEpisode(newSlide);
         	for(int k=0;k<slideToEnd.size();k++) {
         		act.getEpisodes().remove(slideToEnd.get(k));
@@ -596,11 +646,11 @@ IMainEngine {
 			HighlightTable hltbl=(HighlightTable) subtsk.getHighlight();
     		if(j==0) {
     			currentSlide.timeCreationText=System.nanoTime();
-    			currentSlide.Title+=": Explaining results";
-    			currentSlide.Notes=currentSlide.Title;
-    			currentSlide.SubTitle="In this series of slides we will present a detailed analysis of the values involved in the result of the original query. To this end, " +
-        				"we drill-down the hierarchy of grouping levels of the result to one level of aggregation lower, whenever this is possible.";
-    			currentSlide.Notes=currentSlide.Title+"\n"+currentSlide.SubTitle;
+    			currentSlide.setTitle(currentSlide.getTitle() + ": Explaining results");
+    			currentSlide.setNotes(currentSlide.getTitle());
+    			currentSlide.setSubTitle("In this series of slides we will present a detailed analysis of the values involved in the result of the original query. To this end, " +
+        				"we drill-down the hierarchy of grouping levels of the result to one level of aggregation lower, whenever this is possible.");
+    			currentSlide.setNotes(currentSlide.getTitle()+"\n"+currentSlide.getSubTitle());
     			currentSlide.timeCreationText=System.nanoTime()-currentSlide.timeCreationText;
     		}
     		else if(subtsk.getDifferencesFromOrigin().size()>1){
@@ -610,41 +660,41 @@ IMainEngine {
     			currentSlide.timeComputeHighlights+=System.nanoTime()-start_creation_domination;
     			
     			String add_to_notes="";
-    			currentSlide.Notes="";
+    			currentSlide.setNotes("");
     			if(subtsk.getDifferencesFromOrigin().get(0)==-4){
     				currentSlide.timeCreationText=System.nanoTime();
-		        	currentSlide.Title="Drilling down the Rows of the Original Result";		        	
-		        	currentSlide.Notes=((TextExtractionPPTX)this.TxtMgr).createTextForAct2(origCubeQuery.GammaExpressions,
+		        	currentSlide.setTitle("Drilling down the Rows of the Original Result");		        	
+		        	currentSlide.setNotes(((TextExtractionPPTX)this.TxtMgr).createTextForAct2(origCubeQuery.GammaExpressions,
 							   origCubeQuery.SigmaExpressions,
 							   currentSlide.getVisual().getPivotTable(),
 							   0,
 							   origCubeQuery.AggregateFunction,
 							   origCubeQuery.Msr.get(0).name,
 							   origSubtsk.getExtractionMethod().Res.getRowPivot().size(),
-							   currentCubeQuery.GammaExpressions.get(currentSlide.getSubTasks().get(0).getDifferenceFromOrigin(2)));
+							   currentCubeQuery.GammaExpressions.get(currentSlide.getSubTasks().get(0).getDifferenceFromOrigin(2))));
 		        	//currentSlide.Notes+="\n"+((TextExtractionPPTX)this.TxtMgr).createTxtComparingToSiblingColumn_v2(tbl.getPivotTable());
-		        	add_to_notes=((TextExtractionPPTX)this.TxtMgr).createTxtForDominatedRowColumns(tbl.getPivotTable(),tbl.colortable,currentSlide.highlight,false,true);
+		        	add_to_notes=((TextExtractionPPTX)this.TxtMgr).createTxtForDominatedRowColumns(tbl.getPivotTable(),tbl.colortable,currentSlide.getHighlight(),false,true);
 		        	currentSlide.timeCreationText=System.nanoTime()-currentSlide.timeCreationText;
-		        	currentSlide.Notes+=add_to_notes;
+		        	currentSlide.setNotes(currentSlide.getNotes() + add_to_notes);
 		        }
 		        else if(subtsk.getDifferencesFromOrigin().get(0)==-5){
 		        	/*this.transoper(tbl.getPivotTable());
 		        	this.transoper(tbl.colortable);*/
 		        	currentSlide.timeCreationText=System.nanoTime();
-		        	currentSlide.Title="Drilling down the Columns of the Original Result";
-		        	currentSlide.Notes=((TextExtractionPPTX)this.TxtMgr).createTextForAct2(origCubeQuery.GammaExpressions,
+		        	currentSlide.setTitle("Drilling down the Columns of the Original Result");
+		        	currentSlide.setNotes(((TextExtractionPPTX)this.TxtMgr).createTextForAct2(origCubeQuery.GammaExpressions,
 							   origCubeQuery.SigmaExpressions,
 							   currentSlide.getVisual().getPivotTable(),
 							   1,
 							   origCubeQuery.AggregateFunction,
 							   origCubeQuery.Msr.get(0).name,
 							   origSubtsk.getExtractionMethod().Res.getColPivot().size(),
-							   currentCubeQuery.GammaExpressions.get(currentSlide.getSubTasks().get(0).getDifferenceFromOrigin(2)));
+							   currentCubeQuery.GammaExpressions.get(currentSlide.getSubTasks().get(0).getDifferenceFromOrigin(2))));
 		        	//currentSlide.Notes+="\n"+((TextExtractionPPTX)this.TxtMgr).createTxtComparingToSiblingColumn_v3(tbl.getPivotTable());
 		        	
-		        	add_to_notes=((TextExtractionPPTX)this.TxtMgr).createTxtForDominatedRowColumns(tbl.getPivotTable(),tbl.colortable,currentSlide.highlight,false,true);
+		        	add_to_notes=((TextExtractionPPTX)this.TxtMgr).createTxtForDominatedRowColumns(tbl.getPivotTable(),tbl.colortable,currentSlide.getHighlight(),false,true);
 		        	currentSlide.timeCreationText=System.nanoTime()-currentSlide.timeCreationText;
-		        	currentSlide.Notes+=add_to_notes;
+		        	currentSlide.setNotes(currentSlide.getNotes() + add_to_notes);
 		        }
     			if(ActHasWriteHiglights==false && add_to_notes.length()>0) {
         			ActHasWriteHiglights=true;
@@ -663,16 +713,16 @@ IMainEngine {
     		}
     		else {
     			currentSlide.timeCreationText=System.nanoTime();
-        		currentSlide.Title="Answer to the original question";
-        		currentSlide.Notes=((TextExtractionPPTX)this.TxtMgr).createTextForOriginalAct2(currentCubeQuery.GammaExpressions,
+        		currentSlide.setTitle("Answer to the original question");
+        		currentSlide.setNotes(((TextExtractionPPTX)this.TxtMgr).createTextForOriginalAct2(currentCubeQuery.GammaExpressions,
         																					   currentCubeQuery.SigmaExpressions,
-        																					   currentSqlQuery.Res.getResultArray()).replace("  ", " ");
+        																					   currentSqlQuery.Res.getResultArray()).replace("  ", " "));
         		currentSlide.timeCreationText=System.nanoTime()-currentSlide.timeCreationText;
     		}
     		/*====== Add Audio To Episode  =======*/
     		currentSlide.setAudioFile("audio/"+AudioMgr.randomIdentifier());
     		currentSlide.timeCreationAudio=System.nanoTime();
-			AudioMgr.CreateAudio(currentSlide.Notes, currentSlide.getAudio().getFileName());
+			AudioMgr.CreateAudio(currentSlide.getNotes(), currentSlide.getAudio().getFileName());
 			currentSlide.timeCreationAudio=System.nanoTime()-currentSlide.timeCreationAudio;
     	}
     }
@@ -747,8 +797,8 @@ IMainEngine {
 	}
 	
 	
-    public void InitializeCubeMgr()throws RemoteException {
-    	CubeManager=new CubeMgr();
+    public void InitializeCubeMgr(String lookup)throws RemoteException {
+    	CubeManager=new CubeMgr(lookup);
     }
     
     public void createDefaultFolders() throws RemoteException{
@@ -763,12 +813,11 @@ IMainEngine {
     	}
     }
     
-   public void constructDimension()throws RemoteException{
+   public void constructDimension(String inputlookup,String cubeName)throws RemoteException{
     	/*/var/www/html/components/com_sqlform/assets/pptx/*/
         //this.ParseFile(getClass().getClassLoader().getResourceAsStream("resources/beta.txt"));/*Create Dimension,Cube*/
         try {
-			this.ParseFile2(new File("InputFiles/adult/adult.txt"));
-			//this.ParseFile2(new File("InputFiles/pkdd99/pkdd99.txt"));
+        		this.ParseFile2(new File("InputFiles/"+inputlookup+"/"+cubeName+".txt"));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -779,11 +828,11 @@ IMainEngine {
     
    public static void main(String[] args) throws RemoteException { 
 	            MainEngine MainEng=new MainEngine(); 
-	            MainEng.InitializeCubeMgr(); 
+	           // MainEng.InitializeCubeMgr(); 
 	            MainEng.createDefaultFolders(); 
 	           // MainEng.CubeManager.CreateCubeBase(MainEng.InsertFromKeyboardDBInfos());         
 	            //Me.ParseFile(Me.GetFileCmds()); 
-	            MainEng.constructDimension(); 
+	        //    MainEng.constructDimension(); 
 	            //MainEng.NewRequestSqlQuery(""); 
 	            MainEng.AnswerCubeQueriesFromFile(new File("InputFiles/test.ini"));/*Create Stories*/ 
 	            //MainEng.getCubeQueriesFromFile(new File(args[0])); 
@@ -797,14 +846,15 @@ IMainEngine {
 
     
     
-    public void initialize_connection(String database_name,String login,String passwd) throws RemoteException{
+    public void initialize_connection(String schema_name,String login,String passwd,String inputfile,String cubeName) throws RemoteException{
     	createDefaultFolders();
-    	dbname = database_name;
+    	dbname = schema_name;
     	username = login;
     	password = passwd;
-    	InitializeCubeMgr();
+    	inputlookup = inputfile;
+    	InitializeCubeMgr(inputlookup);
     	CubeManager.CreateCubeBase(dbname,username,password);
-    	constructDimension();
+    	constructDimension(inputlookup,cubeName);
     }
     
     

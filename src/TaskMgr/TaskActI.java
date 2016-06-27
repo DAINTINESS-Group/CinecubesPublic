@@ -95,10 +95,10 @@ public class TaskActI extends Task {
 		    	HighlightMax hlmax=new HighlightMax();
 		    	HighlightCompareColumn hlcmpcol=new HighlightCompareColumn();
 		    	HighlightCompareRow hlcmprow=new HighlightCompareRow();
-		    	newSlide.highlight.add(hlmin);
-			    newSlide.highlight.add(hlmax);
-			    newSlide.highlight.add(hlcmpcol);
-			    newSlide.highlight.add(hlcmprow);
+		    	newSlide.getHighlight().add(hlmin);
+			    newSlide.getHighlight().add(hlmax);
+			    newSlide.getHighlight().add(hlcmpcol);
+			    newSlide.getHighlight().add(hlcmprow);
 			    
 	        	if(subtsk.getDifferenceFromOrigin(0)==-1){
 	        		
@@ -132,13 +132,13 @@ public class TaskActI extends Task {
 		    	
 		    	/*====== Compute Color Table =======*/
 		    	newSlide.timeCreationColorTable=System.nanoTime();
-		    	tbl.setColorTable(newSlide.highlight);
+		    	tbl.setColorTable(newSlide.getHighlight());
 	        	newSlide.timeCreationColorTable=System.nanoTime()-newSlide.timeCreationColorTable;        	
 			    
 		    }
 		    else if(j==0){
 		    	newSlide.timeCreationText=System.nanoTime();
-        		newSlide.Title=currentSqlQuery.Res.TitleOfColumns;
+        		newSlide.setTitle(currentSqlQuery.Res.TitleOfColumns);
         		newSlide.timeCreationText=System.nanoTime()-newSlide.timeCreationText;
         		currentAct.addEpisode(newSlide);
 		    }

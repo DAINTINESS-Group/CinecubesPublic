@@ -15,32 +15,19 @@ public class Client {
     
 
     
-    public static void main(String[] args) throws Exception {
-    	//Search InputFiles directory
-    	 File dir = new File("InputFiles");
-         String[] children = dir.list();
-         if (children == null) {
-            System.out.println("does not exist or is not a directory");
-         }
-         else {
-            for (int i = 0; i < children.length; i++) {
-               String filename = children[i];
-               System.out.println(filename);
-            }
-         }
-         
-         
+    public static void main(String[] args) throws Exception { 
     	File f = new File("InputFiles/cubeQueries.ini"); 
-    	//File f2 = new File("InputFiles/cubeQueriesloan.ini"); 
+    	File f2 = new File("InputFiles/cubeQueriesloan.ini");
+    	File f3 = new File("InputFiles/cubeQueries2013_05_31.ini");
+    	File f4 = new File("InputFiles/cubeQueriesorder.ini"); 
         // Search the registry in the specific Host, Port.
         registry = LocateRegistry.getRegistry(HOST, PORT);
         //LookUp for MainEngine on the registry
        IMainEngine service = (IMainEngine) registry.lookup(IMainEngine.class.getSimpleName());
-       
-       service.initialize_connection("adult_no_dublic","root","gate13");
-       //service.initialize_connection("test","root","gate13");
-       service.AnswerCubeQueriesFromFile(f);
-       
+     // service.initialize_connection("adult_no_dublic","root","gate13","adult","adult");service.AnswerCubeQueriesFromFile(f3);
+      service.initialize_connection("adult_no_dublic","root","gate13","adult","adult");service.AnswerCubeQueriesFromFile(f);
+    //  service.initialize_connection("test","root","gate13","pkdd99","loan");service.AnswerCubeQueriesFromFile(f2);
+    //  service.initialize_connection("test","root","gate13","pkdd99","orders");service.AnswerCubeQueriesFromFile(f4);
     }
 
 }

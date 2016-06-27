@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `test` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `test`;
 -- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
 -- Host: localhost    Database: test
@@ -16,37 +14,6 @@ USE `test`;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `account`
---
-
-DROP TABLE IF EXISTS `account`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `account` (
-  `account_id` int(11) NOT NULL,
-  `district_id` int(11) NOT NULL,
-  `frequency` varchar(100) NOT NULL,
-  `date` int(11) NOT NULL,
-  `district_name` varchar(100) NOT NULL,
-  `region` varchar(100) NOT NULL,
-  `Inhabitants` int(11) NOT NULL,
-  `Municipalities<499` int(11) NOT NULL,
-  `Municipalities500-1999` int(11) NOT NULL,
-  `Municipalities2000-9999` int(11) NOT NULL,
-  `Municipalities>10000` int(11) NOT NULL,
-  `Cities` int(11) NOT NULL,
-  `Ratio of urban Inh` double NOT NULL,
-  `Avg Salary` int(11) NOT NULL,
-  `Unemploymant Rate95` double NOT NULL,
-  `Unemploymant Rate96` double NOT NULL,
-  `Enterpreuners` int(11) NOT NULL,
-  `.Commited Crimes 95` int(11) NOT NULL,
-  `Commites Crimes 96` int(11) NOT NULL,
-  PRIMARY KEY (`account_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `account`
@@ -75,4 +42,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-17 19:10:17
+-- Dump completed on 2016-05-18 16:58:26
