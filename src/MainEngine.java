@@ -71,8 +71,6 @@ IMainEngine {
     public static String inputlookup;
     public static String msrname;
     
-    private XWPFDocument document = new XWPFDocument();
-	
 	MainEngine() throws RemoteException{
 		super();
     	StorMgr=new StoryMgr(); 
@@ -407,20 +405,7 @@ IMainEngine {
     	
     }
     
-    private void constructTxtIntroAct(Act currentAct) {
-    	XWPFParagraph paragraph = document.createParagraph();
-    	XWPFRun run = paragraph.createRun();
-    	XWPFRun run2 = paragraph.createRun();
-    	run.setBold(true);
-    	run.setFontSize(24);
-    	run.setText("CineCube Report");
-    	run.addBreak();
-    	run2.setText(((TextExtractionPPTX)TxtMgr).createTxtForIntroSlide(currentAct.getTask().cubeQuery.get(0).GammaExpressions,
-																				currentAct.getTask().cubeQuery.get(0).SigmaExpressions, 
-																				currentAct.getTask().cubeQuery.get(0).AggregateFunction, 
-																				currentAct.getTask().cubeQuery.get(0).Msr.get(0).name));
-    	run2.addBreak();
-    	
+    private void constructTxtIntroAct(Act currentAct) { 	
 		PptxSlide tmpslide=(PptxSlide) currentAct.getEpisode(0);
 		long strTime=System.nanoTime();
 		tmpslide.setTitle("CineCube Report");
@@ -448,23 +433,6 @@ IMainEngine {
 		CubeQuery currentCubeQuery=currentAct.getTask().cubeQuery.get(0);
     	PptxSlide newSlide=(PptxSlide) currentAct.getEpisode(0);
     	Tabular tbl=(Tabular) newSlide.getVisual();
-    	
-    	XWPFParagraph paragraph = document.createParagraph();
-    	XWPFRun run = paragraph.createRun();
-    	XWPFRun run2 = paragraph.createRun();
-    	run.setBold(true);
-    	run.setFontSize(24);
-    	run.setText("Answer to the original question");
-    	run.addBreak();
-    	run2.setText(((TextExtractionPPTX)this.TxtMgr).createTextForOriginalAct1( currentCubeQuery.GammaExpressions, 
-				currentCubeQuery.SigmaExpressions, 
-				currentCubeQuery.AggregateFunction,
-				currentCubeQuery.Msr.get(0).name,
-				newSlide.getHighlight()).replace("  ", " "));
-    	run2.addBreak();
-    	run2.setText(((TextExtractionPPTX)this.TxtMgr).createTxtForColumnsDominate(tbl.getPivotTable(),newSlide.getHighlight().get(2)));
-    	run2.addBreak();
-    	run2.setText(((TextExtractionPPTX)this.TxtMgr).createTxtForRowsDominate(tbl.getPivotTable(),newSlide.getHighlight().get(3)));
     	
 	   // HighlightTable hltbl=(HighlightTable) subtsk.getHighlight();
 	    
@@ -817,7 +785,7 @@ IMainEngine {
     	/*/var/www/html/components/com_sqlform/assets/pptx/*/
         //this.ParseFile(getClass().getClassLoader().getResourceAsStream("resources/beta.txt"));/*Create Dimension,Cube*/
         try {
-        		this.ParseFile2(new File("InputFiles/"+inputlookup+"/"+cubeName+".txt"));
+        		this.ParseFile2(new File("InputFiles/"+inputlookup+"/"+cubeName+".ini"));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
