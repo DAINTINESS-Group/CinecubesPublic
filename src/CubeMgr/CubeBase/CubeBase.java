@@ -31,7 +31,7 @@ public class CubeBase {
     	
 		try {
 			String line;
-			Scanner scanner = new Scanner(new FileReader("InputFiles/"+lookup+"/ini.txt"));
+			Scanner scanner = new Scanner(new FileReader("InputFiles/"+lookup+"/dbc.ini"));
 			while(scanner.hasNextLine()){
 				line = scanner.nextLine();
 				String results[] = line.split(";");

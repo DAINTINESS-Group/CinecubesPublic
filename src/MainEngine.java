@@ -42,7 +42,6 @@ import TextMgr.TextExtraction;
 import TextMgr.TextExtractionPPTX;
 import WrapUpMgr.PptxWrapUpMgr;
 import WrapUpMgr.WordMgr;
-import WrapUpMgr.WordWrapUp2Mgr;
 import WrapUpMgr.WrapUpMgr;
 
 public class MainEngine extends UnicastRemoteObject implements

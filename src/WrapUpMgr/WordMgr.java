@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigInteger;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -37,6 +38,8 @@ import org.apache.poi.xslf.usermodel.XSLFTableRow;
 import org.apache.poi.xslf.usermodel.XSLFTextParagraph;
 import org.apache.poi.xslf.usermodel.XSLFTextRun;
 import org.apache.poi.xslf.usermodel.XSLFTextShape;
+import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
+import org.apache.poi.xwpf.usermodel.TextAlignment;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
@@ -44,6 +47,13 @@ import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.apache.xmlbeans.XmlObject;
+
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTJc;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTbl;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTblPr;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTblWidth;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.STJc;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.STTblWidth;
 
 import StoryMgr.Act;
 import StoryMgr.FinalResult;
@@ -101,8 +111,13 @@ public class WordMgr extends WrapUpMgr{
 						
 						XWPFParagraph paragraph = document.createParagraph();
 					    XWPFRun run = paragraph.createRun();
-					    run.setText(slide.getNotes());
-					    run.addBreak();
+					    run.setFontSize(12);  
+				  	    String lines[] = slide.getNotes().split("\\r?\\n");
+					    for(int i=0; i<lines.length; i++){
+					    	run.setText(lines[i]);
+					    	run.addBreak();
+					    }
+					    
 					}
 					
 				}
@@ -166,8 +181,10 @@ public class WordMgr extends WrapUpMgr{
     				lvl1=1;
     				lines[i]=lines[i].replace("##","");
     			}
-    	     
-    	        run2.setText(lines[i]);
+    			
+    		
+     	        
+    	        run2.setText("-"+lines[i]);
     	        run2.setFontSize(14);
     	        run2.addBreak();
     	        
@@ -229,7 +246,7 @@ public class WordMgr extends WrapUpMgr{
                 XWPFRun r = p.createRun();
                 r.setFontFamily("Calibri");  
                 r.setFontSize(12);
-              
+                p.setAlignment(ParagraphAlignment.CENTER);
                 if(j==tabular.boldColumn) r.setBold(true); 
                 if(i==tabular.boldRow) r.setBold(true); 
                 try{
@@ -243,21 +260,32 @@ public class WordMgr extends WrapUpMgr{
                   }
                   r.setText(table[i][j]);
               	  
-              	  if(table[i][j].equals(""))
+              	  if(table[i][j].equals(""))p.setVerticalAlignment(TextAlignment.CENTER);
                     
                    
                     if(toColorDarkGray==1 && j==0) {
                     r.setItalic(true);
                     r.setColor("000000");
-             
                     }
-                    
+              	  if((j==0 && i>0 ) || ((j==0 || j==1) && toColorDarkGray==1))  p.setAlignment(ParagraphAlignment.RIGHT);
+                  if(j==0 || ((j==0 || j==1) && toColorDarkGray==1));p.setAlignment(ParagraphAlignment.LEFT); //cell.setLeftInset(0.5);
                 }
                 catch (Exception e) {
               	  r.setText("");
                 }
              }
          }
+         // table to auto-fit to document page width and aligning that table to center.
+         CTTbl tbl       = pin.getCTTbl();
+         CTTblPr pr         = tbl.getTblPr();
+         CTTblWidth  tblW = pr.getTblW();
+         tblW.setW(BigInteger.valueOf(5000));
+         tblW.setType(STTblWidth.PCT);
+         pr.setTblW(tblW);
+         tbl.setTblPr(pr);
+         CTJc jc = pr.addNewJc();        
+         jc.setVal(STJc.RIGHT);
+         pr.setJc(jc);
        
      }
      

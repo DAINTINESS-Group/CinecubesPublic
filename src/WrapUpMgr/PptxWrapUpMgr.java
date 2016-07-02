@@ -200,7 +200,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
     	title2.clearText();
     	
     	String[] findings=episode.getNotes().split("@");
-    	for(String finding:findings){    		
+    	for(String finding:findings){  
     		String[] lines=finding.replace("~~\n", "~~").split("\n");
     		
     		int lvl1=1;

@@ -24,10 +24,10 @@ public class Client {
         registry = LocateRegistry.getRegistry(HOST, PORT);
         //LookUp for MainEngine on the registry
        IMainEngine service = (IMainEngine) registry.lookup(IMainEngine.class.getSimpleName());
-     // service.initialize_connection("adult_no_dublic","root","gate13","adult","adult");//service.AnswerCubeQueriesFromFile(f3);
+      service.initialize_connection("adult_no_dublic","root","gate13","adult","adult");service.AnswerCubeQueriesFromFile(f3);
      // service.AnswerCubeQueriesFromFile(f);
      //service.initialize_connection("test","root","gate13","pkdd99","loan");service.AnswerCubeQueriesFromFile(f2);
-      service.initialize_connection("test","root","gate13","pkdd99","orders");service.AnswerCubeQueriesFromFile(f4);
+     // service.initialize_connection("test","root","gate13","pkdd99","orders");service.AnswerCubeQueriesFromFile(f4);
     }
 
 }
