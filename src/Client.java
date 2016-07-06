@@ -24,10 +24,28 @@ public class Client {
         registry = LocateRegistry.getRegistry(HOST, PORT);
         //LookUp for MainEngine on the registry
        IMainEngine service = (IMainEngine) registry.lookup(IMainEngine.class.getSimpleName());
-      service.initialize_connection("adult_no_dublic","root","gate13","adult","adult");service.AnswerCubeQueriesFromFile(f3);
-     // service.AnswerCubeQueriesFromFile(f);
-     //service.initialize_connection("test","root","gate13","pkdd99","loan");service.AnswerCubeQueriesFromFile(f2);
-     // service.initialize_connection("test","root","gate13","pkdd99","orders");service.AnswerCubeQueriesFromFile(f4);
+       
+       
+       //Cube adult and queries
+       service.initialize_connection("adult_no_dublic","root","gate13","adult","adult");
+       service.OptionsChoice(false, true);
+       service.AnswerCubeQueriesFromFile(f3);
+      // service.OptionsChoice(false, true);
+      // service.AnswerCubeQueriesFromFile(f); 
+       
+       
+      //Cube loan and queries
+   /*   service.initialize_connection("pkdd99","root","gate13","pkdd99","loan");
+      service.OptionsChoice(false, true); 
+      service.AnswerCubeQueriesFromFile(f2); */
+       
+       
+       //Cube orders and queries
+    /*  service.initialize_connection("pkdd99","root","gate13","pkdd99","orders");
+      service.AnswerCubeQueriesFromFile(f4);
+      service.OptionsChoice(true, false); */
+       
+       
     }
 
 }

@@ -55,6 +55,7 @@ IMainEngine {
 	public TextExtraction TxtMgr;
 	public WrapUpMgr WrapUp;
 	private ParserManager PrsMng;
+	private Options OptMgr;
 	ArrayList<Integer> numSlideToRemove=new ArrayList<Integer>();
 	ArrayList<PptxSlide> slideToEnd=new ArrayList<PptxSlide>();
 	PrintWriter cubeQueryWriter;
@@ -74,6 +75,7 @@ IMainEngine {
 		super();
     	StorMgr=new StoryMgr(); 
     	TskMgr=new TaskMgr();
+    	OptMgr = new Options();
     	
     }
     
@@ -357,16 +359,16 @@ IMainEngine {
     	
         /*======== Set The Filename For PPTX ==========================*/
       //Word Wrap Up
+    	if(OptMgr.getWord()==true){
         StorMgr.getStory().setFinalResult(new FinResult());
         StorMgr.getStory().getFinalResult().setFilename("OutputFiles/"+cubequery.name+".docx");
         WrapUp = new WordMgr();
         WrapUp.setFinalResult(StorMgr.getStory().getFinalResult());
     	WrapUp.doWrapUp(StorMgr.getStory());
+    	}
     	//PPTX Wrap up
     	StorMgr.getStory().setFinalResult(new FinResult());
         StorMgr.getStory().getFinalResult().setFilename("OutputFiles/"+cubequery.name+".pptx");
-        /*======== Stat The Wrap UP ==========================*/
-       // WrapUp=new PptxWrapUpMgr();
         WrapUp=new PptxWrapUpMgr();
         WrapUp.setFinalResult(StorMgr.getStory().getFinalResult());
         long strWraUpTime=System.nanoTime();
@@ -415,15 +417,15 @@ IMainEngine {
 																				currentAct.getTask().cubeQuery.get(0).AggregateFunction, 
 																				currentAct.getTask().cubeQuery.get(0).Msr.get(0).name));
 		tmpslide.timeCreationText=System.nanoTime()-tmpslide.timeCreationText;
-		
 		tmpslide.setNotes(tmpslide.getSubTitle());
+		/*====== Add Audio To Episode  =======*/
+		if(OptMgr.getAudio()==true){
 		tmpslide.setAudioFile("audio/"+AudioMgr.randomIdentifier());
-		
 		tmpslide.timeCreationAudio=System.nanoTime();
 		AudioMgr.CreateAudio(tmpslide.getNotes(), tmpslide.getAudio().getFileName());
 		tmpslide.timeCreationAudio=System.nanoTime()-tmpslide.timeCreationAudio;
-		
 		tmpslide.timeCreation=System.nanoTime()-strTime;
+		}
 		//currentAct.addEpisode(tmpslide);
 	}
     
@@ -452,12 +454,14 @@ IMainEngine {
 		if(add_to_notes.length()>0) currentAct.ActHighlights="Concerning the original query, some interesting findings include:\n\t";
 		currentAct.ActHighlights+=add_to_notes.replace("\n", "\n\t");
 		
+		
 		/*====== Add Audio To Episode  =======*/
+		if(OptMgr.getAudio()==true){
 		newSlide.setAudioFile("audio/"+AudioMgr.randomIdentifier());
     	newSlide.timeCreationAudio=System.nanoTime();
     	AudioMgr.CreateAudio(newSlide.getNotes(), newSlide.getAudio().getFileName());
     	newSlide.timeCreationAudio=System.nanoTime()-newSlide.timeCreationAudio;
-    	
+		}
     }
     
     private void constructTxtEndAct(ArrayList<Act> acts,Act currentAct) {
@@ -476,11 +480,12 @@ IMainEngine {
     	newSlide.timeCreationText=System.nanoTime()-newSlide.timeCreationText;
     	
     	/*====== Add Audio To Episode  =======*/
+    	if(OptMgr.getAudio()==true){
     	newSlide.setAudioFile("audio/"+AudioMgr.randomIdentifier());
     	newSlide.timeCreationAudio=System.nanoTime();
     	AudioMgr.CreateAudio(newSlide.getNotes(), newSlide.getAudio().getFileName());
     	newSlide.timeCreationAudio=System.nanoTime()-newSlide.timeCreationAudio;
-    	
+    	}
 	}
     
     void printCubeQueries(String CubeQ,String SqlQ){
@@ -502,12 +507,14 @@ IMainEngine {
     			currentSlide.setSubTitle("In this series of slides we put the original result in context, by comparing the behavior of its defining values with the behavior of values that are similar to them.");
     			currentSlide.setNotes(currentSlide.getTitle()+"\n"+currentSlide.getSubTitle());
     			currentSlide.timeCreationText=System.nanoTime()-currentSlide.timeCreationText;
-    			
+    		
+    			/*====== Add Audio To Episode  =======*/
+    			if(OptMgr.getAudio()==true){
     			currentSlide.setAudioFile("audio/"+AudioMgr.randomIdentifier());
-    			
     			currentSlide.timeCreationAudio=System.nanoTime();
     			AudioMgr.CreateAudio(currentSlide.getNotes(), currentSlide.getAudio().getFileName());
     			currentSlide.timeCreationAudio=System.nanoTime()-currentSlide.timeCreationAudio;
+    			}
     		}
     		else{
     			SubTask subtsk=currentSlide.getSubTasks().get(0);
@@ -561,10 +568,12 @@ IMainEngine {
 	        		act.ActHighlights+=add_to_notes.replace("\n", "\n\t").replace(toReplaceString1, newString+"In").replace(toReplaceString2, newString);
 	        		
 	        		/*====== Add Audio To Episode  =======*/
+	        		if(OptMgr.getAudio()==true){
 	        		currentSlide.setAudioFile("audio/"+AudioMgr.randomIdentifier());
 	    			currentSlide.timeCreationAudio=System.nanoTime();
 	    			AudioMgr.CreateAudio(currentSlide.getNotes(), currentSlide.getAudio().getFileName());
 	    			currentSlide.timeCreationAudio=System.nanoTime()-currentSlide.timeCreationAudio;
+	        		}
     			}
     			else{
     				slideToEnd.add(currentSlide);
@@ -687,10 +696,12 @@ IMainEngine {
         		currentSlide.timeCreationText=System.nanoTime()-currentSlide.timeCreationText;
     		}
     		/*====== Add Audio To Episode  =======*/
+    		if(OptMgr.getAudio()==true){
     		currentSlide.setAudioFile("audio/"+AudioMgr.randomIdentifier());
     		currentSlide.timeCreationAudio=System.nanoTime();
 			AudioMgr.CreateAudio(currentSlide.getNotes(), currentSlide.getAudio().getFileName());
 			currentSlide.timeCreationAudio=System.nanoTime()-currentSlide.timeCreationAudio;
+    		}
     	}
     }
    
@@ -824,6 +835,9 @@ IMainEngine {
     	constructDimension(inputlookup,cubeName);
     }
     
-    
+    public void OptionsChoice(boolean Audio, boolean Word)throws RemoteException{
+    	OptMgr.setAudio(Audio);
+    	OptMgr.setWord(Word);
+    }
     
 }

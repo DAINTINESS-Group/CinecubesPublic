@@ -275,6 +275,7 @@ public class WordMgr extends WrapUpMgr{
                 }
              }
          }
+         pin.removeRow(0);
          // table to auto-fit to document page width and aligning that table to center.
          CTTbl tbl       = pin.getCTTbl();
          CTTblPr pr         = tbl.getTblPr();
