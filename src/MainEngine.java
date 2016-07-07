@@ -422,6 +422,10 @@ IMainEngine {
 		if(OptMgr.getAudio()==true){
 		tmpslide.setAudioFile("audio/"+AudioMgr.randomIdentifier());
 		tmpslide.timeCreationAudio=System.nanoTime();
+		
+		/*String notesText = tmpslide.getNotes();
+		String audioFileName = tmpslide.getAudio().getFileName();
+		AudioMgr.CreateAudio(notesText, audioFileName);*/		
 		AudioMgr.CreateAudio(tmpslide.getNotes(), tmpslide.getAudio().getFileName());
 		tmpslide.timeCreationAudio=System.nanoTime()-tmpslide.timeCreationAudio;
 		tmpslide.timeCreation=System.nanoTime()-strTime;

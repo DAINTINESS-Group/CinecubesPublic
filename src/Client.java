@@ -27,8 +27,10 @@ public class Client {
        
        
        //Cube adult and queries
-       service.initialize_connection("adult_no_dublic","root","gate13","adult","adult");
-       service.OptionsChoice(false, true);
+       service.initialize_connection("adult_no_dublic","CinecubesUser","Cinecubes","adult","adult");
+       
+       /*The first arg is audio; the second is for Word */
+       service.OptionsChoice(true, true);
        service.AnswerCubeQueriesFromFile(f3);
       // service.OptionsChoice(false, true);
       // service.AnswerCubeQueriesFromFile(f); 
@@ -45,7 +47,7 @@ public class Client {
       service.AnswerCubeQueriesFromFile(f4);
       service.OptionsChoice(true, false); */
        
-       
+       System.out.println("Execution of client is complete");
     }
 
 }
