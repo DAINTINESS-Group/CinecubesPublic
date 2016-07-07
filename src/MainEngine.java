@@ -1561,7 +1561,7 @@ public class MainEngine {
         //Me.ParseFile(Me.GetFileCmds());
         MainEng.constructDimension();
         //MainEng.NewRequestSqlQuery("");
-        MainEng.getCubeQueriesFromFile(new File("InputFiles/test.ini"));/*Create Stories*/
+        MainEng.getCubeQueriesFromFile(new File("InputFiles/cubeQueries2013_05_31.ini"));/*Create Stories*/
         //MainEng.getCubeQueriesFromFile(new File(args[0]));
         //MainEng.getCubeQueriesFromFile(new File("InputFiles/NativeAge.ini"));
 //      MainEng.newRequestCubeQuery(null);
