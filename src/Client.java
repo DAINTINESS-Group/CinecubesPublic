@@ -26,24 +26,24 @@ public class Client {
        IMainEngine service = (IMainEngine) registry.lookup(IMainEngine.class.getSimpleName());
        
        
-       //Cube adult and queries
-       service.initialize_connection("adult_no_dublic","CinecubesUser","Cinecubes","adult","adult");
+       //Cube ADULT and queries
+/*       service.initialize_connection("adult_no_dublic","CinecubesUser","Cinecubes","adult","adult");
        
-       /*The first arg is audio; the second is for Word */
+       The first arg is audio; the second is for Word 
        service.OptionsChoice(true, true);
-       service.AnswerCubeQueriesFromFile(f3);
+       service.AnswerCubeQueriesFromFile(f3);*/
       // service.OptionsChoice(false, true);
       // service.AnswerCubeQueriesFromFile(f); 
        
        
-      //Cube loan and queries
-   /*   service.initialize_connection("pkdd99","root","gate13","pkdd99","loan");
+      //Cube LOAN and queries
+      service.initialize_connection("pkdd99","CinecubesUser","Cinecubes","pkdd99","loan");
       service.OptionsChoice(false, true); 
-      service.AnswerCubeQueriesFromFile(f2); */
+      service.AnswerCubeQueriesFromFile(f2);
        
        
-       //Cube orders and queries
-    /*  service.initialize_connection("pkdd99","root","gate13","pkdd99","orders");
+       //Cube ORDERS and queries
+    /*  service.initialize_connection("pkdd99","CinecubesUser","Cinecubes","pkdd99","orders");
       service.AnswerCubeQueriesFromFile(f4);
       service.OptionsChoice(true, false); */
        
