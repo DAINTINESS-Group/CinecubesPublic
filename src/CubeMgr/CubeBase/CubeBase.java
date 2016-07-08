@@ -73,11 +73,7 @@ public class CubeBase {
         DB.setDBName(name);
         DB.setUsername(username);DB.setPassword(password);
        // DB.setUsername("okeanos20130623");DB.setPassword("HcR6M3qbh7Gxjszw");
-<<<<<<< HEAD
-        DB.setUsername("root");DB.setPassword("r00tMySQL");
-=======
-       // DB.setUsername("root");DB.setPassword("gate13");
->>>>>>> refs/remotes/origin/upgrade_v01
+        // DB.setUsername("root");DB.setPassword("gate13"); 
         DB.registerDatabase();
         DB.GenerateTableList();
         //DB.PrintTableList();

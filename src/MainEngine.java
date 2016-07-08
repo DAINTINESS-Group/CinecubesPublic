@@ -808,42 +808,23 @@ IMainEngine {
    
   
     
-<<<<<<< HEAD
-    public static void main(String[] args) {
-        MainEngine MainEng=new MainEngine();
-        MainEng.InitializeCubeMgr();
-        MainEng.createDefaultFolders();
-        MainEng.CubeManager.CreateCubeBase(MainEng.InsertFromKeyboardDBInfos());        
-        //Me.ParseFile(Me.GetFileCmds());
-        MainEng.constructDimension();
-        //MainEng.NewRequestSqlQuery("");
-        MainEng.getCubeQueriesFromFile(new File("InputFiles/cubeQueries2013_05_31.ini"));/*Create Stories*/
-        //MainEng.getCubeQueriesFromFile(new File(args[0]));
-        //MainEng.getCubeQueriesFromFile(new File("InputFiles/NativeAge.ini"));
-//      MainEng.newRequestCubeQuery(null);
-        
-        System.out.println("=======Finish======");
-        //MTTS.server.Mary.shutdown();
-        System.exit(0);
-=======
    public static void main(String[] args) throws RemoteException { 
-	            MainEngine MainEng=new MainEngine(); 
-	           // MainEng.InitializeCubeMgr(); 
-	            MainEng.createDefaultFolders(); 
-	           // MainEng.CubeManager.CreateCubeBase(MainEng.InsertFromKeyboardDBInfos());         
-	            //Me.ParseFile(Me.GetFileCmds()); 
-	        //    MainEng.constructDimension(); 
-	            //MainEng.NewRequestSqlQuery(""); 
-	            MainEng.AnswerCubeQueriesFromFile(new File("InputFiles/test.ini"));/*Create Stories*/ 
-	            //MainEng.getCubeQueriesFromFile(new File(args[0])); 
-	            //MainEng.getCubeQueriesFromFile(new File("InputFiles/NativeAge.ini")); 
-	    //      MainEng.newRequestCubeQuery(null); 
-	             
-	            System.out.println("=======Finish======"); 
-	            //MTTS.server.Mary.shutdown(); 
-	              System.exit(0); 
-	        } 
-
+       MainEngine MainEng=new MainEngine(); 
+      // MainEng.InitializeCubeMgr(); 
+       MainEng.createDefaultFolders(); 
+      // MainEng.CubeManager.CreateCubeBase(MainEng.InsertFromKeyboardDBInfos());         
+       //Me.ParseFile(Me.GetFileCmds()); 
+   //    MainEng.constructDimension(); 
+       //MainEng.NewRequestSqlQuery(""); 
+       MainEng.AnswerCubeQueriesFromFile(new File("InputFiles/test.ini"));/*Create Stories*/ 
+       //MainEng.getCubeQueriesFromFile(new File(args[0])); 
+       //MainEng.getCubeQueriesFromFile(new File("InputFiles/NativeAge.ini")); 
+//      MainEng.newRequestCubeQuery(null); 
+        
+       System.out.println("=======Finish======"); 
+       //MTTS.server.Mary.shutdown(); 
+         System.exit(0); 
+   } 
     
     
     public void initialize_connection(String schema_name,String login,String passwd,String inputfile,String cubeName) throws RemoteException{
@@ -855,7 +836,7 @@ IMainEngine {
     	InitializeCubeMgr(inputlookup);
     	CubeManager.CreateCubeBase(dbname,username,password);
     	constructDimension(inputlookup,cubeName);
->>>>>>> refs/remotes/origin/upgrade_v01
+
     }
     
     public void OptionsChoice(boolean Audio, boolean Word)throws RemoteException{
