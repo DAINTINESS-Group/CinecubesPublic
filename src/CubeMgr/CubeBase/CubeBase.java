@@ -5,21 +5,57 @@ import CubeMgr.StarSchema.DimensionTable;
 import CubeMgr.StarSchema.FactTable;
 import CubeMgr.StarSchema.Table;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class CubeBase {
    
+	
+	public String username;
+	public String password;
     public String name;
     public Database DB;
     public List<Dimension> dimensions;
     public List<BasicStoredCube> BasicCubes;
     
-    public CubeBase (){
-    	DB=new Database();
-    	dimensions=new ArrayList<Dimension>();
-    	BasicCubes=new ArrayList<BasicStoredCube>();
+    public CubeBase (String lookup){
+    	/*DB=new Database();
+		dimensions=new ArrayList<Dimension>();
+    	BasicCubes=new ArrayList<BasicStoredCube>();*/
+    	
+    	
+		try {
+			String line;
+			Scanner scanner = new Scanner(new FileReader("InputFiles/"+lookup+"/dbc.ini"));
+			while(scanner.hasNextLine()){
+				line = scanner.nextLine();
+				String results[] = line.split(";");
+				DB=new Database(results[1],results[3]);
+				dimensions=new ArrayList<Dimension>();
+		    	BasicCubes=new ArrayList<BasicStoredCube>();
+			}
+		}catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+    	
+    	
+    	
+    	
+    	/*
+    		DB=new Database("jdbc:mysql://localhost:3306/adult_no_dublic","com.mysql.jdbc.Driver");
+    		dimensions=new ArrayList<Dimension>();
+        	BasicCubes=new ArrayList<BasicStoredCube>();
+      	
+        	DB=new Database("jdbc:mysql://localhost:3306/test","com.mysql.jdbc.Driver");
+        	dimensions=new ArrayList<Dimension>();
+        	BasicCubes=new ArrayList<BasicStoredCube>();
+	*/
     }
     
     /*public CubeBase(String User,String Pass){
@@ -30,12 +66,18 @@ public class CubeBase {
     	DB.setPassword(Pass);
     }*/
     
-    public void registerCubeBase(String filename){
+    public void registerCubeBase(String filename,String username,String password){
         name=filename;
-        
+        this.username = username;
+        this.password = password;
         DB.setDBName(name);
+        DB.setUsername(username);DB.setPassword(password);
        // DB.setUsername("okeanos20130623");DB.setPassword("HcR6M3qbh7Gxjszw");
+<<<<<<< HEAD
         DB.setUsername("root");DB.setPassword("r00tMySQL");
+=======
+       // DB.setUsername("root");DB.setPassword("gate13");
+>>>>>>> refs/remotes/origin/upgrade_v01
         DB.registerDatabase();
         DB.GenerateTableList();
         //DB.PrintTableList();

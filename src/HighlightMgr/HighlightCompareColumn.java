@@ -13,6 +13,13 @@ public class HighlightCompareColumn extends Highlight {
     	nullValues=new int[PivotTable[0].length-1];
     	helpValues=new String[PivotTable[0].length-1];
     	
+     	for(int i=0; i<PivotTable.length; i++){
+    		for(int j=0; j<PivotTable[i].length; j++){
+    			PivotTable[i][j] = PivotTable[i][j].replace(",", ".");
+    		}
+    	}
+    	
+    	
     	for(int j=1;j<PivotTable[0].length;j++){
     		countHigher[j-1]=0;
     		countLower[j-1]=0;

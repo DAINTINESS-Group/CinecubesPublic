@@ -103,14 +103,14 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 					
 					slide.timeCreationPutInPPTX=System.nanoTime();
 					
-					if(slide.Title.contains("Act")) XSLFcreateSlide(null,null,slide.getAudio().getFileName(),slide.Title,j+slide_so_far_created+2,null,null,slide.SubTitle,null,(actItem.getId()==3 ? 0 :1));
-					else if(slide.Notes.length()==0) {
+					if(slide.getTitle().contains("Act")) XSLFcreateSlide(null,null,slide.getAudio().getFileName(),slide.getTitle(),j+slide_so_far_created+2,null,null,slide.getSubTitle(),null,(actItem.getId()==3 ? 0 :1));
+					else if(slide.getNotes().length()==0) {
 						Tabular tmp_tbl=((Tabular)slide.getVisual());
-						XSLFcreateSlide(slide.getVisual().getPivotTable(),tmp_tbl.colortable,null,slide.Title,j+slide_so_far_created+2,null,null,slide.SubTitle,(Tabular)slide.getVisual(),(actItem.getId()==3 ? 0 :1));
+						XSLFcreateSlide(slide.getVisual().getPivotTable(),tmp_tbl.colortable,null,slide.getTitle(),j+slide_so_far_created+2,null,null,slide.getSubTitle(),(Tabular)slide.getVisual(),(actItem.getId()==3 ? 0 :1));
 					}
 					else {
 						Tabular tmp_tbl=((Tabular)slide.getVisual());
-						XSLFcreateSlide(slide.getVisual().getPivotTable(),tmp_tbl.colortable,slide.getAudio().getFileName(),slide.Title,j+slide_so_far_created+2,slide.TitleColumn,slide.TitleRow,slide.SubTitle,(Tabular)slide.getVisual(),(actItem.getId()==3 ? 0 :1));
+						XSLFcreateSlide(slide.getVisual().getPivotTable(),tmp_tbl.colortable,slide.getAudio().getFileName(),slide.getTitle(),j+slide_so_far_created+2,slide.getTitleColumn(),slide.getTitleRow(),slide.getSubTitle(),(Tabular)slide.getVisual(),(actItem.getId()==3 ? 0 :1));
 					}
 					
 					slide.timeCreationPutInPPTX=System.nanoTime()-slide.timeCreationPutInPPTX;
@@ -145,8 +145,8 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 					
 					long strTime=System.nanoTime();
 					
-					if(slide.Notes.length()==0) AddAudiotoPPTX(j+slide_so_far_created+2,null,slide.Notes);
-					else AddAudiotoPPTX(j+slide_so_far_created+2,slide.getAudio().getFileName(),slide.Notes);
+					if(slide.getNotes().length()==0) AddAudiotoPPTX(j+slide_so_far_created+2,null,slide.getNotes());
+					else AddAudiotoPPTX(j+slide_so_far_created+2,slide.getAudio().getFileName(),slide.getNotes());
 					
 					slide.timeCreationPutInPPTX+=System.nanoTime()-strTime;
 				}
@@ -171,7 +171,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 		title1.clearText();
     	XSLFTextParagraph p=title1.addNewTextParagraph();
     	XSLFTextRun tltTxtRun =p.addNewTextRun();
-    	tltTxtRun.setText(episode.Title);
+    	tltTxtRun.setText(episode.getTitle());
     	p.setTextAlign(TextAlign.LEFT);
     	
     	XSLFTextShape title2 = slide.getPlaceholder(1);
@@ -180,7 +180,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
     	XSLFTextRun tltTxtRun2 =p2.addNewTextRun();
     	
         tltTxtRun2.setBold(false);	    	
-    	tltTxtRun2.setText(episode.SubTitle);
+    	tltTxtRun2.setText(episode.getSubTitle());
     	tltTxtRun2.setFontSize(20);
     	p2.setTextAlign(TextAlign.JUSTIFY);
     	
@@ -194,13 +194,13 @@ public class PptxWrapUpMgr extends WrapUpMgr {
 		XSLFSlide slide;
 		slide=slideShowPPTX.createSlide(defaultMaster.getLayout(SlideLayout.TITLE_AND_CONTENT)); 
 		XSLFTextShape title1 = slide.getPlaceholder(0);
-    	title1.setText(episode.Title);
+    	title1.setText(episode.getTitle());
     	
     	XSLFTextShape title2 = slide.getPlaceholder(1);
     	title2.clearText();
     	
-    	String[] findings=episode.Notes.split("@");
-    	for(String finding:findings){    		
+    	String[] findings=episode.getNotes().split("@");
+    	for(String finding:findings){  
     		String[] lines=finding.replace("~~\n", "~~").split("\n");
     		
     		int lvl1=1;
@@ -227,7 +227,7 @@ public class PptxWrapUpMgr extends WrapUpMgr {
     	        
     		}
     	}
-    	episode.Notes=episode.Notes.replace("@","\n").replace("~~", "").replace("##", "");
+    	episode.setNotes(episode.getNotes().replace("@","\n").replace("~~", "").replace("##", ""));
     	
     	setRelationshipForNotes(slide,slideId);
     	CreateSlideWithXMlAudio(slide,episode.getAudio().getFileName(),slideId,1);

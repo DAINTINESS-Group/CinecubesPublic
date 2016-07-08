@@ -1,6 +1,7 @@
 package HighlightMgr;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 
 public class HighlightMin extends Highlight {
@@ -13,6 +14,8 @@ public class HighlightMin extends Highlight {
 	}
 
 	public void execute(String[][] table){
+		
+		
 		if(table==null) return;
 		int num_of_msrs_in_table=table.length-2;    	
     	int minLenght=(int) Math.floor(num_of_msrs_in_table*0.25);
@@ -21,6 +24,10 @@ public class HighlightMin extends Highlight {
     	int[] tmp_indexValues=new int[minLenght];
     	DecimalFormat df = new DecimalFormat("#.##");
     	df.setMinimumFractionDigits(2);
+    	
+    	DecimalFormatSymbols dfs = new DecimalFormatSymbols(); //new Add
+    	dfs.setDecimalSeparator('.');
+    	df.setDecimalFormatSymbols(dfs);
     	
     	for(int j=0;j<minLenght;j++) tmp_indexValues[j]=0;
     	

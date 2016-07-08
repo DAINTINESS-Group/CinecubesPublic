@@ -1,6 +1,7 @@
 package HighlightMgr;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 
 public class HighlightMax extends Highlight {
@@ -21,7 +22,11 @@ public class HighlightMax extends Highlight {
         String[] tmp_Values=new String[maxLenght];
     	int[] tmp_indexValues=new int[maxLenght];
     	DecimalFormat df = new DecimalFormat("#.##");
-		 df.setMinimumFractionDigits(2);
+		df.setMinimumFractionDigits(2);
+		 
+	     DecimalFormatSymbols dfs = new DecimalFormatSymbols(); //new Add
+	     dfs.setDecimalSeparator('.');
+	     df.setDecimalFormatSymbols(dfs);
 		
 		 for(int j=0;j<maxLenght;j++) tmp_indexValues[j]=0;
 		 for(int j=2 ; j<num_of_msrs_in_table+2;j++ ){

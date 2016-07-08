@@ -1,8 +1,8 @@
 package StoryMgr;
 
-public class PptxSlideshow extends FinalResult {
+public class FinResult extends FinalResult {
 	
-	public PptxSlideshow() {
+	public FinResult() {
 		super();
 	}
 	/**

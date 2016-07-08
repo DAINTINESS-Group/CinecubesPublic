@@ -13,14 +13,14 @@ public abstract class Episode {
     protected Visual visual;   
     protected Audio audio;
   /* protected Text txt;*/
-    public ArrayList<Highlight> highlight;
+    protected ArrayList<Highlight> highlight;
     
     public Episode(){    	
     	//keyFinding=new KeyFinding();
     	audio=new Audio();
     	/*txt=new Text();*/
     	subTask=new ArrayList<SubTask>();
-    	highlight=new ArrayList<Highlight>();
+    	setHighlight(new ArrayList<Highlight>());
     }
 
 	/**
@@ -38,6 +38,14 @@ public abstract class Episode {
 	 * @uml.property  name="visual"
 	 */
 	abstract public void setVisual(Visual vis);
+
+	public ArrayList<Highlight> getHighlight() {
+		return highlight;
+	}
+
+	public void setHighlight(ArrayList<Highlight> highlight) {
+		this.highlight = highlight;
+	}
 
 
 }
